@@ -13,4 +13,8 @@ extension UIColor{
     convenience init(red: CGFloat, green: CGFloat, blue: CGFloat, alphaValue: CGFloat) {
         self.init(red: red/255, green: green/255, blue: blue/255, alpha: alphaValue)
     }
+    
+    func getTextViewBorderColor() -> CGColor{
+    return UIColor(red: 130, green: 130, blue: 130, alphaValue: 0.5).cgColor
+    }
 }

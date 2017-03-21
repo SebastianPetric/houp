@@ -7,23 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5218B64B1E8047F400B502DF /* CustomTextField.swift */; };
 		52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A501E7BF7FD006061B2 /* AppDelegate.swift */; };
-		52499A531E7BF7FD006061B2 /* LogRegViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A521E7BF7FD006061B2 /* LogRegViewController.swift */; };
+		52499A531E7BF7FD006061B2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A521E7BF7FD006061B2 /* LoginViewController.swift */; };
 		52499A591E7BF7FD006061B2 /* Houp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52499A571E7BF7FD006061B2 /* Houp.xcdatamodeld */; };
 		52499A5B1E7BF7FD006061B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52499A5A1E7BF7FD006061B2 /* Assets.xcassets */; };
 		52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A661E7BF821006061B2 /* UIViewExtension.swift */; };
 		52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A681E7BFB95006061B2 /* UIColorExtension.swift */; };
+		528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCBD1E80623100B6993D /* LoginHandler.swift */; };
+		528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */; };
+		52A75F551E81723E0038CF4F /* RegistrationNamePrenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */; };
+		52A75F571E81781E0038CF4F /* RegistrationUserNameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F561E81781E0038CF4F /* RegistrationUserNameHandler.swift */; };
+		52A75F591E8179840038CF4F /* RegistrationPersonalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F581E8179840038CF4F /* RegistrationPersonalDataHandler.swift */; };
+		52A75F5C1E81960D0038CF4F /* RegistrationAgeGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F5B1E81960D0038CF4F /* RegistrationAgeGenderController.swift */; };
+		52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F5F1E819DBA0038CF4F /* RegistrationEmailPasswordController.swift */; };
+		52A75F621E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F611E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift */; };
+		52A75F641E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F631E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift */; };
+		52A75F671E81A9830038CF4F /* CustomProgressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F661E81A9830038CF4F /* CustomProgressionView.swift */; };
+		52F31A081E7D6F93000F5157 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */; };
+		52F31A0A1E7D6FE4000F5157 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A091E7D6FE4000F5157 /* CFNetwork.framework */; };
+		52F31A0C1E7D6FEE000F5157 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A0B1E7D6FEE000F5157 /* Security.framework */; };
+		52F31A0E1E7D6FF9000F5157 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A0D1E7D6FF9000F5157 /* SystemConfiguration.framework */; };
+		52F31A101E7D7007000F5157 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A0F1E7D7007000F5157 /* libsqlite3.tbd */; };
+		52F31A121E7D7013000F5157 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A111E7D7013000F5157 /* libz.tbd */; };
+		52F31A141E7D7023000F5157 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A131E7D7023000F5157 /* libc++.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5218B64B1E8047F400B502DF /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		52499A4D1E7BF7FD006061B2 /* Houp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Houp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52499A501E7BF7FD006061B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		52499A521E7BF7FD006061B2 /* LogRegViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRegViewController.swift; sourceTree = "<group>"; };
+		52499A521E7BF7FD006061B2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		52499A581E7BF7FD006061B2 /* Houp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Houp.xcdatamodel; sourceTree = "<group>"; };
 		52499A5A1E7BF7FD006061B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52499A5F1E7BF7FD006061B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52499A661E7BF821006061B2 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		52499A681E7BFB95006061B2 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		528CFCBD1E80623100B6993D /* LoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
+		528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationUserNameController.swift; sourceTree = "<group>"; };
+		52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNamePrenameController.swift; sourceTree = "<group>"; };
+		52A75F561E81781E0038CF4F /* RegistrationUserNameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationUserNameHandler.swift; sourceTree = "<group>"; };
+		52A75F581E8179840038CF4F /* RegistrationPersonalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationPersonalDataHandler.swift; sourceTree = "<group>"; };
+		52A75F5B1E81960D0038CF4F /* RegistrationAgeGenderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationAgeGenderController.swift; sourceTree = "<group>"; };
+		52A75F5F1E819DBA0038CF4F /* RegistrationEmailPasswordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationEmailPasswordController.swift; sourceTree = "<group>"; };
+		52A75F611E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationAgeGenderHandler.swift; sourceTree = "<group>"; };
+		52A75F631E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationEmailPasswordHandler.swift; sourceTree = "<group>"; };
+		52A75F661E81A9830038CF4F /* CustomProgressionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProgressionView.swift; sourceTree = "<group>"; };
+		52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
+		52F31A091E7D6FE4000F5157 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		52F31A0B1E7D6FEE000F5157 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		52F31A0D1E7D6FF9000F5157 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		52F31A0F1E7D7007000F5157 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		52F31A111E7D7013000F5157 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		52F31A131E7D7023000F5157 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		52F31A151E7D7A7D000F5157 /* Houp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Houp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +68,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F31A141E7D7023000F5157 /* libc++.tbd in Frameworks */,
+				52F31A121E7D7013000F5157 /* libz.tbd in Frameworks */,
+				52F31A101E7D7007000F5157 /* libsqlite3.tbd in Frameworks */,
+				52F31A0E1E7D6FF9000F5157 /* SystemConfiguration.framework in Frameworks */,
+				52F31A0C1E7D6FEE000F5157 /* Security.framework in Frameworks */,
+				52F31A0A1E7D6FE4000F5157 /* CFNetwork.framework in Frameworks */,
+				52F31A081E7D6F93000F5157 /* CouchbaseLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +86,7 @@
 			children = (
 				52499A4F1E7BF7FD006061B2 /* Houp */,
 				52499A4E1E7BF7FD006061B2 /* Products */,
+				52F31A061E7D6F6E000F5157 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,11 +101,12 @@
 		52499A4F1E7BF7FD006061B2 /* Houp */ = {
 			isa = PBXGroup;
 			children = (
-				52499A6D1E7BFD68006061B2 /* Settings */,
 				52499A6C1E7BFD4A006061B2 /* Controller */,
+				528CFCBC1E80621800B6993D /* Handler */,
 				52499A6B1E7BFD44006061B2 /* View */,
 				52499A6A1E7BFD37006061B2 /* Model */,
 				52499A651E7BF80D006061B2 /* Extensions */,
+				52499A6D1E7BFD68006061B2 /* Settings */,
 			);
 			path = Houp;
 			sourceTree = "<group>";
@@ -70,6 +116,8 @@
 			children = (
 				52499A661E7BF821006061B2 /* UIViewExtension.swift */,
 				52499A681E7BFB95006061B2 /* UIColorExtension.swift */,
+				5218B64B1E8047F400B502DF /* CustomTextField.swift */,
+				52A75F661E81A9830038CF4F /* CustomProgressionView.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -92,7 +140,8 @@
 		52499A6C1E7BFD4A006061B2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				52499A521E7BF7FD006061B2 /* LogRegViewController.swift */,
+				52A75F691E81BA300038CF4F /* LoginViewController */,
+				52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -103,8 +152,70 @@
 				52499A5F1E7BF7FD006061B2 /* Info.plist */,
 				52499A5A1E7BF7FD006061B2 /* Assets.xcassets */,
 				52499A571E7BF7FD006061B2 /* Houp.xcdatamodeld */,
+				52F31A151E7D7A7D000F5157 /* Houp.h */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		528CFCBC1E80621800B6993D /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				52A75F681E81BA1C0038CF4F /* LoginHandler */,
+				52A75F651E819EED0038CF4F /* RegistrationHandler */,
+			);
+			name = Handler;
+			sourceTree = "<group>";
+		};
+		52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */,
+				52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */,
+				52A75F5B1E81960D0038CF4F /* RegistrationAgeGenderController.swift */,
+				52A75F5F1E819DBA0038CF4F /* RegistrationEmailPasswordController.swift */,
+			);
+			name = RegistrationViewControllers;
+			sourceTree = "<group>";
+		};
+		52A75F651E819EED0038CF4F /* RegistrationHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52A75F561E81781E0038CF4F /* RegistrationUserNameHandler.swift */,
+				52A75F581E8179840038CF4F /* RegistrationPersonalDataHandler.swift */,
+				52A75F611E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift */,
+				52A75F631E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift */,
+			);
+			name = RegistrationHandler;
+			sourceTree = "<group>";
+		};
+		52A75F681E81BA1C0038CF4F /* LoginHandler */ = {
+			isa = PBXGroup;
+			children = (
+				528CFCBD1E80623100B6993D /* LoginHandler.swift */,
+			);
+			name = LoginHandler;
+			sourceTree = "<group>";
+		};
+		52A75F691E81BA300038CF4F /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				52499A521E7BF7FD006061B2 /* LoginViewController.swift */,
+			);
+			name = LoginViewController;
+			sourceTree = "<group>";
+		};
+		52F31A061E7D6F6E000F5157 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */,
+				52F31A131E7D7023000F5157 /* libc++.tbd */,
+				52F31A111E7D7013000F5157 /* libz.tbd */,
+				52F31A0F1E7D7007000F5157 /* libsqlite3.tbd */,
+				52F31A0D1E7D6FF9000F5157 /* SystemConfiguration.framework */,
+				52F31A0B1E7D6FEE000F5157 /* Security.framework */,
+				52F31A091E7D6FE4000F5157 /* CFNetwork.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,10 +289,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52499A531E7BF7FD006061B2 /* LogRegViewController.swift in Sources */,
+				52499A531E7BF7FD006061B2 /* LoginViewController.swift in Sources */,
 				52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */,
+				52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */,
 				52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */,
+				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
 				52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */,
+				52A75F621E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift in Sources */,
+				52A75F671E81A9830038CF4F /* CustomProgressionView.swift in Sources */,
+				52A75F641E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift in Sources */,
+				52A75F551E81723E0038CF4F /* RegistrationNamePrenameController.swift in Sources */,
+				52A75F5C1E81960D0038CF4F /* RegistrationAgeGenderController.swift in Sources */,
+				528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */,
+				52A75F591E8179840038CF4F /* RegistrationPersonalDataHandler.swift in Sources */,
+				52A75F571E81781E0038CF4F /* RegistrationUserNameHandler.swift in Sources */,
+				528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */,
 				52499A591E7BF7FD006061B2 /* Houp.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,10 +407,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 77R93D5R5W;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Houp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sebpet.master.Houp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = Houp/Houp.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -298,8 +426,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 77R93D5R5W;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Houp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sebpet.master.Houp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -325,6 +458,7 @@
 				52499A641E7BF7FD006061B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
