@@ -18,16 +18,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         let root = UINavigationController(rootViewController: LoginViewController())
         root.navigationBar.isTranslucent = false
         root.navigationBar.topItem?.title = "Houp"
-        //root.navigationBar.tintColor = .black
-        window?.rootViewController = root
-         print(window?.rootViewController?.navigationController?.topViewController)
+        root.navigationBar.barTintColor = UIColor(red: 101, green: 232, blue: 100, alphaValue: 1)
+        root.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        root.navigationBar.tintColor = .white
         
+        let bottomorder = CALayer()
+        bottomorder.frame = CGRect(x: 0, y: root.navigationBar.frame.height, width: 1000, height: 0.5)
+        bottomorder.backgroundColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1).cgColor
+        root.navigationBar.layer.addSublayer(bottomorder)
+        window?.rootViewController = root
+        UIApplication.shared.statusBarStyle = .lightContent
         
         
         do {
@@ -72,10 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-    if self.window?.rootViewController?.presentedViewController is LoginViewController{
-    print("hallo")
-    }
-    print(self.window?.rootViewController?.navigationController?.topViewController)
     return .portrait
     }
     

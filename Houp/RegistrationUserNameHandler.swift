@@ -10,10 +10,7 @@ import UIKit
 
 extension RegistrationUserNameController{
 
-
     func handleContinueButton(){
-        
         self.navigationController?.pushViewController(RegistrationNamePrenameController(), animated: true)
-    
     }
 }
