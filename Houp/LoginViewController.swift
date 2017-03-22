@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController{
+class LoginViewController: UIViewController, UITextFieldDelegate{
 
     let logoImageWidthHeight: CGFloat = 150
     let logoImage = CustomViews().getBigRoundImage(name: "logo_houp", cornerRadius: 75)
@@ -19,7 +19,7 @@ class LoginViewController: UIViewController{
     let registrationButton: UIButton = {
         let registrationButton = UIButton(type: .system)
         registrationButton.setTitle("Registrieren", for: .normal)
-        registrationButton.setTitleColor(.black, for: .normal)
+        registrationButton.setTitleColor(UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), for: .normal)
         registrationButton.addTarget(self, action: #selector(handleRegistrationButton), for: .touchUpInside)
         return registrationButton
     }()
@@ -35,6 +35,7 @@ class LoginViewController: UIViewController{
         view.backgroundColor = .white
         view.addSubview(logoImage)
         view.addSubview(usernameTextField)
+        usernameTextField.delegate = self
         view.addSubview(passwordTextField)
         view.addSubview(loginButton)
         view.addSubview(registrationButton)
@@ -78,6 +79,8 @@ class LoginViewController: UIViewController{
         }, completion: nil)
     }
     
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("edit")
+    }
 }
 
