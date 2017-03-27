@@ -11,7 +11,7 @@ import UIKit
 class RegistrationUserNameController: UIViewController{
 
     let profileImageWidthHeight: CGFloat = 150
-    let profileImage = CustomViews().getBigRoundImage(name: "profile_default", cornerRadius: 75)
+    let profileImage = CustomViews().getBigRoundImage(name: "profile_default", cornerRadius: 75, isUserInteractionEnabled: true)
     let usernameTextField = CustomViews().getCustomTextField(placeholder: "Benutzername", isPasswordField: false)
     let continueButton = CustomViews().getCustomButton(title: "Weiter")
     let customProgressionView = CustomViews().getCustomProgressionView(status: 0.25, statusText: "1 von 4")
@@ -33,6 +33,7 @@ class RegistrationUserNameController: UIViewController{
         view.addSubview(customProgressionView)
         view.addGestureRecognizer(gestureRecognizer)
         continueButton.addTarget(self, action: #selector(handleContinueButton), for: .touchUpInside)
+        profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGetProfileImage)))
         setUpSubViews()
         addNotificationObserver()
     }
@@ -58,7 +59,6 @@ class RegistrationUserNameController: UIViewController{
             self.view.frame = CGRect(x: 0, y: -25, width: self.view.frame.width, height: self.view.frame.height)
         }, completion: nil)
     }
-    
     
     func hideKeyboard(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {

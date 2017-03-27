@@ -32,17 +32,18 @@ class CustomViews{
             return loginButton
     }
     
-    func getBigRoundImage(name: String, cornerRadius: CGFloat) -> UIImageView{
-            let logoImage = UIImageView()
-            logoImage.image = UIImage(named: name)
-            logoImage.contentMode = .scaleAspectFit
-            logoImage.clipsToBounds = true
-            logoImage.backgroundColor = .white
-            logoImage.layer.cornerRadius = cornerRadius
-            logoImage.layer.borderColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1).cgColor
-            logoImage.layer.borderWidth = 1
-            logoImage.translatesAutoresizingMaskIntoConstraints = false
-            return logoImage
+    func getBigRoundImage(name: String, cornerRadius: CGFloat, isUserInteractionEnabled: Bool) -> UIImageView{
+            let bigRoundImage = UIImageView()
+            bigRoundImage.image = UIImage(named: name)
+            bigRoundImage.contentMode = .scaleAspectFit
+            bigRoundImage.clipsToBounds = true
+            bigRoundImage.backgroundColor = .white
+            bigRoundImage.layer.cornerRadius = cornerRadius
+            bigRoundImage.layer.borderColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1).cgColor
+            bigRoundImage.layer.borderWidth = 1
+            bigRoundImage.isUserInteractionEnabled = isUserInteractionEnabled
+            bigRoundImage.translatesAutoresizingMaskIntoConstraints = false
+            return bigRoundImage
     }
     
     func getCustomProgressionView(status: Float, statusText: String) -> UIView {

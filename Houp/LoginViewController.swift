@@ -11,7 +11,7 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate{
 
     let logoImageWidthHeight: CGFloat = 150
-    let logoImage = CustomViews().getBigRoundImage(name: "logo_houp", cornerRadius: 75)
+    let logoImage = CustomViews().getBigRoundImage(name: "logo_houp", cornerRadius: 75, isUserInteractionEnabled: false)
     let usernameTextField = CustomViews().getCustomTextField(placeholder: "Benutzername eingeben", isPasswordField: false)
     let passwordTextField = CustomViews().getCustomTextField(placeholder: "Passwort eingeben", isPasswordField: true)
     let loginButton = CustomViews().getCustomButton(title: "Login")
@@ -77,10 +77,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             self.passwordTextField.endEditing(true)
             self.view.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height)
         }, completion: nil)
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("edit")
     }
 }
 

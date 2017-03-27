@@ -31,11 +31,13 @@ extension LoginViewController{
         if(self.usernameTextField.text == "" || self.passwordTextField.text == ""){
             errorMessage = "Bitte alle Felder ausfüllen!"
             return true
-        }else if(false){
-        // hier soll überprüft werden, ob die daten in der DB übereinstimmen. Falls nicht, kommt er hier rein
-            errorMessage = "Benutzername oder Passwort stimmt nicht! Bitte versuche es nochmal!"
-            return true
+        }else{
+            if (DBConnection.shared.checkUsernamePassword(username: self.usernameTextField.text!, password: self.passwordTextField.text!)){
+                errorMessage = "Benutzername oder Passwort stimmt nicht! Bitte versuche es nochmal!"
+                return true
+            }else{
+                return false
+            }
         }
-        return false
     }
 }

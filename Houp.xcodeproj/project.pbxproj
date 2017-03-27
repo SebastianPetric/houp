@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52102E0A1E89850F005715A9 /* DBViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52102E091E89850F005715A9 /* DBViews.swift */; };
+		52102E0C1E898556005715A9 /* DBFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52102E0B1E898556005715A9 /* DBFunctions.swift */; };
 		5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5218B64B1E8047F400B502DF /* CustomTextField.swift */; };
 		52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A501E7BF7FD006061B2 /* AppDelegate.swift */; };
 		52499A531E7BF7FD006061B2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A521E7BF7FD006061B2 /* LoginViewController.swift */; };
@@ -14,6 +16,8 @@
 		52499A5B1E7BF7FD006061B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52499A5A1E7BF7FD006061B2 /* Assets.xcassets */; };
 		52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A661E7BF821006061B2 /* UIViewExtension.swift */; };
 		52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A681E7BFB95006061B2 /* UIColorExtension.swift */; };
+		528986FF1E83E86400322A99 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528986FE1E83E86400322A99 /* ImageCache.swift */; };
+		528987021E83F5CC00322A99 /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528987011E83F5CC00322A99 /* DBConnection.swift */; };
 		528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCBD1E80623100B6993D /* LoginHandler.swift */; };
 		528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */; };
 		52A75F551E81723E0038CF4F /* RegistrationNamePrenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */; };
@@ -35,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52102E091E89850F005715A9 /* DBViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBViews.swift; sourceTree = "<group>"; };
+		52102E0B1E898556005715A9 /* DBFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBFunctions.swift; sourceTree = "<group>"; };
 		5218B64B1E8047F400B502DF /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		52499A4D1E7BF7FD006061B2 /* Houp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Houp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52499A501E7BF7FD006061B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +50,8 @@
 		52499A5F1E7BF7FD006061B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52499A661E7BF821006061B2 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		52499A681E7BFB95006061B2 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		528986FE1E83E86400322A99 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		528987011E83F5CC00322A99 /* DBConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		528CFCBD1E80623100B6993D /* LoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
 		528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationUserNameController.swift; sourceTree = "<group>"; };
 		52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNamePrenameController.swift; sourceTree = "<group>"; };
@@ -120,6 +128,7 @@
 				52499A681E7BFB95006061B2 /* UIColorExtension.swift */,
 				5218B64B1E8047F400B502DF /* CustomTextField.swift */,
 				52A75F661E81A9830038CF4F /* CustomViews.swift */,
+				528986FE1E83E86400322A99 /* ImageCache.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -143,6 +152,7 @@
 		52499A6C1E7BFD4A006061B2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				528987001E83F5A500322A99 /* Database */,
 				52A75F691E81BA300038CF4F /* LoginViewController */,
 				52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */,
 			);
@@ -158,6 +168,16 @@
 				52F31A151E7D7A7D000F5157 /* Houp.h */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		528987001E83F5A500322A99 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				528987011E83F5CC00322A99 /* DBConnection.swift */,
+				52102E091E89850F005715A9 /* DBViews.swift */,
+				52102E0B1E898556005715A9 /* DBFunctions.swift */,
+			);
+			name = Database;
 			sourceTree = "<group>";
 		};
 		528CFCBC1E80621800B6993D /* Handler */ = {
@@ -296,14 +316,18 @@
 				52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */,
 				52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */,
 				52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */,
+				528987021E83F5CC00322A99 /* DBConnection.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
+				52102E0C1E898556005715A9 /* DBFunctions.swift in Sources */,
 				52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */,
 				52A75F621E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift in Sources */,
 				52E54AC91E82D5AC00856EF8 /* UserRegistration.swift in Sources */,
 				52A75F671E81A9830038CF4F /* CustomViews.swift in Sources */,
 				52A75F641E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift in Sources */,
 				52A75F551E81723E0038CF4F /* RegistrationNamePrenameController.swift in Sources */,
+				52102E0A1E89850F005715A9 /* DBViews.swift in Sources */,
 				52A75F5C1E81960D0038CF4F /* RegistrationAgeGenderController.swift in Sources */,
+				528986FF1E83E86400322A99 /* ImageCache.swift in Sources */,
 				528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */,
 				52A75F591E8179840038CF4F /* RegistrationPersonalDataHandler.swift in Sources */,
 				52A75F571E81781E0038CF4F /* RegistrationUserNameHandler.swift in Sources */,

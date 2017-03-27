@@ -19,11 +19,11 @@ extension RegistrationNamePrenameController{
             alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else{
+            UserRegistration.shared.name = self.nameTextField.text
+            UserRegistration.shared.prename = self.prenameTextField.text
            self.navigationController?.pushViewController(RegistrationAgeGenderController(), animated: true)
         }
-       /* let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "dd MM YYYY"
-        print(dateformatter.string(from: self.agePicker.date) )*/
+       
     }
     
     func hasAnyErrors() -> Bool{
