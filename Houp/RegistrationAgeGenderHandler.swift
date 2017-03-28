@@ -12,13 +12,13 @@ import UIKit
 extension RegistrationAgeGenderController{
 
     func handleContinueButton(){
-        UserRegistration.shared.gender = self.gender.selectedSegmentIndex
+        User.shared.gender = self.gender.selectedSegmentIndex
         
       /*  let dateformatter = DateFormatter()
          dateformatter.dateFormat = "dd MM YYYY"
          print(dateformatter.string(from: self.agePicker.date))*/
         
-        UserRegistration.shared.birthday = self.agePicker.date
+        User.shared.birthday = self.agePicker.date
         self.navigationController?.pushViewController(RegistrationEmailPasswordController(), animated: true)
     }
 }

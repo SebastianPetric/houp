@@ -13,18 +13,15 @@ private var errorMessage: String = ""
 extension RegistrationEmailPasswordController{
 
 func handleRegsitration(){
-// hier wird erstens überprüft ob es das passwort schon gibt, und ob die passwörter übereinstimmen, und am schluss wird alles in die DB geschrieben
-
     if(hasAnyErrors()){
-        let alert = UIAlertController(title: "Upps!", message: errorMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
+        let alert = UIAlertController(title: GetString.errorTitle.rawValue, message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: GetString.errorOKButton.rawValue, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }else{
         do{
-            UserRegistration.shared.email = self.emailTextField.text
-            UserRegistration.shared.password = self.passwordTextField.text
-            
-           // try DBConnection.shared.addUserWithProperties(properties: UserRegistration.shared.getPropertyPackage())
+            User.shared.email = self.emailTextField.text
+            User.shared.password = self.passwordTextField.text
+            try DBConnection.shared.addUserWithProperties(properties: User.shared.getPropertyPackageForRegistration())
         }catch{
         print("Fehler beim registrieren")
         }
@@ -34,13 +31,13 @@ func handleRegsitration(){
     
     func hasAnyErrors() -> Bool{
         if(self.emailTextField.text == "" || self.passwordTextField.text == "" || self.passwordRepeatTextField.text == ""){
-        errorMessage = "Bitte alle Felder ausfüllen!"
+        errorMessage = GetString.errorFillAllFields.rawValue
         return true
         }else if(DBConnection.shared.checkIfUsernameOrEmailAlreadyExists(view: DBConnection.shared.viewByEmail! ,usernameOrEmail: self.emailTextField.text!)){
-            errorMessage = "Email Adresse wird bereits verwendet."
+            errorMessage = GetString.errorEmailAlreadyExists.rawValue
             return true
         }else if((self.passwordTextField.text! != self.passwordRepeatTextField.text!)){
-            errorMessage = "Passwörter stimmen nicht überein!"
+            errorMessage = GetString.errorDifferentPasswords.rawValue
             return true
         }
         return false

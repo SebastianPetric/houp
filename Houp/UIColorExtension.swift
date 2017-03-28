@@ -17,4 +17,8 @@ extension UIColor{
     func getTextViewBorderColor() -> CGColor{
     return UIColor(red: 130, green: 130, blue: 130, alphaValue: 0.5).cgColor
     }
+    
+    func getMainColor() -> UIColor{
+        return UIColor(red: 101, green: 232, blue: 100, alphaValue: 1)
+    }
 }

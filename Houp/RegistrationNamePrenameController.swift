@@ -11,9 +11,9 @@ import UIKit
 class RegistrationNamePrenameController: UIViewController{
 
     
-    let nameTextField = CustomViews().getCustomTextField(placeholder: "Name", isPasswordField: false)
-    let prenameTextField = CustomViews().getCustomTextField(placeholder: "Vorname", isPasswordField: false)
-    let continueButton = CustomViews().getCustomButton(title: "Weiter")
+    let nameTextField = CustomViews().getCustomTextField(placeholder: GetString.name.rawValue, isPasswordField: false)
+    let prenameTextField = CustomViews().getCustomTextField(placeholder: GetString.prename.rawValue, isPasswordField: false)
+    let continueButton = CustomViews().getCustomButton(title: GetString.continueButton.rawValue)
     let customProgressionView = CustomViews().getCustomProgressionView(status: 0.5, statusText: "2 von 4")
 
     lazy var gestureRecognizer: UITapGestureRecognizer = {

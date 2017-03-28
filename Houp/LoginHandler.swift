@@ -7,19 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 private var errorMessage: String = ""
-
 extension LoginViewController{
 
     func handleLogin(){
-        //Bei erfolgreichem Login, soll der Startbildschirm gezeigt werden
         if(hasAnyErrors()){
-            let alert = UIAlertController(title: "Upps!", message: errorMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
+            let alert = UIAlertController(title: GetString.errorTitle.rawValue, message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: GetString.errorOKButton.rawValue, style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else{
-            print("Login erfolgreich")
+            UserDefaults.standard.set(self.usernameTextField.text, forKey: GetString.username.rawValue)
+            present(CustomTabBarController(), animated: true, completion: nil)
         }
     }
     
@@ -29,11 +29,11 @@ extension LoginViewController{
     
     func hasAnyErrors() -> Bool{
         if(self.usernameTextField.text == "" || self.passwordTextField.text == ""){
-            errorMessage = "Bitte alle Felder ausfüllen!"
+            errorMessage = GetString.errorFillAllFields.rawValue
             return true
         }else{
             if (DBConnection.shared.checkUsernamePassword(username: self.usernameTextField.text!, password: self.passwordTextField.text!)){
-                errorMessage = "Benutzername oder Passwort stimmt nicht! Bitte versuche es nochmal!"
+                errorMessage = GetString.errorFalseUsernamePassword.rawValue
                 return true
             }else{
                 return false

@@ -8,10 +8,11 @@
 
 import Foundation
 
-class UserRegistration{
+class User{
    
-    static let shared: UserRegistration = UserRegistration()
+    static let shared: User = User()
     
+    var uid: Int?
     var username: String?
     var prename: String?
     var name: String?
@@ -20,15 +21,17 @@ class UserRegistration{
     var gender: Int?
     var birthday: Date?
     var profileImage: Data?
+    var groupIDs: [Int]?
+    var DailyFormIDs: [Int]?
+    var weeksOfActivity: [Int]?
     
-    func getPropertyPackage() -> [String: String]{
+    func getPropertyPackageForRegistration() -> [String: String]{
         var properties = [String: String]()
         
         properties["type"] = "User"
         
         if let username = self.username {
             properties["username"] = username
-            //properties?.updateValue(username, forKey: "username")
         }
         if let prename = self.prename {
             properties["prename"] = prename
@@ -49,7 +52,7 @@ class UserRegistration{
             
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "dd MM YYYY"
-            properties["birthday"] = dateformatter.string(from: self.birthday!)
+            properties["birthday"] = dateformatter.string(from: birthday)
         }
         /*let properties = [
             "type": "User",

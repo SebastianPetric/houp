@@ -11,10 +11,10 @@ import UIKit
 class RegistrationEmailPasswordController: UIViewController{
 
     
-    let emailTextField = CustomViews().getCustomTextField(placeholder: "Email eingeben", isPasswordField: false)
-    let passwordTextField = CustomViews().getCustomTextField(placeholder: "Passwort eingeben", isPasswordField: true)
-    let passwordRepeatTextField = CustomViews().getCustomTextField(placeholder: "Passwort wiederholen", isPasswordField: true)
-    let registrationButton = CustomViews().getCustomButton(title: "Los geht's!")
+    let emailTextField = CustomViews().getCustomTextField(placeholder: GetString.email.rawValue, isPasswordField: false)
+    let passwordTextField = CustomViews().getCustomTextField(placeholder: GetString.password.rawValue, isPasswordField: true)
+    let passwordRepeatTextField = CustomViews().getCustomTextField(placeholder: GetString.repeatPassword.rawValue, isPasswordField: true)
+    let registrationButton = CustomViews().getCustomButton(title: GetString.finishRegistrationButton.rawValue)
     let customProgressionView = CustomViews().getCustomProgressionView(status: 1.0, statusText: "4 von 4")
 
     lazy var gestureRecognizer: UITapGestureRecognizer = {

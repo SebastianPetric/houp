@@ -71,9 +71,9 @@ extension DBConnection{
         if self.DBCon != nil{
             let doc = self.DBCon?.createDocument()
             do {try doc?.putProperties(properties)
-                if UserRegistration.shared.profileImage != nil{
+                if User.shared.profileImage != nil{
                     let rev = doc?.currentRevision?.createRevision()
-                    rev?.setAttachmentNamed("\(UserRegistration.shared.username)_profileImage.jpeg", withContentType: "image/jpeg", content: UserRegistration.shared.profileImage)
+                    rev?.setAttachmentNamed("\(User.shared.username)_profileImage.jpeg", withContentType: "image/jpeg", content: User.shared.profileImage)
                     try rev?.save()
                 }
             }catch {

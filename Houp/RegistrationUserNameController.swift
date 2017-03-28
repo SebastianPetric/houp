@@ -11,9 +11,9 @@ import UIKit
 class RegistrationUserNameController: UIViewController{
 
     let profileImageWidthHeight: CGFloat = 150
-    let profileImage = CustomViews().getBigRoundImage(name: "profile_default", cornerRadius: 75, isUserInteractionEnabled: true)
-    let usernameTextField = CustomViews().getCustomTextField(placeholder: "Benutzername", isPasswordField: false)
-    let continueButton = CustomViews().getCustomButton(title: "Weiter")
+    let profileImage = CustomViews().getBigRoundImage(name: GetString.defaultProfileImage.rawValue, cornerRadius: 75, isUserInteractionEnabled: true)
+    let usernameTextField = CustomViews().getCustomTextField(placeholder: GetString.enterUsername.rawValue, isPasswordField: false)
+    let continueButton = CustomViews().getCustomButton(title: GetString.continueButton.rawValue)
     let customProgressionView = CustomViews().getCustomProgressionView(status: 0.25, statusText: "1 von 4")
     
     lazy var gestureRecognizer: UITapGestureRecognizer = {

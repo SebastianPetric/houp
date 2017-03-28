@@ -11,14 +11,14 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate{
 
     let logoImageWidthHeight: CGFloat = 150
-    let logoImage = CustomViews().getBigRoundImage(name: "logo_houp", cornerRadius: 75, isUserInteractionEnabled: false)
-    let usernameTextField = CustomViews().getCustomTextField(placeholder: "Benutzername eingeben", isPasswordField: false)
-    let passwordTextField = CustomViews().getCustomTextField(placeholder: "Passwort eingeben", isPasswordField: true)
-    let loginButton = CustomViews().getCustomButton(title: "Login")
+    let logoImage = CustomViews().getBigRoundImage(name: GetString.appLogoIcon.rawValue, cornerRadius: 75, isUserInteractionEnabled: false)
+    let usernameTextField = CustomViews().getCustomTextField(placeholder: GetString.enterUsername.rawValue, isPasswordField: false)
+    let passwordTextField = CustomViews().getCustomTextField(placeholder: GetString.enterPassword.rawValue, isPasswordField: true)
+    let loginButton = CustomViews().getCustomButton(title: GetString.login.rawValue)
     
     let registrationButton: UIButton = {
         let registrationButton = UIButton(type: .system)
-        registrationButton.setTitle("Registrieren", for: .normal)
+        registrationButton.setTitle(GetString.registrieren.rawValue, for: .normal)
         registrationButton.setTitleColor(UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), for: .normal)
         registrationButton.addTarget(self, action: #selector(handleRegistrationButton), for: .touchUpInside)
         return registrationButton
@@ -33,6 +33,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.topItem?.title = GetString.appName.rawValue
+        navigationController?.navigationBar.barTintColor = UIColor().getMainColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
+        
+        let bottomorder = CALayer()
+        bottomorder.frame = CGRect(x: 0, y: (navigationController?.navigationBar.frame.height)!, width: 1000, height: 0.5)
+        bottomorder.backgroundColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1).cgColor
+        navigationController?.navigationBar.layer.addSublayer(bottomorder)
+        
+        
+        
+        
         view.addSubview(logoImage)
         view.addSubview(usernameTextField)
         usernameTextField.delegate = self

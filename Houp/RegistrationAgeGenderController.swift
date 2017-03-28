@@ -12,7 +12,7 @@ class RegistrationAgeGenderController: UIViewController{
 
     let agePickerTextView : UITextView = {
         let agePickerTextView = UITextView()
-        agePickerTextView.text = "Geburtstag"
+        agePickerTextView.text = GetString.birthday.rawValue
         agePickerTextView.isEditable = false
         return agePickerTextView
     }()
@@ -33,14 +33,14 @@ class RegistrationAgeGenderController: UIViewController{
     }()
     
     let gender: UISegmentedControl = {
-        let gender = UISegmentedControl(items: ["Männlich", "Weiblich"])
+        let gender = UISegmentedControl(items: [GetString.male.rawValue, GetString.female.rawValue])
         gender.selectedSegmentIndex = 0
         gender.tintColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 1)
         return gender
     }()
     
     
-    let continueButton = CustomViews().getCustomButton(title: "Weiter")
+    let continueButton = CustomViews().getCustomButton(title: GetString.continueButton.rawValue)
     let customProgressionView = CustomViews().getCustomProgressionView(status: 0.75, statusText: "3 von 4")
  
     override func viewDidLoad() {

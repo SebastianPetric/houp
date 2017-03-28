@@ -8,9 +8,6 @@
 
 import Foundation
 
-
-
-
 class DBConnection{
     
     static let shared: DBConnection = DBConnection()
