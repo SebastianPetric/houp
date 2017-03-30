@@ -16,7 +16,7 @@ class RegistrationAgeGenderController: UIViewController{
     let gender: UISegmentedControl = {
         let gender = UISegmentedControl(items: [GetString.male.rawValue, GetString.female.rawValue])
         gender.selectedSegmentIndex = 0
-        gender.tintColor = UIColor().getMainColor()
+        gender.tintColor = UIColor().getSecondColor()
         return gender
     }()
     

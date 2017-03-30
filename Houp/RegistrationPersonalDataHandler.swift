@@ -15,15 +15,13 @@ extension RegistrationNamePrenameController{
 
     func handleContinueButton(){
         if(hasAnyErrors()){
-            let alert = UIAlertController(title: GetString.errorTitle.rawValue, message: errorMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction.init(title: GetString.errorOKButton.rawValue, style: .default, handler: nil))
+            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: errorMessage, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
             self.present(alert, animated: true, completion: nil)
         }else{
             User.shared.name = self.nameTextField.text
             User.shared.prename = self.prenameTextField.text
             self.navigationController?.pushViewController(RegistrationAgeGenderController(), animated: true)
         }
-       
     }
     
     func hasAnyErrors() -> Bool{

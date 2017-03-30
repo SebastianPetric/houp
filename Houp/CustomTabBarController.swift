@@ -13,6 +13,9 @@ class CustomTabBarController: UITabBarController{
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.tintColor = UIColor().getMainColor()
+        tabBar.isTranslucent = false
+        tabBar.clipsToBounds = true
+        tabBar.layer.addSublayer(CustomViews.shared.getCustomBarBorder(x: 0, y: 0))
         
         let privateGroupController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: PrivateGroupCollectionViewController(),navBarTitle: GetString.navBarPrivateGroup.rawValue, barItemTitle: GetString.tabBarPrivateGroup.rawValue, image: GetString.privateGroupBarIcon.rawValue)
         let publicGroupController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: PublicGroupCollectionViewController(),navBarTitle: GetString.navBarPublicGroup.rawValue, barItemTitle: GetString.tabBarPublicGroup.rawValue, image: GetString.publicGroupBarIcon.rawValue)

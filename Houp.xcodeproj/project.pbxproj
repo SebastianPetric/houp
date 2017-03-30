@@ -38,6 +38,12 @@
 		52A75F621E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F611E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift */; };
 		52A75F641E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F631E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift */; };
 		52A75F671E81A9830038CF4F /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F661E81A9830038CF4F /* CustomViews.swift */; };
+		52D5AF911E8D5E770007C448 /* PrivateGroupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF901E8D5E770007C448 /* PrivateGroupExtension.swift */; };
+		52D5AF941E8D5ECD0007C448 /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF931E8D5ECD0007C448 /* SettingsHandler.swift */; };
+		52D5AF971E8D5F680007C448 /* MakeRequestToPrivateGroupHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF961E8D5F680007C448 /* MakeRequestToPrivateGroupHandler.swift */; };
+		52D5AF9A1E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF991E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift */; };
+		52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */; };
+		52D5AF9E1E8D7AA30007C448 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */; };
 		52E54AC91E82D5AC00856EF8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E54AC81E82D5AC00856EF8 /* User.swift */; };
 		52F31A081E7D6F93000F5157 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */; };
 		52F31A0A1E7D6FE4000F5157 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A091E7D6FE4000F5157 /* CFNetwork.framework */; };
@@ -82,6 +88,12 @@
 		52A75F611E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationAgeGenderHandler.swift; sourceTree = "<group>"; };
 		52A75F631E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationEmailPasswordHandler.swift; sourceTree = "<group>"; };
 		52A75F661E81A9830038CF4F /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
+		52D5AF901E8D5E770007C448 /* PrivateGroupExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupExtension.swift; sourceTree = "<group>"; };
+		52D5AF931E8D5ECD0007C448 /* SettingsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
+		52D5AF961E8D5F680007C448 /* MakeRequestToPrivateGroupHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeRequestToPrivateGroupHandler.swift; sourceTree = "<group>"; };
+		52D5AF991E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewPrivateGroupHandler.swift; sourceTree = "<group>"; };
+		52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupsCell.swift; sourceTree = "<group>"; };
+		52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		52E54AC81E82D5AC00856EF8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
 		52F31A091E7D6FE4000F5157 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -151,6 +163,7 @@
 				528986FE1E83E86400322A99 /* ImageCache.swift */,
 				521EB0591E8AE3BA009D472C /* GetString.swift */,
 				521ECCA51E8BDE8C001C10BC /* CustomNavigationBarController.swift */,
+				52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -178,13 +191,13 @@
 			children = (
 				52A75F691E81BA300038CF4F /* LoginViewController */,
 				52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */,
-				521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */,
-				521EB0511E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift */,
-				521EB0531E8AC596009D472C /* PublicGroupCollectionViewController.swift */,
-				521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */,
-				521EB0571E8AC72B009D472C /* SettingsCollectionViewController.swift */,
-				521ECCA11E8BBC42001C10BC /* CreatePrivateGroupViewController.swift */,
-				521ECCA31E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift */,
+				52D5AF881E8D5D260007C448 /* CustomTabBarController */,
+				52D5AF891E8D5D3D0007C448 /* PrivateGroupViewController */,
+				52D5AF8A1E8D5D540007C448 /* PublicGroupViewController */,
+				52D5AF8B1E8D5D630007C448 /* ActivityViewController */,
+				52D5AF8C1E8D5D770007C448 /* SettingsViewController */,
+				52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroupViewController */,
+				52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroupVIewController */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -215,6 +228,10 @@
 			children = (
 				52A75F681E81BA1C0038CF4F /* LoginHandler */,
 				52A75F651E819EED0038CF4F /* RegistrationHandler */,
+				52D5AF8F1E8D5E600007C448 /* PrivateGroupHandler */,
+				52D5AF921E8D5EBB0007C448 /* SettingsHandler */,
+				52D5AF951E8D5F4A0007C448 /* MakeRequestToPrivateGroupHandler */,
+				52D5AF981E8D5FCB0007C448 /* CreateNewPrivateGroupHandler */,
 			);
 			name = Handler;
 			sourceTree = "<group>";
@@ -255,6 +272,95 @@
 				52499A521E7BF7FD006061B2 /* LoginViewController.swift */,
 			);
 			name = LoginViewController;
+			sourceTree = "<group>";
+		};
+		52D5AF881E8D5D260007C448 /* CustomTabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */,
+			);
+			name = CustomTabBarController;
+			sourceTree = "<group>";
+		};
+		52D5AF891E8D5D3D0007C448 /* PrivateGroupViewController */ = {
+			isa = PBXGroup;
+			children = (
+				521EB0511E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift */,
+				52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */,
+			);
+			name = PrivateGroupViewController;
+			sourceTree = "<group>";
+		};
+		52D5AF8A1E8D5D540007C448 /* PublicGroupViewController */ = {
+			isa = PBXGroup;
+			children = (
+				521EB0531E8AC596009D472C /* PublicGroupCollectionViewController.swift */,
+			);
+			name = PublicGroupViewController;
+			sourceTree = "<group>";
+		};
+		52D5AF8B1E8D5D630007C448 /* ActivityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */,
+			);
+			name = ActivityViewController;
+			sourceTree = "<group>";
+		};
+		52D5AF8C1E8D5D770007C448 /* SettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				521EB0571E8AC72B009D472C /* SettingsCollectionViewController.swift */,
+			);
+			name = SettingsViewController;
+			sourceTree = "<group>";
+		};
+		52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroupVIewController */ = {
+			isa = PBXGroup;
+			children = (
+				521ECCA11E8BBC42001C10BC /* CreatePrivateGroupViewController.swift */,
+			);
+			name = CreateNewPrivateGroupVIewController;
+			sourceTree = "<group>";
+		};
+		52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroupViewController */ = {
+			isa = PBXGroup;
+			children = (
+				521ECCA31E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift */,
+			);
+			name = MakeRequestToPrivateGroupViewController;
+			sourceTree = "<group>";
+		};
+		52D5AF8F1E8D5E600007C448 /* PrivateGroupHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52D5AF901E8D5E770007C448 /* PrivateGroupExtension.swift */,
+			);
+			name = PrivateGroupHandler;
+			sourceTree = "<group>";
+		};
+		52D5AF921E8D5EBB0007C448 /* SettingsHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52D5AF931E8D5ECD0007C448 /* SettingsHandler.swift */,
+			);
+			name = SettingsHandler;
+			sourceTree = "<group>";
+		};
+		52D5AF951E8D5F4A0007C448 /* MakeRequestToPrivateGroupHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52D5AF961E8D5F680007C448 /* MakeRequestToPrivateGroupHandler.swift */,
+			);
+			name = MakeRequestToPrivateGroupHandler;
+			sourceTree = "<group>";
+		};
+		52D5AF981E8D5FCB0007C448 /* CreateNewPrivateGroupHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52D5AF991E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift */,
+			);
+			name = CreateNewPrivateGroupHandler;
 			sourceTree = "<group>";
 		};
 		52F31A061E7D6F6E000F5157 /* Frameworks */ = {
@@ -351,9 +457,11 @@
 				528987021E83F5CC00322A99 /* DBConnection.swift in Sources */,
 				521EB0521E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift in Sources */,
 				521EB0581E8AC72B009D472C /* SettingsCollectionViewController.swift in Sources */,
+				52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */,
 				521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */,
 				521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
+				52D5AF941E8D5ECD0007C448 /* SettingsHandler.swift in Sources */,
 				52102E0C1E898556005715A9 /* DBFunctions.swift in Sources */,
 				52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */,
 				521EB05A1E8AE3BA009D472C /* GetString.swift in Sources */,
@@ -368,10 +476,14 @@
 				521ECCA41E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift in Sources */,
 				52A75F5C1E81960D0038CF4F /* RegistrationAgeGenderController.swift in Sources */,
 				528986FF1E83E86400322A99 /* ImageCache.swift in Sources */,
+				52D5AF971E8D5F680007C448 /* MakeRequestToPrivateGroupHandler.swift in Sources */,
 				528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */,
+				52D5AF911E8D5E770007C448 /* PrivateGroupExtension.swift in Sources */,
 				52A75F591E8179840038CF4F /* RegistrationPersonalDataHandler.swift in Sources */,
+				52D5AF9A1E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift in Sources */,
 				52A75F571E81781E0038CF4F /* RegistrationUserNameHandler.swift in Sources */,
 				528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */,
+				52D5AF9E1E8D7AA30007C448 /* UITextViewExtension.swift in Sources */,
 				52499A591E7BF7FD006061B2 /* Houp.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

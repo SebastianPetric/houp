@@ -22,6 +22,7 @@ extension UIColor{
         return UIColor(red: 101, green: 232, blue: 100, alphaValue: 1)
     }
     
+    
     func getSecondColor() -> UIColor{
         return UIColor(red: 41, green: 192, blue: 232, alphaValue: 1)
     }

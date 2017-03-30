@@ -31,6 +31,9 @@ enum GetString: String {
     case makeRequestToPrivateGroup = "Anfrage an Gruppe senden"
     case enterSecretID = "Geheime Gruppen-ID angeben"
     case privateGroup = "Private Gruppe"
+    case successCreatePrivateGroup = "Gruppe erstellt!"
+    case successMadeRequestPrivateGroupTitle = "Nur Geduld!"
+    case successMadeRequestPrivateGroupMessage = "Anfrage muss nur noch beantwortet werden!"
     
     //Icons
     
@@ -59,6 +62,7 @@ enum GetString: String {
     case navBarActivity = "Yang"
     case tabBarSettings = "Mehr"
     case navBarSettings = "Einstellungen"
+    case logout = "logout"
     
     
     //Error 
@@ -66,10 +70,12 @@ enum GetString: String {
     case errorTitle = "Upps"
     case errorOKButton = "OK"
     case errorNoButton = "Nein"
+    case errorCancelButton = "Abbrechen"
     case errorFillAllFields = "Bitte alle Felder ausfüllen!"
     case errorFalseUsernamePassword = "Benutzername oder Passwort stimmt nicht! Bitte versuche es nochmal!"
     case errorUsernameAlreadyInUse = "Suche dir bitte einen anderen Nutzernamen. Dieser wird bereits verwendet."
     case errorWantProfileImage = "Willst du kein Profilbild machen?"
     case errorDifferentPasswords = "Passwörter stimmen nicht überein!"
     case errorEmailAlreadyExists = "Email Adresse wird bereits verwendet."
+    case errorWithDB = "Bei der Verbindung mit der Datenbank ist ein Fehler aufgetreten. Nochmal versuchen?"
 }

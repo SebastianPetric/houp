@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView{
-
+    
     func addConstraintsWithConstants(top: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, centerX: NSLayoutXAxisAnchor?, centerY: NSLayoutYAxisAnchor?, topConstant: CGFloat = 0, rightConstant: CGFloat = 0, bottomConstant: CGFloat = 0, leftConstant: CGFloat = 0, width: CGFloat = 0, height: CGFloat = 0){
         
         translatesAutoresizingMaskIntoConstraints = false

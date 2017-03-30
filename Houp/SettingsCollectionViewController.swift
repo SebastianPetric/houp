@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsCollectionViewController: UIViewController{
 
-    let logoutButton = CustomViews.shared.getCustomButton(title: "Logout")
+    let logoutButton = CustomViews.shared.getCustomButton(title: GetString.logout.rawValue)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +22,5 @@ class SettingsCollectionViewController: UIViewController{
     
     private func setUpSubViews(){
     logoutButton.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: view.centerYAnchor, topConstant: 0, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
-    }
-    
-    func handleLogout(){
-        let login = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
-        present(login, animated: true, completion: nil)
     }
 }

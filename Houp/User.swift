@@ -49,17 +49,10 @@ class User{
            properties["gender"] = String(gender)
         }
         if let birthday = self.birthday {
-            
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "dd MM YYYY"
             properties["birthday"] = dateformatter.string(from: birthday)
         }
-        /*let properties = [
-            "type": "User",
-            "name": "Sebastian",
-            "email": "sebastian@gmail.com",
-            "repo": "swift-couchbaselite-cheatsheet"
-        ]*/
         return properties
     }
     
