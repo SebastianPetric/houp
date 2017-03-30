@@ -10,11 +10,10 @@ import UIKit
 
 class RegistrationNamePrenameController: UIViewController{
 
-    
-    let nameTextField = CustomViews().getCustomTextField(placeholder: GetString.name.rawValue, isPasswordField: false)
-    let prenameTextField = CustomViews().getCustomTextField(placeholder: GetString.prename.rawValue, isPasswordField: false)
-    let continueButton = CustomViews().getCustomButton(title: GetString.continueButton.rawValue)
-    let customProgressionView = CustomViews().getCustomProgressionView(status: 0.5, statusText: "2 von 4")
+    let nameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.name.rawValue, isPasswordField: false)
+    let prenameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.prename.rawValue, isPasswordField: false)
+    let continueButton = CustomViews.shared.getCustomButton(title: GetString.continueButton.rawValue)
+    let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.5, statusText: "2 von 4")
 
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -59,8 +58,7 @@ class RegistrationNamePrenameController: UIViewController{
     
     func hideKeyboard(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.nameTextField.endEditing(true)
-            self.prenameTextField.endEditing(true)
+            self.view.endEditing(true)
             self.view.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height)
         }, completion: nil)
     }

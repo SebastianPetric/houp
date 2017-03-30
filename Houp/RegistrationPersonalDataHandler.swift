@@ -21,7 +21,7 @@ extension RegistrationNamePrenameController{
         }else{
             User.shared.name = self.nameTextField.text
             User.shared.prename = self.prenameTextField.text
-           self.navigationController?.pushViewController(RegistrationAgeGenderController(), animated: true)
+            self.navigationController?.pushViewController(RegistrationAgeGenderController(), animated: true)
         }
        
     }

@@ -12,7 +12,7 @@ class User{
    
     static let shared: User = User()
     
-    var uid: Int?
+    var uid: String?
     var username: String?
     var prename: String?
     var name: String?

@@ -10,32 +10,13 @@ import UIKit
 
 class RegistrationAgeGenderController: UIViewController{
 
-    let agePickerTextView : UITextView = {
-        let agePickerTextView = UITextView()
-        agePickerTextView.text = GetString.birthday.rawValue
-        agePickerTextView.isEditable = false
-        return agePickerTextView
-    }()
+    let agePicker = CustomViews.shared.getCustomPickerViewWithTitle(title: GetString.birthday.rawValue, pickerMode: .date)
     
-    let agePicker: UIDatePicker = {
-        let agePicker = UIDatePicker()
-        agePicker.datePickerMode = .date
-        agePicker.layer.cornerRadius = 5
-        agePicker.layer.borderColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1).cgColor
-        agePicker.layer.borderWidth = 1
-        var components = DateComponents()
-        let maxDate = Calendar.current.date(byAdding: components, to: Date())
-        agePicker.maximumDate = maxDate
-        components.year = -100
-        let minDate = Calendar.current.date(byAdding: components, to: Date())
-        agePicker.minimumDate = minDate
-        return agePicker
-    }()
     
     let gender: UISegmentedControl = {
         let gender = UISegmentedControl(items: [GetString.male.rawValue, GetString.female.rawValue])
         gender.selectedSegmentIndex = 0
-        gender.tintColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 1)
+        gender.tintColor = UIColor().getMainColor()
         return gender
     }()
     
@@ -46,7 +27,6 @@ class RegistrationAgeGenderController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(agePickerTextView)
         view.addSubview(agePicker)
         view.addSubview(gender)
         view.addSubview(continueButton)
@@ -56,9 +36,8 @@ class RegistrationAgeGenderController: UIViewController{
     }
     
     func setUpSubviews(){
-        agePickerTextView.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 62.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 25)
         
-        agePicker.addConstraintsWithConstants(top: agePickerTextView.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 0, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 100)
+        agePicker.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 122.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 65)
         
         gender.addConstraintsWithConstants(top: agePicker.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         

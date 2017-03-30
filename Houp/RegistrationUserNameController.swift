@@ -11,18 +11,16 @@ import UIKit
 class RegistrationUserNameController: UIViewController{
 
     let profileImageWidthHeight: CGFloat = 150
-    let profileImage = CustomViews().getBigRoundImage(name: GetString.defaultProfileImage.rawValue, cornerRadius: 75, isUserInteractionEnabled: true)
-    let usernameTextField = CustomViews().getCustomTextField(placeholder: GetString.enterUsername.rawValue, isPasswordField: false)
-    let continueButton = CustomViews().getCustomButton(title: GetString.continueButton.rawValue)
-    let customProgressionView = CustomViews().getCustomProgressionView(status: 0.25, statusText: "1 von 4")
+    let profileImage = CustomViews.shared.getBigRoundImage(name: GetString.defaultProfileImage.rawValue, cornerRadius: 75, isUserInteractionEnabled: true)
+    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, isPasswordField: false)
+    let continueButton = CustomViews.shared.getCustomButton(title: GetString.continueButton.rawValue)
+    let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.25, statusText: "1 von 4")
     
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         return recognizer
     }()
 
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.navigationController?.navigationBar.backItem?.title = ""
@@ -62,7 +60,7 @@ class RegistrationUserNameController: UIViewController{
     
     func hideKeyboard(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.usernameTextField.endEditing(true)
+            self.view.endEditing(true)
             self.view.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height)
         }, completion: nil)
     }

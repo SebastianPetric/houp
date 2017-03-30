@@ -53,15 +53,19 @@ class DBConnection{
             }
             
             //Hier werden die Views einmalig erzeugt. Dannach können sie einfach nur noch verwendet werden
-            self.viewByName = createViewByUsernamePassword(db: getDBConnection())
-            self.viewByUsername = createViewByUsername(db: getDBConnection())
-            self.viewByEmail = createViewByEmail(db: getDBConnection())
+            self.viewByName = createViewByUsernamePassword(db: getDBConnection()!)
+            self.viewByUsername = createViewByUsername(db: getDBConnection()!)
+            self.viewByEmail = createViewByEmail(db: getDBConnection()!)
         } catch {
-            print(error)
+            print("Upps")
         }
     }
     
-    func getDBConnection() -> CBLDatabase{
-        return self.DBCon!
+    func getDBConnection() -> CBLDatabase?{
+        if let con = self.DBCon{
+        return con
+        }else{
+        return nil
+        }
     }
 }

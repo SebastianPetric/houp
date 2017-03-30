@@ -16,6 +16,10 @@
 		521EB0561E8AC65C009D472C /* ActivityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */; };
 		521EB0581E8AC72B009D472C /* SettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0571E8AC72B009D472C /* SettingsCollectionViewController.swift */; };
 		521EB05A1E8AE3BA009D472C /* GetString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0591E8AE3BA009D472C /* GetString.swift */; };
+		521ECCA01E8BB9C6001C10BC /* PrivateGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */; };
+		521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521ECCA11E8BBC42001C10BC /* CreatePrivateGroupViewController.swift */; };
+		521ECCA41E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521ECCA31E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift */; };
+		521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521ECCA51E8BDE8C001C10BC /* CustomNavigationBarController.swift */; };
 		52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A501E7BF7FD006061B2 /* AppDelegate.swift */; };
 		52499A531E7BF7FD006061B2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A521E7BF7FD006061B2 /* LoginViewController.swift */; };
 		52499A591E7BF7FD006061B2 /* Houp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52499A571E7BF7FD006061B2 /* Houp.xcdatamodeld */; };
@@ -54,6 +58,10 @@
 		521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewController.swift; sourceTree = "<group>"; };
 		521EB0571E8AC72B009D472C /* SettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		521EB0591E8AE3BA009D472C /* GetString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetString.swift; sourceTree = "<group>"; };
+		521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroup.swift; sourceTree = "<group>"; };
+		521ECCA11E8BBC42001C10BC /* CreatePrivateGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePrivateGroupViewController.swift; sourceTree = "<group>"; };
+		521ECCA31E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeRequestPrivateGroupViewController.swift; sourceTree = "<group>"; };
+		521ECCA51E8BDE8C001C10BC /* CustomNavigationBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarController.swift; sourceTree = "<group>"; };
 		52499A4D1E7BF7FD006061B2 /* Houp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Houp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52499A501E7BF7FD006061B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52499A521E7BF7FD006061B2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +150,7 @@
 				52A75F661E81A9830038CF4F /* CustomViews.swift */,
 				528986FE1E83E86400322A99 /* ImageCache.swift */,
 				521EB0591E8AE3BA009D472C /* GetString.swift */,
+				521ECCA51E8BDE8C001C10BC /* CustomNavigationBarController.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 			children = (
 				528987001E83F5A500322A99 /* Database */,
 				52499A501E7BF7FD006061B2 /* AppDelegate.swift */,
+				521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */,
 				52E54AC81E82D5AC00856EF8 /* User.swift */,
 			);
 			name = Model;
@@ -173,6 +183,8 @@
 				521EB0531E8AC596009D472C /* PublicGroupCollectionViewController.swift */,
 				521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */,
 				521EB0571E8AC72B009D472C /* SettingsCollectionViewController.swift */,
+				521ECCA11E8BBC42001C10BC /* CreatePrivateGroupViewController.swift */,
+				521ECCA31E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -331,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52499A531E7BF7FD006061B2 /* LoginViewController.swift in Sources */,
+				521ECCA01E8BB9C6001C10BC /* PrivateGroup.swift in Sources */,
 				52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */,
 				52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */,
 				521EB0561E8AC65C009D472C /* ActivityCollectionViewController.swift in Sources */,
@@ -338,6 +351,8 @@
 				528987021E83F5CC00322A99 /* DBConnection.swift in Sources */,
 				521EB0521E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift in Sources */,
 				521EB0581E8AC72B009D472C /* SettingsCollectionViewController.swift in Sources */,
+				521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */,
+				521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
 				52102E0C1E898556005715A9 /* DBFunctions.swift in Sources */,
 				52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */,
@@ -350,6 +365,7 @@
 				52A75F641E819E5F0038CF4F /* RegistrationEmailPasswordHandler.swift in Sources */,
 				52A75F551E81723E0038CF4F /* RegistrationNamePrenameController.swift in Sources */,
 				52102E0A1E89850F005715A9 /* DBViews.swift in Sources */,
+				521ECCA41E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift in Sources */,
 				52A75F5C1E81960D0038CF4F /* RegistrationAgeGenderController.swift in Sources */,
 				528986FF1E83E86400322A99 /* ImageCache.swift in Sources */,
 				528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */,

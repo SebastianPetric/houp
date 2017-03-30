@@ -18,7 +18,9 @@ extension RegistrationAgeGenderController{
          dateformatter.dateFormat = "dd MM YYYY"
          print(dateformatter.string(from: self.agePicker.date))*/
         
-        User.shared.birthday = self.agePicker.date
+        let picker = agePicker.subviews[1] as! UIDatePicker
+        
+        User.shared.birthday = picker.date
         self.navigationController?.pushViewController(RegistrationEmailPasswordController(), animated: true)
     }
 }

@@ -23,6 +23,14 @@ enum GetString: String {
     case enterUsername = "Benutzername eingeben"
     case enterPassword = "Passwort eingeben"
     case appName = "Houp"
+    case nameOfGroup = "Name der Gruppe"
+    case locatonOfMeeting = "Standort der Gruppe"
+    case dayOfMeeting = "Tag der Meetings"
+    case timeOfMeeting = "Uhrzeit der Meetings"
+    case createPrivateGroup = "Gruppe erstellen"
+    case makeRequestToPrivateGroup = "Anfrage an Gruppe senden"
+    case enterSecretID = "Geheime Gruppen-ID angeben"
+    case privateGroup = "Private Gruppe"
     
     //Icons
     
@@ -34,6 +42,8 @@ enum GetString: String {
     case privateGroupBarIcon = "private_group_tab_bar"
     case publicGroupBarIcon = "public_group_tab_bar"
     case activityBarIcon = "activity_tab_bar"
+    case cancel_icon = "cancel_icon"
+    case secret_icon = "secret_icon"
     
     
     //Buttons
