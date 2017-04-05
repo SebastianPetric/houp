@@ -11,8 +11,8 @@ import UIKit
 class RegistrationUserNameController: UIViewController{
 
     let profileImageWidthHeight: CGFloat = 150
-    let profileImage = CustomViews.shared.getBigRoundImage(name: GetString.defaultProfileImage.rawValue, cornerRadius: 75, isUserInteractionEnabled: true)
-    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, isPasswordField: false)
+    let profileImage = CustomViews.shared.getCustomImageView(imageName: GetString.defaultProfileImage.rawValue, cornerRadius: 75, isUserInteractionEnabled: true, imageColor: nil, borderColor: UIColor().getSecondColor())
+    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, keyboardType: .default, isPasswordField: false)
     let continueButton = CustomViews.shared.getCustomButton(title: GetString.continueButton.rawValue)
     let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.25, statusText: "1 von 4")
     
@@ -23,7 +23,8 @@ class RegistrationUserNameController: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.navigationBar.backItem?.title = ""
+        self.title = "Registrierung"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.backgroundColor = .white
         view.addSubview(profileImage)
         view.addSubview(usernameTextField)

@@ -13,11 +13,11 @@ class CreatePrivateGroupViewController: UIViewController, UIPickerViewDataSource
 
     let pickerDataWeekDays = ["Montags", "Dienstags","Mittwochs", "Donnerstags", "Freitags", "Samstags", "Sonntags"]
     
-    let nameOfGroup = CustomViews.shared.getCustomTextField(placeholder: GetString.nameOfGroup.rawValue, isPasswordField: false)
+    let nameOfGroup = CustomViews.shared.getCustomTextField(placeholder: GetString.nameOfGroup.rawValue, keyboardType: .default, isPasswordField: false)
     
-    let locationOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.locatonOfMeeting.rawValue, isPasswordField: false)
+    let locationOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.locatonOfMeeting.rawValue, keyboardType: .default, isPasswordField: false)
     
-    let dayOfMeetingTitle = CustomViews.shared.getCustomLabel(text: GetString.dayOfMeeting.rawValue, fontSize: 16, isBold: true, centerText: false, textColor: UIColor().getSecondColor())
+    let dayOfMeetingTitle = CustomViews.shared.getCustomLabel(text: GetString.dayOfMeeting.rawValue, fontSize: 16, isBold: true, textAlignment: .left, textColor: UIColor().getSecondColor())
     
     lazy var dayOfMeeting: UIPickerView = {
         let picker = UIPickerView()
@@ -34,43 +34,6 @@ class CreatePrivateGroupViewController: UIViewController, UIPickerViewDataSource
     
     var positiveResponse = UIView()
     
-    
-    func handleRequest(){
-        
-        if let window = UIApplication.shared.keyWindow{
-            //Checken ob erfogreich war oder nicht
-            
-            if(false){
-                self.positiveResponse = CustomViews.shared.getPositiveResponse(title: GetString.successCreatePrivateGroup.rawValue, message: "Geheime ID: 59IfwV22")
-                self.positiveResponse.frame = window.frame
-                self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-
-                window.addSubview(positiveResponse)
-                
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                    self.positiveResponse.alpha = 1
-                }, completion: nil)
-            }else{
-                let errorMessage = GetString.errorWithDB.rawValue
-                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: errorMessage, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: GetString.errorNoButton.rawValue, firstHandler: nil, secondHandler: {(alert: UIAlertAction!) in  self.dismiss(animated: true, completion: nil)})
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
-
-    func handleDismiss(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.positiveResponse.alpha = 0
-            self.dismiss(animated: true, completion: nil)
-        }, completion: nil)
-    }
-
-    func handleErrorOccured(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.positiveResponse.alpha = 0
-        }, completion: nil)
-    }
-
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         return recognizer

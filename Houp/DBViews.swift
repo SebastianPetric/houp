@@ -12,7 +12,7 @@ extension DBConnection{
 
     func createViewByUsernamePassword(db: CBLDatabase) -> CBLView{
         let viewByUsernamePassword = db.viewNamed("viewByUsernamePassword")
-        if (viewByUsernamePassword.mapBlock == nil) {
+        //if (viewByUsernamePassword.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
                 if let type = doc["type"] as? String{
                     if type == "User" {
@@ -20,8 +20,8 @@ extension DBConnection{
                     }
                 }
             }
-            viewByUsernamePassword.setMapBlock(mapBlock, version: "1")
-        }
+            viewByUsernamePassword.setMapBlock(mapBlock, version: "2")
+       // }
         return viewByUsernamePassword
     }
     

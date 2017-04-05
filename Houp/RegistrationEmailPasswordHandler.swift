@@ -32,6 +32,9 @@ func handleRegsitration(){
         if(self.emailTextField.text == "" || self.passwordTextField.text == "" || self.passwordRepeatTextField.text == ""){
         errorMessage = GetString.errorFillAllFields.rawValue
         return true
+        }else if(Validation.shared.isValidEmail(testStr: self.emailTextField.text!)){
+            errorMessage = GetString.errorInvalidEmail.rawValue
+            return true
         }else if(DBConnection.shared.checkIfUsernameOrEmailAlreadyExists(view: DBConnection.shared.viewByEmail! ,usernameOrEmail: self.emailTextField.text!)){
             errorMessage = GetString.errorEmailAlreadyExists.rawValue
             return true

@@ -10,7 +10,7 @@ import UIKit
 
 class MakeRequestPrivateGroupViewController: UIViewController, UITextFieldDelegate {
     
-    let secretTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterSecretID.rawValue, isPasswordField: false)
+    let secretTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterSecretID.rawValue, keyboardType: .default, isPasswordField: false)
     let requestButton = CustomViews.shared.getCustomButton(title: GetString.makeRequestToPrivateGroup.rawValue)
     var positiveResponse = UIView()
     

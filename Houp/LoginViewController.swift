@@ -11,9 +11,9 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate{
 
     let logoImageWidthHeight: CGFloat = 150
-    let logoImage = CustomViews.shared.getBigRoundImage(name: GetString.appLogoIcon.rawValue, cornerRadius: 75, isUserInteractionEnabled: false)
-    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, isPasswordField: false)
-    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterPassword.rawValue, isPasswordField: true)
+    let logoImage = CustomViews.shared.getCustomImageView(imageName: GetString.appLogoIcon.rawValue, cornerRadius: 75, isUserInteractionEnabled: false, imageColor: nil, borderColor: UIColor().getSecondColor())
+    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, keyboardType: .default, isPasswordField: false)
+    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterPassword.rawValue, keyboardType: .default, isPasswordField: true)
     let loginButton = CustomViews.shared.getCustomButton(title: GetString.login.rawValue)
     
     let registrationButton: UIButton = {
@@ -32,6 +32,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Login", style: .plain, target: self, action: nil)
         view.addSubview(logoImage)
         view.addSubview(usernameTextField)
         usernameTextField.delegate = self

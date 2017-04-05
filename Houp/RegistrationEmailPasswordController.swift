@@ -11,9 +11,9 @@ import UIKit
 class RegistrationEmailPasswordController: UIViewController{
 
     
-    let emailTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.email.rawValue, isPasswordField: false)
-    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.password.rawValue, isPasswordField: true)
-    let passwordRepeatTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.repeatPassword.rawValue, isPasswordField: true)
+    let emailTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.email.rawValue, keyboardType: .emailAddress, isPasswordField: false)
+    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.password.rawValue, keyboardType: .default, isPasswordField: true)
+    let passwordRepeatTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.repeatPassword.rawValue, keyboardType: .default, isPasswordField: true)
     let registrationButton = CustomViews.shared.getCustomButton(title: GetString.finishRegistrationButton.rawValue)
     let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 1.0, statusText: "4 von 4")
 
@@ -24,6 +24,8 @@ class RegistrationEmailPasswordController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Letzter Schritt!"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.backgroundColor = .white
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
@@ -63,9 +65,7 @@ class RegistrationEmailPasswordController: UIViewController{
     
     func hideKeyboard(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.emailTextField.endEditing(true)
-            self.passwordTextField.endEditing(true)
-            self.passwordRepeatTextField.endEditing(true)
+            self.view.endEditing(true)
             self.view.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height)
         }, completion: nil)
     }

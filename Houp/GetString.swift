@@ -57,7 +57,7 @@ enum GetString: String {
     case tabBarPrivateGroup = "Private"
     case navBarPrivateGroup = "Deine Gruppen"
     case tabBarPublicGroup = "Öffentlich"
-    case navBarPublicGroup = "Öffentliche Gruppe"
+    case navBarPublicGroup = "Öffentliche Themen"
     case tabBarActivity = "Yin"
     case navBarActivity = "Yang"
     case tabBarSettings = "Mehr"
@@ -78,4 +78,5 @@ enum GetString: String {
     case errorDifferentPasswords = "Passwörter stimmen nicht überein!"
     case errorEmailAlreadyExists = "Email Adresse wird bereits verwendet."
     case errorWithDB = "Bei der Verbindung mit der Datenbank ist ein Fehler aufgetreten. Nochmal versuchen?"
+    case errorInvalidEmail = "Gib bitte eine korrekte Email-Adresse an."
 }

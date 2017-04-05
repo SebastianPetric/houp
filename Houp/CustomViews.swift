@@ -12,10 +12,11 @@ class CustomViews{
 
     static var shared: CustomViews = CustomViews()
     
-    func getCustomTextField(placeholder: String, isPasswordField: Bool) -> CustomTextField {
+    func getCustomTextField(placeholder: String,keyboardType: UIKeyboardType, isPasswordField: Bool) -> CustomTextField {
             let customTextField = CustomTextField()
             customTextField.backgroundColor = UIColor().getSecondColor()
             customTextField.textColor = .white
+            customTextField.keyboardType = keyboardType
             customTextField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: UIColor.white])
             customTextField.layer.cornerRadius = 5
             customTextField.isSecureTextEntry = isPasswordField
@@ -24,49 +25,75 @@ class CustomViews{
     }
 
     func getCustomButton(title: String) -> UIButton{
-            let loginButton = UIButton(type: .system)
-            loginButton.setTitle(title, for: .normal)
-            loginButton.layer.cornerRadius = 5
-            loginButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
-            loginButton.layer.borderColor = UIColor().getSecondColor().cgColor
-            loginButton.layer.borderWidth = 1
-            loginButton.tintColor = .black
-            return loginButton
+            let customButton = UIButton(type: .system)
+            customButton.setTitle(title, for: .normal)
+            customButton.layer.cornerRadius = 5
+            customButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
+            customButton.layer.borderColor = UIColor().getSecondColor().cgColor
+            customButton.layer.borderWidth = 1
+            customButton.tintColor = .black
+            return customButton
     }
     
-    func getCustomLabel(text: String, fontSize: CGFloat,isBold: Bool, centerText: Bool, textColor: UIColor?) -> UILabel{
-        let responseMessage = UILabel()
+    func getCustomLabel(text: String, fontSize: CGFloat,isBold: Bool, textAlignment: NSTextAlignment, textColor: UIColor?) -> UILabel{
+        let customLabel = UILabel()
+        customLabel.numberOfLines = 2
         if(textColor != nil){
-            responseMessage.textColor = textColor
+            customLabel.textColor = textColor
         }else{
-            responseMessage.textColor = .black
+            customLabel.textColor = .black
         }
         if(isBold){
-            responseMessage.font = UIFont.boldSystemFont(ofSize: fontSize)
+            customLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
         }else{
-            responseMessage.font = UIFont.systemFont(ofSize: fontSize)
+            customLabel.font = UIFont.systemFont(ofSize: fontSize)
         }
-        if(centerText){
-        responseMessage.textAlignment = .center
-        }
-            responseMessage.text = text
-        //responseMessage.backgroundColor = .red
-        return responseMessage
+        customLabel.textAlignment = textAlignment
+            customLabel.text = text
+        return customLabel
     }
-
     
-    func getBigRoundImage(name: String, cornerRadius: CGFloat, isUserInteractionEnabled: Bool) -> UIImageView{
-            let bigRoundImage = UIImageView()
-            bigRoundImage.image = UIImage(named: name)
-            bigRoundImage.contentMode = .scaleAspectFit
-            bigRoundImage.clipsToBounds = true
-            bigRoundImage.backgroundColor = .white
-            bigRoundImage.layer.cornerRadius = cornerRadius
-            bigRoundImage.layer.borderColor = UIColor().getSecondColor().cgColor
-            bigRoundImage.layer.borderWidth = 1
-            bigRoundImage.isUserInteractionEnabled = isUserInteractionEnabled
-            bigRoundImage.translatesAutoresizingMaskIntoConstraints = false
-            return bigRoundImage
+    func getCustomButtonWithImage(imageName: String, backgroundColor: UIColor, imageColor: UIColor) -> UIButton{
+        let customButton = UIButton()
+        let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+        customButton.setImage(image, for: .normal)
+        customButton.backgroundColor = backgroundColor
+        customButton.tintColor = imageColor
+        return customButton
+    }
+    
+    
+    func getCustomWriteCommentContainer() -> UIView{
+            let commentSection = CustomViews.shared.getCustomTextField(placeholder: "Kommentar verfassen", keyboardType: .default, isPasswordField: false)
+            //let sendButton = CustomViews.shared.getCustomImageView(imageName: "send_icon", cornerRadius: 0, isUserInteractionEnabled: true, imageColor: UIColor().getSecondColor(), borderColor: .white)
+        let sendButton = getCustomButtonWithImage(imageName: "send_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white)
+            let container = UIView()
+            container.layer.zPosition = CGFloat.greatestFiniteMagnitude
+            container.backgroundColor = UIColor().getSecondColor()
+            container.addSubview(commentSection)
+            container.addSubview(sendButton)
+            
+            sendButton.addConstraintsWithConstants(top: container.topAnchor, right: container.rightAnchor, bottom: container.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: container.frame.height, height: container.frame.height)
+            commentSection.addConstraintsWithConstants(top: container.topAnchor, right: sendButton.leftAnchor, bottom: container.bottomAnchor, left: container.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: container.frame.height)
+            return container
+    }
+    
+    func getCustomImageView(imageName: String, cornerRadius: CGFloat, isUserInteractionEnabled: Bool,imageColor: UIColor?, borderColor: UIColor) -> UIImageView{
+            let customImageView = UIImageView()
+            customImageView.image = UIImage(named: imageName)
+        if(imageColor != nil){
+            customImageView.image = customImageView.image?.withRenderingMode(.alwaysTemplate)
+            customImageView.tintColor = imageColor
+        }
+            customImageView.contentMode = .scaleAspectFit
+            customImageView.clipsToBounds = true
+            customImageView.layer.masksToBounds = true
+            customImageView.backgroundColor = .white
+            customImageView.layer.cornerRadius = cornerRadius
+            customImageView.layer.borderColor = borderColor.cgColor
+            customImageView.layer.borderWidth = 1
+            customImageView.isUserInteractionEnabled = isUserInteractionEnabled
+            return customImageView
     }
     
     func getCustomAlert(errorTitle: String, errorMessage: String, firstButtonTitle: String, secondButtonTitle: String?, firstHandler: ((UIAlertAction) -> Void)?, secondHandler: ((UIAlertAction) -> Void)?) -> UIAlertController {
@@ -152,6 +179,51 @@ class CustomViews{
         return blackBackground
     }
     
+    func getCustomTextView(text: String, fontSize: CGFloat, textAlignment: NSTextAlignment, color: UIColor?) -> UITextView{
+    let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 1.5
+        
+        let attributes = [NSParagraphStyleAttributeName: paragraphStyle]
+    let textView = UITextView()
+        textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        textView.attributedText = NSAttributedString(string: text, attributes: attributes)
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        if(color != nil){
+        textView.textColor = color
+        }
+        textView.textAlignment = textAlignment
+        textView.font = UIFont.systemFont(ofSize: fontSize)
+    return textView
+    }
+    
+    func getCustomTextViewContainer(text: String, fontSize: CGFloat, textAlignment: NSTextAlignment, textColor: UIColor?, borderColor: UIColor?, backgroundColor: UIColor?) -> UITextView{
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 1.5
+        
+        let attributes = [NSParagraphStyleAttributeName: paragraphStyle]
+        let textView = UITextView()
+        textView.text = text
+        textView.attributedText = NSAttributedString(string: text, attributes: attributes)
+        textView.isEditable = true
+        textView.isScrollEnabled = true
+        if(textColor != nil){
+            textView.textColor = textColor
+        }
+        if(backgroundColor != nil){
+        textView.backgroundColor = backgroundColor
+        }
+        if(borderColor != nil){
+            textView.layer.borderWidth = 1
+            textView.layer.borderColor = borderColor?.cgColor
+            textView.layer.cornerRadius = 5
+        }
+        textView.textAlignment = textAlignment
+        textView.font = UIFont.systemFont(ofSize: fontSize)
+        return textView
+    }
+
+    
     func getCustomBarBorder(x: CGFloat, y: CGFloat) -> CALayer{
         let border = CALayer()
         border.frame = CGRect(x: x, y: y, width: 1000, height: 0.5)
@@ -159,15 +231,16 @@ class CustomViews{
         return border
     }
     
-    func getCustomCellSeperator() -> UIView{
+    func getCustomSeperator(color: UIColor) -> UIView{
         let seperator = UIView()
-        seperator.backgroundColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1)
+        //seperator.backgroundColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1)
+        seperator.backgroundColor = color
         return seperator
     }
     
     func getCustomPickerViewWithTitle(title: String, pickerMode: UIDatePickerMode) -> UIView {
        
-            let pickerTitle = getCustomLabel(text: title, fontSize: 16, isBold: true, centerText: false, textColor: UIColor().getSecondColor())
+            let pickerTitle = getCustomLabel(text: title, fontSize: 16, isBold: true, textAlignment: .left, textColor: UIColor().getSecondColor())
         
       
             let picker = UIDatePicker()

@@ -13,25 +13,33 @@ extension DBConnection{
     func checkUsernamePassword(username: String, password: String) -> Bool{
         do{
             let query = self.viewByName!.createQuery()
+            // Ein array von keys. beim view wird zwar auch ein array emittet, jedoch wird hier verglichen ob nur ein key zu dem emitteten key passt. wenn also beim view ein array emitted wird, so zählt das array als ein key-wert
+            query.keys = [[username, password]]
             let result = try query.run()
             let count = Int(result.count)
-            if count > 0 {
-                var i = 0
-                repeat{
-                    if let row = result.nextRow(){
-                        if((row.key(at: 0)) as! String != username || (row.key(at: UInt(1))!) as! String != password){
-                            if(i == (count - 1)){
-                                return true
-                            }
-                        }else{
-                            //Das ist die einmalige UUID, um den Nutzer zu identifizieren
-                            //print(row.documentID)
-                            return false
-                        }
-                    }
-                    i = i + 1
-                }while(i < count)
+//            if count > 0 {
+//                var i = 0
+//                repeat{
+//                    if let row = result.nextRow(){
+//                        if((row.key(at: 0)) as! String != username || (row.key(at: UInt(1))!) as! String != password){
+//                            if(i == (count - 1)){
+//                                return true
+//                            }
+//                        }else{
+//                            //Das ist die einmalige UUID, um den Nutzer zu identifizieren
+//                            //print(row.documentID)
+//                            return false
+//                        }
+//                    }
+//                    i = i + 1
+//                }while(i < count)
+//            }
+            if (count > 0) {
+            return false
+            }else{
+            return true
             }
+            
         }catch{
             print("upps")
         }
@@ -41,25 +49,31 @@ extension DBConnection{
     func checkIfUsernameOrEmailAlreadyExists(view: CBLView, usernameOrEmail: String) -> Bool{
         do{
             let query = view.createQuery()
+            query.keys = [usernameOrEmail]
             let result = try query.run()
             let count = Int(result.count)
-            let lastItem = count - 1
-            if count > 0 {
-                var i = 0
-                repeat{
-                    if let row = result.nextRow(){
-                        if((row.key(at: 0)) as! String != usernameOrEmail){
-                            if(i == lastItem){
-                                return false
-                            }
-                        }else{
-                            //Das ist die einmalige UUID, um den Nutzer zu identifizieren
-                           // print(row.documentID)
-                            return true
-                        }
-                    }
-                    i = i + 1
-                }while(i < count)
+//            let lastItem = count - 1
+//            if count > 0 {
+//                var i = 0
+//                repeat{
+//                    if let row = result.nextRow(){
+//                        if((row.key(at: 0)) as! String != usernameOrEmail){
+//                            if(i == lastItem){
+//                                return false
+//                            }
+//                        }else{
+//                            //Das ist die einmalige UUID, um den Nutzer zu identifizieren
+//                           // print(row.documentID)
+//                            return true
+//                        }
+//                    }
+//                    i = i + 1
+//                }while(i < count)
+//            }
+            if(count > 0){
+            return true
+            }else{
+            return false
             }
         }catch{
             print("upps")
@@ -73,7 +87,7 @@ extension DBConnection{
             do {try doc?.putProperties(properties)
                 if User.shared.profileImage != nil{
                     let rev = doc?.currentRevision?.createRevision()
-                    rev?.setAttachmentNamed("\(User.shared.username)_profileImage.jpeg", withContentType: "image/jpeg", content: User.shared.profileImage)
+                    rev?.setAttachmentNamed("\(User.shared.username!)_profileImage.jpeg", withContentType: "image/jpeg", content: User.shared.profileImage)
                     try rev?.save()
                 }
             }catch {

@@ -25,6 +25,8 @@ class RegistrationAgeGenderController: UIViewController{
     let customProgressionView = CustomViews().getCustomProgressionView(status: 0.75, statusText: "3 von 4")
  
     override func viewDidLoad() {
+        self.title = "Gleich geschafft!"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(agePicker)

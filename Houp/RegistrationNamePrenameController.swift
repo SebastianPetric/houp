@@ -10,8 +10,8 @@ import UIKit
 
 class RegistrationNamePrenameController: UIViewController{
 
-    let nameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.name.rawValue, isPasswordField: false)
-    let prenameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.prename.rawValue, isPasswordField: false)
+    let nameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.name.rawValue, keyboardType: .default, isPasswordField: false)
+    let prenameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.prename.rawValue, keyboardType: .default, isPasswordField: false)
     let continueButton = CustomViews.shared.getCustomButton(title: GetString.continueButton.rawValue)
     let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.5, statusText: "2 von 4")
 
@@ -22,6 +22,8 @@ class RegistrationNamePrenameController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Registrierung"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.backgroundColor = .white
         view.addSubview(nameTextField)
         view.addSubview(prenameTextField)

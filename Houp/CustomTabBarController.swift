@@ -18,7 +18,7 @@ class CustomTabBarController: UITabBarController{
         tabBar.layer.addSublayer(CustomViews.shared.getCustomBarBorder(x: 0, y: 0))
         
         let privateGroupController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: PrivateGroupCollectionViewController(),navBarTitle: GetString.navBarPrivateGroup.rawValue, barItemTitle: GetString.tabBarPrivateGroup.rawValue, image: GetString.privateGroupBarIcon.rawValue)
-        let publicGroupController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: PublicGroupCollectionViewController(),navBarTitle: GetString.navBarPublicGroup.rawValue, barItemTitle: GetString.tabBarPublicGroup.rawValue, image: GetString.publicGroupBarIcon.rawValue)
+        let publicGroupController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: PublicGroupThreadsController(),navBarTitle: GetString.navBarPublicGroup.rawValue, barItemTitle: GetString.tabBarPublicGroup.rawValue, image: GetString.publicGroupBarIcon.rawValue)
         let activityController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: ActivityCollectionViewController(),navBarTitle: GetString.navBarActivity.rawValue, barItemTitle: GetString.tabBarActivity.rawValue, image: GetString.activityBarIcon.rawValue)
         let settingsController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: SettingsCollectionViewController(),navBarTitle: GetString.navBarSettings.rawValue, barItemTitle: GetString.tabBarSettings.rawValue, image: GetString.moreIcon.rawValue)
 
