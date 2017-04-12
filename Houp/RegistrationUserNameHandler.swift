@@ -18,7 +18,7 @@ extension RegistrationUserNameController: UIImagePickerControllerDelegate, UINav
             self.present(alert, animated: true, completion: nil)
         }else{
             User.shared.username = self.usernameTextField.text
-            if(self.profileImage.image == UIImage(named: GetString.defaultProfileImage.rawValue)){
+            if(self.profileImage.image != UIImage(named: GetString.defaultProfileImage.rawValue)){
             User.shared.profileImage = UIImageJPEGRepresentation(self.profileImage.image!, 0.1)
             }
             presentNextViewController()

@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         registrationButton.addTarget(self, action: #selector(handleRegistrationButton), for: .touchUpInside)
         return registrationButton
     }()
+
     
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -33,6 +34,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Login", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Löschen", style: .plain, target: self, action: #selector(deleteDB))
         view.addSubview(logoImage)
         view.addSubview(usernameTextField)
         usernameTextField.delegate = self

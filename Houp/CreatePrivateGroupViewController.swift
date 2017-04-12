@@ -13,7 +13,10 @@ class CreatePrivateGroupViewController: UIViewController, UIPickerViewDataSource
 
     let pickerDataWeekDays = ["Montags", "Dienstags","Mittwochs", "Donnerstags", "Freitags", "Samstags", "Sonntags"]
     
+    let groupControllerDelegate: PrivateGroupCollectionViewController? = nil
+    
     let nameOfGroup = CustomViews.shared.getCustomTextField(placeholder: GetString.nameOfGroup.rawValue, keyboardType: .default, isPasswordField: false)
+    
     
     let locationOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.locatonOfMeeting.rawValue, keyboardType: .default, isPasswordField: false)
     

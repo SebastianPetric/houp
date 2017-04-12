@@ -10,6 +10,70 @@ import UIKit
 
 class PrivateGroupsCell: UICollectionViewCell{
 
+    
+    var groupName: String?{
+        didSet{
+                nameOfGroup.text = groupName
+        }
+    }
+    var groupLocation: String?{
+        didSet{
+            locationOfMeeting.text = groupLocation
+        }
+    }
+    
+    var secretID: String?{
+        didSet{
+            secretGroupID.text = "GeheimID: \(secretID!)"
+        }
+    }
+    
+    var time: Date?{
+        didSet{
+            self.dateOfMeeting.text = "\(Date().getFormattedStringFromDate(time: time!)) Uhr"
+        }
+    }
+    
+    var numberOfThreads: Int?{
+        didSet{
+            self.threadsLabel.text = "\(numberOfThreads!)"
+        }
+    }
+    
+    var numberOfMembers: Int?{
+        didSet{
+            self.usersInGroupLabel.text = "\(numberOfMembers!)"
+        }
+    }
+    
+    var meetingDay: Int?{
+        didSet{
+            if let day = meetingDay{
+            switch day {
+                case 0:
+                   dayOfMeeting.text = "Montags"
+                case 1:
+                    dayOfMeeting.text = "Dienstags"
+                case 2:
+                    dayOfMeeting.text = "Mittwochs"
+                case 3:
+                    dayOfMeeting.text = "Donnerstags"
+                case 4:
+                    dayOfMeeting.text = "Freitags"
+                case 5:
+                    dayOfMeeting.text = "Samstags"
+                case 6:
+                    dayOfMeeting.text = "Sonntags"
+                default:
+                   dayOfMeeting.text = "Fehler"
+                }
+            }
+        }
+    }
+
+        
+    
+    
     var widthHeightOfImageViews: CGFloat = 20
     
     let seperator = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
@@ -31,13 +95,11 @@ class PrivateGroupsCell: UICollectionViewCell{
     
     let secretGroupID = CustomViews.shared.getCustomLabel(text: "#GeheimeID", fontSize: 12, isBold: true, textAlignment: .left, textColor: nil)
     
-    let threadsLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: true, textAlignment: .left, textColor: nil)
+    let threadsLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: true, textAlignment: .right, textColor: nil)
     let threadsImage = CustomViews.shared.getCustomImageView(imageName: "thread_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
 
-    let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: true, textAlignment: .left, textColor: nil)
+    let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: true, textAlignment: .right, textColor: nil)
     let usersInGroupImage = CustomViews.shared.getCustomImageView(imageName: "users_private_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
-
-    
     
     //let notificationLable = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: true, centerText: false, textColor: UIColor().getSecondColor())
     let notificationImage = CustomViews.shared.getCustomImageView(imageName: "notification_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
@@ -52,9 +114,9 @@ class PrivateGroupsCell: UICollectionViewCell{
         addSubview(secretGroupID)
         addSubview(threadsLabel)
         addSubview(threadsImage)
-       addSubview(usersInGroupLabel)
+        addSubview(usersInGroupLabel)
         addSubview(usersInGroupImage)
-         //addSubview(notificationLable)
+        //addSubview(notificationLable)
         addSubview(notificationImage)
         addSubview(seperatorText)
         setUpSubViews()
@@ -63,29 +125,16 @@ class PrivateGroupsCell: UICollectionViewCell{
     private func setUpSubViews(){
     nameOfGroup.addConstraintsWithConstants(top: topAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 15, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 200, height: 15)
     locationOfMeeting.addConstraintsWithConstants(top: nameOfGroup.bottomAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 200, height: 15)
-    
-        
     dateOfMeeting.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 60, height: 15)
-        
     seperatorText.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: nil, bottom: nil, left: dateOfMeeting.rightAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0.5, height: 15)
-        
     dayOfMeeting.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: nil, bottom: nil, left: seperatorText.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 5, width: 70, height: 15)
-        
-        
     secretGroupID.addConstraintsWithConstants(top: dateOfMeeting.bottomAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 130.5, height: 15)
-        
     seperator.addConstraintsWithConstants(top: nil, right: rightAnchor, bottom: bottomAnchor, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 1)
-    
     notificationImage.addConstraintsWithConstants(top: topAnchor, right: rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 15, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
-    
     //notificationLable.addConstraintsWithConstants(top: topAnchor, right: notificationImage.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 15, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
-        
     threadsImage.addConstraintsWithConstants(top: nil, right: rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: centerYAnchor, topConstant: 0, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
-        
     threadsLabel.addConstraintsWithConstants(top: nil, right: threadsImage.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: centerYAnchor, topConstant: 0, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
-        
     usersInGroupImage.addConstraintsWithConstants(top: nil, right: rightAnchor, bottom: bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 15, bottomConstant: 15, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
-        
     usersInGroupLabel.addConstraintsWithConstants(top: nil, right: usersInGroupImage.leftAnchor, bottom: bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 5, bottomConstant: 15, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
     }
     

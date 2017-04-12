@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 
 private var errorMessage: String = ""
+private var userID: String?
+
 extension LoginViewController{
 
     func handleLogin(){
@@ -17,7 +19,8 @@ extension LoginViewController{
             let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: errorMessage, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
             self.present(alert, animated: true, completion: nil)
         }else{
-            UserDefaults.standard.set(self.usernameTextField.text, forKey: GetString.username.rawValue)
+            UserDefaults.standard.set(userID!, forKey: GetString.userID.rawValue)
+            print(UserDefaults.standard.string(forKey: GetString.userID.rawValue))
             present(CustomTabBarController(), animated: true, completion: nil)
         }
     }
@@ -31,12 +34,24 @@ extension LoginViewController{
             errorMessage = GetString.errorFillAllFields.rawValue
             return true
         }else{
-            if (DBConnection.shared.checkUsernamePassword(username: self.usernameTextField.text!, password: self.passwordTextField.text!)){
-                errorMessage = GetString.errorFalseUsernamePassword.rawValue
-                return true
+            let uID = DBConnection.shared.checkUsernamePassword(username: self.usernameTextField.text!, password: self.passwordTextField.text!)
+            
+            if (uID == nil){
+            errorMessage = GetString.errorFalseUsernamePassword.rawValue
+            return true
             }else{
+                userID = uID
                 return false
             }
+        }
+    }
+    
+    func deleteDB(){
+        do{
+            try CBLManager.sharedInstance().databaseNamed("couchbaseevents").delete()
+            try DBConnection.shared.setUpDBConnection()
+        }catch{
+        print("error")
         }
     }
 }

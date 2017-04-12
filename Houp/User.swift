@@ -21,9 +21,9 @@ class User{
     var gender: Int?
     var birthday: Date?
     var profileImage: Data?
-    var groupIDs: [Int]?
-    var DailyFormIDs: [Int]?
-    var weeksOfActivity: [Int]?
+    var groupIDs: [String] = []
+    var DailyFormIDs: [String]?
+    var weeksOfActivity: [String]?
     
     func getPropertyPackageForRegistration() -> [String: String]{
         var properties = [String: String]()
@@ -48,6 +48,7 @@ class User{
         if let gender = self.gender {
            properties["gender"] = String(gender)
         }
+
         if let birthday = self.birthday {
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "dd MM YYYY"

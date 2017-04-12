@@ -10,7 +10,6 @@
 		52102E0A1E89850F005715A9 /* DBViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52102E091E89850F005715A9 /* DBViews.swift */; };
 		52102E0C1E898556005715A9 /* DBFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52102E0B1E898556005715A9 /* DBFunctions.swift */; };
 		5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5218B64B1E8047F400B502DF /* CustomTextField.swift */; };
-		521AF4921E92732C007D2E36 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521AF4911E92732C007D2E36 /* Validation.swift */; };
 		521AF4941E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521AF4931E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift */; };
 		521AF4961E92DBB9007D2E36 /* PrivateGroupThreadsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521AF4951E92DBB9007D2E36 /* PrivateGroupThreadsCell.swift */; };
 		521EB0501E8ABD46009D472C /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */; };
@@ -28,7 +27,14 @@
 		523391651E95466A00A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523391641E95466A00A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler.swift */; };
 		523391681E95480300A867D9 /* PrivateGroupWithThreadsControllerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523391671E95480300A867D9 /* PrivateGroupWithThreadsControllerHandler.swift */; };
 		5233916A1E95499A00A867D9 /* PublicGroupThreadsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523391691E95499A00A867D9 /* PublicGroupThreadsCell.swift */; };
-		5233916D1E954DEE00A867D9 /* CreatePrivateGroupComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5233916C1E954DEE00A867D9 /* CreatePrivateGroupComment.swift */; };
+		5233916D1E954DEE00A867D9 /* CreateGroupThreadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5233916C1E954DEE00A867D9 /* CreateGroupThreadController.swift */; };
+		523391701E9559F000A867D9 /* CreateGroupThreadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5233916F1E9559F000A867D9 /* CreateGroupThreadHandler.swift */; };
+		523391731E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523391721E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift */; };
+		523391751E96AADA00A867D9 /* PublicGroupCommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523391741E96AADA00A867D9 /* PublicGroupCommentsCell.swift */; };
+		523391781E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523391771E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift */; };
+		5233917A1E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523391791E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift */; };
+		5233917C1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5233917B1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift */; };
+		5233917E1E97DF1E00A867D9 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5233917D1E97DF1E00A867D9 /* Test.swift */; };
 		523FDC5A1E901DCB00EA3FF4 /* TestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523FDC591E901DCB00EA3FF4 /* TestUser.swift */; };
 		52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A501E7BF7FD006061B2 /* AppDelegate.swift */; };
 		52499A531E7BF7FD006061B2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A521E7BF7FD006061B2 /* LoginViewController.swift */; };
@@ -40,6 +46,7 @@
 		528987021E83F5CC00322A99 /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528987011E83F5CC00322A99 /* DBConnection.swift */; };
 		528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCBD1E80623100B6993D /* LoginHandler.swift */; };
 		528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */; };
+		529BB64C1E9EB01800776D16 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529BB64B1E9EB01800776D16 /* DateExtension.swift */; };
 		52A1B96C1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A1B96B1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift */; };
 		52A1B96E1E941B98002D7DDB /* PrivateGroupCommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A1B96D1E941B98002D7DDB /* PrivateGroupCommentsCell.swift */; };
 		52A75F551E81723E0038CF4F /* RegistrationNamePrenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */; };
@@ -64,13 +71,13 @@
 		52F31A101E7D7007000F5157 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A0F1E7D7007000F5157 /* libsqlite3.tbd */; };
 		52F31A121E7D7013000F5157 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A111E7D7013000F5157 /* libz.tbd */; };
 		52F31A141E7D7023000F5157 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A131E7D7023000F5157 /* libc++.tbd */; };
+		52F3F3DF1E9BD5A400B3FEA2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F3F3DE1E9BD5A400B3FEA2 /* Validation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		52102E091E89850F005715A9 /* DBViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBViews.swift; sourceTree = "<group>"; };
 		52102E0B1E898556005715A9 /* DBFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBFunctions.swift; sourceTree = "<group>"; };
 		5218B64B1E8047F400B502DF /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		521AF4911E92732C007D2E36 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		521AF4931E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupWithThreadsController.swift; sourceTree = "<group>"; };
 		521AF4951E92DBB9007D2E36 /* PrivateGroupThreadsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupThreadsCell.swift; sourceTree = "<group>"; };
 		521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
@@ -88,7 +95,14 @@
 		523391641E95466A00A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCommentsCollectionViewControllerHandler.swift; sourceTree = "<group>"; };
 		523391671E95480300A867D9 /* PrivateGroupWithThreadsControllerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupWithThreadsControllerHandler.swift; sourceTree = "<group>"; };
 		523391691E95499A00A867D9 /* PublicGroupThreadsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupThreadsCell.swift; sourceTree = "<group>"; };
-		5233916C1E954DEE00A867D9 /* CreatePrivateGroupComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePrivateGroupComment.swift; sourceTree = "<group>"; };
+		5233916C1E954DEE00A867D9 /* CreateGroupThreadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGroupThreadController.swift; sourceTree = "<group>"; };
+		5233916F1E9559F000A867D9 /* CreateGroupThreadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGroupThreadHandler.swift; sourceTree = "<group>"; };
+		523391721E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupThreadWithCommentsController.swift; sourceTree = "<group>"; };
+		523391741E96AADA00A867D9 /* PublicGroupCommentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupCommentsCell.swift; sourceTree = "<group>"; };
+		523391771E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupRequestsAndMembersList.swift; sourceTree = "<group>"; };
+		523391791E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupRequestsAndMembersCell.swift; sourceTree = "<group>"; };
+		5233917B1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupRequestsAndMembersHeader.swift; sourceTree = "<group>"; };
+		5233917D1E97DF1E00A867D9 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		523FDC591E901DCB00EA3FF4 /* TestUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUser.swift; sourceTree = "<group>"; };
 		52499A4D1E7BF7FD006061B2 /* Houp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Houp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52499A501E7BF7FD006061B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +116,7 @@
 		528987011E83F5CC00322A99 /* DBConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		528CFCBD1E80623100B6993D /* LoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
 		528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationUserNameController.swift; sourceTree = "<group>"; };
+		529BB64B1E9EB01800776D16 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		52A1B96B1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCommentsCollectionViewController.swift; sourceTree = "<group>"; };
 		52A1B96D1E941B98002D7DDB /* PrivateGroupCommentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCommentsCell.swift; sourceTree = "<group>"; };
 		52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNamePrenameController.swift; sourceTree = "<group>"; };
@@ -127,6 +142,7 @@
 		52F31A111E7D7013000F5157 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		52F31A131E7D7023000F5157 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		52F31A151E7D7A7D000F5157 /* Houp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Houp.h; sourceTree = "<group>"; };
+		52F3F3DE1E9BD5A400B3FEA2 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,12 +189,29 @@
 			name = PrivateGroupWithThreadsControllerHandler;
 			sourceTree = "<group>";
 		};
-		5233916B1E954DD200A867D9 /* CreatePrivateGroupComment */ = {
+		5233916B1E954DD200A867D9 /* CreateGroupThreadController */ = {
 			isa = PBXGroup;
 			children = (
-				5233916C1E954DEE00A867D9 /* CreatePrivateGroupComment.swift */,
+				5233916C1E954DEE00A867D9 /* CreateGroupThreadController.swift */,
 			);
-			name = CreatePrivateGroupComment;
+			name = CreateGroupThreadController;
+			sourceTree = "<group>";
+		};
+		5233916E1E9559D500A867D9 /* CreateGroupThreadHandler */ = {
+			isa = PBXGroup;
+			children = (
+				5233916F1E9559F000A867D9 /* CreateGroupThreadHandler.swift */,
+			);
+			name = CreateGroupThreadHandler;
+			sourceTree = "<group>";
+		};
+		523391761E9792D400A867D9 /* PublicGroupThreadWithCommentsController */ = {
+			isa = PBXGroup;
+			children = (
+				523391721E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift */,
+				523391741E96AADA00A867D9 /* PublicGroupCommentsCell.swift */,
+			);
+			name = PublicGroupThreadWithCommentsController;
 			sourceTree = "<group>";
 		};
 		52499A441E7BF7FD006061B2 = {
@@ -222,8 +255,9 @@
 				521EB0591E8AE3BA009D472C /* GetString.swift */,
 				521ECCA51E8BDE8C001C10BC /* CustomNavigationBarController.swift */,
 				52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */,
-				521AF4911E92732C007D2E36 /* Validation.swift */,
 				5233915F1E95232200A867D9 /* CustomTextView.swift */,
+				52F3F3DE1E9BD5A400B3FEA2 /* Validation.swift */,
+				529BB64B1E9EB01800776D16 /* DateExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -235,6 +269,7 @@
 				52499A501E7BF7FD006061B2 /* AppDelegate.swift */,
 				521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */,
 				52E54AC81E82D5AC00856EF8 /* User.swift */,
+				5233917D1E97DF1E00A867D9 /* Test.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -249,7 +284,8 @@
 		52499A6C1E7BFD4A006061B2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5233916B1E954DD200A867D9 /* CreatePrivateGroupComment */,
+				523391761E9792D400A867D9 /* PublicGroupThreadWithCommentsController */,
+				5233916B1E954DD200A867D9 /* CreateGroupThreadController */,
 				5233915E1E94EFC300A867D9 /* PrivateGroupCommentsCollectionViewController */,
 				52A75F691E81BA300038CF4F /* LoginViewController */,
 				52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */,
@@ -261,6 +297,9 @@
 				52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroupViewController */,
 				52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroupVIewController */,
 				52A1B96A1E940F5B002D7DDB /* PrivateGroupWithThreadsController */,
+				523391771E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift */,
+				523391791E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift */,
+				5233917B1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -290,6 +329,7 @@
 		528CFCBC1E80621800B6993D /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				5233916E1E9559D500A867D9 /* CreateGroupThreadHandler */,
 				523391661E9547EF00A867D9 /* PrivateGroupWithThreadsControllerHandler */,
 				523391611E95460700A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler */,
 				52A75F681E81BA1C0038CF4F /* LoginHandler */,
@@ -529,26 +569,31 @@
 				521ECCA01E8BB9C6001C10BC /* PrivateGroup.swift in Sources */,
 				52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */,
 				52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */,
-				521AF4921E92732C007D2E36 /* Validation.swift in Sources */,
 				521EB0561E8AC65C009D472C /* ActivityCollectionViewController.swift in Sources */,
+				52F3F3DF1E9BD5A400B3FEA2 /* Validation.swift in Sources */,
 				52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */,
 				528987021E83F5CC00322A99 /* DBConnection.swift in Sources */,
+				523391731E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift in Sources */,
 				521EB0521E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift in Sources */,
 				521AF4941E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift in Sources */,
 				521EB0581E8AC72B009D472C /* SettingsCollectionViewController.swift in Sources */,
 				52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */,
+				523391751E96AADA00A867D9 /* PublicGroupCommentsCell.swift in Sources */,
 				521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */,
 				521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
 				52D5AF941E8D5ECD0007C448 /* SettingsHandler.swift in Sources */,
+				523391781E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift in Sources */,
 				52102E0C1E898556005715A9 /* DBFunctions.swift in Sources */,
 				52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */,
 				523391631E95462000A867D9 /* PrivateGroupCommentsCellHandler.swift in Sources */,
 				521EB05A1E8AE3BA009D472C /* GetString.swift in Sources */,
 				52A1B96E1E941B98002D7DDB /* PrivateGroupCommentsCell.swift in Sources */,
+				523391701E9559F000A867D9 /* CreateGroupThreadHandler.swift in Sources */,
 				523391681E95480300A867D9 /* PrivateGroupWithThreadsControllerHandler.swift in Sources */,
 				52A1B96C1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift in Sources */,
 				521EB0501E8ABD46009D472C /* CustomTabBarController.swift in Sources */,
+				5233917A1E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift in Sources */,
 				52A75F621E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift in Sources */,
 				521EB0541E8AC596009D472C /* PublicGroupThreadsController.swift in Sources */,
 				523FDC5A1E901DCB00EA3FF4 /* TestUser.swift in Sources */,
@@ -562,8 +607,11 @@
 				528986FF1E83E86400322A99 /* ImageCache.swift in Sources */,
 				52D5AF971E8D5F680007C448 /* MakeRequestToPrivateGroupHandler.swift in Sources */,
 				528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */,
+				529BB64C1E9EB01800776D16 /* DateExtension.swift in Sources */,
 				523391651E95466A00A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler.swift in Sources */,
 				52D5AF911E8D5E770007C448 /* PrivateGroupExtension.swift in Sources */,
+				5233917E1E97DF1E00A867D9 /* Test.swift in Sources */,
+				5233917C1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift in Sources */,
 				52A75F591E8179840038CF4F /* RegistrationPersonalDataHandler.swift in Sources */,
 				523391601E95232200A867D9 /* CustomTextView.swift in Sources */,
 				52D5AF9A1E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift in Sources */,
@@ -572,7 +620,7 @@
 				52D5AF9E1E8D7AA30007C448 /* UITextViewExtension.swift in Sources */,
 				5233916A1E95499A00A867D9 /* PublicGroupThreadsCell.swift in Sources */,
 				52499A591E7BF7FD006061B2 /* Houp.xcdatamodeld in Sources */,
-				5233916D1E954DEE00A867D9 /* CreatePrivateGroupComment.swift in Sources */,
+				5233916D1E954DEE00A867D9 /* CreateGroupThreadController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

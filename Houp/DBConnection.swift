@@ -26,13 +26,13 @@ class DBConnection{
     
     func setUpDBConnection(){
         do {
-           // try manager.databaseNamed("couchbaseevents").delete()
+            //try manager.databaseNamed("couchbaseevents").delete()
             self.DBCon = try manager.databaseNamed("couchbaseevents")
             
             if let dbCon = self.DBCon{
                 
-                self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser as! URL)
-                self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser as! URL)
+                self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
+                self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)
                 
                 
                 if let push = self.pushToDB, let pull = self.pullFromDB{

@@ -11,7 +11,7 @@ import UIKit
 extension SettingsCollectionViewController{
 
     func handleLogout(){
-        UserDefaults.standard.removeObject(forKey: GetString.username.rawValue)
+        UserDefaults.standard.removeObject(forKey: GetString.userID.rawValue)
         let loginNavController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
         present(loginNavController, animated: true, completion: nil)
         

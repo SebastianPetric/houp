@@ -53,20 +53,30 @@ class CustomViews{
         return customLabel
     }
     
-    func getCustomButtonWithImage(imageName: String, backgroundColor: UIColor, imageColor: UIColor) -> UIButton{
+    func getCustomButtonWithImage(imageName: String, backgroundColor: UIColor, imageColor: UIColor, radius: CGFloat?, borderColor: UIColor?) -> UIButton{
         let customButton = UIButton()
         let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
         customButton.setImage(image, for: .normal)
         customButton.backgroundColor = backgroundColor
         customButton.tintColor = imageColor
-        return customButton
+        
+        if let corRadius = radius{
+        customButton.layer.cornerRadius = corRadius
+        }
+        customButton.layer.borderWidth = 1
+        if let borColor = borderColor{
+        customButton.layer.borderColor = borderColor?.cgColor
+        }else{
+        customButton.layer.borderColor = UIColor.white.cgColor
+        }
+      return customButton
     }
     
     
     func getCustomWriteCommentContainer() -> UIView{
             let commentSection = CustomViews.shared.getCustomTextField(placeholder: "Kommentar verfassen", keyboardType: .default, isPasswordField: false)
             //let sendButton = CustomViews.shared.getCustomImageView(imageName: "send_icon", cornerRadius: 0, isUserInteractionEnabled: true, imageColor: UIColor().getSecondColor(), borderColor: .white)
-        let sendButton = getCustomButtonWithImage(imageName: "send_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white)
+        let sendButton = getCustomButtonWithImage(imageName: "send_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
             let container = UIView()
             container.layer.zPosition = CGFloat.greatestFiniteMagnitude
             container.backgroundColor = UIColor().getSecondColor()
@@ -197,7 +207,7 @@ class CustomViews{
     return textView
     }
     
-    func getCustomTextViewContainer(text: String, fontSize: CGFloat, textAlignment: NSTextAlignment, textColor: UIColor?, borderColor: UIColor?, backgroundColor: UIColor?) -> UITextView{
+    func getCustomTextViewContainer(text: String, fontSize: CGFloat,isBold: Bool, textAlignment: NSTextAlignment, textColor: UIColor?, borderColor: UIColor?, backgroundColor: UIColor?) -> UITextView{
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.5
         
@@ -217,6 +227,9 @@ class CustomViews{
             textView.layer.borderWidth = 1
             textView.layer.borderColor = borderColor?.cgColor
             textView.layer.cornerRadius = 5
+        }
+        if(isBold){
+        textView.font = UIFont.boldSystemFont(ofSize: fontSize)
         }
         textView.textAlignment = textAlignment
         textView.font = UIFont.systemFont(ofSize: fontSize)

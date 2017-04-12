@@ -8,8 +8,8 @@
 
 import UIKit
 
-class PrivateGroupCommentsCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate{
-
+class PublicGroupThreadWithComments: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate{
+    
     let commentsCellID = "commentsCellID"
     var widthHeightOfImageViews: CGFloat = 20
     var infoHeight: CGFloat = 0
@@ -27,7 +27,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     
     
     lazy var infoContainer: UIView = {
-    
+        
         let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, isBold: false, textAlignment: .left, textColor: nil)
         let date = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
         let seperator = CustomViews.shared.getCustomSeperator(color: .black)
@@ -55,7 +55,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         
         date.addConstraintsWithConstants(top: view.topAnchor, right: seperator.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 70, height: 20)
         
-         title.addConstraintsWithConstants(top: username.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 40)
+        title.addConstraintsWithConstants(top: username.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 40)
         
         message.addConstraintsWithConstants(top: title.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 0)
         seperatorInfo.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 1)
@@ -64,16 +64,16 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     }()
     
     let writeCommentContainer = CustomViews.shared.getCustomWriteCommentContainer()
-
+    
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         return recognizer
     }()
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
+        commentsCollectionView.register(PublicGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
         let sendButton = writeCommentContainer.subviews[1] as! UIButton
         sendButton.addTarget(self, action: #selector(handleSendComment), for: .touchUpInside)
         let commentTextField = writeCommentContainer.subviews[0] as! UITextField
@@ -96,9 +96,9 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     }
     
     func setUpSubViews(){
-    infoContainer.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: self.infoHeight)
-    writeCommentContainer.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: view.frame.width, height: 40)
-    commentsCollectionView.addConstraintsWithConstants(top: infoContainer.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
+        infoContainer.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: self.infoHeight)
+        writeCommentContainer.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: view.frame.width, height: 40)
+        commentsCollectionView.addConstraintsWithConstants(top: infoContainer.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -115,7 +115,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentsCellID, for: indexPath) as! PrivateGroupCommentsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentsCellID, for: indexPath) as! PublicGroupCommentsCell
         return cell
     }
     
@@ -129,7 +129,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         }, completion: nil)
     }
     
-
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         UIView.animate(withDuration: 0.5, delay: 1.5, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -158,5 +158,9 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
+    }
+    
+    func handleSendComment(){
+        self.view.endEditing(true)
     }
 }

@@ -18,14 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        DBConnection.shared.setUpDBConnection()
         
-        if(UserDefaults.standard.string(forKey: GetString.username.rawValue) == nil){
-            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
-            window?.rootViewController = root
-        }else{
-            window?.rootViewController = CustomTabBarController()
-        }
+//        if let connection = DBConnection.shared.getDBConnection(){
+//            print(connection)
+//        }else{
+//            DBConnection.shared.setUpDBConnection()
+//            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
+//            window?.rootViewController = root
+//        }
+
+        DBConnection.shared.setUpDBConnection()
+        let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
+        window?.rootViewController = root
+//        if(UserDefaults.standard.string(forKey: GetString.userID.rawValue) == nil){
+//            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
+//            window?.rootViewController = root
+//        }else{
+//            window?.rootViewController = CustomTabBarController()
+//        }
         UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
@@ -49,16 +59,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         print("will enter foreground")
         
-        if(DBConnection.shared.getDBConnection() == nil){
-            DBConnection.shared.setUpDBConnection()
-            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
-            window?.rootViewController = root
-        }
+//        if let connection = DBConnection.shared.getDBConnection(){
+//            print("alles ok")
+//        }else{
+//            DBConnection.shared.setUpDBConnection()
+//            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
+//            window?.rootViewController = root
+//        }
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+//        if let connection = DBConnection.shared.getDBConnection(){
+//            print(connection)
+//        }else{
+//            DBConnection.shared.setUpDBConnection()
+//            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
+//            window?.rootViewController = root
+//        }
         print("did become Active")
+        //DBConnection.shared.setUpDBConnection()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 

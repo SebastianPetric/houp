@@ -28,10 +28,12 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Themen"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.backgroundColor = .white
         threadsCollectionView.register(PublicGroupThreadsCell.self, forCellWithReuseIdentifier: threadsCellID)
         view.addSubview(threadsCollectionView)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleAddThread))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))
         setUpSubViews()
     }
     
@@ -62,10 +64,13 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
         return 10
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.navigationController?.pushViewController(PublicGroupThreadWithComments(), animated: true)
+    }
     
     
-    func handleAddThread(){
-        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreatePrivateGroupComment(), navBarTitle: "Thread erstellen", barItemTitle: "", image: "")
+    func handleCreateThread(){
+        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreateGroupThreadController(), navBarTitle: "Thread erstellen", barItemTitle: "", image: "")
         self.present(createController, animated: true, completion: nil)
     }
 }

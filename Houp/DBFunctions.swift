@@ -10,7 +10,7 @@ import Foundation
 
 extension DBConnection{
 
-    func checkUsernamePassword(username: String, password: String) -> Bool{
+    func checkUsernamePassword(username: String, password: String) -> String?{
         do{
             let query = self.viewByName!.createQuery()
             // Ein array von keys. beim view wird zwar auch ein array emittet, jedoch wird hier verglichen ob nur ein key zu dem emitteten key passt. wenn also beim view ein array emitted wird, so zählt das array als ein key-wert
@@ -34,16 +34,18 @@ extension DBConnection{
 //                    i = i + 1
 //                }while(i < count)
 //            }
-            if (count > 0) {
-            return false
+            if (count == 1) {
+                if let userID = result.nextRow()?.documentID{
+                return userID
+                }
             }else{
-            return true
+            return nil
             }
             
         }catch{
             print("upps")
         }
-        return true
+        return nil
     }
     
     func checkIfUsernameOrEmailAlreadyExists(view: CBLView, usernameOrEmail: String) -> Bool{
@@ -80,19 +82,80 @@ extension DBConnection{
         }
         return false
     }
+    
+    
+    func getAllPrivateGroups() throws -> [PrivateGroup] {
+       var privateGroupList: [PrivateGroup] = [PrivateGroup]()
+        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                let query = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                query?.allDocsMode = CBLAllDocsMode.allDocs
+                query?.keys = [userID]
+                let result = try query?.run()
+                var groupIDs: [String] = [String]()
+            
+                while let row = result?.nextRow() {
+                    if let IDs = row.document?["groupIDs"] as! [String]?{
+                    groupIDs = IDs
+                    }
+                }
+                if (groupIDs.count != 0){
+                    query?.keys = groupIDs
+                    let privateGroups = try query?.run()
+                    while let row = privateGroups?.nextRow() {
+                    let timeDate = row.document?["timeOfMeeting"] as! String
+                    let formatter = DateFormatter()
+                        formatter.dateFormat = "HH:mm"
+                        
+                    let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? Int, timeOfMeeting: formatter.date(from: timeDate), secretID: row.document?["secretID"] as? String, threadIDs: nil, memberIDs: nil, dailyActivityIDs: nil, groupRequestIDs: nil)
+                       privateGroupList.append(privateGroup)
+                    }
+                    
+                }
+            }
+        return privateGroupList
+    }
+
 
     func addUserWithProperties(properties: [String: String]) throws{
-        if self.DBCon != nil{
-            let doc = self.DBCon?.createDocument()
-            do {try doc?.putProperties(properties)
+        if let con = DBConnection.shared.getDBConnection(){
+            let doc = con.createDocument()
+            try doc.putProperties(properties)
                 if User.shared.profileImage != nil{
-                    let rev = doc?.currentRevision?.createRevision()
+                    let rev = doc.currentRevision?.createRevision()
                     rev?.setAttachmentNamed("\(User.shared.username!)_profileImage.jpeg", withContentType: "image/jpeg", content: User.shared.profileImage)
                     try rev?.save()
                 }
-            }catch {
-                print("Fehler beim reinschreben in die DB")
-            }
+        }else {
+            print("Keine Verbindung zur Datenbank möglich.")
+        }
+    }
+    
+    func createPrivateGroup(properties: [String: Any]) throws{
+        if let con = DBConnection.shared.getDBConnection(){
+            con.inTransaction({ () -> Bool in
+                do{
+                let doc = con.createDocument()
+                try doc.putProperties(properties)
+                    if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                        let docU = con.document(withID: userID)
+                        var array: [String] = [String]()
+                        try docU?.update({ (rev) -> Bool in
+                            if let curArray = rev["groupIDs"]{
+                                array = curArray as! [String]
+                                array.append(doc.documentID)
+                                rev["groupIDs"] = array
+                            }else{
+                                array.append(doc.documentID)
+                                rev["groupIDs"] = array
+                            }
+                            return true
+                        })
+                    }
+                }catch{
+                    return false
+                }
+                return true
+            })
         }else {
             print("Keine Verbindung zur Datenbank möglich.")
         }

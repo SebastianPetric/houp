@@ -30,6 +30,7 @@ enum GetString: String {
     case createPrivateGroup = "Gruppe erstellen"
     case makeRequestToPrivateGroup = "Anfrage an Gruppe senden"
     case enterSecretID = "Geheime Gruppen-ID angeben"
+    case userID = "userID"
     case privateGroup = "Private Gruppe"
     case successCreatePrivateGroup = "Gruppe erstellt!"
     case successMadeRequestPrivateGroupTitle = "Nur Geduld!"
@@ -47,6 +48,8 @@ enum GetString: String {
     case activityBarIcon = "activity_tab_bar"
     case cancel_icon = "cancel_icon"
     case secret_icon = "secret_icon"
+    case accept_icon = "accept_icon"
+    case deny_icon = "deny_icon"
     
     
     //Buttons

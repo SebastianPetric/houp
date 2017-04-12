@@ -37,7 +37,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     let dateOfMeeting = CustomViews.shared.getCustomLabel(text: "19:30 Uhr", fontSize: 12, isBold: false, textAlignment: .left, textColor: nil)
     let secretGroupID = CustomViews.shared.getCustomLabel(text: "#GeheimeID", fontSize: 12, isBold: true, textAlignment: .left, textColor: nil)
     let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
-    let usersInGroupImage = CustomViews.shared.getCustomImageView(imageName: "users_private_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
+    let usersInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "users_private_icon", backgroundColor: .white, imageColor: .black, radius: nil, borderColor: nil)
     let editButton = CustomViews.shared.getCustomImageView(imageName: "edit_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
     
@@ -54,11 +54,12 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         infoContainer.addSubview(secretGroupID)
         infoContainer.addSubview(editButton)
         infoContainer.addSubview(usersInGroupLabel)
-        infoContainer.addSubview(usersInGroupImage)
+        infoContainer.addSubview(usersInGroupButton)
         view.addSubview(infoContainer)
         view.addSubview(threadsCollectionView)
         view.addSubview(seperatorComments)
         self.threadsCollectionView.register(PrivateGroupThreadsCell.self, forCellWithReuseIdentifier: threadsCellID)
+        self.usersInGroupButton.addTarget(self, action: #selector(handleUsersInGroup), for: .touchUpInside)
         setUpSubViews()
     }
 
@@ -71,8 +72,8 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     dayOfMeeting.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: nil, bottom: nil, left: seperatorText.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 5, width: 70, height: 15)
     secretGroupID.addConstraintsWithConstants(top: dateOfMeeting.bottomAnchor, right: nil, bottom: nil, left: infoContainer.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 130.5, height: 15)
     editButton.addConstraintsWithConstants(top: infoContainer.topAnchor, right: infoContainer.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 15, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
-    usersInGroupLabel.addConstraintsWithConstants(top: nil, right: usersInGroupImage.leftAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 5, bottomConstant: 15, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
-    usersInGroupImage.addConstraintsWithConstants(top: nil, right: infoContainer.rightAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 15, bottomConstant: 15, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
+    usersInGroupLabel.addConstraintsWithConstants(top: nil, right: usersInGroupButton.leftAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 5, bottomConstant: 15, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
+    usersInGroupButton.addConstraintsWithConstants(top: nil, right: infoContainer.rightAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 15, bottomConstant: 15, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
     seperatorComments.addConstraintsWithConstants(top: infoContainer.bottomAnchor, right: infoContainer.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 1)
     threadsCollectionView.addConstraintsWithConstants(top: seperatorComments.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
     }
@@ -91,5 +92,9 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(PrivateGroupCommentsCollectionViewController(), animated: true)
+    }
+    
+    func handleUsersInGroup(){
+    self.navigationController?.pushViewController(PrivateGroupRequestAndMembersList(), animated: true)
     }
 }
