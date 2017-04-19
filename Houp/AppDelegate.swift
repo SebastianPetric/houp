@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DBConnection.shared.setUpDBConnection()
         let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
         window?.rootViewController = root
+        
 //        if(UserDefaults.standard.string(forKey: GetString.userID.rawValue) == nil){
 //            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
 //            window?.rootViewController = root

@@ -13,7 +13,7 @@ class RegistrationNamePrenameController: UIViewController{
     let nameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.name.rawValue, keyboardType: .default, isPasswordField: false)
     let prenameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.prename.rawValue, keyboardType: .default, isPasswordField: false)
     let continueButton = CustomViews.shared.getCustomButton(title: GetString.continueButton.rawValue)
-    let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.5, statusText: "2 von 4")
+    let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.5, statusText: "2 von 4", progressColor: UIColor().getSecondColor())
 
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

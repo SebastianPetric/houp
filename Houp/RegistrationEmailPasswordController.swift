@@ -15,7 +15,7 @@ class RegistrationEmailPasswordController: UIViewController{
     let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.password.rawValue, keyboardType: .default, isPasswordField: true)
     let passwordRepeatTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.repeatPassword.rawValue, keyboardType: .default, isPasswordField: true)
     let registrationButton = CustomViews.shared.getCustomButton(title: GetString.finishRegistrationButton.rawValue)
-    let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 1.0, statusText: "4 von 4")
+    let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 1.0, statusText: "4 von 4", progressColor: UIColor().getSecondColor())
 
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))

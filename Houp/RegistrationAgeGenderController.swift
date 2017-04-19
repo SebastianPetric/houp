@@ -10,7 +10,7 @@ import UIKit
 
 class RegistrationAgeGenderController: UIViewController{
 
-    let agePicker = CustomViews.shared.getCustomPickerViewWithTitle(title: GetString.birthday.rawValue, pickerMode: .date)
+    let birthdayPicker = CustomViews.shared.getCustomPickerViewWithTitle(title: GetString.birthday.rawValue, pickerMode: .date)
     
     
     let gender: UISegmentedControl = {
@@ -22,14 +22,14 @@ class RegistrationAgeGenderController: UIViewController{
     
     
     let continueButton = CustomViews().getCustomButton(title: GetString.continueButton.rawValue)
-    let customProgressionView = CustomViews().getCustomProgressionView(status: 0.75, statusText: "3 von 4")
+    let customProgressionView = CustomViews().getCustomProgressionView(status: 0.75, statusText: "3 von 4", progressColor: UIColor().getSecondColor())
  
     override func viewDidLoad() {
         self.title = "Gleich geschafft!"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(agePicker)
+        view.addSubview(birthdayPicker)
         view.addSubview(gender)
         view.addSubview(continueButton)
         view.addSubview(customProgressionView)
@@ -39,9 +39,9 @@ class RegistrationAgeGenderController: UIViewController{
     
     func setUpSubviews(){
         
-        agePicker.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 122.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 65)
+        birthdayPicker.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 122.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 65)
         
-        gender.addConstraintsWithConstants(top: agePicker.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
+        gender.addConstraintsWithConstants(top: birthdayPicker.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         
         customProgressionView.addConstraintsWithConstants(top: gender.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 25)
         

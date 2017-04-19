@@ -20,7 +20,6 @@ extension LoginViewController{
             self.present(alert, animated: true, completion: nil)
         }else{
             UserDefaults.standard.set(userID!, forKey: GetString.userID.rawValue)
-            print(UserDefaults.standard.string(forKey: GetString.userID.rawValue))
             present(CustomTabBarController(), animated: true, completion: nil)
         }
     }
@@ -34,14 +33,12 @@ extension LoginViewController{
             errorMessage = GetString.errorFillAllFields.rawValue
             return true
         }else{
-            let uID = DBConnection.shared.checkUsernamePassword(username: self.usernameTextField.text!, password: self.passwordTextField.text!)
-            
-            if (uID == nil){
-            errorMessage = GetString.errorFalseUsernamePassword.rawValue
-            return true
-            }else{
-                userID = uID
+            if let ID = DBConnection.shared.checkUsernamePassword(username: self.usernameTextField.text!, password: self.passwordTextField.text!){
+                userID = ID
                 return false
+            }else{
+                errorMessage = GetString.errorFalseUsernamePassword.rawValue
+                return true
             }
         }
     }

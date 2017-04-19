@@ -65,7 +65,7 @@ class CustomViews{
         }
         customButton.layer.borderWidth = 1
         if let borColor = borderColor{
-        customButton.layer.borderColor = borderColor?.cgColor
+        customButton.layer.borderColor = borColor.cgColor
         }else{
         customButton.layer.borderColor = UIColor.white.cgColor
         }
@@ -74,9 +74,8 @@ class CustomViews{
     
     
     func getCustomWriteCommentContainer() -> UIView{
-            let commentSection = CustomViews.shared.getCustomTextField(placeholder: "Kommentar verfassen", keyboardType: .default, isPasswordField: false)
-            //let sendButton = CustomViews.shared.getCustomImageView(imageName: "send_icon", cornerRadius: 0, isUserInteractionEnabled: true, imageColor: UIColor().getSecondColor(), borderColor: .white)
-        let sendButton = getCustomButtonWithImage(imageName: "send_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
+        let commentSection = CustomViews.shared.getCustomTextField(placeholder: "Kommentar verfassen", keyboardType: .default, isPasswordField: false)
+        let sendButton = getCustomButtonWithImage(imageName: GetString.send_icon.rawValue, backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
             let container = UIView()
             container.layer.zPosition = CGFloat.greatestFiniteMagnitude
             container.backgroundColor = UIColor().getSecondColor()
@@ -88,7 +87,7 @@ class CustomViews{
             return container
     }
     
-    func getCustomImageView(imageName: String, cornerRadius: CGFloat, isUserInteractionEnabled: Bool,imageColor: UIColor?, borderColor: UIColor) -> UIImageView{
+    func getCustomImageView(imageName: String, cornerRadius: CGFloat?, isUserInteractionEnabled: Bool,imageColor: UIColor?, borderColor: UIColor?) -> UIImageView{
             let customImageView = UIImageView()
             customImageView.image = UIImage(named: imageName)
         if(imageColor != nil){
@@ -99,9 +98,13 @@ class CustomViews{
             customImageView.clipsToBounds = true
             customImageView.layer.masksToBounds = true
             customImageView.backgroundColor = .white
-            customImageView.layer.cornerRadius = cornerRadius
-            customImageView.layer.borderColor = borderColor.cgColor
-            customImageView.layer.borderWidth = 1
+        if(cornerRadius != nil){
+         customImageView.layer.cornerRadius = cornerRadius!
+        }
+        if (borderColor != nil){
+        customImageView.layer.borderWidth = 1
+        customImageView.layer.borderColor = borderColor!.cgColor
+        }
             customImageView.isUserInteractionEnabled = isUserInteractionEnabled
             return customImageView
     }
@@ -115,12 +118,12 @@ class CustomViews{
         return alert
     }
     
-    func getCustomProgressionView(status: Float, statusText: String) -> UIView {
+    func getCustomProgressionView(status: Float, statusText: String, progressColor: UIColor) -> UIView {
     
             let progresion = UIProgressView()
-            progresion.progressTintColor = UIColor().getSecondColor()
+            progresion.progressTintColor = progressColor
             progresion.trackTintColor = .white
-            progresion.layer.borderColor = UIColor().getTextViewBorderColor()
+            progresion.layer.borderColor = UIColor().getLightGreyColor().cgColor
             progresion.layer.borderWidth = 1
             progresion.layer.cornerRadius = 3
             progresion.progress = status
@@ -246,7 +249,6 @@ class CustomViews{
     
     func getCustomSeperator(color: UIColor) -> UIView{
         let seperator = UIView()
-        //seperator.backgroundColor = UIColor(red: 229, green: 231, blue: 235, alphaValue: 1)
         seperator.backgroundColor = color
         return seperator
     }

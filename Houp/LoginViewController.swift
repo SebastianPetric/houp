@@ -33,7 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Login", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: GetString.login.rawValue, style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Löschen", style: .plain, target: self, action: #selector(deleteDB))
         view.addSubview(logoImage)
         view.addSubview(usernameTextField)

@@ -21,15 +21,17 @@ class User{
     var gender: Int?
     var birthday: Date?
     var profileImage: Data?
-    var groupIDs: [String] = []
-    var DailyFormIDs: [String]?
-    var weeksOfActivity: [String]?
+    var groupIDs: [String] = [String]()
+    var dailyFormIDs: [String] = [String]()
+    var weeksOfActivityIDs: [String] = [String]()
     
-    func getPropertyPackageForRegistration() -> [String: String]{
-        var properties = [String: String]()
+    func getPropertyPackageForRegistration() -> [String: Any]{
+        var properties = [String: Any]()
         
         properties["type"] = "User"
-        
+        properties["groupIDs"] = groupIDs
+        properties["dailyFormIDs"] = dailyFormIDs
+        properties["weeksOfActivityIDs"] = weeksOfActivityIDs
         if let username = self.username {
             properties["username"] = username
         }
@@ -48,7 +50,6 @@ class User{
         if let gender = self.gender {
            properties["gender"] = String(gender)
         }
-
         if let birthday = self.birthday {
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "dd MM YYYY"
@@ -56,5 +57,4 @@ class User{
         }
         return properties
     }
-    
 }

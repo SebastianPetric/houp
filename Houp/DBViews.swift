@@ -9,25 +9,10 @@
 import Foundation
 
 extension DBConnection{
-
-    func createViewByUsernamePassword(db: CBLDatabase) -> CBLView{
-        let viewByUsernamePassword = db.viewNamed("viewByUsernamePassword")
-        if (viewByUsernamePassword.mapBlock == nil) {
-            let mapBlock: CBLMapBlock = { (doc,emit) in
-                if let type = doc["type"] as? String{
-                    if type == "User" {
-                        emit([doc["username"],doc["password"]], nil)
-                    }
-                }
-            }
-            viewByUsernamePassword.setMapBlock(mapBlock, version: "1")
-        }
-        return viewByUsernamePassword
-    }
     
-    func createViewByUsername(db: CBLDatabase) -> CBLView{
-        let createViewByUsername = db.viewNamed("viewByUsername")
-        if (createViewByUsername.mapBlock == nil) {
+    func viewByUsername(db: CBLDatabase) -> CBLView{
+        let viewByUsername = db.viewNamed("viewByUsername")
+        if (viewByUsername.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
                 if let type = doc["type"] as? String{
                     if type == "User" {
@@ -35,16 +20,30 @@ extension DBConnection{
                     }
                 }
             }
-            createViewByUsername.setMapBlock(mapBlock, version: "1")
+            viewByUsername.setMapBlock(mapBlock, version: "1")
         }
-        return createViewByUsername
+        return viewByUsername
     }
     
+    func viewByPrivateGroup(db: CBLDatabase) -> CBLView{
+        let viewByPrivateGroup = db.viewNamed("viewByPrivateGroup")
+        if (viewByPrivateGroup.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String{
+                    if type == "PrivateGroup" {
+                        emit(doc["secretID"], nil)
+                    }
+                }
+            }
+            viewByPrivateGroup.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByPrivateGroup
+    }
+
     
-    
-    func createViewByEmail(db: CBLDatabase) -> CBLView{
-        let createViewByEmail = db.viewNamed("viewByEmail")
-        if (createViewByEmail.mapBlock == nil) {
+    func viewByEmail(db: CBLDatabase) -> CBLView{
+        let viewByEmail = db.viewNamed("viewByEmail")
+        if (viewByEmail.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
                 if let type = doc["type"] as? String{
                     if type == "User" {
@@ -52,8 +51,8 @@ extension DBConnection{
                     }
                 }
             }
-            createViewByEmail.setMapBlock(mapBlock, version: "1")
+            viewByEmail.setMapBlock(mapBlock, version: "1")
         }
-        return createViewByEmail
+        return viewByEmail
     }
 }

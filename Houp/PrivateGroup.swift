@@ -16,7 +16,7 @@ class PrivateGroup{
     var nameOfGroup: String?
     var secretID: String?
     var location: String?
-    var dayOfMeeting: Int?
+    var dayOfMeeting: String?
     var timeOfMeeting: Date?
     var timeOfMeetingString: String?
     var threadIDs: [String]?
@@ -25,8 +25,12 @@ class PrivateGroup{
     var dailyActivityIDs: [String]?
     
     
-    init(pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: Int? ,timeOfMeeting: Date?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?) {
+    init(pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: String? ,timeOfMeeting: Date?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?) {
      
+        if let ID = pgid {
+            self.pgid = ID
+        }
+         
         if let adID = adminID {
             self.adminID = adID
         }
@@ -68,6 +72,10 @@ class PrivateGroup{
     func getPropertyPackageCreatePrivateGroup() -> [String: Any]{
         var properties = [String: Any]()
         properties["type"] = "PrivateGroup"
+        properties["threadIDs"] = [String]()
+        properties["memberIDs"] = [String]()
+        properties["groupRequestIDs"] = [String]()
+        properties["dailyActivityIDs"] = [String]()
         
         if let secret = self.secretID{
         properties["secretID"] = secret
@@ -84,29 +92,12 @@ class PrivateGroup{
         if let dayOfMeeting = self.dayOfMeeting {
             properties["dayOfMeeting"] = dayOfMeeting
         }
-        if let timeOfMeeting = self.timeOfMeeting {
-            properties["timeOfMeeting"] = timeOfMeeting
-        }
-        if let threadIDs = self.threadIDs {
-            properties["threadIDs"] = threadIDs
-        }
         if let secretID = self.secretID {
             properties["secretID"] = secretID
-        }
-        if let memberIDs = self.memberIDs {
-            properties["memberIDs"] = memberIDs
-        }
-        if let dailyActivityIDs = self.dailyActivityIDs {
-            properties["dailyActivityIDs"] = dailyActivityIDs
-        }
-        if let groupRequestIDs = self.groupRequestIDs {
-            properties["groupRequestIDs"] = groupRequestIDs
         }
         if let timeMeeting = self.timeOfMeeting {
             properties["timeOfMeeting"] = Date().getFormattedStringFromDate(time: timeMeeting)
         }
-
         return properties
     }
-
 }

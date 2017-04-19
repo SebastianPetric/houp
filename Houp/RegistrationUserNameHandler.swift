@@ -30,21 +30,23 @@ extension RegistrationUserNameController: UIImagePickerControllerDelegate, UINav
     }
     
     func hasAnyErrors() -> Bool{
+        
+        do{
         if(self.usernameTextField.text == ""){
             errorMessage = GetString.errorFillAllFields.rawValue
             return true
-        }else if(DBConnection.shared.checkIfUsernameOrEmailAlreadyExists(view: DBConnection.shared.viewByUsername! ,usernameOrEmail: self.usernameTextField.text!)){
+        }else if(DBConnection.shared.checkIfUsernameAlreadyExists(username: self.usernameTextField.text!)){
         errorMessage = GetString.errorUsernameAlreadyInUse.rawValue
         return true
         }else if (self.profileImage.image == UIImage(named: GetString.defaultProfileImage.rawValue)){
-            
-            
-            let alert = UIAlertController(title: GetString.errorTitle.rawValue, message: GetString.errorWantProfileImage.rawValue, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: GetString.errorOKButton.rawValue, style: .default, handler: {action in self.handleGetProfileImage()}))
-            alert.addAction(UIAlertAction.init(title: GetString.errorNoButton.rawValue, style: .default, handler: {action in self.presentNextViewController()}))
+            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWantProfileImage.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: GetString.errorNoButton.rawValue, firstHandler: {action in self.handleGetProfileImage()}, secondHandler: {action in self.presentNextViewController()})
             self.present(alert, animated: true, completion: nil)
         }
         return false
+        }catch{
+        errorMessage = GetString.errorWithConnection.rawValue
+        return true
+        }
     }
     
     

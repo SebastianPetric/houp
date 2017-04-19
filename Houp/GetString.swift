@@ -50,6 +50,7 @@ enum GetString: String {
     case secret_icon = "secret_icon"
     case accept_icon = "accept_icon"
     case deny_icon = "deny_icon"
+    case send_icon = "send_icon"
     
     
     //Buttons
@@ -82,4 +83,5 @@ enum GetString: String {
     case errorEmailAlreadyExists = "Email Adresse wird bereits verwendet."
     case errorWithDB = "Bei der Verbindung mit der Datenbank ist ein Fehler aufgetreten. Nochmal versuchen?"
     case errorInvalidEmail = "Gib bitte eine korrekte Email-Adresse an."
+    case errorWithConnection = "Fehler bei der Datenbankanbindung. Logge dich bitte erneut ein und versuche es noch einmal" 
 }

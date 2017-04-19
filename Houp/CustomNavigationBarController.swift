@@ -12,7 +12,7 @@ class CustomNavigationBarController{
 
     static var shared: CustomNavigationBarController = CustomNavigationBarController()
     
-    func getCustomNavControllerWithNameAndImage(customController: UIViewController,navBarTitle: String, barItemTitle: String, image: String) -> UINavigationController{
+    func getCustomNavControllerWithNameAndImage(customController: UIViewController,navBarTitle: String, barItemTitle: String?, image: String?) -> UINavigationController{
         customController.view.backgroundColor = .white
         let dummyController = UINavigationController(rootViewController: customController)
         dummyController.navigationBar.isTranslucent = false
@@ -21,9 +21,9 @@ class CustomNavigationBarController{
         dummyController.navigationBar.tintColor = .white
         dummyController.navigationBar.topItem?.title = navBarTitle
         
-        if(image != ""){
-        dummyController.tabBarItem.title = barItemTitle
-        dummyController.tabBarItem.image = UIImage(named: image)
+        if(image != nil){
+        dummyController.tabBarItem.title = barItemTitle!
+        dummyController.tabBarItem.image = UIImage(named: image!)
         }
         dummyController.navigationBar.layer.addSublayer(CustomViews.shared.getCustomBarBorder(x: 0, y: dummyController.navigationBar.frame.height))
         

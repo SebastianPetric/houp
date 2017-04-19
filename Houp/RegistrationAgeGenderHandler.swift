@@ -13,12 +13,7 @@ extension RegistrationAgeGenderController{
 
     func handleContinueButton(){
         User.shared.gender = self.gender.selectedSegmentIndex
-        
-      /*  let dateformatter = DateFormatter()
-         dateformatter.dateFormat = "dd MM YYYY"
-         print(dateformatter.string(from: self.agePicker.date))*/
-        
-        let picker = agePicker.subviews[1] as! UIDatePicker
+        let picker = birthdayPicker.subviews[1] as! UIDatePicker
         
         User.shared.birthday = picker.date
         self.navigationController?.pushViewController(RegistrationEmailPasswordController(), animated: true)

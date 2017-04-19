@@ -9,9 +9,7 @@
 import UIKit
 
 
-class CreatePrivateGroupViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate{
-
-    let pickerDataWeekDays = ["Montags", "Dienstags","Mittwochs", "Donnerstags", "Freitags", "Samstags", "Sonntags"]
+class CreatePrivateGroupViewController: UIViewController, UITextFieldDelegate{
     
     let groupControllerDelegate: PrivateGroupCollectionViewController? = nil
     
@@ -20,16 +18,7 @@ class CreatePrivateGroupViewController: UIViewController, UIPickerViewDataSource
     
     let locationOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.locatonOfMeeting.rawValue, keyboardType: .default, isPasswordField: false)
     
-    let dayOfMeetingTitle = CustomViews.shared.getCustomLabel(text: GetString.dayOfMeeting.rawValue, fontSize: 16, isBold: true, textAlignment: .left, textColor: UIColor().getSecondColor())
-    
-    lazy var dayOfMeeting: UIPickerView = {
-        let picker = UIPickerView()
-        picker.backgroundColor = .white
-        picker.dataSource = self
-        picker.delegate = self
-        picker.reloadAllComponents()
-        return picker
-    }()
+    let dayOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.dayOfMeeting.rawValue, keyboardType: .default, isPasswordField: false)
     
     let timeOfMeeting = CustomViews.shared.getCustomPickerViewWithTitle(title: GetString.timeOfMeeting.rawValue, pickerMode: .time)
     
@@ -50,7 +39,6 @@ class CreatePrivateGroupViewController: UIViewController, UIPickerViewDataSource
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.cancel_icon.rawValue), style: .plain, target: self, action: #selector(handleCancel))
         view.addSubview(nameOfGroup)
         view.addSubview(locationOfMeeting)
-        view.addSubview(dayOfMeetingTitle)
         view.addSubview(dayOfMeeting)
         view.addSubview(timeOfMeeting)
         view.addSubview(createButton)
@@ -64,8 +52,7 @@ class CreatePrivateGroupViewController: UIViewController, UIPickerViewDataSource
     private func setUpSubViews(){
         nameOfGroup.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 25, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         locationOfMeeting.addConstraintsWithConstants(top: nameOfGroup.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
-        dayOfMeetingTitle.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 25)
-        dayOfMeeting.addConstraintsWithConstants(top: dayOfMeetingTitle.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 0, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 80)
+        dayOfMeeting.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         timeOfMeeting.addConstraintsWithConstants(top: dayOfMeeting.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 65)
         createButton.addConstraintsWithConstants(top: timeOfMeeting.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 25, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
     }
