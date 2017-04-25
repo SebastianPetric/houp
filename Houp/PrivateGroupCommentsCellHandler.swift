@@ -12,7 +12,7 @@ extension PrivateGroupCommentsCell{
 
     func handleUpvote(){
         if(self.upvoteButton.tintColor == .black){
-            self.upvoteButton.tintColor = UIColor().getMainColor()
+            self.upvoteButton.tintColor = UIColor().getThirdColor()
         }else{
             self.upvoteButton.tintColor = .black
         }

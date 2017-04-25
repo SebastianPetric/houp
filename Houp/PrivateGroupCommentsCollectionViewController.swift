@@ -14,6 +14,37 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     var widthHeightOfImageViews: CGFloat = 20
     var infoHeight: CGFloat = 0
     
+    var thread: Thread?{
+        didSet{
+            if let tit = thread?.title{
+                if let title = infoContainer.subviews[0] as? UILabel{
+                title.text = tit
+                }
+            }
+            if let message = thread?.message{
+                if let tmessage = infoContainer.subviews[1] as? UITextView{
+                    tmessage.text = message
+                }
+            }
+            if let username = thread?.userName{
+                if let tusername = infoContainer.subviews[2] as? UILabel{
+                    tusername.text = username
+                }
+            }
+            if let date = thread?.dateObject{
+                if let tdate = infoContainer.subviews[3] as? UILabel{
+                    tdate.text = date.getDatePart()
+                }
+            }
+            if let time = thread?.dateObject{
+                if let ttime = infoContainer.subviews[4] as? UILabel{
+                    ttime.text = time.getTimePart()
+                }
+            }
+        }
+    }
+
+    
     lazy var commentsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -33,9 +64,9 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         let seperator = CustomViews.shared.getCustomSeperator(color: .black)
         let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
         let title = CustomViews.shared.getCustomLabel(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es dar", fontSize: 14, isBold: true, textAlignment: .left, textColor: nil)
-        let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjper ättee folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt", fontSize: 12, textAlignment: .left, color: .black)
-        let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: .white, imageColor: .black, radius: nil, borderColor: nil)
-        let seperatorInfo = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
+        let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjper ättee folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: UIColor().getThirdColor())
+        let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getThirdColor(), imageColor: .black, radius: nil, borderColor: UIColor().getThirdColor())
+        let seperatorInfo = CustomViews.shared.getCustomSeperator(color: UIColor().getThirdColor())
         
         let view = UIView()
         view.addSubview(title)
@@ -46,7 +77,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         view.addSubview(seperator)
         view.addSubview(editButton)
         view.addSubview(seperatorInfo)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor().getThirdColor()
         
         username.addConstraintsWithConstants(top: view.topAnchor, right: nil, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 100, height: 20)
         editButton.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: 20, height: 20)

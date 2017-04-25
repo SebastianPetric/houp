@@ -29,9 +29,9 @@ class User{
         var properties = [String: Any]()
         
         properties["type"] = "User"
-        properties["groupIDs"] = groupIDs
-        properties["dailyFormIDs"] = dailyFormIDs
-        properties["weeksOfActivityIDs"] = weeksOfActivityIDs
+        properties["groupIDs"] = [String]()
+        properties["dailyFormIDs"] = [String]()
+        properties["weeksOfActivityIDs"] = [String]()
         if let username = self.username {
             properties["username"] = username
         }

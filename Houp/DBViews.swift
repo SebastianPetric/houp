@@ -25,9 +25,9 @@ extension DBConnection{
         return viewByUsername
     }
     
-    func viewByPrivateGroup(db: CBLDatabase) -> CBLView{
-        let viewByPrivateGroup = db.viewNamed("viewByPrivateGroup")
-        if (viewByPrivateGroup.mapBlock == nil) {
+    func viewPrivateGroupBySecretID(db: CBLDatabase) -> CBLView{
+        let viewPrivateGroupBySecretID = db.viewNamed("viewByPrivateGroup")
+        if (viewPrivateGroupBySecretID.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
                 if let type = doc["type"] as? String{
                     if type == "PrivateGroup" {
@@ -35,11 +35,10 @@ extension DBConnection{
                     }
                 }
             }
-            viewByPrivateGroup.setMapBlock(mapBlock, version: "1")
+            viewPrivateGroupBySecretID.setMapBlock(mapBlock, version: "1")
         }
-        return viewByPrivateGroup
+        return viewPrivateGroupBySecretID
     }
-
     
     func viewByEmail(db: CBLDatabase) -> CBLView{
         let viewByEmail = db.viewNamed("viewByEmail")
@@ -55,4 +54,20 @@ extension DBConnection{
         }
         return viewByEmail
     }
+    
+    func viewByThread(db: CBLDatabase) -> CBLView{
+        let viewByThread = db.viewNamed("viewByThread")
+        if (viewByThread.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String{
+                    if type == "Thread" {
+                        emit(doc["groupID"], nil)
+                    }
+                }
+            }
+            viewByThread.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByThread
+    }
+
 }

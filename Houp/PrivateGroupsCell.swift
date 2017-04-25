@@ -94,18 +94,21 @@ class PrivateGroupsCell: UICollectionViewCell{
             if let name = privateGroup?.nameOfGroup{
                 nameOfGroup.text = name
             }
+            if let hasUpdated = privateGroup?.hasBeenUpdated{
+                if(hasUpdated){
+                    notificationImage.backgroundColor = .yellow
+                }else{
+                    notificationImage.backgroundColor = .black
+                }
+            }
         }
     }
     
     var widthHeightOfImageViews: CGFloat = 20
     
-    let seperator = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
+    let seperator = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     
-    let seperatorText: UIView = {
-    let seperator = UIView()
-        seperator.backgroundColor = .black
-    return seperator
-    }()
+    let seperatorText = CustomViews.shared.getCustomSeperator(color: .black)
     
     let nameOfGroup = CustomViews.shared.getCustomLabel(text: "AA Regionalgruppe", fontSize: 14, isBold: true, textAlignment: .left, textColor: nil)
 
@@ -155,7 +158,7 @@ class PrivateGroupsCell: UICollectionViewCell{
         usersInGroupLabel.addConstraintsWithConstants(top: nil, right: usersInGroupImage.leftAnchor, bottom: bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 5, bottomConstant: 15, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
         
     nameOfGroup.addConstraintsWithConstants(top: topAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 15, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 200, height: 15)
-    locationOfMeeting.addConstraintsWithConstants(top: nameOfGroup.bottomAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 200, height: 15)
+    locationOfMeeting.addConstraintsWithConstants(top: nameOfGroup.bottomAnchor, right: threadsLabel.leftAnchor, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 0, height: 15)
     timeOfMeeting.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 60, height: 15)
     seperatorText.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: nil, bottom: nil, left: timeOfMeeting.rightAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0.5, height: 15)
     dayOfMeeting.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: threadsLabel.leftAnchor, bottom: nil, left: seperatorText.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 5, width: 0, height: 15)

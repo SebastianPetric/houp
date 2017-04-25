@@ -12,8 +12,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
     let logoImageWidthHeight: CGFloat = 150
     let logoImage = CustomViews.shared.getCustomImageView(imageName: GetString.appLogoIcon.rawValue, cornerRadius: 75, isUserInteractionEnabled: false, imageColor: nil, borderColor: UIColor().getSecondColor())
-    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, keyboardType: .default, isPasswordField: false)
-    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterPassword.rawValue, keyboardType: .default, isPasswordField: true)
+    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
+    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterPassword.rawValue, keyboardType: .default, isPasswordField: true, backgroundColor: UIColor().getSecondColor())
     let loginButton = CustomViews.shared.getCustomButton(title: GetString.login.rawValue)
     
     let registrationButton: UIButton = {

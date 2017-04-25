@@ -13,12 +13,12 @@ class CreatePrivateGroupViewController: UIViewController, UITextFieldDelegate{
     
     let groupControllerDelegate: PrivateGroupCollectionViewController? = nil
     
-    let nameOfGroup = CustomViews.shared.getCustomTextField(placeholder: GetString.nameOfGroup.rawValue, keyboardType: .default, isPasswordField: false)
+    let nameOfGroup = CustomViews.shared.getCustomTextField(placeholder: GetString.nameOfGroup.rawValue, keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     
     
-    let locationOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.locatonOfMeeting.rawValue, keyboardType: .default, isPasswordField: false)
+    let locationOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.locatonOfMeeting.rawValue, keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     
-    let dayOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.dayOfMeeting.rawValue, keyboardType: .default, isPasswordField: false)
+    let dayOfMeeting = CustomViews.shared.getCustomTextField(placeholder: GetString.dayOfMeeting.rawValue, keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     
     let timeOfMeeting = CustomViews.shared.getCustomPickerViewWithTitle(title: GetString.timeOfMeeting.rawValue, pickerMode: .time)
     

@@ -9,8 +9,9 @@
 import UIKit
 
 extension PrivateGroupWithThreadsController{
-    func handleCreateThread(){
-        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreateGroupThreadController(), navBarTitle: "Thema erstellen", barItemTitle: "", image: "")
+    
+    func handleCreateThread(){        
+        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreateGroupThreadController(), navBarTitle: "Thema erstellen", barItemTitle: nil, image: nil)
         self.present(createController, animated: true, completion: nil)
     }
 }

@@ -11,9 +11,9 @@ import UIKit
 class RegistrationEmailPasswordController: UIViewController{
 
     
-    let emailTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.email.rawValue, keyboardType: .emailAddress, isPasswordField: false)
-    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.password.rawValue, keyboardType: .default, isPasswordField: true)
-    let passwordRepeatTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.repeatPassword.rawValue, keyboardType: .default, isPasswordField: true)
+    let emailTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.email.rawValue, keyboardType: .emailAddress, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
+    let passwordTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.password.rawValue, keyboardType: .default, isPasswordField: true, backgroundColor: UIColor().getSecondColor())
+    let passwordRepeatTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.repeatPassword.rawValue, keyboardType: .default, isPasswordField: true, backgroundColor: UIColor().getSecondColor())
     let registrationButton = CustomViews.shared.getCustomButton(title: GetString.finishRegistrationButton.rawValue)
     let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 1.0, statusText: "4 von 4", progressColor: UIColor().getSecondColor())
 

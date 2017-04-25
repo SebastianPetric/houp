@@ -22,19 +22,21 @@ class DBConnection{
     var viewByType: CBLView?
     var viewByUsername: CBLView?
     var viewByEmail: CBLView?
-    var viewByPrivateGroup: CBLView?
+    var viewPrivateGroupBySecretID: CBLView?
+    var viewByThread: CBLView?
     
     func setUpDBConnection(){
         do {
             //try manager.databaseNamed("couchbaseevents").delete()
-            //self.DBCon = try manager.databaseNamed("couchbaseevents")
-            self.DBCon = try manager.existingDatabaseNamed("couchbaseevents")
+            self.DBCon = try manager.databaseNamed("couchbaseevents")
+            //self.DBCon = try manager.existingDatabaseNamed("couchbaseevents")
             if let dbCon = self.DBCon{
                 
                 //Hier werden die Views einmalig erzeugt. Dannach können sie einfach nur noch verwendet werden
                 self.viewByUsername = viewByUsername(db: dbCon)
                 self.viewByEmail = viewByEmail(db: dbCon)
-                self.viewByPrivateGroup = viewByPrivateGroup(db: dbCon)
+                self.viewPrivateGroupBySecretID = viewPrivateGroupBySecretID(db: dbCon)
+                self.viewByThread = viewByThread(db: dbCon)
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
                 self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)

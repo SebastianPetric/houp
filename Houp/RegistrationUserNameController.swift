@@ -12,7 +12,7 @@ class RegistrationUserNameController: UIViewController{
 
     let profileImageWidthHeight: CGFloat = 150
     let profileImage = CustomViews.shared.getCustomImageView(imageName: GetString.defaultProfileImage.rawValue, cornerRadius: 75, isUserInteractionEnabled: true, imageColor: nil, borderColor: UIColor().getSecondColor())
-    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, keyboardType: .default, isPasswordField: false)
+    let usernameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterUsername.rawValue, keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let continueButton = CustomViews.shared.getCustomButton(title: GetString.continueButton.rawValue)
     let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.25, statusText: "1 von 4", progressColor: UIColor().getSecondColor())
     

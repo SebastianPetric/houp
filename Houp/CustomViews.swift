@@ -12,9 +12,11 @@ class CustomViews{
 
     static var shared: CustomViews = CustomViews()
     
-    func getCustomTextField(placeholder: String,keyboardType: UIKeyboardType, isPasswordField: Bool) -> CustomTextField {
+    func getCustomTextField(placeholder: String,keyboardType: UIKeyboardType, isPasswordField: Bool, backgroundColor: UIColor?) -> CustomTextField {
             let customTextField = CustomTextField()
-            customTextField.backgroundColor = UIColor().getSecondColor()
+        if(backgroundColor != nil){
+        customTextField.backgroundColor = backgroundColor
+        }
             customTextField.textColor = .white
             customTextField.keyboardType = keyboardType
             customTextField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: UIColor.white])
@@ -74,8 +76,8 @@ class CustomViews{
     
     
     func getCustomWriteCommentContainer() -> UIView{
-        let commentSection = CustomViews.shared.getCustomTextField(placeholder: "Kommentar verfassen", keyboardType: .default, isPasswordField: false)
-        let sendButton = getCustomButtonWithImage(imageName: GetString.send_icon.rawValue, backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
+        let commentSection = CustomViews.shared.getCustomTextField(placeholder: "Kommentar verfassen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getMainColor())
+        let sendButton = getCustomButtonWithImage(imageName: GetString.send_icon.rawValue, backgroundColor: UIColor().getMainColor(), imageColor: .white, radius: nil, borderColor: UIColor().getMainColor())
             let container = UIView()
             container.layer.zPosition = CGFloat.greatestFiniteMagnitude
             container.backgroundColor = UIColor().getSecondColor()
@@ -192,7 +194,7 @@ class CustomViews{
         return blackBackground
     }
     
-    func getCustomTextView(text: String, fontSize: CGFloat, textAlignment: NSTextAlignment, color: UIColor?) -> UITextView{
+    func getCustomTextView(text: String, fontSize: CGFloat, textAlignment: NSTextAlignment, textColor: UIColor?, backGroundColor: UIColor?) -> UITextView{
     let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.5
         
@@ -202,8 +204,11 @@ class CustomViews{
         textView.attributedText = NSAttributedString(string: text, attributes: attributes)
         textView.isEditable = false
         textView.isScrollEnabled = false
-        if(color != nil){
-        textView.textColor = color
+        if(textColor != nil){
+        textView.textColor = textColor
+        }
+        if(backGroundColor != nil){
+            textView.backgroundColor = backGroundColor
         }
         textView.textAlignment = textAlignment
         textView.font = UIFont.systemFont(ofSize: fontSize)
