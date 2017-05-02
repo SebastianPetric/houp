@@ -26,8 +26,9 @@ class PrivateGroup: NSObject, NSCoding{
     var groupRequestIDs: [String]?
     var dailyActivityIDs: [String]?
     var hasBeenUpdated = false
+    var createdAt: Date?
 
-    init(pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: String? ,timeOfMeeting: Date?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?) {
+    init(pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: String? ,timeOfMeeting: Date?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?, createdAt: Date?) {
      
         if let ID = pgid {
             self.pgid = ID
@@ -67,6 +68,10 @@ class PrivateGroup: NSObject, NSCoding{
         }
         if let groupRequests = groupRequestIDs {
             self.groupRequestIDs = groupRequests
+        }
+        
+        if let created = createdAt {
+            self.createdAt = created
         }
        
     }
@@ -108,6 +113,9 @@ class PrivateGroup: NSObject, NSCoding{
         if let update = aDecoder.decodeObject(forKey: "hasBeenUpdated") as? Bool{
             self.hasBeenUpdated = update
         }
+        if let created = aDecoder.decodeObject(forKey: "createdAt") as? Date{
+            self.createdAt = created
+        }
     }
     
     func encode(with aCoder: NSCoder) {
@@ -144,6 +152,9 @@ class PrivateGroup: NSObject, NSCoding{
         if let groupRequests = self.groupRequestIDs {
             aCoder.encode(groupRequests, forKey: "groupRequestIDs")
         }
+        if let created = self.createdAt {
+            aCoder.encode(created, forKey: "createdAt")
+        }
         aCoder.encode(hasBeenUpdated, forKey: "hasBeenUpdated")
     }
     
@@ -154,6 +165,11 @@ class PrivateGroup: NSObject, NSCoding{
         properties["memberIDs"] = [String]()
         properties["groupRequestIDs"] = [String]()
         properties["dailyActivityIDs"] = [String]()
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
+        properties["createdAt"] = dateformatter.string(from: Date())
+        
         
         if let secret = self.secretID{
         properties["secretID"] = secret

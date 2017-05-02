@@ -76,15 +76,14 @@ extension DBConnection{
                     queryForUsername?.keys = [authorUserName]
                     let result = try queryForUsername?.run()
                         while let row = result?.nextRow() {
-                            userName = row.document?["username"] as! String
+                            userName = row.document?["username"] as? String
                         }
                     }
-                    
                     var tdate: Date?
                     if let threadDate = row.document?["date"] as? String{
                         tdate = Date(dateString: threadDate)
                     }
-                    let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: tdate, commentsIDs: row.document?["authorID"] as? [String])
+                    let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: tdate, commentIDs: row.document?["commentIDs"] as? [String])
                     threads.append(thread)
                 }
             }
@@ -140,7 +139,12 @@ extension DBConnection{
                     let formatter = DateFormatter()
                         formatter.dateFormat = "HH:mm"
                         
-                    let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: formatter.date(from: timeDate), secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String])
+                        var createdAt: Date?
+                        if let groupDate = row.document?["createdAt"] as? String{
+                            createdAt = Date(dateString: groupDate)
+                        }
+                        
+                    let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: formatter.date(from: timeDate), secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: createdAt)
                        privateGroupList.append(privateGroup)
                     }
                 }
@@ -178,7 +182,14 @@ extension DBConnection{
                         let formatter = DateFormatter()
                         formatter.dateFormat = "HH:mm"
                         
-                        let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: formatter.date(from: timeDate), secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String])
+                        var createdAt: Date?
+                        if let groupDate = row.document?["createdAt"] as? String{
+                            createdAt = Date(dateString: groupDate)
+                        }
+
+                        
+                        
+                        let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: formatter.date(from: timeDate), secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: createdAt)
                         privateGroupList.append(privateGroup)
                     }
                 }
@@ -196,7 +207,7 @@ extension DBConnection{
                                 if let threadDate = row.document?["date"] as? String{
                                     tdate = Date(dateString: threadDate)
                                 }
-                                let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: tdate, commentsIDs: row.document?["commentIDs"] as? [String])
+                                let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: tdate, commentIDs: row.document?["commentIDs"] as? [String])
                                 threads!.append(thread)
                             }
                         }
@@ -248,7 +259,12 @@ extension DBConnection{
                         let formatter = DateFormatter()
                         formatter.dateFormat = "HH:mm"
                         
-                        let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: formatter.date(from: timeDate), secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String])
+                        var createdAt: Date?
+                        if let groupDate = row.document?["createdAt"] as? String{
+                            createdAt = Date(dateString: groupDate)
+                        }
+                        
+                        let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: formatter.date(from: timeDate), secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: createdAt)
                         
                         let result = oldPrivateGroupsList.filter { $0.pgid == privateGroup.pgid }
                         if result.count == 1{
@@ -275,7 +291,7 @@ extension DBConnection{
                                 if let threadDate = row.document?["date"] as? String{
                                     tdate = Date(dateString: threadDate)
                                 }
-                                let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: tdate, commentsIDs: row.document?["commentIDs"] as? [String])
+                                let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: tdate, commentIDs: row.document?["commentIDs"] as? [String])
                                 
                                 if let result = oldThreads{
                                     let threadExists = result.filter({ $0.tid == thread.tid })
@@ -328,13 +344,153 @@ extension DBConnection{
         return nil
     }
     
+    
+    func createCommentWithProperties(properties: Comment) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                    let doc = con.createDocument()
+                    try doc.putProperties(properties.getPropertyPackageCreateComment())
+                    
+                    let threadID = properties.threadID
+                    var commentIDs: [String] = [String]()
+                    let docU = con.document(withID: threadID!)
+                    try docU?.update({ (rev) -> Bool in
+                        if let curArray = rev["commentIDs"] as! [String]?{
+                            commentIDs = curArray
+                            commentIDs.append(doc.documentID)
+                            rev["commentIDs"] = commentIDs
+                        }
+                        return true
+                    })
+            }else {
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
+    
+    func likeComment(cID: String) -> String?{
+        do{
+            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                if let con = DBConnection.shared.getDBConnection(){
+                    let query = con.createAllDocumentsQuery()
+                    
+                    query.allDocsMode = CBLAllDocsMode.allDocs
+                    query.keys = [cID]
+                    let result = try query.run()
+                    var likeIDs: [String] = [String]()
+                    
+                    while let row = result.nextRow(){
+                        likeIDs = row.document?["likeIDs"] as! [String]
+                    }
+                    
+                    if(!likeIDs.contains(userID)){
+                        var likes: [String] = [String]()
+                        let docU = con.document(withID: cID)
+                        try docU?.update({ (rev) -> Bool in
+                                if let curArray = rev["likeIDs"] as! [String]?{
+                                    likes = curArray
+                                    likes.append(userID)
+                                    rev["likeIDs"] = likes
+                                }
+                                return true
+                        })
+                    }
+                }else{
+                    return GetString.errorWithConnection.rawValue
+                }
+            }else{
+            return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+    
+    func dislikeComment(cID: String) -> String?{
+        do{
+            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                if let con = DBConnection.shared.getDBConnection(){
+                    let query = con.createAllDocumentsQuery()
+                    
+                    query.allDocsMode = CBLAllDocsMode.allDocs
+                    query.keys = [cID]
+                    let result = try query.run()
+                    var likeIDs: [String] = [String]()
+                    
+                    while let row = result.nextRow(){
+                        likeIDs = row.document?["likeIDs"] as! [String]
+                    }
+                    
+                    if(likeIDs.contains(userID)){
+                        var likes: [String] = [String]()
+                        let docU = con.document(withID: cID)
+                        try docU?.update({ (rev) -> Bool in
+                            if let curArray = rev["likeIDs"] as! [String]?{
+                                likes = curArray
+                                if let index = likes.index(of: userID) {
+                                    likes.remove(at: index)
+                                }
+                                rev["likeIDs"] = likes
+                            }
+                            return true
+                        })
+                    }
+                }else{
+                    return GetString.errorWithConnection.rawValue
+                }
+            }else{
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+    
+    func getAllCommentsByID(threadID: String) -> [Comment] {
+        var comments = [Comment]()
+        do{
+            if let view = self.viewByComment{
+                let query = view.createQuery()
+                query.keys = [threadID]
+                let result = try query.run()
+                while let row = result.nextRow() {
+                    
+                    var userName: String?
+                    if let authorUserName = row.document?["authorID"] as? String{
+                        let queryForUsername = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                        queryForUsername?.allDocsMode = CBLAllDocsMode.allDocs
+                        queryForUsername?.keys = [authorUserName]
+                        let result = try queryForUsername?.run()
+                        while let row = result?.nextRow() {
+                            userName = row.document?["username"] as? String
+                        }
+                    }
+                    var cdate: Date?
+                    if let threadDate = row.document?["date"] as? String{
+                        cdate = Date(dateString: threadDate)
+                    }
+                    let comment = Comment(rev: row.documentRevisionID, cid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String,threadID: row.document?["threadID"] as? String, message: row.document?["message"] as? String, date: cdate, likeIDs: row.document?["likeIDs"] as? [String])
+                    comments.append(comment)
+                }
+            }
+        }catch{
+            return [Comment]()
+        }
+        return comments
+    }
+
     func createThreadWithProperties(properties: [Thread]) -> String?{
         do{
             if let con = DBConnection.shared.getDBConnection(){
                 for thread in properties {
                     let doc = con.createDocument()
                     try doc.putProperties(thread.getPropertyPackageCreatePrivateGroup())
-                    print("Thread erstellt: \(doc.documentID)")
                     
                     let groupID = thread.groupID
                         var tIDs: [String] = [String]()
@@ -344,7 +500,6 @@ extension DBConnection{
                                 tIDs = curArray
                                 tIDs.append(doc.documentID)
                                 rev["threadIDs"] = tIDs
-                                print("Gruppe geupdated: \(groupID!)")
                             }
                             return true
                         })
@@ -371,7 +526,6 @@ extension DBConnection{
                 let count = Int(result.count)
                     var memIDs: [String] = [String]()
                     var reqIDs: [String] = [String]()
-                    print(count)
                     if(count == 1){
                         while let row = result.nextRow() {
                             let docU = con.document(withID: row.documentID!)

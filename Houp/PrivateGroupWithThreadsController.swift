@@ -10,6 +10,11 @@ import UIKit
 
 class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate{
 
+    var liveQuery: CBLLiveQuery?
+    
+    deinit {
+        liveQuery?.removeObserver(self, forKeyPath: "rows")
+    }
     
     var privateGroup: PrivateGroup?{
         didSet{
@@ -72,8 +77,12 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Themen"
-        
-        self.threadsList = DBConnection.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!)
+    
+            if(liveQuery == nil){
+                getTopicThreads(groupID: (self.privateGroup?.pgid)!)
+            }
+
+        //self.threadsList = DBConnection.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))
         infoContainer.addSubview(nameOfGroup)

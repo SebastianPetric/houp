@@ -12,6 +12,7 @@
 		5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5218B64B1E8047F400B502DF /* CustomTextField.swift */; };
 		521AF4941E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521AF4931E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift */; };
 		521AF4961E92DBB9007D2E36 /* PrivateGroupThreadsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521AF4951E92DBB9007D2E36 /* PrivateGroupThreadsCell.swift */; };
+		521C0C031EB0E75200D05F8F /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521C0C021EB0E75200D05F8F /* Comment.swift */; };
 		521EB0501E8ABD46009D472C /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */; };
 		521EB0521E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0511E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift */; };
 		521EB0541E8AC596009D472C /* PublicGroupThreadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0531E8AC596009D472C /* PublicGroupThreadsController.swift */; };
@@ -79,6 +80,7 @@
 		5218B64B1E8047F400B502DF /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		521AF4931E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupWithThreadsController.swift; sourceTree = "<group>"; };
 		521AF4951E92DBB9007D2E36 /* PrivateGroupThreadsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupThreadsCell.swift; sourceTree = "<group>"; };
+		521C0C021EB0E75200D05F8F /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		521EB0511E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCollectionViewController.swift; sourceTree = "<group>"; };
 		521EB0531E8AC596009D472C /* PublicGroupThreadsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupThreadsController.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				52E54AC81E82D5AC00856EF8 /* User.swift */,
 				529BB64F1EA7848700776D16 /* Thread.swift */,
 				529BB64D1EA67A9D00776D16 /* UserObject.swift */,
+				521C0C021EB0E75200D05F8F /* Comment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */,
 				523391751E96AADA00A867D9 /* PublicGroupCommentsCell.swift in Sources */,
 				521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */,
+				521C0C031EB0E75200D05F8F /* Comment.swift in Sources */,
 				521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
 				52D5AF941E8D5ECD0007C448 /* SettingsHandler.swift in Sources */,

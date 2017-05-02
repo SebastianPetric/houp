@@ -96,9 +96,9 @@ class PrivateGroupsCell: UICollectionViewCell{
             }
             if let hasUpdated = privateGroup?.hasBeenUpdated{
                 if(hasUpdated){
-                    notificationImage.backgroundColor = .yellow
+                    //notificationImage.backgroundColor = .yellow
                 }else{
-                    notificationImage.backgroundColor = .black
+                    //notificationImage.backgroundColor = .black
                 }
             }
         }

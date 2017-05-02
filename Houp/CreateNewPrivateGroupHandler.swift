@@ -16,7 +16,7 @@ extension CreatePrivateGroupViewController{
         if let window = UIApplication.shared.keyWindow{
             if(!hasAnyErrors()){
                 let timePicker = self.timeOfMeeting.subviews[1] as! UIDatePicker
-                let privateGroup: PrivateGroup = PrivateGroup(pgid: nil, adminID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), nameOfGroup: self.nameOfGroup.text!, location: self.locationOfMeeting.text!, dayOfMeeting: self.dayOfMeeting.text!, timeOfMeeting: timePicker.date  ,secretID: Validation.shared.generateSecretGroupID(), threadIDs: nil, memberIDs: nil, dailyActivityIDs: nil, groupRequestIDs: nil)
+                let privateGroup: PrivateGroup = PrivateGroup(pgid: nil, adminID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), nameOfGroup: self.nameOfGroup.text!, location: self.locationOfMeeting.text!, dayOfMeeting: self.dayOfMeeting.text!, timeOfMeeting: timePicker.date  ,secretID: Validation.shared.generateSecretGroupID(), threadIDs: nil, memberIDs: nil, dailyActivityIDs: nil, groupRequestIDs: nil, createdAt: nil)
                 
                 
                 if let error = DBConnection().createPrivateGroup(properties: privateGroup.getPropertyPackageCreatePrivateGroup()){

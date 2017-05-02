@@ -24,6 +24,7 @@ class DBConnection{
     var viewByEmail: CBLView?
     var viewPrivateGroupBySecretID: CBLView?
     var viewByThread: CBLView?
+    var viewByComment: CBLView?
     
     func setUpDBConnection(){
         do {
@@ -37,6 +38,7 @@ class DBConnection{
                 self.viewByEmail = viewByEmail(db: dbCon)
                 self.viewPrivateGroupBySecretID = viewPrivateGroupBySecretID(db: dbCon)
                 self.viewByThread = viewByThread(db: dbCon)
+                self.viewByComment = viewByComment(db: dbCon)
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
                 self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)

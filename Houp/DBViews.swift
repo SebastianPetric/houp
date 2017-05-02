@@ -69,5 +69,21 @@ extension DBConnection{
         }
         return viewByThread
     }
+    
+    func viewByComment(db: CBLDatabase) -> CBLView{
+        let viewByComment = db.viewNamed("viewByComment")
+        if (viewByComment.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String{
+                    if type == "Comment" {
+                        emit(doc["threadID"], nil)
+                    }
+                }
+            }
+            viewByComment.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByComment
+    }
+
 
 }
