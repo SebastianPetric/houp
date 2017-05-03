@@ -452,6 +452,100 @@ extension DBConnection{
         return nil
     }
     
+    
+    func acceptRequest(uID: String, gID: String) -> String?{
+        do{
+                if let con = DBConnection.shared.getDBConnection(){
+                    var memList = [String]()
+                    var reqList = [String]()
+                    let doc = con.document(withID: gID)
+                    try doc?.update({ (rev) -> Bool in
+                        if let memArray = rev["memberIDs"] as! [String]?, let reqArray =  rev["groupRequestIDs"] as! [String]?{
+                            memList = memArray
+                            reqList = reqArray
+                            memList.append(uID)
+                            rev["memberIDs"] = memList
+                            reqList.remove(at: reqList.index(of: uID)!)
+                            rev["groupRequestIDs"] = reqList
+                        }
+                        return true
+                    })
+                    
+                    let docU = con.document(withID: uID)
+                    var groupIDs = [String]()
+                    try docU?.update({ (rev) -> Bool in
+                        if let groupArray = rev["groupIDs"] as! [String]?{
+                            groupIDs = groupArray
+                            groupIDs.append(gID)
+                            rev["groupIDs"] = groupIDs
+                        }
+                        return true
+                    })
+                }else{
+                    return GetString.errorWithConnection.rawValue
+                }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
+    func denyRequest(uID: String, gID: String) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                var reqList = [String]()
+                let doc = con.document(withID: gID)
+                try doc?.update({ (rev) -> Bool in
+                    if let reqArray =  rev["groupRequestIDs"] as! [String]?{
+                        reqList = reqArray
+                         reqList.remove(at: reqList.index(of: uID)!)
+                        rev["groupRequestIDs"] = reqList
+                    }
+                    return true
+                })
+            }else{
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
+    func leaveGroup(uID: String, gID: String) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                var memList = [String]()
+                let doc = con.document(withID: gID)
+                try doc?.update({ (rev) -> Bool in
+                    if let memArray = rev["memberIDs"] as! [String]?{
+                        memList = memArray
+                        memList.remove(at: memList.index(of: uID)!)
+                        rev["memberIDs"] = memList
+                    }
+                    return true
+                })
+                
+                let docU = con.document(withID: uID)
+                var groupIDs = [String]()
+                try docU?.update({ (rev) -> Bool in
+                    if let groupArray = rev["groupIDs"] as! [String]?{
+                        groupIDs = groupArray
+                        groupIDs.remove(at: groupIDs.index(of: gID)!)
+                        rev["groupIDs"] = groupIDs
+                    }
+                    return true
+                })
+            }else{
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+    
+    
     func getAllCommentsByID(threadID: String) -> [Comment] {
         var comments = [Comment]()
         do{

@@ -19,6 +19,8 @@ extension PrivateGroupCommentsCollectionViewController{
             if let error = DBConnection.shared.createCommentWithProperties(properties: comment){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
+            }else{
+                commentView.text = ""
             }
         }else{
             let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorFillAllFields.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
@@ -54,7 +56,7 @@ extension PrivateGroupCommentsCollectionViewController{
         
         if keyPath == "rows" {
             do{
-                if var rows = liveQuery!.rows {
+                if let rows = liveQuery!.rows {
                     comments.removeAll()
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {

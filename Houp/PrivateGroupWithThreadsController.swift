@@ -81,7 +81,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
             if(liveQuery == nil){
                 getTopicThreads(groupID: (self.privateGroup?.pgid)!)
             }
-
+        
         //self.threadsList = DBConnection.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))

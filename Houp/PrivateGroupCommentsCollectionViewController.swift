@@ -140,12 +140,11 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let string = "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bl fejfwpeokfew kofwekowefkewf kfekoefwkewf kokwefokwefpwfe oooooo"
+        let string = self.comments[indexPath.row].message
         let approximateWidth = view.frame.width - 55
         let sizeTitleMessage = CGSize(width: approximateWidth, height: 1000)
         let attributesMessage = [NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
-        let estimateMessageHeight = NSString(string: string).boundingRect(with: sizeTitleMessage, options: .usesLineFragmentOrigin, attributes: attributesMessage, context: nil)
+        let estimateMessageHeight = NSString(string: string!).boundingRect(with: sizeTitleMessage, options: .usesLineFragmentOrigin, attributes: attributesMessage, context: nil)
         let heightMessage = estimateMessageHeight.height + 66
         return CGSize(width: view.frame.width, height: heightMessage)
     }

@@ -10,6 +10,13 @@ import UIKit
 
 class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
+    
+    deinit {
+        liveQuery?.removeObserver(self, forKeyPath: "rows")
+    }
+    
+    var liveQuery: CBLLiveQuery?
+    
     var privateGroup: PrivateGroup?{
         didSet{
             if let name = privateGroup?.nameOfGroup{
@@ -37,11 +44,11 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
     var widthHeightOfImageViews: CGFloat = 20
     let membersCellID = "membersCellID"
     let sectionHeaderID = "sectionHeader"
-    
-    var TestList: [[UserObject]] = [
-        [UserObject(type: 0, username: "maxi"),UserObject(type: 0, username: "penis"),UserObject(type: 0, username: "doris"),UserObject(type: 0, username: "sep"),UserObject(type: 0, username: "pussi"),UserObject(type: 0, username: "dolo"),UserObject(type: 0, username: "bem"),UserObject(type: 0, username: "bums"),UserObject(type: 0, username: "votzi"),UserObject(type: 0, username: "karotti")],
-        [UserObject(type: 1, username: "maxi"),UserObject(type: 1, username: "penis"),UserObject(type: 1, username: "doris")]
-    ]
+    var adminList = [[UserObject]]()
+//    var TestList: [[UserObject]] = [
+//        [UserObject(type: 0, username: "maxi"),UserObject(type: 0, username: "penis"),UserObject(type: 0, username: "doris"),UserObject(type: 0, username: "sep"),UserObject(type: 0, username: "pussi"),UserObject(type: 0, username: "dolo"),UserObject(type: 0, username: "bem"),UserObject(type: 0, username: "bums"),UserObject(type: 0, username: "votzi"),UserObject(type: 0, username: "karotti")],
+//        [UserObject(type: 1, username: "maxi"),UserObject(type: 1, username: "penis"),UserObject(type: 1, username: "doris")]
+//    ]
     
     let infoContainer: UIView = {
         let view = UIView()
@@ -74,7 +81,7 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
         super.viewDidLoad()
         view.backgroundColor = .red
         self.title = "Mitglieder"
-        
+        getTopicUsers(groupID: (privateGroup?.pgid)!)
         infoContainer.addSubview(nameOfGroup)
         infoContainer.addSubview(locationOfMeeting)
         infoContainer.addSubview(timeOfMeeting)
@@ -109,24 +116,44 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: membersCellID, for: indexPath) as! PrivateGroupRequestsAndMembersCell
-        cell.username.text = TestList[indexPath.section][indexPath.row].username
+        
+        cell.privateGroup = self.privateGroup
+            if(self.privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
+                cell.user = self.adminList[indexPath.section][indexPath.row]
+                if(indexPath.section == 0){
+                    cell.isMember = false
+                }else{
+                    cell.isMember = true
+                }
+            }else{
+                cell.user = self.adminList[1][indexPath.row]
+                cell.isMember = true
+            }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return TestList[section].count
+        if(self.privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
+        return adminList.count == 0 ? 0 : adminList[section].count
+        }else{
+        return adminList.count == 0 ? 0 : adminList[1].count
+       }
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return self.privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue) ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         var header: String = ""
-        if(indexPath.section == 0){
-        header = "Requests"
-        }else{
+        
+        if(self.privateGroup?.adminID != UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
         header = "Mitglieder"
+        }else{
+            if(indexPath.section == 0){
+                header = "Requests"
+            }else{
+                header = "Mitglieder"
+            }
         }
         let secheader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderID, for: indexPath) as! PrivateGroupRequestsAndMembersHeader
             secheader.sectionHeader.text = header
@@ -136,5 +163,67 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: self.view.frame.width, height: 20)
+    }
+    
+    
+    
+    func getTopicUsers(groupID: String){
+        do{
+                let query = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                query?.keys = [groupID]
+                liveQuery = query?.asLive()
+                liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+                liveQuery?.start()
+        }catch{
+            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        var adminList = [[UserObject]]()
+        var reqList = [UserObject]()
+        var memList = [UserObject]()
+        
+        
+        if keyPath == "rows" {
+            do{
+                if var rows = liveQuery!.rows {
+                   self.adminList.removeAll()
+                    while let row = rows.nextRow() {
+                        if let props = row.document!.properties {
+                            if(privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
+                                if let groupRequestIDs = props["groupRequestIDs"] as? [String]{
+                                    let queryForRequests = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                                    queryForRequests?.allDocsMode = CBLAllDocsMode.allDocs
+                                    queryForRequests?.keys = groupRequestIDs
+                                    let result = try queryForRequests?.run()
+                                    while let row = result?.nextRow() {
+                                        let requestUser = UserObject(rev: row.documentRevisionID, uid: row.documentID, email: row.document?["email"] as? String, userName: row.document?["username"] as? String, prename: row.document?["prename"] as? String, name: row.document?["name"] as? String)
+                                        reqList.append(requestUser)
+                                    }
+                                }
+                            }
+                            adminList.append(reqList)
+                            if let memberIDs = props["memberIDs"] as? [String]{
+                                let queryForMembers = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                                queryForMembers?.allDocsMode = CBLAllDocsMode.allDocs
+                                queryForMembers?.keys = memberIDs
+                                let result = try queryForMembers?.run()
+                                while let row = result?.nextRow() {
+                                    let requestUser = UserObject(rev: row.documentRevisionID, uid: row.documentID, email: row.document?["email"] as? String, userName: row.document?["username"] as? String, prename: row.document?["prename"] as? String, name: row.document?["name"] as? String)
+                                    memList.append(requestUser)
+                                }
+                            }
+                            adminList.append(memList)
+                         }
+                        self.adminList = adminList
+                        self.membersCollectionView.reloadData()
+                    }
+                }
+            }catch{
+                
+            }
+        }
     }
 }
