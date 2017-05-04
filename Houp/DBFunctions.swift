@@ -117,7 +117,7 @@ extension DBConnection{
     func getAllPrivateGroups() -> [PrivateGroup] {
        var privateGroupList: [PrivateGroup] = [PrivateGroup]()
     do{
-        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue)
                 let query = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
                 //query?.addObserver(self, forKeyPath: "rows", options: nil, context: nil)
                 //NotificationCenter.default.addObserver(self, selector: #selector(replicationChanged), name: NSNotification.Name.cblReplicationChange, object: push)
@@ -148,7 +148,6 @@ extension DBConnection{
                        privateGroupList.append(privateGroup)
                     }
                 }
-            }
         }catch{
         return [PrivateGroup]()
         }
@@ -161,7 +160,7 @@ extension DBConnection{
         var privateGroupList: [PrivateGroup] = [PrivateGroup]()
         
         do{
-            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue)
                 let query = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
             
                 query?.allDocsMode = CBLAllDocsMode.allDocs
@@ -214,7 +213,6 @@ extension DBConnection{
                     }
                     group.threads = threads
                 }
-            }
         }catch{
             return [PrivateGroup]()
         }
@@ -238,7 +236,7 @@ extension DBConnection{
         
         
         do{
-            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue)
                 let query = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
                 
                 query?.allDocsMode = CBLAllDocsMode.allDocs
@@ -311,7 +309,6 @@ extension DBConnection{
                         }
                     }
                 }
-            }
         }catch{
             return [PrivateGroup]()
         }

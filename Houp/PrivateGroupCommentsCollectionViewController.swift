@@ -15,6 +15,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     var infoHeight: CGFloat = 0
     var liveQuery: CBLLiveQuery?
     var comments: [Comment] = [Comment]()
+    var titleNav = ""
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
@@ -106,7 +107,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = self.titleNav
         if(liveQuery == nil){
         getTopicComments(threadID: (self.thread?.tid)!)
         }

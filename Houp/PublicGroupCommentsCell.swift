@@ -10,6 +10,35 @@ import UIKit
 
 class PublicGroupCommentsCell: UICollectionViewCell{
     
+    var comment: Comment?{
+        didSet{
+            if let message = comment?.message{
+                self.message.text = message
+            }
+            if let username = comment?.userName{
+                self.username.text = username
+            }
+            if let date = comment?.dateObject{
+                self.date.text = date.getDatePart()
+            }
+            if let time = comment?.dateObject{
+                self.time.text = time.getTimePart()
+            }
+            if let likes = comment?.likeIDs?.count{
+                self.upvoteLabel.text = "\(likes)"
+            }
+            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                if let hasBeenLiked = comment?.likeIDs?.contains(userID){
+                    if(hasBeenLiked){
+                        self.upvoteButton.tintColor = UIColor().getThirdColor()
+                    }else{
+                        self.upvoteButton.tintColor = .black
+                    }
+                }
+            }
+        }
+    }
+    
     let seperatorCell = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, isBold: false, textAlignment: .left, textColor: nil)
     let date = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
@@ -47,13 +76,4 @@ class PublicGroupCommentsCell: UICollectionViewCell{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func handleUpvote(){
-        if(self.upvoteButton.tintColor == .black){
-            self.upvoteButton.tintColor = UIColor().getMainColor()
-        }else{
-            self.upvoteButton.tintColor = .black
-        }
-    }
-
 }

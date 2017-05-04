@@ -35,7 +35,7 @@ class CreateGroupThreadController: UIViewController, UITextFieldDelegate, UIText
             self.groupPicker!.dataSource = self
             self.groupPicker!.reloadAllComponents()
         
-            let sendToAllGroupsLabel = CustomViews.shared.getCustomLabel(text: "An alle deine Gruppen senden?", fontSize: 12, isBold: true, textAlignment: .left, textColor: .black)
+            let sendToAllGroupsLabel = CustomViews.shared.getCustomLabel(text: "An alle deine privaten Gruppen senden?", fontSize: 12, isBold: true, textAlignment: .left, textColor: .black)
     
             self.sendToAllGroupsSwitch = UISwitch()
             self.sendToAllGroupsSwitch?.isOn = false
@@ -90,7 +90,6 @@ class CreateGroupThreadController: UIViewController, UITextFieldDelegate, UIText
         privateContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50).isActive = true
         self.heightOfPrivateContainer = privateContainer.heightAnchor.constraint(equalToConstant: 100)
         self.heightOfPrivateContainer?.isActive = true
-        
         createButton.addConstraintsWithConstants(top: privateContainer.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 15, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
     }
     

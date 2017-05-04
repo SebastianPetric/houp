@@ -45,10 +45,6 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
     let membersCellID = "membersCellID"
     let sectionHeaderID = "sectionHeader"
     var adminList = [[UserObject]]()
-//    var TestList: [[UserObject]] = [
-//        [UserObject(type: 0, username: "maxi"),UserObject(type: 0, username: "penis"),UserObject(type: 0, username: "doris"),UserObject(type: 0, username: "sep"),UserObject(type: 0, username: "pussi"),UserObject(type: 0, username: "dolo"),UserObject(type: 0, username: "bem"),UserObject(type: 0, username: "bums"),UserObject(type: 0, username: "votzi"),UserObject(type: 0, username: "karotti")],
-//        [UserObject(type: 1, username: "maxi"),UserObject(type: 1, username: "penis"),UserObject(type: 1, username: "doris")]
-//    ]
     
     let infoContainer: UIView = {
         let view = UIView()

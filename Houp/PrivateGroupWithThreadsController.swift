@@ -135,6 +135,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = PrivateGroupCommentsCollectionViewController()
         controller.thread = threadsList[indexPath.row]
+        controller.titleNav = (self.privateGroup?.nameOfGroup)!
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
