@@ -48,8 +48,8 @@ class PrivateGroupRequestsAndMembersCell: UICollectionViewCell{
     var acceptDenyButtonWidthHeight: CGFloat = 25
     
     let profileImage = CustomViews.shared.getCustomImageView(imageName: "profile_image", cornerRadius: 20, isUserInteractionEnabled: false, imageColor: .black, borderColor: UIColor().getSecondColor())
-    var username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 16, isBold: true, textAlignment: .left, textColor: .black)
-    let mail = CustomViews.shared.getCustomLabel(text: "test.at.gmx.de", fontSize: 12, isBold: false, textAlignment: .left, textColor: UIColor(red: 150, green: 150, blue: 150, alphaValue: 1))
+    var username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 16, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .black)
+    let mail = CustomViews.shared.getCustomLabel(text: "test.at.gmx.de", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: UIColor(red: 150, green: 150, blue: 150, alphaValue: 1))
     let acceptButton = CustomViews.shared.getCustomButtonWithImage(imageName: GetString.accept_icon.rawValue, backgroundColor: .white, imageColor: .black, radius: 12.5, borderColor: UIColor().getSecondColor())
     let denyButton = CustomViews.shared.getCustomButtonWithImage(imageName: GetString.deny_icon.rawValue, backgroundColor: .white, imageColor: .black, radius: 12.5, borderColor: UIColor().getSecondColor())
     let seperator = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())

@@ -67,6 +67,16 @@
 		52E6E3D31EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */; };
 		52E6E3D51EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D41EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift */; };
 		52E6E3D71EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D61EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift */; };
+		52E6E3DA1EBB701A00B59D25 /* GroupCommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D91EBB701A00B59D25 /* GroupCommentsController.swift */; };
+		52E6E3DC1EBB702B00B59D25 /* GroupCommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3DB1EBB702B00B59D25 /* GroupCommentsCell.swift */; };
+		52E6E3DE1EBB707900B59D25 /* GroupCommentsControllerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3DD1EBB707900B59D25 /* GroupCommentsControllerHandler.swift */; };
+		52E6E3E01EBB708B00B59D25 /* GroupCommentsCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3DF1EBB708B00B59D25 /* GroupCommentsCellHandler.swift */; };
+		52E6E3E61EBF4E2E00B59D25 /* ActivityWeekCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3E51EBF4E2E00B59D25 /* ActivityWeekCollection.swift */; };
+		52E6E3E81EBF4E3E00B59D25 /* ActivityWeekCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3E71EBF4E3E00B59D25 /* ActivityWeekCollectionCell.swift */; };
+		52E6E3EC1EBF5A1500B59D25 /* ActivityWeekHighlightedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3EB1EBF5A1500B59D25 /* ActivityWeekHighlightedCell.swift */; };
+		52E6E3EF1EC0BABD00B59D25 /* ActivityForm1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3EE1EC0BABD00B59D25 /* ActivityForm1.swift */; };
+		52E6E3F11EC0BACA00B59D25 /* ActivityForm2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3F01EC0BACA00B59D25 /* ActivityForm2.swift */; };
+		52E6E3F31EC0BAD600B59D25 /* ActivityForm3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3F21EC0BAD600B59D25 /* ActivityForm3.swift */; };
 		52F31A081E7D6F93000F5157 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */; };
 		52F31A0A1E7D6FE4000F5157 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A091E7D6FE4000F5157 /* CFNetwork.framework */; };
 		52F31A0C1E7D6FEE000F5157 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A0B1E7D6FEE000F5157 /* Security.framework */; };
@@ -140,6 +150,16 @@
 		52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupCommentsCellHandler.swift; sourceTree = "<group>"; };
 		52E6E3D41EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupCommentsHandler.swift; sourceTree = "<group>"; };
 		52E6E3D61EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupThreadsHandler.swift; sourceTree = "<group>"; };
+		52E6E3D91EBB701A00B59D25 /* GroupCommentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCommentsController.swift; sourceTree = "<group>"; };
+		52E6E3DB1EBB702B00B59D25 /* GroupCommentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCommentsCell.swift; sourceTree = "<group>"; };
+		52E6E3DD1EBB707900B59D25 /* GroupCommentsControllerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCommentsControllerHandler.swift; sourceTree = "<group>"; };
+		52E6E3DF1EBB708B00B59D25 /* GroupCommentsCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCommentsCellHandler.swift; sourceTree = "<group>"; };
+		52E6E3E51EBF4E2E00B59D25 /* ActivityWeekCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekCollection.swift; sourceTree = "<group>"; };
+		52E6E3E71EBF4E3E00B59D25 /* ActivityWeekCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekCollectionCell.swift; sourceTree = "<group>"; };
+		52E6E3EB1EBF5A1500B59D25 /* ActivityWeekHighlightedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekHighlightedCell.swift; sourceTree = "<group>"; };
+		52E6E3EE1EC0BABD00B59D25 /* ActivityForm1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityForm1.swift; sourceTree = "<group>"; };
+		52E6E3F01EC0BACA00B59D25 /* ActivityForm2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityForm2.swift; sourceTree = "<group>"; };
+		52E6E3F21EC0BAD600B59D25 /* ActivityForm3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityForm3.swift; sourceTree = "<group>"; };
 		52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
 		52F31A091E7D6FE4000F5157 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		52F31A0B1E7D6FEE000F5157 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -291,22 +311,23 @@
 		52499A6C1E7BFD4A006061B2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				52E6E3ED1EC0BAA100B59D25 /* ActivityFormController */,
+				52E6E3E41EBF4E0300B59D25 /* ActivityWeekCollectionController */,
+				52E6E3D81EBB6FF500B59D25 /* GroupCommentsController */,
 				523391761E9792D400A867D9 /* PublicGroupThreadWithCommentsController */,
-				5233916B1E954DD200A867D9 /* CreateGroupThreadController */,
 				5233915E1E94EFC300A867D9 /* PrivateGroupCommentsCollectionViewController */,
+				5233916B1E954DD200A867D9 /* CreateGroupThreadController */,
 				52A75F691E81BA300038CF4F /* LoginViewController */,
 				52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */,
 				52D5AF881E8D5D260007C448 /* CustomTabBarController */,
 				52D5AF891E8D5D3D0007C448 /* PrivateGroupViewController */,
-				52D5AF8A1E8D5D540007C448 /* PublicGroupThreadsViewController */,
 				52D5AF8B1E8D5D630007C448 /* ActivityViewController */,
 				52D5AF8C1E8D5D770007C448 /* SettingsViewController */,
 				52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroupViewController */,
 				52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroupVIewController */,
 				52A1B96A1E940F5B002D7DDB /* PrivateGroupWithThreadsController */,
-				523391771E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift */,
-				523391791E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift */,
-				5233917B1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift */,
+				52D5AF8A1E8D5D540007C448 /* PublicGroupThreadsViewController */,
+				52E6E3E11EBCDC0500B59D25 /* PrivateGroupRequestsAndMembers */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -344,9 +365,8 @@
 				52D5AF921E8D5EBB0007C448 /* SettingsHandler */,
 				52D5AF951E8D5F4A0007C448 /* MakeRequestToPrivateGroupHandler */,
 				52D5AF981E8D5FCB0007C448 /* CreateNewPrivateGroupHandler */,
-				52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */,
-				52E6E3D41EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift */,
-				52E6E3D61EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift */,
+				52E6E3E31EBCDC6400B59D25 /* PublicGroupThreadsHandler */,
+				52E6E3E21EBCDC4700B59D25 /* PublicGroupComments */,
 			);
 			name = Handler;
 			sourceTree = "<group>";
@@ -488,6 +508,64 @@
 			name = CreateNewPrivateGroupHandler;
 			sourceTree = "<group>";
 		};
+		52E6E3D81EBB6FF500B59D25 /* GroupCommentsController */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E3D91EBB701A00B59D25 /* GroupCommentsController.swift */,
+				52E6E3DB1EBB702B00B59D25 /* GroupCommentsCell.swift */,
+				52E6E3DD1EBB707900B59D25 /* GroupCommentsControllerHandler.swift */,
+				52E6E3DF1EBB708B00B59D25 /* GroupCommentsCellHandler.swift */,
+			);
+			name = GroupCommentsController;
+			sourceTree = "<group>";
+		};
+		52E6E3E11EBCDC0500B59D25 /* PrivateGroupRequestsAndMembers */ = {
+			isa = PBXGroup;
+			children = (
+				523391771E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift */,
+				523391791E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift */,
+				5233917B1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift */,
+			);
+			name = PrivateGroupRequestsAndMembers;
+			sourceTree = "<group>";
+		};
+		52E6E3E21EBCDC4700B59D25 /* PublicGroupComments */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */,
+				52E6E3D41EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift */,
+			);
+			name = PublicGroupComments;
+			sourceTree = "<group>";
+		};
+		52E6E3E31EBCDC6400B59D25 /* PublicGroupThreadsHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E3D61EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift */,
+			);
+			name = PublicGroupThreadsHandler;
+			sourceTree = "<group>";
+		};
+		52E6E3E41EBF4E0300B59D25 /* ActivityWeekCollectionController */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E3E51EBF4E2E00B59D25 /* ActivityWeekCollection.swift */,
+				52E6E3E71EBF4E3E00B59D25 /* ActivityWeekCollectionCell.swift */,
+				52E6E3EB1EBF5A1500B59D25 /* ActivityWeekHighlightedCell.swift */,
+			);
+			name = ActivityWeekCollectionController;
+			sourceTree = "<group>";
+		};
+		52E6E3ED1EC0BAA100B59D25 /* ActivityFormController */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E3EE1EC0BABD00B59D25 /* ActivityForm1.swift */,
+				52E6E3F01EC0BACA00B59D25 /* ActivityForm2.swift */,
+				52E6E3F21EC0BAD600B59D25 /* ActivityForm3.swift */,
+			);
+			name = ActivityFormController;
+			sourceTree = "<group>";
+		};
 		52F31A061E7D6F6E000F5157 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,10 +656,13 @@
 				521ECCA01E8BB9C6001C10BC /* PrivateGroup.swift in Sources */,
 				52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */,
 				52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */,
+				52E6E3DA1EBB701A00B59D25 /* GroupCommentsController.swift in Sources */,
 				521EB0561E8AC65C009D472C /* ActivityCollectionViewController.swift in Sources */,
 				52F3F3DF1E9BD5A400B3FEA2 /* Validation.swift in Sources */,
+				52E6E3EF1EC0BABD00B59D25 /* ActivityForm1.swift in Sources */,
 				52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */,
 				52E6E3D51EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift in Sources */,
+				52E6E3E01EBB708B00B59D25 /* GroupCommentsCellHandler.swift in Sources */,
 				528987021E83F5CC00322A99 /* DBConnection.swift in Sources */,
 				523391731E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift in Sources */,
 				52E6E3D71EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift in Sources */,
@@ -589,6 +670,7 @@
 				52E6E3D31EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift in Sources */,
 				521AF4941E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift in Sources */,
 				521EB0581E8AC72B009D472C /* SettingsCollectionViewController.swift in Sources */,
+				52E6E3F11EC0BACA00B59D25 /* ActivityForm2.swift in Sources */,
 				52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */,
 				523391751E96AADA00A867D9 /* PublicGroupCommentsCell.swift in Sources */,
 				521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */,
@@ -618,21 +700,27 @@
 				521ECCA41E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift in Sources */,
 				52A75F5C1E81960D0038CF4F /* RegistrationAgeGenderController.swift in Sources */,
 				528986FF1E83E86400322A99 /* ImageCache.swift in Sources */,
+				52E6E3DE1EBB707900B59D25 /* GroupCommentsControllerHandler.swift in Sources */,
 				52D5AF971E8D5F680007C448 /* MakeRequestToPrivateGroupHandler.swift in Sources */,
 				528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */,
 				529BB64C1E9EB01800776D16 /* DateExtension.swift in Sources */,
 				523391651E95466A00A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler.swift in Sources */,
 				52D5AF911E8D5E770007C448 /* PrivateGroupExtension.swift in Sources */,
 				5233917C1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift in Sources */,
+				52E6E3E61EBF4E2E00B59D25 /* ActivityWeekCollection.swift in Sources */,
 				529BB6501EA7848700776D16 /* Thread.swift in Sources */,
 				52A75F591E8179840038CF4F /* RegistrationPersonalDataHandler.swift in Sources */,
 				52D5AF9A1E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift in Sources */,
 				52A75F571E81781E0038CF4F /* RegistrationUserNameHandler.swift in Sources */,
 				528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */,
 				52D5AF9E1E8D7AA30007C448 /* UITextViewExtension.swift in Sources */,
+				52E6E3EC1EBF5A1500B59D25 /* ActivityWeekHighlightedCell.swift in Sources */,
 				5233916A1E95499A00A867D9 /* PublicGroupThreadsCell.swift in Sources */,
+				52E6E3E81EBF4E3E00B59D25 /* ActivityWeekCollectionCell.swift in Sources */,
 				52499A591E7BF7FD006061B2 /* Houp.xcdatamodeld in Sources */,
 				5233916D1E954DEE00A867D9 /* CreateGroupThreadController.swift in Sources */,
+				52E6E3F31EC0BAD600B59D25 /* ActivityForm3.swift in Sources */,
+				52E6E3DC1EBB702B00B59D25 /* GroupCommentsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

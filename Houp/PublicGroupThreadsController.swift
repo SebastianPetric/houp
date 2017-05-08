@@ -13,7 +13,7 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
     var liveQuery: CBLLiveQuery?
     var publicGroupID = "0"
     
-     deinit {
+    deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
     }
     
@@ -65,9 +65,9 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
         return self.threadsList.count
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let controller = PrivateGroupCommentsCollectionViewController()
-        let controller = PublicGroupThreadWithComments()
+        let controller = GroupCommentsController()
         controller.thread = threadsList[indexPath.row]
+        controller.titleNav = "Öffentliches Thema"
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

@@ -64,11 +64,11 @@ class PublicGroupThreadWithComments: UIViewController, UICollectionViewDelegateF
     
     lazy var infoContainer: UIView = {
         
-        let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, isBold: false, textAlignment: .left, textColor: nil)
-        let date = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
+        let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: nil)
+        let date = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
         let seperator = CustomViews.shared.getCustomSeperator(color: .black)
-        let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
-        let title = CustomViews.shared.getCustomLabel(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es dar", fontSize: 14, isBold: true, textAlignment: .left, textColor: nil)
+        let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
+        let title = CustomViews.shared.getCustomLabel(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es dar", fontSize: 14, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: nil)
         let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjper ättee folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: UIColor().getThirdColor())
         let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getThirdColor(), imageColor: .black, radius: nil, borderColor: UIColor().getThirdColor())
         let seperatorInfo = CustomViews.shared.getCustomSeperator(color: UIColor().getThirdColor())

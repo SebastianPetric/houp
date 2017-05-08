@@ -1,15 +1,15 @@
 //
-//  PrivateGroupCommentsCollectionViewController.swift
+//  GroupCommentsController.swift
 //  Houp
 //
-//  Created by Sebastian on 04.04.17.
+//  Created by Sebastian on 04.05.17.
 //  Copyright © 2017 SP. All rights reserved.
 //
 
 import UIKit
 
-class PrivateGroupCommentsCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate{
-
+class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate{
+    
     let commentsCellID = "commentsCellID"
     var widthHeightOfImageViews: CGFloat = 20
     var infoHeight: CGFloat = 0
@@ -25,7 +25,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         didSet{
             if let tit = thread?.title{
                 if let title = infoContainer.subviews[0] as? UILabel{
-                title.text = tit
+                    title.text = tit
                 }
             }
             if let message = thread?.message{
@@ -98,18 +98,18 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     }()
     
     let writeCommentContainer = CustomViews.shared.getCustomWriteCommentContainer()
-
+    
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         return recognizer
     }()
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.titleNav
         if(liveQuery == nil){
-        getTopicComments(threadID: (self.thread?.tid)!)
+            getTopicComments(threadID: (self.thread?.tid)!)
         }
         
         commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
@@ -135,9 +135,9 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     }
     
     func setUpSubViews(){
-    infoContainer.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: self.infoHeight)
-    writeCommentContainer.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: view.frame.width, height: 40)
-    commentsCollectionView.addConstraintsWithConstants(top: infoContainer.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
+        infoContainer.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: self.infoHeight)
+        writeCommentContainer.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: view.frame.width, height: 40)
+        commentsCollectionView.addConstraintsWithConstants(top: infoContainer.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -166,7 +166,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         }, completion: nil)
     }
     
-
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         UIView.animate(withDuration: 0.5, delay: 1.5, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -197,3 +197,4 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         return true
     }
 }
+

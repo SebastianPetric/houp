@@ -64,12 +64,12 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     }()
 
     let seperatorText = CustomViews.shared.getCustomSeperator(color: .white)
-    let nameOfGroup = CustomViews.shared.getCustomLabel(text: "AA Regionalgruppe", fontSize: 14, isBold: true, textAlignment: .left, textColor: .white)
-    let locationOfMeeting = CustomViews.shared.getCustomLabel(text: "Weingarten, Siemensstraße 28", fontSize: 12, isBold: false, textAlignment: .left, textColor: .white)
-    let dayOfMeeting = CustomViews.shared.getCustomLabel(text: "Jeden 3. Donnerstag im geraden Monat", fontSize: 12, isBold: false, textAlignment: .left, textColor: .white)
-    let timeOfMeeting = CustomViews.shared.getCustomLabel(text: "19:30 Uhr", fontSize: 12, isBold: false, textAlignment: .left, textColor: .white)
-    let secretGroupID = CustomViews.shared.getCustomLabel(text: "#GeheimeID", fontSize: 12, isBold: true, textAlignment: .left, textColor: .white)
-    let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: false, textAlignment: .right, textColor: .white)
+    let nameOfGroup = CustomViews.shared.getCustomLabel(text: "AA Regionalgruppe", fontSize: 14, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .white)
+    let locationOfMeeting = CustomViews.shared.getCustomLabel(text: "Weingarten, Siemensstraße 28", fontSize: 12, numberOfLines: 2, isBold: false, textAlignment: .left, textColor: .white)
+    let dayOfMeeting = CustomViews.shared.getCustomLabel(text: "Jeden 3. Donnerstag im geraden Monat", fontSize: 12, numberOfLines: 2, isBold: false, textAlignment: .left, textColor: .white)
+    let timeOfMeeting = CustomViews.shared.getCustomLabel(text: "19:30 Uhr", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: .white)
+    let secretGroupID = CustomViews.shared.getCustomLabel(text: "#GeheimeID", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .white)
+    let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .white)
     let usersInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "users_private_icon", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1))
     let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1))
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
@@ -133,7 +133,8 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         return self.threadsList.count
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = PrivateGroupCommentsCollectionViewController()
+        //let controller = PrivateGroupCommentsCollectionViewController()
+        let controller = GroupCommentsController()
         controller.thread = threadsList[indexPath.row]
         controller.titleNav = (self.privateGroup?.nameOfGroup)!
         self.navigationController?.pushViewController(controller, animated: true)

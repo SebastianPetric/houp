@@ -25,6 +25,26 @@ class CustomViews{
             customTextField.clearButtonMode = .always
             return customTextField
     }
+    
+    func getCustomTextFieldLarge(placeholder: String,keyboardType: UIKeyboardType, isPasswordField: Bool, backgroundColor: UIColor?) -> UITextField {
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 1.5
+        let attributes = [NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
+        let customTextField = UITextField()
+        customTextField.attributedText = NSAttributedString(string: placeholder, attributes: attributes)
+        if(backgroundColor != nil){
+            customTextField.backgroundColor = backgroundColor
+        }
+        customTextField.textColor = .white
+        customTextField.keyboardType = keyboardType
+        print(customTextField.frame.size.height)
+        customTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
+        customTextField.layer.cornerRadius = 5
+        customTextField.isSecureTextEntry = isPasswordField
+        customTextField.clearButtonMode = .always
+        return customTextField
+    }
 
     func getCustomButton(title: String) -> UIButton{
             let customButton = UIButton(type: .system)
@@ -37,8 +57,9 @@ class CustomViews{
             return customButton
     }
     
-    func getCustomLabel(text: String, fontSize: CGFloat,isBold: Bool, textAlignment: NSTextAlignment, textColor: UIColor?) -> UILabel{
+    func getCustomLabel(text: String, fontSize: CGFloat,numberOfLines: Int, isBold: Bool, textAlignment: NSTextAlignment, textColor: UIColor?) -> UILabel{
         let customLabel = UILabel()
+        customLabel.numberOfLines = numberOfLines
         customLabel.numberOfLines = 2
         if(textColor != nil){
             customLabel.textColor = textColor
@@ -260,7 +281,7 @@ class CustomViews{
     
     func getCustomPickerViewWithTitle(title: String, pickerMode: UIDatePickerMode) -> UIView {
        
-            let pickerTitle = getCustomLabel(text: title, fontSize: 16, isBold: true, textAlignment: .left, textColor: UIColor().getSecondColor())
+            let pickerTitle = getCustomLabel(text: title, fontSize: 16, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: UIColor().getSecondColor())
         
       
             let picker = UIDatePicker()

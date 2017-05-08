@@ -19,7 +19,7 @@ class CreateGroupThreadController: UIViewController, UITextFieldDelegate, UIText
     let titleThread = CustomViews.shared.getCustomTextField(placeholder: "Titel", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let messageThread = CustomViews.shared.getCustomTextViewContainer(text: "", fontSize: 12, isBold: true, textAlignment: .left, textColor: .white, borderColor: .white, backgroundColor: UIColor().getSecondColor())
     let createButton = CustomViews.shared.getCustomButton(title: "Thread erstellen")
-    let isPublicLabel = CustomViews.shared.getCustomLabel(text: "Öffentlich fragen?", fontSize: 16, isBold: true, textAlignment: .left, textColor: .black)
+    let isPublicLabel = CustomViews.shared.getCustomLabel(text: "Öffentlich fragen?", fontSize: 16, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .black)
     let isPublicSwitch: UISwitch = {
     let switchButton = UISwitch()
         switchButton.isOn = false
@@ -35,7 +35,7 @@ class CreateGroupThreadController: UIViewController, UITextFieldDelegate, UIText
             self.groupPicker!.dataSource = self
             self.groupPicker!.reloadAllComponents()
         
-            let sendToAllGroupsLabel = CustomViews.shared.getCustomLabel(text: "An alle deine privaten Gruppen senden?", fontSize: 12, isBold: true, textAlignment: .left, textColor: .black)
+            let sendToAllGroupsLabel = CustomViews.shared.getCustomLabel(text: "An alle deine privaten Gruppen senden?", fontSize: 12, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)
     
             self.sendToAllGroupsSwitch = UISwitch()
             self.sendToAllGroupsSwitch?.isOn = false

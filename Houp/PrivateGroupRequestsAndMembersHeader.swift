@@ -11,7 +11,7 @@ import UIKit
 
 class PrivateGroupRequestsAndMembersHeader: UICollectionReusableView{
     
-    let sectionHeader = CustomViews.shared.getCustomLabel(text: "Soso", fontSize: 16, isBold: true, textAlignment: .left, textColor: .white)
+    let sectionHeader = CustomViews.shared.getCustomLabel(text: "Soso", fontSize: 16, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .white)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

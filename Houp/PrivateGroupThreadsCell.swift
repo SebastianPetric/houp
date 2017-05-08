@@ -33,14 +33,14 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
 
     let widthHeightOfImages: CGFloat = 20
     let seperator = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
-    let title = CustomViews.shared.getCustomLabel(text: "Suchtdruck in der Stadt Lirum Larum Löffelstiel. Dies Das Ananas", fontSize: 14, isBold: true, textAlignment: .left , textColor: nil)
-    let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, isBold: false, textAlignment: .left , textColor: nil)
-    let threadDate = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
+    let title = CustomViews.shared.getCustomLabel(text: "Suchtdruck in der Stadt Lirum Larum Löffelstiel. Dies Das Ananas", fontSize: 14, numberOfLines: 2, isBold: true, textAlignment: .left , textColor: nil)
+    let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left , textColor: nil)
+    let threadDate = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
     let threadDateTimeSeperator = CustomViews.shared.getCustomSeperator(color: .black)
-    let threadTime = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
+    let threadTime = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
     let notificationImage = CustomViews.shared.getCustomImageView(imageName: "notification_icon", cornerRadius: 10, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
     let answersImage = CustomViews.shared.getCustomImageView(imageName: "answers_icon", cornerRadius: 10, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
-    let answersLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: false, textAlignment: .right, textColor: .black)
+    let answersLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .black)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

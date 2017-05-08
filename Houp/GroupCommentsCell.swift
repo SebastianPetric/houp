@@ -1,14 +1,14 @@
 //
-//  PrivateGroupCommentsCell.swift
+//  GroupCommentsCell.swift
 //  Houp
 //
-//  Created by Sebastian on 04.04.17.
+//  Created by Sebastian on 04.05.17.
 //  Copyright © 2017 SP. All rights reserved.
 //
 
 import UIKit
 
-class PublicGroupCommentsCell: UICollectionViewCell{
+class GroupCommentsCell: UICollectionViewCell{
     
     var comment: Comment?{
         didSet{
@@ -77,3 +77,4 @@ class PublicGroupCommentsCell: UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
 }
+

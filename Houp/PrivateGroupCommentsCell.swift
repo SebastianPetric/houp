@@ -40,12 +40,12 @@ class PrivateGroupCommentsCell: UICollectionViewCell{
     }
     
     let seperatorCell = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
-    let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, isBold: false, textAlignment: .left, textColor: nil)
-    let date = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
+    let username = CustomViews.shared.getCustomLabel(text: "Username", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: nil)
+    let date = CustomViews.shared.getCustomLabel(text: "03.02.2017", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
     let seperatorTime = CustomViews.shared.getCustomSeperator(color: .black)
-    let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, isBold: false, textAlignment: .right, textColor: nil)
+    let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
     let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bl fejfwpeokfew kofwekowefkewf kfekoefwkewf kokwefokwefpwfe oooooo", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: .white)
-    let upvoteLabel = CustomViews.shared.getCustomLabel(text: "122", fontSize: 12, isBold: true, textAlignment: .center, textColor: .black)
+    let upvoteLabel = CustomViews.shared.getCustomLabel(text: "122", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .center, textColor: .black)
     let upvoteButton = CustomViews.shared.getCustomButtonWithImage(imageName: "upvote_icon", backgroundColor: .white, imageColor: .black, radius: nil, borderColor: nil)
     
     override init(frame: CGRect) {
