@@ -32,7 +32,7 @@ class CustomViews{
         paragraphStyle.lineSpacing = 1.5
         let attributes = [NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
         let customTextField = UITextField()
-        customTextField.attributedText = NSAttributedString(string: placeholder, attributes: attributes)
+        customTextField.attributedText = NSAttributedString(string: "", attributes: attributes)
         if(backgroundColor != nil){
             customTextField.backgroundColor = backgroundColor
         }

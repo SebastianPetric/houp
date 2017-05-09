@@ -29,7 +29,7 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleDelete))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleActivityForm))
         //self.threadsList = DBConnection.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!)
         //navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         //navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))
@@ -52,7 +52,7 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(handleDelete))
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(handleActivityForm))
         swipe.direction = UISwipeGestureRecognizerDirection.left
         
         
@@ -84,8 +84,11 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func handleDelete(){
-        let controller = ActivityForm1()
-        self.navigationController?.pushViewController(controller, animated: true)
+
+        func handleActivityForm(){
+            //let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: ActivityForm1(), navBarTitle: "Hallo!", barItemTitle: nil, image: nil)
+            let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+            let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreateActivityWeekController(), navBarTitle: (tomorrow?.getDatePart() as? String)!, barItemTitle: nil, image: nil)
+            self.present(createController, animated: true, completion: nil)
     }
 }
