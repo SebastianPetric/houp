@@ -146,7 +146,7 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
         header = "Mitglieder"
         }else{
             if(indexPath.section == 0){
-                header = "Requests"
+                header = "Anfragen"
             }else{
                 header = "Mitglieder"
             }

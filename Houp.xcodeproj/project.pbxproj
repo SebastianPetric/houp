@@ -87,6 +87,7 @@
 		52E6E4041EC235AF00B59D25 /* ActivityWeekForm5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E4031EC235AF00B59D25 /* ActivityWeekForm5.swift */; };
 		52E6E4061EC235C700B59D25 /* ActivityWeekForm6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E4051EC235C700B59D25 /* ActivityWeekForm6.swift */; };
 		52E6E4081EC235DF00B59D25 /* ActivityWeekForm7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E4071EC235DF00B59D25 /* ActivityWeekForm7.swift */; };
+		52E6E40A1EC4ACDF00B59D25 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E4091EC4ACDF00B59D25 /* Activity.swift */; };
 		52F31A081E7D6F93000F5157 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */; };
 		52F31A0A1E7D6FE4000F5157 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A091E7D6FE4000F5157 /* CFNetwork.framework */; };
 		52F31A0C1E7D6FEE000F5157 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A0B1E7D6FEE000F5157 /* Security.framework */; };
@@ -180,6 +181,7 @@
 		52E6E4031EC235AF00B59D25 /* ActivityWeekForm5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekForm5.swift; sourceTree = "<group>"; };
 		52E6E4051EC235C700B59D25 /* ActivityWeekForm6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekForm6.swift; sourceTree = "<group>"; };
 		52E6E4071EC235DF00B59D25 /* ActivityWeekForm7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekForm7.swift; sourceTree = "<group>"; };
+		52E6E4091EC4ACDF00B59D25 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		52F31A071E7D6F93000F5157 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
 		52F31A091E7D6FE4000F5157 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		52F31A0B1E7D6FEE000F5157 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -317,6 +319,7 @@
 				529BB64F1EA7848700776D16 /* Thread.swift */,
 				529BB64D1EA67A9D00776D16 /* UserObject.swift */,
 				521C0C021EB0E75200D05F8F /* Comment.swift */,
+				52E6E4091EC4ACDF00B59D25 /* Activity.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */,
 				523391751E96AADA00A867D9 /* PublicGroupCommentsCell.swift in Sources */,
 				521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */,
+				52E6E40A1EC4ACDF00B59D25 /* Activity.swift in Sources */,
 				521C0C031EB0E75200D05F8F /* Comment.swift in Sources */,
 				521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,

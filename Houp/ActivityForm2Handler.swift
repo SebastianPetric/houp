@@ -11,14 +11,32 @@ import UIKit
 extension ActivityForm2{
 
     func handleContinue(){
-        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
-            let controller = ActivityForm3()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
+            if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+                var success: Int = -1
+                for button in container.subviews as! [UIButton] {
+                    if(button.backgroundColor == UIColor().getSecondColor()){
+                        success = container.subviews.index(of: button)!
+                    }
+                }
+                
+                var successText: String = ""
+                if(self.extraCommentSwitch.isOn && self.reason.text != ""){
+                    successText = self.reason.text
+                }
+                
+                let controller = ActivityForm3()
+                controller.activityWeekCollection = self.activityWeekCollection
+                self.activity?.status = success
+                self.activity?.activityText = successText
+                self.activity?.isInProcess = false
+                controller.activity = self.activity
+                controller.wantToShare = shareSwitch.isOn
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
     }
     
-    func handlePublicSwitch(){
-        if(self.isPublicSwitch.isOn){
+    func handleExtraCommentSwitch(){
+        if(self.extraCommentSwitch.isOn){
             self.reason.isHidden = false
             self.heightOfTextView?.isActive = false
             self.heightOfTextView?.constant = 100

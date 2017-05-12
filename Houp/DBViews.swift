@@ -70,6 +70,52 @@ extension DBConnection{
         return viewByThread
     }
     
+    func viewByAllActivityInGroup(db: CBLDatabase) -> CBLView{
+        let viewByActiveActivityInGroup = db.viewNamed("viewByActiveActivityInGroup")
+        if (viewByActiveActivityInGroup.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String, let isInProcess = doc["isInProcess"] as? Bool, let groupID = doc["groupID"] as? String{
+                    if (type == "DailyActivity" && isInProcess == false) {
+                        emit(doc["groupID"], nil)
+                    }
+                }
+            }
+            viewByActiveActivityInGroup.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByActiveActivityInGroup
+    }
+    
+    func viewByActiveActivityForUser(db: CBLDatabase) -> CBLView{
+        let viewByActiveActivityForUser = db.viewNamed("viewByActiveActivityForUser")
+        if (viewByActiveActivityForUser.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String, let isInProcess = doc["isInProcess"] as? Bool{
+                    if (type == "DailyActivity" && isInProcess == true) {
+                        emit(doc["authorID"], nil)
+                    }
+                }
+            }
+            viewByActiveActivityForUser.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByActiveActivityForUser
+    }
+    
+    func viewByInactiveActivityForUser(db: CBLDatabase) -> CBLView{
+        let viewByInactiveActivityForUser = db.viewNamed("viewByInactiveActivityForUser")
+        if (viewByInactiveActivityForUser.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String, let isInProcess = doc["isInProcess"] as? Bool{
+                    if (type == "DailyActivity" && isInProcess == false) {
+                        emit(doc["authorID"], nil)
+                    }
+                }
+            }
+            viewByInactiveActivityForUser.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByInactiveActivityForUser
+    }
+
+    
     func viewByComment(db: CBLDatabase) -> CBLView{
         let viewByComment = db.viewNamed("viewByComment")
         if (viewByComment.mapBlock == nil) {
@@ -84,6 +130,22 @@ extension DBConnection{
         }
         return viewByComment
     }
+    
+    func viewByCommentOfActivity(db: CBLDatabase) -> CBLView{
+        let viewByCommentOfActivity = db.viewNamed("viewByCommentOfActivity")
+        if (viewByCommentOfActivity.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String{
+                    if type == "Comment" {
+                        emit(doc["dailyActivityID"], nil)
+                    }
+                }
+            }
+            viewByCommentOfActivity.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByCommentOfActivity
+    }
+
 
 
 }

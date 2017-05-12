@@ -566,7 +566,7 @@ extension DBConnection{
                     if let threadDate = row.document?["date"] as? String{
                         cdate = Date(dateString: threadDate)
                     }
-                    let comment = Comment(rev: row.documentRevisionID, cid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String,threadID: row.document?["threadID"] as? String, message: row.document?["message"] as? String, date: cdate, likeIDs: row.document?["likeIDs"] as? [String])
+                    let comment = Comment(rev: row.documentRevisionID, cid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String,dailyActivityID: row.document?["dailyActivityID"] as? String,threadID: row.document?["threadID"] as? String, message: row.document?["message"] as? String, date: cdate, likeIDs: row.document?["likeIDs"] as? [String])
                     comments.append(comment)
                 }
             }
@@ -575,6 +575,40 @@ extension DBConnection{
         }
         return comments
     }
+    
+    func getAllCommentsByID(activityID: String) -> [Comment] {
+        var comments = [Comment]()
+        do{
+            if let view = self.viewByCommentOfActivity{
+                let query = view.createQuery()
+                query.keys = [activityID]
+                let result = try query.run()
+                while let row = result.nextRow() {
+                    
+                    var userName: String?
+                    if let authorUserName = row.document?["authorID"] as? String{
+                        let queryForUsername = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                        queryForUsername?.allDocsMode = CBLAllDocsMode.allDocs
+                        queryForUsername?.keys = [authorUserName]
+                        let result = try queryForUsername?.run()
+                        while let row = result?.nextRow() {
+                            userName = row.document?["username"] as? String
+                        }
+                    }
+                    var cdate: Date?
+                    if let threadDate = row.document?["date"] as? String{
+                        cdate = Date(dateString: threadDate)
+                    }
+                    let comment = Comment(rev: row.documentRevisionID, cid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String,dailyActivityID: row.document?["dailyActivityID"] as? String,threadID: row.document?["threadID"] as? String, message: row.document?["message"] as? String, date: cdate, likeIDs: row.document?["likeIDs"] as? [String])
+                    comments.append(comment)
+                }
+            }
+        }catch{
+            return [Comment]()
+        }
+        return comments
+    }
+
 
     func createThreadWithProperties(properties: [Thread]) -> String?{
         do{
@@ -603,6 +637,101 @@ extension DBConnection{
         }
         return nil
     }
+    
+    
+    func createActivityWithProperties(properties: Activity) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                    let doc = con.createDocument()
+                    try doc.putProperties(properties.getPropertyPackageCreateActivity())
+                    var activityArray = [String]()
+                    let docU = con.document(withID: UserDefaults.standard.string(forKey: GetString.userID.rawValue)!)
+                    try docU?.update({ (rev) -> Bool in
+                        if let curArray = rev["dailyFormIDs"] as! [String]?{
+                            activityArray = curArray
+                            activityArray.append(doc.documentID)
+                            rev["dailyFormIDs"] = activityArray
+                        }
+                        return true
+                    })
+            }else {
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+    
+    func shareActivityWithGroups(properties: Activity) -> String?{
+    do{
+        if let con = DBConnection.shared.getDBConnection(){
+    
+            var userName: String?
+            var groupIDs: [String] = [String]()
+            let queryForUsername = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+            queryForUsername?.allDocsMode = CBLAllDocsMode.allDocs
+            queryForUsername?.keys = [properties.authorID]
+            let result = try queryForUsername?.run()
+            while let row = result?.nextRow() {
+                userName = row.document?["username"] as? String
+                groupIDs = (row.document?["groupIDs"] as? [String])!
+            }
+        
+            let queryForActivity = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+            queryForActivity?.allDocsMode = CBLAllDocsMode.allDocs
+            queryForActivity?.keys = [properties.aid]
+            let result1 = try queryForActivity?.run()
+            while let row = result1?.nextRow() {
+                for groupID in groupIDs{
+                    var activitydate: Date?
+                    if let activityDate = row.document?["dateObject"] as? String{
+                        activitydate = Date(dateString: activityDate)
+                    }
+                    
+                    let activitytime = row.document?["timeObject"] as! String
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH:mm"
+                    
+                    let activity = Activity(rev: row.documentRevisionID, aid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: groupID, activity: row.document?["activity"] as? String, activityText: row.document?["activityText"] as? String, locationOfActivity: row.document?["locationOfActivity"] as? String, isInProcess: row.document?["isInProcess"] as? Bool, status: row.document?["status"] as? Int, wellBeingState: row.document?["wellBeingState"] as? Int, wellBeingText: row.document?["wellBeingText"] as? String, addictionState: row.document?["addictionState"] as? Int, addictionText: row.document?["addictionText"] as? String, dateObject: activitydate, timeObject: formatter.date(from: activitytime), commentIDs: row.document?["commentIDs"] as? [String], likeIDs: row.document?["likeIDs"] as? [String])
+                    let docUpdate = con.createDocument()
+                    try docUpdate.putProperties(activity.getUpdatedPropertyPackageActivity())
+                }
+            }
+        }else{
+            return GetString.errorWithDB.rawValue
+        }
+    }catch{
+        return GetString.errorWithDB.rawValue
+    }
+        return nil
+    }
+    
+    
+    func updateActivityAfterForm(properties: Activity) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                let doc = con.document(withID: properties.aid!)
+                try doc?.update({ (rev) -> Bool in
+                    rev["status"] = properties.status!
+                    rev["activityText"] = properties.activityText!
+                    rev["wellBeingState"] = properties.wellBeingState!
+                    rev["wellBeingText"] = properties.wellBeingText!
+                    rev["addictionState"] = properties.addictionState!
+                    rev["addictionText"] = properties.addictionText!
+                    rev["isInProcess"] = properties.isInProcess!
+                    return true
+                })
+            }else {
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
+
 
     
     

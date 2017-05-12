@@ -14,7 +14,7 @@ extension PublicGroupThreadWithComments{
         self.view.endEditing(true)
         if(!hasAnyErrors()){
             let commentView = self.writeCommentContainer.subviews[0] as! UITextField
-            let comment = Comment(rev: nil, cid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: self.thread?.groupID, threadID: self.thread?.tid, message: commentView.text, date: Date(), likeIDs: nil)
+            let comment = Comment(rev: nil, cid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: self.thread?.groupID, dailyActivityID: nil, threadID: self.thread?.tid, message: commentView.text, date: Date(), likeIDs: nil)
             
             if let error = DBConnection.shared.createCommentWithProperties(properties: comment){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
@@ -75,7 +75,7 @@ extension PublicGroupThreadWithComments{
                             if let threadDate = props["date"] as? String{
                                 cdate = Date(dateString: threadDate)
                             }
-                            let comment = Comment(rev: props["_rev"] as? String, cid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: userName, groupID: props["groupID"] as? String,threadID: props["threadID"] as? String, message: props["message"] as? String, date: cdate, likeIDs: props["likeIDs"] as? [String])
+                            let comment = Comment(rev: props["_rev"] as? String, cid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: userName, groupID: props["groupID"] as? String, dailyActivityID: nil, threadID: props["threadID"] as? String, message: props["message"] as? String, date: cdate, likeIDs: props["likeIDs"] as? [String])
                             comments.append(comment)
                         }
                         comments.sort(by: {

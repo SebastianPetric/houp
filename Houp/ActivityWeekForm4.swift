@@ -13,7 +13,7 @@ class ActivityWeekForm4: UIViewController, UITextFieldDelegate{
     
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was würdest du gerne unternehmen?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
-    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. ein Film schauen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
+    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. einen Film schauen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit", pickerMode: .time)
     let dateActivity = CustomViews.shared.getCustomLabel(text: "Heute", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .black)
@@ -53,16 +53,32 @@ class ActivityWeekForm4: UIViewController, UITextFieldDelegate{
         continueButton.addConstraintsWithConstants(top: progressbar.bottomAnchor, right: activityText.rightAnchor, bottom: nil, left: activityText.leftAnchor, centerX: nil, centerY: nil, topConstant: 15, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 40)
     }
     
-    func continueWeek(){
-        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
-            let tomorrow = Calendar.current.date(byAdding: .day, value: 5, to: Date())
-            let controller = ActivityWeekForm5()
-            controller.title = tomorrow?.getDatePart()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
+    func hasAnyErrors() -> Bool{
+        let timePicker = self.timeOfActivity.subviews[1] as! UIDatePicker
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 4, to: Date())
         
+        let activity = Activity(rev: nil, aid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: self.activityText.text, activityText: nil, locationOfActivity: self.locationText.text, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: nil, addictionText: nil, dateObject: tomorrow, timeObject: timePicker.date, commentIDs: nil, likeIDs: nil)
+        if let error = DBConnection.shared.createActivityWithProperties(properties: activity){
+            return true
+        }else{
+            return false
+        }
     }
     
+    func continueWeek(){
+        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+            if (hasAnyErrors()){
+                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: {action in self.dismiss(animated: true, completion: nil)}, secondHandler: nil)
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                let tomorrow = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+                let controller = ActivityWeekForm5()
+                controller.title = tomorrow?.getDatePart()
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+        }
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if(self.activityText.text! != ""){
             self.continueButton.layer.borderColor = UIColor().getSecondColor().cgColor

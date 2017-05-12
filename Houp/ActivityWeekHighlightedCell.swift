@@ -18,6 +18,22 @@ class ActivityWeekHighlightedCell: UICollectionViewCell{
     let seperator = CustomViews.shared.getCustomSeperator(color: .black)
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     
+    var activityObject: Activity?{
+        didSet{
+            if let loc = activityObject?.locationOfActivity{
+                self.locationOfActivity.text = loc
+            }
+            if let dat = activityObject?.dateObject{
+                self.dateOfActivity.text = dat.getDatePart()
+            }
+            if let tim = activityObject?.timeObject{
+                self.timeOfActivity.text = tim.getTimePart()
+            }
+            if let tit = activityObject?.activity{
+                self.activity.text = tit
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

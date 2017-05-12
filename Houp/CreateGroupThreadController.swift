@@ -11,7 +11,6 @@ import UIKit
 class CreateGroupThreadController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
 
     var privateGroupsList: [PrivateGroup]?
-    //let pickerGroups = ["Gruppe 1", "Gruppe 2", "Gruppe 3"]
     var heightOfPrivateContainer: NSLayoutConstraint?
     var sendToAllGroupsSwitch: UISwitch?
     var groupPicker: UIPickerView?

@@ -17,13 +17,14 @@ class Comment: NSObject, NSCoding{
     var groupID: String?
     var threadID: String?
     var message: String?
+    var dailyActivityID: String?
     var dateString: String?
     var dateObject: Date?
     var likeIDs: [String]?
     var hasBeenUpdated = false
     
     
-    init(rev: String?, cid: String?, authorID: String?, authorUsername: String?, groupID: String?,threadID: String?, message: String? ,date: Date?, likeIDs: [String]?) {
+    init(rev: String?, cid: String?, authorID: String?, authorUsername: String?, groupID: String?, dailyActivityID: String?,threadID: String?, message: String? ,date: Date?, likeIDs: [String]?) {
         
         if let revision = rev {
             self.rev = revision
@@ -39,6 +40,9 @@ class Comment: NSObject, NSCoding{
         }
         if let group = groupID {
             self.groupID = group
+        }
+        if let daily = dailyActivityID {
+            self.dailyActivityID = daily
         }
         if let thread = threadID {
             self.threadID = thread
@@ -77,6 +81,9 @@ class Comment: NSObject, NSCoding{
         if let group = aDecoder.decodeObject(forKey: "groupID") as? String{
             self.groupID = group
         }
+        if let daily = aDecoder.decodeObject(forKey: "dailyActivityID") as? String{
+            self.dailyActivityID = daily
+        }
         if let thread = aDecoder.decodeObject(forKey: "threadID") as? String{
             self.threadID = thread
         }
@@ -113,6 +120,9 @@ class Comment: NSObject, NSCoding{
         if let group = self.groupID {
             aCoder.encode(group, forKey: "groupID")
         }
+        if let daily = self.dailyActivityID {
+            aCoder.encode(daily, forKey: "dailyActivityID")
+        }
         if let thread = self.threadID {
             aCoder.encode(thread, forKey: "threadID")
         }
@@ -143,6 +153,10 @@ class Comment: NSObject, NSCoding{
         
         if let group = self.groupID {
             properties["groupID"] = group
+        }
+        
+        if let daily = self.dailyActivityID {
+            properties["dailyActivityID"] = daily
         }
         if let aID = self.authorID {
             properties["authorID"] = aID

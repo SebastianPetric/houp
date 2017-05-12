@@ -12,13 +12,29 @@ extension ActivityForm1{
 
     func handleContinue(){
         if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+            var addictionState: Int = -1
+            for button in container.subviews as! [UIButton] {
+                if(button.backgroundColor == UIColor().getSecondColor()){
+                addictionState = container.subviews.index(of: button)!
+                }
+            }
+            
+            var addictionText: String = ""
+            if(self.extraCommentSwitch.isOn && self.reason.text != ""){
+                addictionText = self.reason.text
+            }
+            
+            let activity = Activity(rev: nil, aid: self.activityList[0].aid, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: nil, activityText: nil, locationOfActivity: nil, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: addictionState, addictionText: addictionText, dateObject: nil, timeObject: nil, commentIDs: nil, likeIDs: nil)
+            
             let controller = ActivityForm2()
+            controller.activityWeekCollection = self.activityWeekCollection
+            controller.activity = activity
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
-    func handlePublicSwitch(){
-        if(self.isPublicSwitch.isOn){
+    func handleExtraCommentSwitch(){
+        if(self.extraCommentSwitch.isOn){
             self.reason.isHidden = false
             self.heightOfTextView?.isActive = false
             self.heightOfTextView?.constant = 100

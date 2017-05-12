@@ -25,6 +25,10 @@ class DBConnection{
     var viewPrivateGroupBySecretID: CBLView?
     var viewByThread: CBLView?
     var viewByComment: CBLView?
+    var viewByAllActivityInGroup: CBLView?
+    var viewByActiveActivityForUser: CBLView?
+    var viewByInactiveActivityForUser: CBLView?
+    var viewByCommentOfActivity: CBLView?
     
     func setUpDBConnection(){
         do {
@@ -39,6 +43,10 @@ class DBConnection{
                 self.viewPrivateGroupBySecretID = viewPrivateGroupBySecretID(db: dbCon)
                 self.viewByThread = viewByThread(db: dbCon)
                 self.viewByComment = viewByComment(db: dbCon)
+                self.viewByAllActivityInGroup = viewByAllActivityInGroup(db: dbCon)
+                self.viewByActiveActivityForUser = viewByActiveActivityForUser(db: dbCon)
+                self.viewByInactiveActivityForUser = viewByInactiveActivityForUser(db: dbCon)
+                self.viewByCommentOfActivity = viewByCommentOfActivity(db: dbCon)
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
                 self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)

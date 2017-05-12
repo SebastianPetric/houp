@@ -12,6 +12,8 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
     
     var heightOfTextView: NSLayoutConstraint?
     var heightOfShareContainer: NSLayoutConstraint?
+    var activity: Activity?
+    var activityWeekCollection: ActivityWeekCollection?
     
     
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Wenn du an den heutigen Tag zurückdenkst...", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
@@ -24,7 +26,7 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
     let continueButton = CustomViews.shared.getCustomButton(title: "Weiter")
     let progressbar = CustomViews.shared.getCustomProgressionView(status: 0.666666, statusText: "2 von 3", progressColor: UIColor().getSecondColor())
     let reasonHeader = CustomViews.shared.getCustomLabel(text: "Willst du noch etwas dazu sagen?", fontSize: 12, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)
-    let isPublicSwitch: UISwitch = {
+    let extraCommentSwitch: UISwitch = {
         let switchButton = UISwitch()
         switchButton.isOn = false
         return switchButton
@@ -58,7 +60,7 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
         container.addSubview(neutralImage)
         container.addSubview(goodImage)
         view.addSubview(container)
-        view.addSubview(isPublicSwitch)
+        view.addSubview(extraCommentSwitch)
         view.addSubview(reasonHeader)
         shareContainer.addSubview(shareHeader)
         shareContainer.addSubview(shareSwitch)
@@ -67,7 +69,7 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
         neutralImage.addTarget(self, action: #selector(handleSelectImage), for: .touchUpInside)
         goodImage.addTarget(self, action: #selector(handleSelectImage), for: .touchUpInside)
         continueButton.addTarget(self, action: #selector(handleContinue), for: .touchUpInside)
-        isPublicSwitch.addTarget(self, action: #selector(handlePublicSwitch), for: .touchUpInside)
+        extraCommentSwitch.addTarget(self, action: #selector(handleExtraCommentSwitch), for: .touchUpInside)
         reason.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
          addNotificationObserver()
@@ -94,12 +96,12 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
         shareSwitch.addConstraintsWithConstants(top: nil, right: shareContainer.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: shareContainer.centerYAnchor, topConstant: 12.5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 50, height: 0)
         shareHeader.addConstraintsWithConstants(top: nil, right: shareSwitch.leftAnchor, bottom: nil, left: shareContainer.leftAnchor, centerX: nil, centerY: shareSwitch.centerYAnchor, topConstant: 12.5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
         
-        reasonHeader.addConstraintsWithConstants(top: nil, right: isPublicSwitch.leftAnchor, bottom: nil, left: continueButton.leftAnchor, centerX: nil, centerY: isPublicSwitch.centerYAnchor, topConstant: 12.5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
-        isPublicSwitch.addConstraintsWithConstants(top: shareContainer.bottomAnchor, right: continueButton.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 12.5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 50, height: 0)
+        reasonHeader.addConstraintsWithConstants(top: nil, right: extraCommentSwitch.leftAnchor, bottom: nil, left: continueButton.leftAnchor, centerX: nil, centerY: extraCommentSwitch.centerYAnchor, topConstant: 12.5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
+        extraCommentSwitch.addConstraintsWithConstants(top: shareContainer.bottomAnchor, right: continueButton.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 12.5, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 50, height: 0)
         
         reason.translatesAutoresizingMaskIntoConstraints = false
         reason.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
-        reason.topAnchor.constraint(equalTo: isPublicSwitch.bottomAnchor, constant: 12.5).isActive = true
+        reason.topAnchor.constraint(equalTo: extraCommentSwitch.bottomAnchor, constant: 12.5).isActive = true
         reason.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50).isActive = true
         self.heightOfTextView = reason.heightAnchor.constraint(equalToConstant: 0)
         self.heightOfTextView?.isActive = true

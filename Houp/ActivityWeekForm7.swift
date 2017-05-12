@@ -13,11 +13,11 @@ class ActivityWeekForm7: UIViewController, UITextFieldDelegate{
     
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was würdest du gerne unternehmen?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
-    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. Federball spielen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
+    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. Spazieren spielen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit", pickerMode: .time)
     let dateActivity = CustomViews.shared.getCustomLabel(text: "Heute", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .black)
-    let continueButton = CustomViews.shared.getCustomButton(title: "Woche erstellen")
+    let continueButton = CustomViews.shared.getCustomButton(title: "Fertig!")
     let progressbar = CustomViews.shared.getCustomProgressionView(status: 1, statusText: "7 von 7", progressColor: UIColor().getSecondColor())
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -56,7 +56,7 @@ class ActivityWeekForm7: UIViewController, UITextFieldDelegate{
         func continueWeek(){
                 if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
     
-                    if (false){
+                    if (hasAnyErrors()){
                         let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                         self.present(alert, animated: true, completion: nil)
                     }else{
@@ -73,6 +73,19 @@ class ActivityWeekForm7: UIViewController, UITextFieldDelegate{
                     }
                 }
              }
+    
+    func hasAnyErrors() -> Bool{
+        let timePicker = self.timeOfActivity.subviews[1] as! UIDatePicker
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 7, to: Date())
+        
+        let activity = Activity(rev: nil, aid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: self.activityText.text, activityText: nil, locationOfActivity: self.locationText.text, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: nil, addictionText: nil, dateObject: tomorrow, timeObject: timePicker.date, commentIDs: nil, likeIDs: nil)
+        if let error = DBConnection.shared.createActivityWithProperties(properties: activity){
+            return true
+        }else{
+            return false
+        }
+    }
+
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if(self.activityText.text! != ""){

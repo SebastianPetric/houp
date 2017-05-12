@@ -9,13 +9,19 @@
 import Foundation
 
 extension ActivityForm3{
+    
     func handleContinue(){
         if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
-            
-            if (false){
+            if (hasAnyErrors()){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
             }else{
+                self.activityWeekCollection?.liveQuery?.removeObserver(self.activityWeekCollection.self!, forKeyPath: "rows")
+                self.activityWeekCollection?.activityList.removeAll()
+                self.activityWeekCollection?.getTopicActivities(userID: UserDefaults.standard.string(forKey: GetString.userID.rawValue)!)
+                self.activityWeekCollection?.activityCollectionView.reloadData()
+                
+                self.activityWeekCollection?.handleNavBarItem()
                 if let window = UIApplication.shared.keyWindow{
                     self.positiveResponse = CustomViews.shared.getPositiveResponse(title: "Super!", message: "Morgen wird ein guter Tag!")
                     self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
@@ -27,6 +33,27 @@ extension ActivityForm3{
                     }, completion: nil)
                 }
             }
+        }
+    }
+    
+    func hasAnyErrors() -> Bool{
+        var wellBeState: Int = -1
+        for button in container.subviews as! [UIButton] {
+            if(button.backgroundColor == UIColor().getSecondColor()){
+                wellBeState = container.subviews.index(of: button)!
+            }
+        }
+        var wellBeText: String = ""
+        if(self.extraCommentSwitch.isOn && self.reason.text != ""){
+            wellBeText = self.reason.text
+        }
+        self.activity?.wellBeingState = wellBeState
+        self.activity?.wellBeingText = wellBeText
+
+        if let error = DBConnection.shared.updateActivityAfterForm(properties: self.activity!){
+        return true
+        }else{
+        return false
         }
     }
     
@@ -54,8 +81,8 @@ extension ActivityForm3{
         }
     }
     
-    func handlePublicSwitch(){
-        if(self.isPublicSwitch.isOn){
+    func handleExtraCommentSwitch(){
+        if(self.extraCommentSwitch.isOn){
             self.reason.isHidden = false
             self.heightOfTextView?.isActive = false
             self.heightOfTextView?.constant = 100
