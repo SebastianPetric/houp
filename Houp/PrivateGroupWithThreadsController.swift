@@ -39,10 +39,13 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
             if let name = privateGroup?.nameOfGroup{
                 nameOfGroup.text = name
             }
+            if let activityCount = privateGroup?.dailyActivityIDs?.count{
+                activitiesInGroupLabel.text = "\(activityCount)"
+            }
         }
     }
     var threadsList: [Thread] = [Thread]()
-    
+    let widthHeightOfImages: CGFloat = 20
     let threadsCellID = "threadsCellID"
     var widthHeightOfImageViews: CGFloat = 20
 
@@ -71,6 +74,8 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     let secretGroupID = CustomViews.shared.getCustomLabel(text: "#GeheimeID", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .white)
     let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .white)
     let usersInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "users_private_icon", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1))
+    let activitiesInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .white)
+    let activitiesInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "activity_tab_bar", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
     let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1))
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
     
@@ -94,10 +99,13 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         infoContainer.addSubview(editButton)
         infoContainer.addSubview(usersInGroupLabel)
         infoContainer.addSubview(usersInGroupButton)
+        infoContainer.addSubview(activitiesInGroupLabel)
+        infoContainer.addSubview(activitiesInGroupButton)
         view.addSubview(infoContainer)
         infoContainer.backgroundColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 1)
         view.addSubview(threadsCollectionView)
         view.addSubview(seperatorComments)
+        self.activitiesInGroupButton.addTarget(self, action: #selector(handleActivitiesInGroup), for: .touchUpInside)
         self.threadsCollectionView.register(PrivateGroupThreadsCell.self, forCellWithReuseIdentifier: threadsCellID)
         self.usersInGroupButton.addTarget(self, action: #selector(handleUsersInGroup), for: .touchUpInside)
         setUpSubViews()
@@ -107,6 +115,9 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     editButton.addConstraintsWithConstants(top: infoContainer.topAnchor, right: infoContainer.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 15, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
     usersInGroupLabel.addConstraintsWithConstants(top: nil, right: usersInGroupButton.leftAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 5, bottomConstant: 15, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
     usersInGroupButton.addConstraintsWithConstants(top: nil, right: infoContainer.rightAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 15, bottomConstant: 15, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
+        
+        activitiesInGroupLabel.addConstraintsWithConstants(top: nil, right: activitiesInGroupButton.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: infoContainer.centerYAnchor, topConstant: 0, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
+        activitiesInGroupButton.addConstraintsWithConstants(top: nil, right: infoContainer.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: infoContainer.centerYAnchor, topConstant: 0, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
     seperatorComments.addConstraintsWithConstants(top: infoContainer.bottomAnchor, right: infoContainer.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 1)
     threadsCollectionView.addConstraintsWithConstants(top: seperatorComments.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
         
@@ -133,10 +144,15 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         return self.threadsList.count
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let controller = PrivateGroupCommentsCollectionViewController()
         let controller = GroupCommentsController()
         controller.thread = threadsList[indexPath.row]
         controller.titleNav = (self.privateGroup?.nameOfGroup)!
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func handleActivitiesInGroup(){
+        let controller = ShowActivitiesInPrivateGroupController()
+        controller.privateGroup = self.privateGroup
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -52,8 +52,14 @@ extension ActivityForm3{
 
         if let error = DBConnection.shared.updateActivityAfterForm(properties: self.activity!){
         return true
+        }else if(wantToShare){
+            if let error = DBConnection.shared.shareActivityWithGroups(properties: self.activity!){
+            return true
+            }else{
+            return false
+            }
         }else{
-        return false
+            return false
         }
     }
     

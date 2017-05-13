@@ -12,15 +12,13 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
 
     var liveQuery: CBLLiveQuery?
     var publicGroupID = "0"
+    var threadsList: [Thread] = [Thread]()
+    let threadsCellID = "threadsCellID"
+    var widthHeightOfImageViews: CGFloat = 20
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
     }
-    
-    var threadsList: [Thread] = [Thread]()
-    
-    let threadsCellID = "threadsCellID"
-    var widthHeightOfImageViews: CGFloat = 20
     
     lazy var threadsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

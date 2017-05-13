@@ -6,7 +6,7 @@
 //  Copyright © 2017 SP. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension GroupCommentsCell{
         

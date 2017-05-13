@@ -233,6 +233,7 @@ class Activity: NSObject, NSCoding{
         properties["addictionState"] = -1
         properties["addictionText"] = ""
         properties["status"] = -1
+        properties["activityText"] = ""
         
         if let group = self.groupID {
             properties["groupID"] = group
@@ -273,6 +274,9 @@ class Activity: NSObject, NSCoding{
         }
         if let stat = self.status {
             properties["status"] = stat
+        }
+        if let statText = self.activityText {
+            properties["activityText"] = statText
         }
         if let addictionSta = self.addictionState {
             properties["addictionState"] = addictionSta

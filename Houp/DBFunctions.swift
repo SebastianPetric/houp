@@ -368,6 +368,31 @@ extension DBConnection{
         return nil
     }
 
+    func createCommentForActivityWithProperties(properties: Comment) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                let doc = con.createDocument()
+                try doc.putProperties(properties.getPropertyPackageCreateComment())
+                
+                let activityID = properties.dailyActivityID
+                var commentIDs: [String] = [String]()
+                let docU = con.document(withID: activityID!)
+                try docU?.update({ (rev) -> Bool in
+                    if let curArray = rev["commentIDs"] as! [String]?{
+                        commentIDs = curArray
+                        commentIDs.append(doc.documentID)
+                        rev["commentIDs"] = commentIDs
+                    }
+                    return true
+                })
+            }else {
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
     
     func likeComment(cID: String) -> String?{
         do{
@@ -448,6 +473,88 @@ extension DBConnection{
         }
         return nil
     }
+    
+    
+    func likeActivity(aID: String) -> String?{
+        do{
+            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                if let con = DBConnection.shared.getDBConnection(){
+                    let query = con.createAllDocumentsQuery()
+                    
+                    query.allDocsMode = CBLAllDocsMode.allDocs
+                    query.keys = [aID]
+                    let result = try query.run()
+                    var likeIDs: [String] = [String]()
+                    
+                    while let row = result.nextRow(){
+                        likeIDs = row.document?["likeIDs"] as! [String]
+                    }
+                    
+                    if(!likeIDs.contains(userID)){
+                        var likes: [String] = [String]()
+                        let docU = con.document(withID: aID)
+                        try docU?.update({ (rev) -> Bool in
+                            if let curArray = rev["likeIDs"] as! [String]?{
+                                likes = curArray
+                                likes.append(userID)
+                                rev["likeIDs"] = likes
+                            }
+                            return true
+                        })
+                    }
+                }else{
+                    return GetString.errorWithConnection.rawValue
+                }
+            }else{
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+    
+    func dislikeActivity(aID: String) -> String?{
+        do{
+            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                if let con = DBConnection.shared.getDBConnection(){
+                    let query = con.createAllDocumentsQuery()
+                    
+                    query.allDocsMode = CBLAllDocsMode.allDocs
+                    query.keys = [aID]
+                    let result = try query.run()
+                    var likeIDs: [String] = [String]()
+                    
+                    while let row = result.nextRow(){
+                        likeIDs = row.document?["likeIDs"] as! [String]
+                    }
+                    
+                    if(likeIDs.contains(userID)){
+                        var likes: [String] = [String]()
+                        let docU = con.document(withID: aID)
+                        try docU?.update({ (rev) -> Bool in
+                            if let curArray = rev["likeIDs"] as! [String]?{
+                                likes = curArray
+                                if let index = likes.index(of: userID) {
+                                    likes.remove(at: index)
+                                }
+                                rev["likeIDs"] = likes
+                            }
+                            return true
+                        })
+                    }
+                }else{
+                    return GetString.errorWithConnection.rawValue
+                }
+            }else{
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
     
     
     func acceptRequest(uID: String, gID: String) -> String?{
@@ -678,6 +785,8 @@ extension DBConnection{
                 groupIDs = (row.document?["groupIDs"] as? [String])!
             }
         
+            
+            if(groupIDs.count > 0){
             let queryForActivity = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
             queryForActivity?.allDocsMode = CBLAllDocsMode.allDocs
             queryForActivity?.keys = [properties.aid]
@@ -685,19 +794,31 @@ extension DBConnection{
             while let row = result1?.nextRow() {
                 for groupID in groupIDs{
                     var activitydate: Date?
-                    if let activityDate = row.document?["dateObject"] as? String{
+                    if let activityDate = row.document?["date"] as? String{
                         activitydate = Date(dateString: activityDate)
                     }
                     
-                    let activitytime = row.document?["timeObject"] as! String
+                    let activitytime = row.document?["time"] as! String
                     let formatter = DateFormatter()
                     formatter.dateFormat = "HH:mm"
                     
                     let activity = Activity(rev: row.documentRevisionID, aid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: groupID, activity: row.document?["activity"] as? String, activityText: row.document?["activityText"] as? String, locationOfActivity: row.document?["locationOfActivity"] as? String, isInProcess: row.document?["isInProcess"] as? Bool, status: row.document?["status"] as? Int, wellBeingState: row.document?["wellBeingState"] as? Int, wellBeingText: row.document?["wellBeingText"] as? String, addictionState: row.document?["addictionState"] as? Int, addictionText: row.document?["addictionText"] as? String, dateObject: activitydate, timeObject: formatter.date(from: activitytime), commentIDs: row.document?["commentIDs"] as? [String], likeIDs: row.document?["likeIDs"] as? [String])
                     let docUpdate = con.createDocument()
                     try docUpdate.putProperties(activity.getUpdatedPropertyPackageActivity())
+                    
+                    var activityArray = [String]()
+                    let docU = con.document(withID: groupID)
+                    try docU?.update({ (rev) -> Bool in
+                        if let curArray = rev["dailyActivityIDs"] as! [String]?{
+                            activityArray = curArray
+                            activityArray.append(docUpdate.documentID)
+                            rev["dailyActivityIDs"] = activityArray
+                        }
+                        return true
+                    })
                 }
             }
+        }
         }else{
             return GetString.errorWithDB.rawValue
         }

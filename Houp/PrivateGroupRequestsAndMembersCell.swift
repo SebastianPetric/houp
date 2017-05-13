@@ -99,5 +99,4 @@ class PrivateGroupRequestsAndMembersCell: UICollectionViewCell{
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
-
 }
