@@ -24,7 +24,7 @@ extension ActivityForm1{
                 addictionText = self.reason.text
             }
             
-            let activity = Activity(rev: nil, aid: self.activityList[0].aid, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: nil, activityText: nil, locationOfActivity: nil, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: addictionState, addictionText: addictionText, dateObject: nil, timeObject: nil, commentIDs: nil, likeIDs: nil)
+            let activity = Activity(rev: nil, aid: self.activityList[0].aid, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: nil, activityText: nil, locationOfActivity: nil, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: addictionState, addictionText: addictionText, dateObject: nil, timeObject: nil, dateString: nil, timeString: nil, commentIDs: nil, likeIDs: nil)
             
             let controller = ActivityForm2()
             controller.activityWeekCollection = self.activityWeekCollection

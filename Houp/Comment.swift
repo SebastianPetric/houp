@@ -24,7 +24,7 @@ class Comment: NSObject, NSCoding{
     var hasBeenUpdated = false
     
     
-    init(rev: String?, cid: String?, authorID: String?, authorUsername: String?, groupID: String?, dailyActivityID: String?,threadID: String?, message: String? ,date: Date?, likeIDs: [String]?) {
+    init(rev: String?, cid: String?, authorID: String?, authorUsername: String?, groupID: String?, dailyActivityID: String?,threadID: String?, message: String? ,date: Date?, dateString: String? ,likeIDs: [String]?) {
         
         if let revision = rev {
             self.rev = revision
@@ -50,14 +50,17 @@ class Comment: NSObject, NSCoding{
         if let mess = message {
             self.message = mess
         }
-        if let dateOb = date{
-            self.dateObject = dateOb
-        }
         
         if let dat = date{
+            self.dateObject = dat
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
             self.dateString = dateformatter.string(from: dat)
+        }
+        
+        if let dateStr = dateString{
+        self.dateString = dateStr
+        self.dateObject = Date(dateString: dateStr)
         }
         
         if let likes = likeIDs {

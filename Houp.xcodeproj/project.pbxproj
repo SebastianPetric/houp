@@ -40,6 +40,7 @@
 		52499A5B1E7BF7FD006061B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52499A5A1E7BF7FD006061B2 /* Assets.xcassets */; };
 		52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A661E7BF821006061B2 /* UIViewExtension.swift */; };
 		52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A681E7BFB95006061B2 /* UIColorExtension.swift */; };
+		525B69801EC9D57700E8C3C8 /* CommentsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */; };
 		528986FF1E83E86400322A99 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528986FE1E83E86400322A99 /* ImageCache.swift */; };
 		528987021E83F5CC00322A99 /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528987011E83F5CC00322A99 /* DBConnection.swift */; };
 		528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCBD1E80623100B6993D /* LoginHandler.swift */; };
@@ -147,6 +148,7 @@
 		52499A5F1E7BF7FD006061B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52499A661E7BF821006061B2 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		52499A681E7BFB95006061B2 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsSectionHeader.swift; sourceTree = "<group>"; };
 		528986FE1E83E86400322A99 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		528987011E83F5CC00322A99 /* DBConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		528CFCBD1E80623100B6993D /* LoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			children = (
 				52A1B96B1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift */,
 				52A1B96D1E941B98002D7DDB /* PrivateGroupCommentsCell.swift */,
+				525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */,
 			);
 			name = PrivateGroupCommentsCollectionViewController;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				52E6E4021EC2359000B59D25 /* ActivityWeekForm4.swift in Sources */,
 				52E6E4241EC75A9400B59D25 /* ActivitiesCommentsControllerHandler.swift in Sources */,
 				529BB64E1EA67A9D00776D16 /* UserObject.swift in Sources */,
+				525B69801EC9D57700E8C3C8 /* CommentsSectionHeader.swift in Sources */,
 				521EB05A1E8AE3BA009D472C /* GetString.swift in Sources */,
 				52A1B96E1E941B98002D7DDB /* PrivateGroupCommentsCell.swift in Sources */,
 				523391701E9559F000A867D9 /* CreateGroupThreadHandler.swift in Sources */,

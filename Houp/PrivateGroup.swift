@@ -20,6 +20,7 @@ class PrivateGroup: NSObject, NSCoding{
     var location: String?
     var dayOfMeeting: String?
     var timeOfMeeting: Date?
+    var timeOfMeetingString: String?
     var threadIDs: [String]?
     var threads: [Thread]?
     var memberIDs: [String]?
@@ -27,8 +28,9 @@ class PrivateGroup: NSObject, NSCoding{
     var dailyActivityIDs: [String]?
     var hasBeenUpdated = false
     var createdAt: Date?
+    var createdAtString: String?
 
-    init(pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: String? ,timeOfMeeting: Date?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?, createdAt: Date?) {
+    init(pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: String? ,timeOfMeeting: Date?,timeOfMeetingString: String?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?, createdAt: Date?, createdAtString: String?) {
      
         if let ID = pgid {
             self.pgid = ID
@@ -53,6 +55,16 @@ class PrivateGroup: NSObject, NSCoding{
         
         if let timeMeeting = timeOfMeeting {
             self.timeOfMeeting = timeMeeting
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "HH:mm"
+            self.timeOfMeetingString = dateformatter.string(from: timeMeeting)
+        }
+        
+        if let timeOfMeetingStr = timeOfMeetingString{
+            self.timeOfMeetingString = timeOfMeetingStr
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            self.timeOfMeeting = formatter.date(from: timeOfMeetingStr)
         }
         
         if let threads = threadIDs {
@@ -72,8 +84,15 @@ class PrivateGroup: NSObject, NSCoding{
         
         if let created = createdAt {
             self.createdAt = created
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
+            self.createdAtString = dateformatter.string(from: Date())
         }
-       
+        
+        if let createdStr = createdAtString{
+            self.createdAtString = createdAtString
+            self.createdAt = Date(dateString: createdStr)
+        }
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -166,11 +185,9 @@ class PrivateGroup: NSObject, NSCoding{
         properties["groupRequestIDs"] = [String]()
         properties["dailyActivityIDs"] = [String]()
         
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
-        properties["createdAt"] = dateformatter.string(from: Date())
-        
-        
+        if let created = self.createdAtString{
+            properties["createdAt"] = created
+        }
         if let secret = self.secretID{
         properties["secretID"] = secret
         }
@@ -189,8 +206,8 @@ class PrivateGroup: NSObject, NSCoding{
         if let secretID = self.secretID {
             properties["secretID"] = secretID
         }
-        if let timeMeeting = self.timeOfMeeting {
-            properties["timeOfMeeting"] = Date().getFormattedStringFromDate(time: timeMeeting)
+        if let timeMeetingStr = self.timeOfMeetingString {
+            properties["timeOfMeeting"] = timeMeetingStr
         }
         return properties
     }

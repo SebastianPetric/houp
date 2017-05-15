@@ -6,11 +6,15 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
     var widthHeightOfImageViews: CGFloat = 20
     var infoHeight: CGFloat = 0
     var liveQuery: CBLLiveQuery?
+    var liveQueryActivity: CBLLiveQuery?
+    var upvoteButtonInfo: UIButton?
+    var upvoteLabelInfo: UILabel?
     var comments: [Comment] = [Comment]()
     var titleNav = ""
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
+        liveQueryActivity?.removeObserver(self, forKeyPath: "rows")
     }
     
     
@@ -39,6 +43,16 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
             if let dateO = activityObject?.dateObject{
                 if let tdate = infoContainer.subviews[3] as? UILabel{
                     tdate.text = dateO.getDatePart()
+                }
+            }
+            
+            if let likeIDs = activityObject?.likeIDs{
+                if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                        if(likeIDs.contains(userID)){
+                            self.upvoteButtonInfo?.tintColor = UIColor().getSecondColor()
+                        }else{
+                            self.upvoteButtonInfo?.tintColor = .black
+                        }
                 }
             }
             if let likes = activityObject?.likeIDs?.count{
@@ -112,8 +126,13 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.titleNav
+        
         if(liveQuery == nil){
             getTopicComments(activityID: (self.activityObject?.aid)!)
+        }
+        
+        if(liveQueryActivity == nil){
+            getTopicActivity(activityID: (self.activityObject?.aid)!)
         }
         
         commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
@@ -125,7 +144,9 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
         view.addSubview(commentsCollectionView)
         view.addSubview(writeCommentContainer)
         view.addGestureRecognizer(gestureRecognizer)
-        
+        self.upvoteLabelInfo = (self.infoContainer.subviews[9] as! UILabel)
+        self.upvoteButtonInfo = (self.infoContainer.subviews[8] as! UIButton)
+        self.upvoteButtonInfo?.addTarget(self, action: #selector(handleUpvote), for: .touchUpInside)
         addNotificationObserver()
         
         let approximateWidth = view.frame.width - 30

@@ -23,7 +23,7 @@ class Thread: NSObject, NSCoding{
     var hasBeenUpdated = false
     
     
-    init(rev: String?, tid: String?, authorID: String?, authorUsername: String? ,groupID: String?,title: String?, message: String? ,date: Date?, commentIDs: [String]?) {
+    init(rev: String?, tid: String?, authorID: String?, authorUsername: String? ,groupID: String?,title: String?, message: String? ,date: Date?, dateString: String?, commentIDs: [String]?) {
         
         if let revision = rev {
             self.rev = revision
@@ -54,6 +54,11 @@ class Thread: NSObject, NSCoding{
         let dateformatter = DateFormatter()
           dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
         self.dateString = dateformatter.string(from: dat)
+        }
+        
+        if let datStr = dateString{
+            self.dateString = datStr
+            self.dateObject = Date(dateString: datStr)
         }
         
         if let comments = commentIDs {

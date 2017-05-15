@@ -161,8 +161,6 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
         return CGSize(width: self.view.frame.width, height: 20)
     }
     
-    
-    
     func getTopicUsers(groupID: String){
         do{
                 let query = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()

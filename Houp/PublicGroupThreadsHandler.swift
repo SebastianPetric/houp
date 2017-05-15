@@ -48,11 +48,7 @@ extension PublicGroupThreadsController{
                                     userName = row.document?["username"] as? String
                                 }
                             }
-                            var tdate: Date?
-                            if let threadDate = props["date"] as? String{
-                                tdate = Date(dateString: threadDate)
-                            }
-                            let thread = Thread(rev: props["_rev"] as? String, tid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: userName, groupID: props["groupID"] as? String, title: props["title"] as? String, message: props["message"] as? String, date: tdate, commentIDs: props["commentIDs"] as? [String])
+                        let thread = Thread(rev: props["_rev"] as? String, tid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: userName, groupID: props["groupID"] as? String, title: props["title"] as? String, message: props["message"] as? String, date: nil, dateString: props["date"] as? String , commentIDs: props["commentIDs"] as? [String])
                             threadsList.append(thread)
                         }
                         threadsList.sort(by:

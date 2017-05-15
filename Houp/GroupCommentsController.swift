@@ -11,10 +11,12 @@ import UIKit
 class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate{
     
     let commentsCellID = "commentsCellID"
+    let sectionHeaderID = "sectionHeaderID"
     var widthHeightOfImageViews: CGFloat = 20
     var infoHeight: CGFloat = 0
     var liveQuery: CBLLiveQuery?
     var comments: [Comment] = [Comment]()
+    var commentsList: [[Comment]] = [[Comment]]()
     var titleNav = ""
     
     deinit {
@@ -70,7 +72,7 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
         let seperator = CustomViews.shared.getCustomSeperator(color: .black)
         let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
         let title = CustomViews.shared.getCustomLabel(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es dar", fontSize: 14, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: nil)
-        let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjper ättee folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: UIColor().getThirdColor())
+        let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: UIColor().getThirdColor())
         let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getThirdColor(), imageColor: .black, radius: nil, borderColor: UIColor().getThirdColor())
         let seperatorInfo = CustomViews.shared.getCustomSeperator(color: UIColor().getThirdColor())
         
@@ -119,6 +121,7 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
         commentTextField.delegate = self
         view.addSubview(infoContainer)
         view.addSubview(commentsCollectionView)
+        self.commentsCollectionView.register(CommentsSectionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderID)
         view.addSubview(writeCommentContainer)
         view.addGestureRecognizer(gestureRecognizer)
         
@@ -141,24 +144,53 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let string = self.comments[indexPath.row].message
-        let approximateWidth = view.frame.width - 55
-        let sizeTitleMessage = CGSize(width: approximateWidth, height: 1000)
-        let attributesMessage = [NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
-        let estimateMessageHeight = NSString(string: string!).boundingRect(with: sizeTitleMessage, options: .usesLineFragmentOrigin, attributes: attributesMessage, context: nil)
-        let heightMessage = estimateMessageHeight.height + 66
-        return CGSize(width: view.frame.width, height: heightMessage)
+//        let string = self.comments[indexPath.row].message
+//        let approximateWidth = view.frame.width - 55
+//        let sizeTitleMessage = CGSize(width: approximateWidth, height: 1000)
+//        let attributesMessage = [NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
+//        let estimateMessageHeight = NSString(string: string!).boundingRect(with: sizeTitleMessage, options: .usesLineFragmentOrigin, attributes: attributesMessage, context: nil)
+//        let heightMessage = estimateMessageHeight.height + 66
+//        return CGSize(width: view.frame.width, height: heightMessage)
+        return CGSize(width: view.frame.width, height: 75)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentsCellID, for: indexPath) as! PrivateGroupCommentsCell
-        cell.comment = self.comments[indexPath.row]
+        cell.comment = self.commentsList[indexPath.section][indexPath.row]
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.comments.count
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return self.comments.count
+//    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        var header: String = ""
+        if(indexPath.section == 0){
+            header = "Top Antwort"
+        }else{
+            header = "Kommentare"
+        }
+        let secheader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderID, for: indexPath) as! CommentsSectionHeader
+        secheader.sectionHeader.text = header
+        return secheader
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return commentsList.count == 0 ? 0 : commentsList[section].count
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+
+    
+    
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {

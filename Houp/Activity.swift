@@ -27,7 +27,7 @@ class Activity: NSObject, NSCoding{
     var hasBeenUpdated = false
     
     
-    init(rev: String?, aid: String?, authorID: String?, authorUsername: String? ,groupID: String?,activity: String?,activityText: String?,locationOfActivity: String?,isInProcess: Bool?,status: Int?,wellBeingState: Int?,wellBeingText: String?,addictionState: Int?,addictionText: String?,dateObject: Date?,timeObject: Date?, commentIDs: [String]?, likeIDs: [String]?) {
+    init(rev: String?, aid: String?, authorID: String?, authorUsername: String? ,groupID: String?,activity: String?,activityText: String?,locationOfActivity: String?,isInProcess: Bool?,status: Int?,wellBeingState: Int?,wellBeingText: String?,addictionState: Int?,addictionText: String?,dateObject: Date?,timeObject: Date?,dateString: String?, timeString: String?, commentIDs: [String]?, likeIDs: [String]?) {
         
         if let revision = rev {
             self.rev = revision
@@ -83,6 +83,19 @@ class Activity: NSObject, NSCoding{
             dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
             self.dateString = dateformatter.string(from: dat)
         }
+        
+        if let datStr = dateString{
+            self.dateString = datStr
+            self.dateObject = Date(dateString: datStr)
+        }
+
+        if let timeStr = timeString{
+        self.timeString = timeStr
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        self.timeObject = formatter.date(from: timeStr)
+        }
+        
         if let timO = timeObject{
             self.timeObject = timO
             let dateformatter = DateFormatter()

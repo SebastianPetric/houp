@@ -143,16 +143,7 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
 //                                while let row = result?.nextRow() {
 //                                    userName = row.document?["username"] as? String
 //                                }
-                                    let activitytime = props["time"] as! String
-                                    let formatter = DateFormatter()
-                                    formatter.dateFormat = "HH:mm"
-                                    
-                                    var activitydate: Date?
-                                    if let activityDate = props["date"] as? String{
-                                        activitydate = Date(dateString: activityDate)
-                                    }
-                            
-                                    let activity = Activity(rev: row.documentRevisionID, aid: row.documentID, authorID: props["authorID"] as! String?, authorUsername: nil, groupID: props["groupID"] as! String?, activity: props["activity"] as! String?, activityText: props["activityText"] as! String?, locationOfActivity: props["locationOfActivity"] as! String?, isInProcess: props["isInProcess"] as! Bool?, status: props["status"] as! Int?, wellBeingState: props["wellBeingState"] as! Int?, wellBeingText: props["wellBeingText"] as! String?, addictionState: props["addictionState"] as! Int?, addictionText: props["addictionText"] as! String?, dateObject: activitydate, timeObject: formatter.date(from: activitytime), commentIDs: props["commentIDs"] as! [String]?, likeIDs: props["likeIDs"] as! [String]?)
+                                    let activity = Activity(rev: row.documentRevisionID, aid: row.documentID, authorID: props["authorID"] as! String?, authorUsername: nil, groupID: props["groupID"] as! String?, activity: props["activity"] as! String?, activityText: props["activityText"] as! String?, locationOfActivity: props["locationOfActivity"] as! String?, isInProcess: props["isInProcess"] as! Bool?, status: props["status"] as! Int?, wellBeingState: props["wellBeingState"] as! Int?, wellBeingText: props["wellBeingText"] as! String?, addictionState: props["addictionState"] as! Int?, addictionText: props["addictionText"] as! String?, dateObject: nil, timeObject: nil,dateString: props["date"] as? String, timeString: props["time"] as! String, commentIDs: props["commentIDs"] as! [String]?, likeIDs: props["likeIDs"] as! [String]?)
                                     self.activityList.append(activity)
                         }
                         self.activityList.sort(by:

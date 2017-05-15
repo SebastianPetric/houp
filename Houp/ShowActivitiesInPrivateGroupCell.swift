@@ -30,6 +30,15 @@ class ShowActivitiesInPrivateGroupCell: UICollectionViewCell{
             if let comm = activityObject?.commentIDs?.count{
                 answersLabel.text = "\(comm)"
             }
+            if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                if let hasBeenLiked = activityObject?.likeIDs?.contains(userID){
+                    if(hasBeenLiked){
+                        self.upvoteButton.tintColor = UIColor().getThirdColor()
+                    }else{
+                        self.upvoteButton.tintColor = .black
+                    }
+                }
+            }
         }
     }
     let widthHeightOfImages: CGFloat = 20
