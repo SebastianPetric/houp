@@ -244,7 +244,6 @@
 			children = (
 				52A1B96B1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift */,
 				52A1B96D1E941B98002D7DDB /* PrivateGroupCommentsCell.swift */,
-				525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */,
 			);
 			name = PrivateGroupCommentsCollectionViewController;
 			sourceTree = "<group>";
@@ -570,6 +569,7 @@
 				52E6E3DB1EBB702B00B59D25 /* GroupCommentsCell.swift */,
 				52E6E3DD1EBB707900B59D25 /* GroupCommentsControllerHandler.swift */,
 				52E6E3DF1EBB708B00B59D25 /* GroupCommentsCellHandler.swift */,
+				525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */,
 			);
 			name = GroupCommentsController;
 			sourceTree = "<group>";

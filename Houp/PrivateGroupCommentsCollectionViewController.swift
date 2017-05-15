@@ -11,12 +11,10 @@ import UIKit
 class PrivateGroupCommentsCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate{
 
     let commentsCellID = "commentsCellID"
-    let sectionHeaderID = "sectionHeaderID"
     var widthHeightOfImageViews: CGFloat = 20
     var infoHeight: CGFloat = 0
     var liveQuery: CBLLiveQuery?
     var comments: [Comment] = [Comment]()
-    var commentsList: [[Comment]] = [[Comment]]()
     var titleNav = ""
     
     deinit {
@@ -113,14 +111,14 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         if(liveQuery == nil){
         getTopicComments(threadID: (self.thread?.tid)!)
         }
+        
+        commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
         let sendButton = writeCommentContainer.subviews[1] as! UIButton
         sendButton.addTarget(self, action: #selector(handleSendComment), for: .touchUpInside)
         let commentTextField = writeCommentContainer.subviews[0] as! UITextField
         commentTextField.delegate = self
         view.addSubview(infoContainer)
         view.addSubview(commentsCollectionView)
-        self.commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
-        self.commentsCollectionView.register(CommentsSectionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderID)
         view.addSubview(writeCommentContainer)
         view.addGestureRecognizer(gestureRecognizer)
         
@@ -152,45 +150,15 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
         return CGSize(width: view.frame.width, height: heightMessage)
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var header: String = ""
-        if(indexPath.section == 0){
-                header = "Top Antwort"
-            }else{
-                header = "Kommentare"
-            }
-        let secheader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderID, for: indexPath) as! CommentsSectionHeader
-        secheader.sectionHeader.text = header
-        return secheader
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: 20)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if(commentsList[0].count == 0){
-//            return self.commentsList.count == 0 ? 0 : commentsList[section].count
-//        }else{
-//            return self.commentsList.count == 0 ? 0 : commentsList[1].count
-//        }
-        return 3
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-       // return commentsList[0].count == 0 ? 1 : 2
-        return 2
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentsCellID, for: indexPath) as! PrivateGroupCommentsCell
         cell.comment = self.comments[indexPath.row]
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.comments.count
-//    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.comments.count
+    }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {

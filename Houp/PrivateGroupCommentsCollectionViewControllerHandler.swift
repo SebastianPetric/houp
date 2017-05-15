@@ -14,7 +14,7 @@ extension PrivateGroupCommentsCollectionViewController{
         self.view.endEditing(true)
         if(!hasAnyErrors()){
             let commentView = self.writeCommentContainer.subviews[0] as! UITextField
-            let comment = Comment(rev: nil, cid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: self.thread?.groupID, dailyActivityID: nil, threadID: self.thread?.tid, message: commentView.text, date: Date(), dateString: nil, likeIDs: nil)
+            let comment = Comment(rev: nil, cid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: self.thread?.groupID, dailyActivityID: nil, threadID: self.thread?.tid, message: commentView.text, date: Date(),dateString: nil, likeIDs: nil)
             
             if let error = DBConnection.shared.createCommentWithProperties(properties: comment){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
@@ -79,17 +79,6 @@ extension PrivateGroupCommentsCollectionViewController{
                             }
                             return false
                         })
-                        var i = 0
-                        for com in comments {
-                            if (com.likeIDs?.count)! > 0{
-                                if(i == 0){
-                                    self.commentsList[0].append(com)
-                                }else{
-                                    self.commentsList[1].append(com)
-                                }
-                                i = i + 1
-                            }
-                        }
                         self.commentsCollectionView.reloadData()
                     }
                 }

@@ -58,7 +58,6 @@ override func observeValue(forKeyPath keyPath: String?, of object: Any?, change:
     var topComment = [Comment]()
     var otherComments = [Comment]()
     
-    
     if keyPath == "rows" {
         do{
             if let rows = liveQuery!.rows {
@@ -101,8 +100,6 @@ override func observeValue(forKeyPath keyPath: String?, of object: Any?, change:
             }
             allComments.append(topComment)
             allComments.append(otherComments)
-            print("TopComment \(topComment.count)")
-            print(otherComments.count)
             self.commentsList = allComments
             self.commentsCollectionView.reloadData()
         }catch{

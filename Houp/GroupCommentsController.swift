@@ -189,9 +189,6 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
         return 2
     }
 
-    
-    
-    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.writeCommentContainer.frame = CGRect(x: 0, y: self.view.frame.height, width: self.writeCommentContainer.frame.width, height: self.writeCommentContainer.frame.height)

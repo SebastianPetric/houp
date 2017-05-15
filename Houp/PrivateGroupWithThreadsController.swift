@@ -73,10 +73,10 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     let timeOfMeeting = CustomViews.shared.getCustomLabel(text: "19:30 Uhr", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: .white)
     let secretGroupID = CustomViews.shared.getCustomLabel(text: "#GeheimeID", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .white)
     let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .white)
-    let usersInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "users_private_icon", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1))
+    let usersInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "users_private_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
     let activitiesInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .white)
-    let activitiesInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "activity_tab_bar", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
-    let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: nil, borderColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1))
+    let activitiesInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "activity_tab_bar", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: 10, borderColor: UIColor().getSecondColor())
+    let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
     
     override func viewDidLoad() {
