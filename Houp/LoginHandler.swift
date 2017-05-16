@@ -42,13 +42,4 @@ extension LoginViewController{
             }
         }
     }
-    
-    func deleteDB(){
-        do{
-            try CBLManager.sharedInstance().databaseNamed("couchbaseevents").delete()
-            try DBConnection.shared.setUpDBConnection()
-        }catch{
-        print("error")
-        }
-    }
 }

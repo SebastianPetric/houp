@@ -122,52 +122,5 @@ class ShowActivitiesInPrivateGroupController: UIViewController, UICollectionView
         controller.titleNav = (self.privateGroup?.nameOfGroup)!
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    
-    func getTopicActivities(groupID: String){
-        do{
-            if let view = DBConnection.shared.viewByAllActivityInGroup{
-                let query = view.createQuery()
-                query.keys = [groupID]
-                liveQuery = query.asLive()
-                liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
-                liveQuery?.start()
-            }
-        }catch{
-            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        if keyPath == "rows" {
-            do{
-                if let rows = liveQuery?.rows {
-                    self.activityList.removeAll()
-                    while let row = rows.nextRow() {
-                        if let props = row.document!.properties {
-                                                            var userName: String?
-                                                            let queryForUsername = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
-                                                            queryForUsername?.allDocsMode = CBLAllDocsMode.allDocs
-                                                            queryForUsername?.keys = [UserDefaults.standard.string(forKey: GetString.userID.rawValue)]
-                                                            let result = try queryForUsername?.run()
-                                                            while let row = result?.nextRow() {
-                                                                userName = row.document?["username"] as? String
-                                                            }
-                            let activity = Activity(rev: row.documentRevisionID, aid: row.documentID, authorID: props["authorID"] as! String?, authorUsername: userName, groupID: props["groupID"] as! String?, activity: props["activity"] as! String?, activityText: props["activityText"] as! String?, locationOfActivity: props["locationOfActivity"] as! String?, isInProcess: props["isInProcess"] as! Bool?, status: props["status"] as! Int?, wellBeingState: props["wellBeingState"] as! Int?, wellBeingText: props["wellBeingText"] as! String?, addictionState: props["addictionState"] as! Int?, addictionText: props["addictionText"] as! String?, dateObject: nil, timeObject: nil, dateString: props["date"] as! String?, timeString: props["time"] as! String?, commentIDs: props["commentIDs"] as! [String]?, likeIDs: props["likeIDs"] as! [String]?)
-                            self.activityList.append(activity)
-                        }
-                        self.activityList.sort(by:
-                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-                        )
-                        self.activityCollectionView.reloadData()
-                    }
-                }
-            }catch{
-                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
 }
 

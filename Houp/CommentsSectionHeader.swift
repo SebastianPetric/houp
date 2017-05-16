@@ -13,7 +13,6 @@ class CommentsSectionHeader: UICollectionReusableView{
     let sectionHeader = CustomViews.shared.getCustomLabel(text: "Soso", fontSize: 16, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .white)
     
     override init(frame: CGRect) {
-        print("hallo")
         super.init(frame: frame)
         backgroundColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 0.5)
         addSubview(sectionHeader)

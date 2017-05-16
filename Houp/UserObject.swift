@@ -40,6 +40,10 @@ class UserObject: NSObject, NSCoding {
         }
     }
     
+    convenience init(props: [String: Any]){
+        self.init(rev: nil, uid: nil, email: props["email"] as? String, userName: props["username"] as? String, prename: props["prename"] as? String, name: props["name"] as? String)
+    }
+    
     required init(coder aDecoder: NSCoder) {
         if let _rev = aDecoder.decodeObject(forKey: "rev") as? String{
             self.rev = _rev

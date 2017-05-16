@@ -12,7 +12,8 @@ extension PublicGroupThreadWithComments{
 
     func handleSendComment(){
         self.view.endEditing(true)
-        if(!hasAnyErrors()){
+        let commentView = self.writeCommentContainer.subviews[0] as! UITextField
+        if(commentView.text != ""){
             let commentView = self.writeCommentContainer.subviews[0] as! UITextField
             let comment = Comment(rev: nil, cid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: self.thread?.groupID, dailyActivityID: nil, threadID: self.thread?.tid, message: commentView.text, date: Date(), dateString: nil, likeIDs: nil)
             
@@ -22,18 +23,6 @@ extension PublicGroupThreadWithComments{
             }else{
                 commentView.text = ""
             }
-        }else{
-            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorFillAllFields.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func hasAnyErrors() -> Bool{
-        let commentView = self.writeCommentContainer.subviews[0] as! UITextField
-        if(commentView.text == ""){
-            return true
-        }else{
-            return false
         }
     }
     
@@ -84,7 +73,10 @@ extension PublicGroupThreadWithComments{
                     }
                 }
             }catch{
-                
+                self.comments = [Comment]()
+                self.commentsCollectionView.reloadData()
+                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

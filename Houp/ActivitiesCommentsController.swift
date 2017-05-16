@@ -111,7 +111,6 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
         upvoteLabel.addConstraintsWithConstants(top: upvoteButton.bottomAnchor, right: view.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 12.5, bottomConstant: 0, leftConstant: 0, width: 25, height: 20)
         message.addConstraintsWithConstants(top: title.bottomAnchor, right: upvoteButton.leftAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 0)
         seperatorInfo.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 1)
-        
         return view
     }()
     

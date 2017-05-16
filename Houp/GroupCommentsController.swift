@@ -144,14 +144,13 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let string = self.comments[indexPath.row].message
-//        let approximateWidth = view.frame.width - 55
-//        let sizeTitleMessage = CGSize(width: approximateWidth, height: 1000)
-//        let attributesMessage = [NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
-//        let estimateMessageHeight = NSString(string: string!).boundingRect(with: sizeTitleMessage, options: .usesLineFragmentOrigin, attributes: attributesMessage, context: nil)
-//        let heightMessage = estimateMessageHeight.height + 66
-//        return CGSize(width: view.frame.width, height: heightMessage)
-        return CGSize(width: view.frame.width, height: 75)
+        let string = self.commentsList[indexPath.section][indexPath.row].message
+        let approximateWidth = view.frame.width - 55
+        let sizeTitleMessage = CGSize(width: approximateWidth, height: 1000)
+        let attributesMessage = [NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
+        let estimateMessageHeight = NSString(string: string!).boundingRect(with: sizeTitleMessage, options: .usesLineFragmentOrigin, attributes: attributesMessage, context: nil)
+        let heightMessage = estimateMessageHeight.height + 66
+        return CGSize(width: view.frame.width, height: heightMessage)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -159,11 +158,6 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
         cell.comment = self.commentsList[indexPath.section][indexPath.row]
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.comments.count
-//    }
-    
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var header: String = ""
@@ -194,7 +188,6 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
             self.writeCommentContainer.frame = CGRect(x: 0, y: self.view.frame.height, width: self.writeCommentContainer.frame.width, height: self.writeCommentContainer.frame.height)
         }, completion: nil)
     }
-    
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         

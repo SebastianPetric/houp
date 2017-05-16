@@ -18,7 +18,6 @@ class ActivityWeekCollectionCell: UICollectionViewCell{
     let seperator = CustomViews.shared.getCustomSeperator(color: .black)
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     
-    
     var activityObject: Activity?{
         didSet{
             if let loc = activityObject?.locationOfActivity{

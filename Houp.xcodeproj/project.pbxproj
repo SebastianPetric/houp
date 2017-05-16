@@ -16,7 +16,6 @@
 		521EB0501E8ABD46009D472C /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */; };
 		521EB0521E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0511E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift */; };
 		521EB0541E8AC596009D472C /* PublicGroupThreadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0531E8AC596009D472C /* PublicGroupThreadsController.swift */; };
-		521EB0561E8AC65C009D472C /* ActivityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */; };
 		521EB0581E8AC72B009D472C /* SettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0571E8AC72B009D472C /* SettingsCollectionViewController.swift */; };
 		521EB05A1E8AE3BA009D472C /* GetString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521EB0591E8AE3BA009D472C /* GetString.swift */; };
 		521ECCA01E8BB9C6001C10BC /* PrivateGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */; };
@@ -41,6 +40,11 @@
 		52499A671E7BF821006061B2 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A661E7BF821006061B2 /* UIViewExtension.swift */; };
 		52499A691E7BFB95006061B2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52499A681E7BFB95006061B2 /* UIColorExtension.swift */; };
 		525B69801EC9D57700E8C3C8 /* CommentsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */; };
+		525B69821ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B69811ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift */; };
+		525B69861ECB2BAA00E8C3C8 /* ShowActivitiesInPrivateGroupControllerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B69851ECB2BAA00E8C3C8 /* ShowActivitiesInPrivateGroupControllerHandler.swift */; };
+		525B69881ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B69871ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift */; };
+		525B698E1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B698D1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift */; };
+		525B69901ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B698F1ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift */; };
 		528986FF1E83E86400322A99 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528986FE1E83E86400322A99 /* ImageCache.swift */; };
 		528987021E83F5CC00322A99 /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528987011E83F5CC00322A99 /* DBConnection.swift */; };
 		528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCBD1E80623100B6993D /* LoginHandler.swift */; };
@@ -122,7 +126,6 @@
 		521EB04F1E8ABD46009D472C /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		521EB0511E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCollectionViewController.swift; sourceTree = "<group>"; };
 		521EB0531E8AC596009D472C /* PublicGroupThreadsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupThreadsController.swift; sourceTree = "<group>"; };
-		521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewController.swift; sourceTree = "<group>"; };
 		521EB0571E8AC72B009D472C /* SettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		521EB0591E8AE3BA009D472C /* GetString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetString.swift; sourceTree = "<group>"; };
 		521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroup.swift; sourceTree = "<group>"; };
@@ -149,6 +152,11 @@
 		52499A661E7BF821006061B2 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		52499A681E7BFB95006061B2 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsSectionHeader.swift; sourceTree = "<group>"; };
+		525B69811ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekCollectionHandler.swift; sourceTree = "<group>"; };
+		525B69851ECB2BAA00E8C3C8 /* ShowActivitiesInPrivateGroupControllerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowActivitiesInPrivateGroupControllerHandler.swift; sourceTree = "<group>"; };
+		525B69871ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowActivitiesInPrivateGroupCellHandler.swift; sourceTree = "<group>"; };
+		525B698D1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupRequestsAndMembersListHandler.swift; sourceTree = "<group>"; };
+		525B698F1ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupRequestsAndMembersCellHandler.swift; sourceTree = "<group>"; };
 		528986FE1E83E86400322A99 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		528987011E83F5CC00322A99 /* DBConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		528CFCBD1E80623100B6993D /* LoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
@@ -239,38 +247,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5233915E1E94EFC300A867D9 /* PrivateGroupCommentsCollectionViewController */ = {
+		5233915E1E94EFC300A867D9 /* PrivateGroupCommentsCollection */ = {
 			isa = PBXGroup;
 			children = (
 				52A1B96B1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift */,
 				52A1B96D1E941B98002D7DDB /* PrivateGroupCommentsCell.swift */,
 			);
-			name = PrivateGroupCommentsCollectionViewController;
+			name = PrivateGroupCommentsCollection;
 			sourceTree = "<group>";
 		};
-		523391611E95460700A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler */ = {
+		523391611E95460700A867D9 /* PrivateGroupCommentsCollectionHandler */ = {
 			isa = PBXGroup;
 			children = (
 				523391621E95462000A867D9 /* PrivateGroupCommentsCellHandler.swift */,
 				523391641E95466A00A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler.swift */,
 			);
-			name = PrivateGroupCommentsCollectionViewControllerHandler;
+			name = PrivateGroupCommentsCollectionHandler;
 			sourceTree = "<group>";
 		};
-		523391661E9547EF00A867D9 /* PrivateGroupWithThreadsControllerHandler */ = {
+		523391661E9547EF00A867D9 /* PrivateGroupWithThreadsHandler */ = {
 			isa = PBXGroup;
 			children = (
 				523391671E95480300A867D9 /* PrivateGroupWithThreadsControllerHandler.swift */,
 			);
-			name = PrivateGroupWithThreadsControllerHandler;
+			name = PrivateGroupWithThreadsHandler;
 			sourceTree = "<group>";
 		};
-		5233916B1E954DD200A867D9 /* CreateGroupThreadController */ = {
+		5233916B1E954DD200A867D9 /* CreateGroupThread */ = {
 			isa = PBXGroup;
 			children = (
 				5233916C1E954DEE00A867D9 /* CreateGroupThreadController.swift */,
 			);
-			name = CreateGroupThreadController;
+			name = CreateGroupThread;
 			sourceTree = "<group>";
 		};
 		5233916E1E9559D500A867D9 /* CreateGroupThreadHandler */ = {
@@ -281,13 +289,13 @@
 			name = CreateGroupThreadHandler;
 			sourceTree = "<group>";
 		};
-		523391761E9792D400A867D9 /* PublicGroupThreadWithCommentsController */ = {
+		523391761E9792D400A867D9 /* PublicGroupThreadWithComments */ = {
 			isa = PBXGroup;
 			children = (
 				523391721E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift */,
 				523391741E96AADA00A867D9 /* PublicGroupCommentsCell.swift */,
 			);
-			name = PublicGroupThreadWithCommentsController;
+			name = PublicGroupThreadWithComments;
 			sourceTree = "<group>";
 		};
 		52499A441E7BF7FD006061B2 = {
@@ -362,26 +370,25 @@
 		52499A6C1E7BFD4A006061B2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				52E6E41E1EC759D000B59D25 /* ShowActivitiesInGroupCommentsController */,
-				52E6E4191EC71BEB00B59D25 /* ShowActivitiesInPrivateGroupController */,
-				52E6E3FA1EC21EB000B59D25 /* CreateActivityWeekController */,
-				52E6E3ED1EC0BAA100B59D25 /* ActivityFormController */,
-				52E6E3E41EBF4E0300B59D25 /* ActivityWeekCollectionController */,
-				52E6E3D81EBB6FF500B59D25 /* GroupCommentsController */,
-				523391761E9792D400A867D9 /* PublicGroupThreadWithCommentsController */,
-				5233915E1E94EFC300A867D9 /* PrivateGroupCommentsCollectionViewController */,
-				5233916B1E954DD200A867D9 /* CreateGroupThreadController */,
-				52A75F691E81BA300038CF4F /* LoginViewController */,
-				52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */,
+				52E6E41E1EC759D000B59D25 /* ActivitiesGroupComments */,
+				52E6E4191EC71BEB00B59D25 /* ActivitiesInGroup */,
+				52E6E3FA1EC21EB000B59D25 /* CreateActivityWeek */,
+				52E6E3ED1EC0BAA100B59D25 /* ActivityForm */,
+				52E6E3E41EBF4E0300B59D25 /* ActivityWeekCollection */,
+				52E6E3D81EBB6FF500B59D25 /* GroupComments */,
+				5233916B1E954DD200A867D9 /* CreateGroupThread */,
+				52A75F691E81BA300038CF4F /* Login */,
+				52A75F5A1E8195B40038CF4F /* Registration */,
 				52D5AF881E8D5D260007C448 /* CustomTabBarController */,
-				52D5AF891E8D5D3D0007C448 /* PrivateGroupViewController */,
-				52D5AF8B1E8D5D630007C448 /* ActivityViewController */,
+				52D5AF891E8D5D3D0007C448 /* PrivateGroups */,
 				52D5AF8C1E8D5D770007C448 /* SettingsViewController */,
-				52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroupViewController */,
-				52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroupVIewController */,
-				52A1B96A1E940F5B002D7DDB /* PrivateGroupWithThreadsController */,
-				52D5AF8A1E8D5D540007C448 /* PublicGroupThreadsViewController */,
+				52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroup */,
+				52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroup */,
+				52A1B96A1E940F5B002D7DDB /* PrivateGroupWithThreads */,
+				52D5AF8A1E8D5D540007C448 /* PublicGroupThreadsView */,
 				52E6E3E11EBCDC0500B59D25 /* PrivateGroupRequestsAndMembers */,
+				523391761E9792D400A867D9 /* PublicGroupThreadWithComments */,
+				5233915E1E94EFC300A867D9 /* PrivateGroupCommentsCollection */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -397,6 +404,74 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		525B69831ECB2B1C00E8C3C8 /* ActivitiesGroupCommentsHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E4231EC75A9400B59D25 /* ActivitiesCommentsControllerHandler.swift */,
+				52E6E4251EC75AC100B59D25 /* ActivitiesCommentsCellHandler.swift */,
+			);
+			name = ActivitiesGroupCommentsHandler;
+			sourceTree = "<group>";
+		};
+		525B69841ECB2B7500E8C3C8 /* ActivitiesInGroupHandler */ = {
+			isa = PBXGroup;
+			children = (
+				525B69851ECB2BAA00E8C3C8 /* ShowActivitiesInPrivateGroupControllerHandler.swift */,
+				525B69871ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift */,
+			);
+			name = ActivitiesInGroupHandler;
+			sourceTree = "<group>";
+		};
+		525B69891ECB2C7200E8C3C8 /* CreateActivityWeekHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E40B1EC7126200B59D25 /* CreateActivityWeekControllerHandler.swift */,
+				52E6E40D1EC712D900B59D25 /* ActivityWeekForm2Handler.swift */,
+				52E6E40F1EC7132900B59D25 /* ActivityWeekForm3Handler.swift */,
+				52E6E4111EC7137500B59D25 /* ActivityWeekForm4Handler.swift */,
+				52E6E4131EC713C800B59D25 /* ActivityWeekForm5Handler.swift */,
+				52E6E4151EC713FD00B59D25 /* ActivityWeekForm6Handler.swift */,
+				52E6E4171EC7143200B59D25 /* ActivityWeekForm7Handler.swift */,
+			);
+			name = CreateActivityWeekHandler;
+			sourceTree = "<group>";
+		};
+		525B698A1ECB2CB700E8C3C8 /* ActivityFormHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E3F41EC1F88700B59D25 /* ActivityForm1Handler.swift */,
+				52E6E3F61EC1F89A00B59D25 /* ActivityForm2Handler.swift */,
+				52E6E3F81EC1F8A400B59D25 /* ActivityForm3Handler.swift */,
+			);
+			name = ActivityFormHandler;
+			sourceTree = "<group>";
+		};
+		525B698B1ECB2CFA00E8C3C8 /* ActivityWeekCollectionHandler */ = {
+			isa = PBXGroup;
+			children = (
+				525B69811ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift */,
+			);
+			name = ActivityWeekCollectionHandler;
+			sourceTree = "<group>";
+		};
+		525B698C1ECB2D1300E8C3C8 /* GroupCommentsHandler */ = {
+			isa = PBXGroup;
+			children = (
+				52E6E3DD1EBB707900B59D25 /* GroupCommentsControllerHandler.swift */,
+				52E6E3DF1EBB708B00B59D25 /* GroupCommentsCellHandler.swift */,
+			);
+			name = GroupCommentsHandler;
+			sourceTree = "<group>";
+		};
+		525B69911ECB2EB100E8C3C8 /* GroupRequestsAndMembersHandler */ = {
+			isa = PBXGroup;
+			children = (
+				525B698D1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift */,
+				525B698F1ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift */,
+			);
+			name = GroupRequestsAndMembersHandler;
+			sourceTree = "<group>";
+		};
 		528987001E83F5A500322A99 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,9 +485,16 @@
 		528CFCBC1E80621800B6993D /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				525B69911ECB2EB100E8C3C8 /* GroupRequestsAndMembersHandler */,
+				525B698C1ECB2D1300E8C3C8 /* GroupCommentsHandler */,
+				525B698B1ECB2CFA00E8C3C8 /* ActivityWeekCollectionHandler */,
+				525B698A1ECB2CB700E8C3C8 /* ActivityFormHandler */,
+				525B69891ECB2C7200E8C3C8 /* CreateActivityWeekHandler */,
+				525B69841ECB2B7500E8C3C8 /* ActivitiesInGroupHandler */,
+				525B69831ECB2B1C00E8C3C8 /* ActivitiesGroupCommentsHandler */,
 				5233916E1E9559D500A867D9 /* CreateGroupThreadHandler */,
-				523391661E9547EF00A867D9 /* PrivateGroupWithThreadsControllerHandler */,
-				523391611E95460700A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler */,
+				523391661E9547EF00A867D9 /* PrivateGroupWithThreadsHandler */,
+				523391611E95460700A867D9 /* PrivateGroupCommentsCollectionHandler */,
 				52A75F681E81BA1C0038CF4F /* LoginHandler */,
 				52A75F651E819EED0038CF4F /* RegistrationHandler */,
 				52D5AF8F1E8D5E600007C448 /* PrivateGroupHandler */,
@@ -420,21 +502,21 @@
 				52D5AF951E8D5F4A0007C448 /* MakeRequestToPrivateGroupHandler */,
 				52D5AF981E8D5FCB0007C448 /* CreateNewPrivateGroupHandler */,
 				52E6E3E31EBCDC6400B59D25 /* PublicGroupThreadsHandler */,
-				52E6E3E21EBCDC4700B59D25 /* PublicGroupComments */,
+				52E6E3E21EBCDC4700B59D25 /* PublicGroupCommentsHandler */,
 			);
 			name = Handler;
 			sourceTree = "<group>";
 		};
-		52A1B96A1E940F5B002D7DDB /* PrivateGroupWithThreadsController */ = {
+		52A1B96A1E940F5B002D7DDB /* PrivateGroupWithThreads */ = {
 			isa = PBXGroup;
 			children = (
 				521AF4931E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift */,
 				521AF4951E92DBB9007D2E36 /* PrivateGroupThreadsCell.swift */,
 			);
-			name = PrivateGroupWithThreadsController;
+			name = PrivateGroupWithThreads;
 			sourceTree = "<group>";
 		};
-		52A75F5A1E8195B40038CF4F /* RegistrationViewControllers */ = {
+		52A75F5A1E8195B40038CF4F /* Registration */ = {
 			isa = PBXGroup;
 			children = (
 				528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */,
@@ -442,7 +524,7 @@
 				52A75F5B1E81960D0038CF4F /* RegistrationAgeGenderController.swift */,
 				52A75F5F1E819DBA0038CF4F /* RegistrationEmailPasswordController.swift */,
 			);
-			name = RegistrationViewControllers;
+			name = Registration;
 			sourceTree = "<group>";
 		};
 		52A75F651E819EED0038CF4F /* RegistrationHandler */ = {
@@ -464,12 +546,12 @@
 			name = LoginHandler;
 			sourceTree = "<group>";
 		};
-		52A75F691E81BA300038CF4F /* LoginViewController */ = {
+		52A75F691E81BA300038CF4F /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				52499A521E7BF7FD006061B2 /* LoginViewController.swift */,
 			);
-			name = LoginViewController;
+			name = Login;
 			sourceTree = "<group>";
 		};
 		52D5AF881E8D5D260007C448 /* CustomTabBarController */ = {
@@ -480,30 +562,22 @@
 			name = CustomTabBarController;
 			sourceTree = "<group>";
 		};
-		52D5AF891E8D5D3D0007C448 /* PrivateGroupViewController */ = {
+		52D5AF891E8D5D3D0007C448 /* PrivateGroups */ = {
 			isa = PBXGroup;
 			children = (
 				521EB0511E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift */,
 				52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */,
 			);
-			name = PrivateGroupViewController;
+			name = PrivateGroups;
 			sourceTree = "<group>";
 		};
-		52D5AF8A1E8D5D540007C448 /* PublicGroupThreadsViewController */ = {
+		52D5AF8A1E8D5D540007C448 /* PublicGroupThreadsView */ = {
 			isa = PBXGroup;
 			children = (
 				521EB0531E8AC596009D472C /* PublicGroupThreadsController.swift */,
 				523391691E95499A00A867D9 /* PublicGroupThreadsCell.swift */,
 			);
-			name = PublicGroupThreadsViewController;
-			sourceTree = "<group>";
-		};
-		52D5AF8B1E8D5D630007C448 /* ActivityViewController */ = {
-			isa = PBXGroup;
-			children = (
-				521EB0551E8AC65C009D472C /* ActivityCollectionViewController.swift */,
-			);
-			name = ActivityViewController;
+			name = PublicGroupThreadsView;
 			sourceTree = "<group>";
 		};
 		52D5AF8C1E8D5D770007C448 /* SettingsViewController */ = {
@@ -514,20 +588,20 @@
 			name = SettingsViewController;
 			sourceTree = "<group>";
 		};
-		52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroupVIewController */ = {
+		52D5AF8D1E8D5D890007C448 /* CreateNewPrivateGroup */ = {
 			isa = PBXGroup;
 			children = (
 				521ECCA11E8BBC42001C10BC /* CreatePrivateGroupViewController.swift */,
 			);
-			name = CreateNewPrivateGroupVIewController;
+			name = CreateNewPrivateGroup;
 			sourceTree = "<group>";
 		};
-		52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroupViewController */ = {
+		52D5AF8E1E8D5D970007C448 /* MakeRequestToPrivateGroup */ = {
 			isa = PBXGroup;
 			children = (
 				521ECCA31E8BDACE001C10BC /* MakeRequestPrivateGroupViewController.swift */,
 			);
-			name = MakeRequestToPrivateGroupViewController;
+			name = MakeRequestToPrivateGroup;
 			sourceTree = "<group>";
 		};
 		52D5AF8F1E8D5E600007C448 /* PrivateGroupHandler */ = {
@@ -562,16 +636,14 @@
 			name = CreateNewPrivateGroupHandler;
 			sourceTree = "<group>";
 		};
-		52E6E3D81EBB6FF500B59D25 /* GroupCommentsController */ = {
+		52E6E3D81EBB6FF500B59D25 /* GroupComments */ = {
 			isa = PBXGroup;
 			children = (
 				52E6E3D91EBB701A00B59D25 /* GroupCommentsController.swift */,
 				52E6E3DB1EBB702B00B59D25 /* GroupCommentsCell.swift */,
-				52E6E3DD1EBB707900B59D25 /* GroupCommentsControllerHandler.swift */,
-				52E6E3DF1EBB708B00B59D25 /* GroupCommentsCellHandler.swift */,
 				525B697F1EC9D57700E8C3C8 /* CommentsSectionHeader.swift */,
 			);
-			name = GroupCommentsController;
+			name = GroupComments;
 			sourceTree = "<group>";
 		};
 		52E6E3E11EBCDC0500B59D25 /* PrivateGroupRequestsAndMembers */ = {
@@ -584,13 +656,13 @@
 			name = PrivateGroupRequestsAndMembers;
 			sourceTree = "<group>";
 		};
-		52E6E3E21EBCDC4700B59D25 /* PublicGroupComments */ = {
+		52E6E3E21EBCDC4700B59D25 /* PublicGroupCommentsHandler */ = {
 			isa = PBXGroup;
 			children = (
 				52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */,
 				52E6E3D41EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift */,
 			);
-			name = PublicGroupComments;
+			name = PublicGroupCommentsHandler;
 			sourceTree = "<group>";
 		};
 		52E6E3E31EBCDC6400B59D25 /* PublicGroupThreadsHandler */ = {
@@ -601,30 +673,27 @@
 			name = PublicGroupThreadsHandler;
 			sourceTree = "<group>";
 		};
-		52E6E3E41EBF4E0300B59D25 /* ActivityWeekCollectionController */ = {
+		52E6E3E41EBF4E0300B59D25 /* ActivityWeekCollection */ = {
 			isa = PBXGroup;
 			children = (
 				52E6E3E51EBF4E2E00B59D25 /* ActivityWeekCollection.swift */,
 				52E6E3E71EBF4E3E00B59D25 /* ActivityWeekCollectionCell.swift */,
 				52E6E3EB1EBF5A1500B59D25 /* ActivityWeekHighlightedCell.swift */,
 			);
-			name = ActivityWeekCollectionController;
+			name = ActivityWeekCollection;
 			sourceTree = "<group>";
 		};
-		52E6E3ED1EC0BAA100B59D25 /* ActivityFormController */ = {
+		52E6E3ED1EC0BAA100B59D25 /* ActivityForm */ = {
 			isa = PBXGroup;
 			children = (
 				52E6E3EE1EC0BABD00B59D25 /* ActivityForm1.swift */,
 				52E6E3F01EC0BACA00B59D25 /* ActivityForm2.swift */,
 				52E6E3F21EC0BAD600B59D25 /* ActivityForm3.swift */,
-				52E6E3F41EC1F88700B59D25 /* ActivityForm1Handler.swift */,
-				52E6E3F61EC1F89A00B59D25 /* ActivityForm2Handler.swift */,
-				52E6E3F81EC1F8A400B59D25 /* ActivityForm3Handler.swift */,
 			);
-			name = ActivityFormController;
+			name = ActivityForm;
 			sourceTree = "<group>";
 		};
-		52E6E3FA1EC21EB000B59D25 /* CreateActivityWeekController */ = {
+		52E6E3FA1EC21EB000B59D25 /* CreateActivityWeek */ = {
 			isa = PBXGroup;
 			children = (
 				52E6E3FB1EC21ED500B59D25 /* CreateActivityWeekController.swift */,
@@ -634,35 +703,26 @@
 				52E6E4031EC235AF00B59D25 /* ActivityWeekForm5.swift */,
 				52E6E4051EC235C700B59D25 /* ActivityWeekForm6.swift */,
 				52E6E4071EC235DF00B59D25 /* ActivityWeekForm7.swift */,
-				52E6E40B1EC7126200B59D25 /* CreateActivityWeekControllerHandler.swift */,
-				52E6E40D1EC712D900B59D25 /* ActivityWeekForm2Handler.swift */,
-				52E6E40F1EC7132900B59D25 /* ActivityWeekForm3Handler.swift */,
-				52E6E4111EC7137500B59D25 /* ActivityWeekForm4Handler.swift */,
-				52E6E4131EC713C800B59D25 /* ActivityWeekForm5Handler.swift */,
-				52E6E4151EC713FD00B59D25 /* ActivityWeekForm6Handler.swift */,
-				52E6E4171EC7143200B59D25 /* ActivityWeekForm7Handler.swift */,
 			);
-			name = CreateActivityWeekController;
+			name = CreateActivityWeek;
 			sourceTree = "<group>";
 		};
-		52E6E4191EC71BEB00B59D25 /* ShowActivitiesInPrivateGroupController */ = {
+		52E6E4191EC71BEB00B59D25 /* ActivitiesInGroup */ = {
 			isa = PBXGroup;
 			children = (
 				52E6E41A1EC71C1200B59D25 /* ShowActivitiesInPrivateGroupController.swift */,
 				52E6E41C1EC71D5A00B59D25 /* ShowActivitiesInPrivateGroupCell.swift */,
 			);
-			name = ShowActivitiesInPrivateGroupController;
+			name = ActivitiesInGroup;
 			sourceTree = "<group>";
 		};
-		52E6E41E1EC759D000B59D25 /* ShowActivitiesInGroupCommentsController */ = {
+		52E6E41E1EC759D000B59D25 /* ActivitiesGroupComments */ = {
 			isa = PBXGroup;
 			children = (
 				52E6E41F1EC75A4200B59D25 /* ActivitiesCommentsController.swift */,
 				52E6E4211EC75A5300B59D25 /* ActivitiesCommentsCell.swift */,
-				52E6E4231EC75A9400B59D25 /* ActivitiesCommentsControllerHandler.swift */,
-				52E6E4251EC75AC100B59D25 /* ActivitiesCommentsCellHandler.swift */,
 			);
-			name = ShowActivitiesInGroupCommentsController;
+			name = ActivitiesGroupComments;
 			sourceTree = "<group>";
 		};
 		52F31A061E7D6F6E000F5157 /* Frameworks */ = {
@@ -755,10 +815,10 @@
 				521ECCA01E8BB9C6001C10BC /* PrivateGroup.swift in Sources */,
 				52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */,
 				52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */,
+				525B69861ECB2BAA00E8C3C8 /* ShowActivitiesInPrivateGroupControllerHandler.swift in Sources */,
 				52E6E40E1EC712D900B59D25 /* ActivityWeekForm2Handler.swift in Sources */,
 				52E6E3DA1EBB701A00B59D25 /* GroupCommentsController.swift in Sources */,
 				52E6E4081EC235DF00B59D25 /* ActivityWeekForm7.swift in Sources */,
-				521EB0561E8AC65C009D472C /* ActivityCollectionViewController.swift in Sources */,
 				52F3F3DF1E9BD5A400B3FEA2 /* Validation.swift in Sources */,
 				52E6E41D1EC71D5A00B59D25 /* ShowActivitiesInPrivateGroupCell.swift in Sources */,
 				52E6E3EF1EC0BABD00B59D25 /* ActivityForm1.swift in Sources */,
@@ -790,7 +850,9 @@
 				52E6E4021EC2359000B59D25 /* ActivityWeekForm4.swift in Sources */,
 				52E6E4241EC75A9400B59D25 /* ActivitiesCommentsControllerHandler.swift in Sources */,
 				529BB64E1EA67A9D00776D16 /* UserObject.swift in Sources */,
+				525B69901ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift in Sources */,
 				525B69801EC9D57700E8C3C8 /* CommentsSectionHeader.swift in Sources */,
+				525B69821ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift in Sources */,
 				521EB05A1E8AE3BA009D472C /* GetString.swift in Sources */,
 				52A1B96E1E941B98002D7DDB /* PrivateGroupCommentsCell.swift in Sources */,
 				523391701E9559F000A867D9 /* CreateGroupThreadHandler.swift in Sources */,
@@ -823,6 +885,7 @@
 				523391651E95466A00A867D9 /* PrivateGroupCommentsCollectionViewControllerHandler.swift in Sources */,
 				52E6E4101EC7132900B59D25 /* ActivityWeekForm3Handler.swift in Sources */,
 				52E6E4121EC7137500B59D25 /* ActivityWeekForm4Handler.swift in Sources */,
+				525B698E1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift in Sources */,
 				52D5AF911E8D5E770007C448 /* PrivateGroupExtension.swift in Sources */,
 				5233917C1E97CE9C00A867D9 /* PrivateGroupRequestsAndMembersHeader.swift in Sources */,
 				52E6E3E61EBF4E2E00B59D25 /* ActivityWeekCollection.swift in Sources */,
@@ -831,6 +894,7 @@
 				52E6E4261EC75AC100B59D25 /* ActivitiesCommentsCellHandler.swift in Sources */,
 				52A75F591E8179840038CF4F /* RegistrationPersonalDataHandler.swift in Sources */,
 				52D5AF9A1E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift in Sources */,
+				525B69881ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift in Sources */,
 				52A75F571E81781E0038CF4F /* RegistrationUserNameHandler.swift in Sources */,
 				52E6E3F71EC1F89A00B59D25 /* ActivityForm2Handler.swift in Sources */,
 				528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */,

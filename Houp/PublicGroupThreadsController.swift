@@ -62,6 +62,7 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.threadsList.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = GroupCommentsController()
         controller.thread = threadsList[indexPath.row]

@@ -126,8 +126,6 @@ class PrivateGroupsCell: UICollectionViewCell{
 
     let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .right, textColor: nil)
     let usersInGroupImage = CustomViews.shared.getCustomImageView(imageName: "users_private_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
-    
-    //let notificationLable = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, isBold: true, centerText: false, textColor: UIColor().getSecondColor())
     let notificationImage = CustomViews.shared.getCustomImageView(imageName: "notification_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
     
     override init(frame: CGRect) {

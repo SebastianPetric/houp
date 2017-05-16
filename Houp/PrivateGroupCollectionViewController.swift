@@ -8,33 +8,72 @@
 
 import UIKit
 
-class PrivateGroupCollectionViewController: UIViewController{
-
+class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    var liveQuery: CBLLiveQuery?
+    var isObserving = false
+    
+    //Bringt eventuell Fehler. Überprüfen
+    deinit {
+        liveQuery?.removeObserver(self, forKeyPath: "rows")
+    }
+    
+    lazy var privateGroupsCollection: UICollectionView = {
+        let collFlowLayout = UICollectionViewFlowLayout()
+        collFlowLayout.minimumLineSpacing = 0
+        collFlowLayout.scrollDirection = .vertical
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: collFlowLayout)
+        collection.backgroundColor = .white
+        collection.dataSource = self
+        collection.delegate = self
+        return collection
+    }()
+    
+    let privateGroupCellID = "privateGroupCellID"
+    var privateGroupsList: [PrivateGroup] = [PrivateGroup]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+            if(liveQuery == nil){
+                getTopicGroups(userID: userID)
+            }
+        }
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        view.addSubview(privateGroupsCollection)
+        privateGroupsCollection.register(PrivateGroupsCell.self, forCellWithReuseIdentifier: privateGroupCellID)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.secret_icon.rawValue), style: .plain, target: self, action: #selector(handleMakeRequestPrivateGroup))
-        
-       // navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:GetString.logoutIcon.rawValue), style: .plain, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateNewPrivateGroup))
+        setUpSubViews()
     }
     
-    func handleLogout(){
-        UserDefaults.standard.removeObject(forKey: GetString.username.rawValue)
-        
-        let loginNavController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
-        present(loginNavController, animated: true, completion: nil)
-        
+    func setUpSubViews(){
+        privateGroupsCollection.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
     }
     
-    func handleCreateNewPrivateGroup(){
-       let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreatePrivateGroupViewController(),navBarTitle: GetString.privateGroup.rawValue, barItemTitle: "", image: "")
-        present(createController, animated: true, completion: nil )
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return privateGroupsList.count
     }
     
-    func handleMakeRequestPrivateGroup(){
-        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: MakeRequestPrivateGroupViewController(),navBarTitle: GetString.makeRequestToPrivateGroup.rawValue, barItemTitle: "", image: "")
-        present(createController, animated: true, completion: nil )
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 105)
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.privateGroupCellID, for: indexPath) as! PrivateGroupsCell
+        if privateGroupsList.count != 0{
+            cell.privateGroup = privateGroupsList[indexPath.row]
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = PrivateGroupWithThreadsController()
+        controller.privateGroup = privateGroupsList[indexPath.row]
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }

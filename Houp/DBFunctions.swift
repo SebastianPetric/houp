@@ -331,7 +331,6 @@ extension DBConnection{
             if let con = DBConnection.shared.getDBConnection(){
                 let doc = con.createDocument()
                 try doc.putProperties(properties.getPropertyPackageCreateComment())
-                
                 let activityID = properties.dailyActivityID
                 var commentIDs: [String] = [String]()
                 let docU = con.document(withID: activityID!)

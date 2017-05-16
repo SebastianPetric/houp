@@ -78,6 +78,4 @@ class CreateActivityWeekController: UIViewController, UITextFieldDelegate{
     func hideKeyboard(){
         self.view.endEditing(true)
     }
-    
-   
 }

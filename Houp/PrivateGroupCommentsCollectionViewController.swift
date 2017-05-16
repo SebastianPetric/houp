@@ -108,6 +108,7 @@ class PrivateGroupCommentsCollectionViewController: UIViewController, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.titleNav
+        
         if(liveQuery == nil){
         getTopicComments(threadID: (self.thread?.tid)!)
         }

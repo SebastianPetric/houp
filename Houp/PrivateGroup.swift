@@ -95,6 +95,11 @@ class PrivateGroup: NSObject, NSCoding{
         }
     }
     
+    convenience init(props: [String: Any]) {
+        self.init(pgid: nil, adminID: props["adminID"] as? String, nameOfGroup: props["nameOfGroup"] as? String, location: props["location"] as? String, dayOfMeeting: props["dayOfMeeting"] as? String, timeOfMeeting: nil,timeOfMeetingString: props["timeOfMeeting"] as? String ,secretID: props["secretID"] as? String, threadIDs: props["threadIDs"] as? [String], memberIDs: props["memberIDs"] as? [String], dailyActivityIDs: props["dailyActivityIDs"] as? [String], groupRequestIDs: props["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: props["createdAt"] as? String)
+    }
+    
+    
     required init(coder aDecoder: NSCoder) {
         if let name = aDecoder.decodeObject(forKey: "nameOfGroup") as? String{
         self.nameOfGroup = name

@@ -68,6 +68,15 @@ class Comment: NSObject, NSCoding{
         }
     }
     
+    convenience init(propsForThread: [String: Any]) {
+        self.init(rev: propsForThread["_rev"] as? String, cid: propsForThread["_id"] as? String, authorID: propsForThread["authorID"] as? String, authorUsername: nil, groupID: propsForThread["groupID"] as? String,dailyActivityID: nil,threadID: propsForThread["threadID"] as? String, message: propsForThread["message"] as? String, date: nil, dateString: propsForThread["date"] as? String, likeIDs: propsForThread["likeIDs"] as? [String])
+    }
+    
+    convenience init(propsForActivity: [String: Any]) {
+        self.init(rev: propsForActivity["_rev"] as? String, cid: propsForActivity["_id"] as? String, authorID: propsForActivity["authorID"] as? String, authorUsername: nil, groupID: propsForActivity["groupID"] as? String,dailyActivityID: propsForActivity["dailyActivityID"] as? String,threadID: nil, message: propsForActivity["message"] as? String, date: nil, dateString: propsForActivity["date"] as? String, likeIDs: propsForActivity["likeIDs"] as? [String])
+    }
+
+    
     required init(coder aDecoder: NSCoder) {
         if let _rev = aDecoder.decodeObject(forKey: "rev") as? String{
             self.rev = _rev

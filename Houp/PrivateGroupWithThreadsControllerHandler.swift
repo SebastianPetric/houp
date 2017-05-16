@@ -16,24 +16,22 @@ extension PrivateGroupWithThreadsController{
     }
     
     func getTopicThreads(groupID: String){
-        do{
             if let view = DBConnection.shared.viewByThread{
                 let query = view.createQuery()
                 query.keys = [groupID]
                 liveQuery = query.asLive()
                 liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
                 liveQuery?.start()
+            }else{
+                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+                self.present(alert, animated: true, completion: nil)
             }
-        }catch{
-            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
+        do{
         if keyPath == "rows" {
-            do{
                 if var rows = liveQuery!.rows {
                     threadsList.removeAll()
                     while let row = rows.nextRow() {
@@ -48,7 +46,8 @@ extension PrivateGroupWithThreadsController{
                                     userName = row.document?["username"] as? String
                                 }
                             }
-                        let thread = Thread(rev: props["_rev"] as? String, tid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: userName, groupID: props["groupID"] as? String, title: props["title"] as? String, message: props["message"] as? String, date: nil, dateString: props["date"] as? String, commentIDs: props["commentIDs"] as? [String])
+                            let thread = Thread(props: props)
+                            thread.userName = userName
                             threadsList.append(thread)
                         }
                         threadsList.sort(by:
@@ -57,9 +56,12 @@ extension PrivateGroupWithThreadsController{
                         self.threadsCollectionView.reloadData()
                     }
                 }
-            }catch{
-                
             }
+        }catch{
+            self.threadsList = [Thread]()
+            self.threadsCollectionView.reloadData()
+            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -72,4 +74,17 @@ extension PrivateGroupWithThreadsController{
             liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
         }
     }
+    
+    func handleActivitiesInGroup(){
+        let controller = ShowActivitiesInPrivateGroupController()
+        controller.privateGroup = self.privateGroup
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func handleUsersInGroup(){
+        let controller = PrivateGroupRequestAndMembersList()
+        controller.privateGroup = self.privateGroup
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+
 }

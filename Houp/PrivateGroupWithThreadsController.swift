@@ -86,8 +86,6 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
             if(liveQuery == nil){
                 getTopicThreads(groupID: (self.privateGroup?.pgid)!)
             }
-        
-        //self.threadsList = DBConnection.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))
         infoContainer.addSubview(nameOfGroup)
@@ -143,22 +141,11 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.threadsList.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = GroupCommentsController()
         controller.thread = threadsList[indexPath.row]
         controller.titleNav = (self.privateGroup?.nameOfGroup)!
         self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func handleActivitiesInGroup(){
-        let controller = ShowActivitiesInPrivateGroupController()
-        controller.privateGroup = self.privateGroup
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func handleUsersInGroup(){
-    let controller = PrivateGroupRequestAndMembersList()
-        controller.privateGroup = self.privateGroup
-    self.navigationController?.pushViewController(controller, animated: true)
     }
 }

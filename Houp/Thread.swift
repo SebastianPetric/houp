@@ -66,6 +66,10 @@ class Thread: NSObject, NSCoding{
         }
     }
     
+    convenience init(props: [String: Any]){
+    self.init(rev: props["_rev"] as? String, tid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: nil, groupID: props["groupID"] as? String, title: props["title"] as? String, message: props["message"] as? String, date: nil, dateString: props["date"] as? String , commentIDs: props["commentIDs"] as? [String])
+    }
+    
     required init(coder aDecoder: NSCoder) {
         if let _rev = aDecoder.decodeObject(forKey: "rev") as? String{
             self.rev = _rev

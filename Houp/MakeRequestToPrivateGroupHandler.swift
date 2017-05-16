@@ -15,7 +15,7 @@ extension MakeRequestPrivateGroupViewController{
     }
     
     func handleRequest(){
-            if let error = try DBConnection.shared.makeRequestToPrivateGroup(secretID: self.secretTextField.text!){
+            if let error = DBConnection.shared.makeRequestToPrivateGroup(secretID: self.secretTextField.text!){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
             }else{

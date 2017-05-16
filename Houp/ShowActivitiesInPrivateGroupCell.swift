@@ -89,23 +89,4 @@ class ShowActivitiesInPrivateGroupCell: UICollectionViewCell{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func handleUpvote(){
-        if(self.upvoteButton.tintColor == .black){
-            if let error = DBConnection.shared.likeActivity(aID: (activityObject?.aid)!){
-                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }else{
-                self.upvoteButton.tintColor = UIColor().getThirdColor()
-            }
-            
-        }else{
-            if let error = DBConnection.shared.dislikeActivity(aID: (activityObject?.aid)!){
-                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-                self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }else{
-                self.upvoteButton.tintColor = .black
-            }
-        }
-    }
 }

@@ -38,18 +38,16 @@ extension PrivateGroupCommentsCollectionViewController{
     }
     
     func getTopicComments(threadID: String){
-        do{
             if let view = DBConnection.shared.viewByComment{
                 let query = view.createQuery()
                 query.keys = [threadID]
                 liveQuery = query.asLive()
                 liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
                 liveQuery?.start()
+            }else{
+                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+                self.present(alert, animated: true, completion: nil)
             }
-        }catch{
-            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -70,7 +68,8 @@ extension PrivateGroupCommentsCollectionViewController{
                                     userName = row.document?["username"] as? String
                                 }
                             }
-                            let comment = Comment(rev: props["_rev"] as? String, cid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: userName, groupID: props["groupID"] as? String,dailyActivityID: nil,threadID: props["threadID"] as? String, message: props["message"] as? String, date: nil, dateString: props["date"] as? String, likeIDs: props["likeIDs"] as? [String])
+                            let comment = Comment(propsForThread: props)
+                            comment.userName = userName
                             comments.append(comment)
                         }
                         comments.sort(by: {
@@ -83,7 +82,10 @@ extension PrivateGroupCommentsCollectionViewController{
                     }
                 }
             }catch{
-                
+                self.comments = [Comment]()
+                self.commentsCollectionView.reloadData()
+                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
