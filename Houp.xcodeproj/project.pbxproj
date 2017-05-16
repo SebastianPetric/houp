@@ -318,10 +318,9 @@
 		52499A4F1E7BF7FD006061B2 /* Houp */ = {
 			isa = PBXGroup;
 			children = (
-				52499A6C1E7BFD4A006061B2 /* Controller */,
-				528CFCBC1E80621800B6993D /* Handler */,
-				52499A6B1E7BFD44006061B2 /* View */,
 				52499A6A1E7BFD37006061B2 /* Model */,
+				52499A6B1E7BFD44006061B2 /* View */,
+				52499A6C1E7BFD4A006061B2 /* Controller */,
 				52499A651E7BF80D006061B2 /* Extensions */,
 				52499A6D1E7BFD68006061B2 /* Settings */,
 			);
@@ -348,14 +347,9 @@
 		52499A6A1E7BFD37006061B2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				528987001E83F5A500322A99 /* Database */,
 				52499A501E7BF7FD006061B2 /* AppDelegate.swift */,
-				521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */,
-				52E54AC81E82D5AC00856EF8 /* User.swift */,
-				529BB64F1EA7848700776D16 /* Thread.swift */,
-				529BB64D1EA67A9D00776D16 /* UserObject.swift */,
-				521C0C021EB0E75200D05F8F /* Comment.swift */,
-				52E6E4091EC4ACDF00B59D25 /* Activity.swift */,
+				525B69921ECB30F900E8C3C8 /* Objects */,
+				528987001E83F5A500322A99 /* Database */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -363,6 +357,24 @@
 		52499A6B1E7BFD44006061B2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				525B69911ECB2EB100E8C3C8 /* GroupRequestsAndMembersHandler */,
+				525B698C1ECB2D1300E8C3C8 /* GroupCommentsHandler */,
+				525B698B1ECB2CFA00E8C3C8 /* ActivityWeekCollectionHandler */,
+				525B698A1ECB2CB700E8C3C8 /* ActivityFormHandler */,
+				525B69891ECB2C7200E8C3C8 /* CreateActivityWeekHandler */,
+				525B69841ECB2B7500E8C3C8 /* ActivitiesInGroupHandler */,
+				525B69831ECB2B1C00E8C3C8 /* ActivitiesGroupCommentsHandler */,
+				5233916E1E9559D500A867D9 /* CreateGroupThreadHandler */,
+				523391661E9547EF00A867D9 /* PrivateGroupWithThreadsHandler */,
+				523391611E95460700A867D9 /* PrivateGroupCommentsCollectionHandler */,
+				52A75F681E81BA1C0038CF4F /* LoginHandler */,
+				52A75F651E819EED0038CF4F /* RegistrationHandler */,
+				52D5AF8F1E8D5E600007C448 /* PrivateGroupHandler */,
+				52D5AF921E8D5EBB0007C448 /* SettingsHandler */,
+				52D5AF951E8D5F4A0007C448 /* MakeRequestToPrivateGroupHandler */,
+				52D5AF981E8D5FCB0007C448 /* CreateNewPrivateGroupHandler */,
+				52E6E3E31EBCDC6400B59D25 /* PublicGroupThreadsHandler */,
+				52E6E3E21EBCDC4700B59D25 /* PublicGroupCommentsHandler */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -472,6 +484,19 @@
 			name = GroupRequestsAndMembersHandler;
 			sourceTree = "<group>";
 		};
+		525B69921ECB30F900E8C3C8 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */,
+				52E54AC81E82D5AC00856EF8 /* User.swift */,
+				529BB64F1EA7848700776D16 /* Thread.swift */,
+				529BB64D1EA67A9D00776D16 /* UserObject.swift */,
+				521C0C021EB0E75200D05F8F /* Comment.swift */,
+				52E6E4091EC4ACDF00B59D25 /* Activity.swift */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
 		528987001E83F5A500322A99 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,31 +505,6 @@
 				52102E0B1E898556005715A9 /* DBFunctions.swift */,
 			);
 			name = Database;
-			sourceTree = "<group>";
-		};
-		528CFCBC1E80621800B6993D /* Handler */ = {
-			isa = PBXGroup;
-			children = (
-				525B69911ECB2EB100E8C3C8 /* GroupRequestsAndMembersHandler */,
-				525B698C1ECB2D1300E8C3C8 /* GroupCommentsHandler */,
-				525B698B1ECB2CFA00E8C3C8 /* ActivityWeekCollectionHandler */,
-				525B698A1ECB2CB700E8C3C8 /* ActivityFormHandler */,
-				525B69891ECB2C7200E8C3C8 /* CreateActivityWeekHandler */,
-				525B69841ECB2B7500E8C3C8 /* ActivitiesInGroupHandler */,
-				525B69831ECB2B1C00E8C3C8 /* ActivitiesGroupCommentsHandler */,
-				5233916E1E9559D500A867D9 /* CreateGroupThreadHandler */,
-				523391661E9547EF00A867D9 /* PrivateGroupWithThreadsHandler */,
-				523391611E95460700A867D9 /* PrivateGroupCommentsCollectionHandler */,
-				52A75F681E81BA1C0038CF4F /* LoginHandler */,
-				52A75F651E819EED0038CF4F /* RegistrationHandler */,
-				52D5AF8F1E8D5E600007C448 /* PrivateGroupHandler */,
-				52D5AF921E8D5EBB0007C448 /* SettingsHandler */,
-				52D5AF951E8D5F4A0007C448 /* MakeRequestToPrivateGroupHandler */,
-				52D5AF981E8D5FCB0007C448 /* CreateNewPrivateGroupHandler */,
-				52E6E3E31EBCDC6400B59D25 /* PublicGroupThreadsHandler */,
-				52E6E3E21EBCDC4700B59D25 /* PublicGroupCommentsHandler */,
-			);
-			name = Handler;
 			sourceTree = "<group>";
 		};
 		52A1B96A1E940F5B002D7DDB /* PrivateGroupWithThreads */ = {
