@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource{
     
@@ -34,6 +35,8 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in})
+        
         view.backgroundColor = .white
         if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
             if(liveQuery == nil){

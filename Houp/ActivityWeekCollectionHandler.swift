@@ -30,26 +30,27 @@ extension ActivityWeekCollection{
     }
     
     func getTopicActivities(userID: String){
-        do{
             if let view = DBConnection.shared.viewByActiveActivityForUser{
                 let query = view.createQuery()
                 query.keys = [userID]
                 liveQuery = query.asLive()
                 liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
                 liveQuery?.start()
+            }else{
+                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+                self.present(alert, animated: true, completion: nil)
             }
-        }catch{
-            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
     func handleNavBarItem(){
-        if(self.activityList.count == 0){
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleActivityForm))
-        }else{
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
-        }
+            if(self.activityList.count == 0){
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleActivityForm))
+            }else if(self.activityList[0].dateObject?.getDatePart() == Date().getDatePart()){
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
+            }else{
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

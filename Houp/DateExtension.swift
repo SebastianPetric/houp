@@ -42,4 +42,17 @@ extension Date{
         let minute = comp.minute
         return "\(hour!):\(minute!)"
     }
+    
+    func getDateForTimer() -> Date{
+        let gregorian = Calendar(identifier: .gregorian)
+        let now = Date()
+        //let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
+        
+        // Change the time to 9:30:00 in your locale
+        components.hour = 21
+        components.minute = 33
+        components.second = 00
+        return gregorian.date(from: components)!
+    }
 }

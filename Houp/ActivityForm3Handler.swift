@@ -50,10 +50,10 @@ extension ActivityForm3{
         self.activity?.wellBeingState = wellBeState
         self.activity?.wellBeingText = wellBeText
 
-        if let error = DBConnection.shared.updateActivityAfterForm(properties: self.activity!){
+        if DBConnection.shared.updateActivityAfterForm(properties: self.activity!) != nil{
         return true
         }else if(wantToShare){
-            if let error = DBConnection.shared.shareActivityWithGroups(properties: self.activity!){
+            if DBConnection.shared.shareActivityWithGroups(properties: self.activity!) != nil{
             return true
             }else{
             return false

@@ -32,7 +32,7 @@ extension PrivateGroupWithThreadsController{
         
         do{
         if keyPath == "rows" {
-                if var rows = liveQuery!.rows {
+                if let rows = liveQuery!.rows {
                     threadsList.removeAll()
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -78,6 +78,7 @@ extension PrivateGroupWithThreadsController{
     func handleActivitiesInGroup(){
         let controller = ShowActivitiesInPrivateGroupController()
         controller.privateGroup = self.privateGroup
+        controller.title = "Erfolgreiche Aktivitäten"
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

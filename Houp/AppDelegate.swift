@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -118,6 +119,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
+    
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        
+        if(DBConnection.shared.getDBConnection() != nil){
+            if(notification.alertTitle! == "Hey! Wie ging es dir heute?"){
+                let controller = CustomTabBarController()
+                controller.selectedIndex = 2
+                window?.rootViewController = controller
+            }
+        }else{
+            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
+            window?.rootViewController = root
+        }
+        
+    }
 
     // MARK: - Core Data Saving support
 

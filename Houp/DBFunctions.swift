@@ -89,7 +89,6 @@ extension DBConnection{
         return threads
     }
     
-    
     func checkIfUsernameAlreadyExists(username: String) -> Bool{
         do{
             if let view = self.viewByUsername{
@@ -108,7 +107,6 @@ extension DBConnection{
         }
         return false
     }
-
     
     func getAllPrivateGroups() -> [PrivateGroup] {
        var privateGroupList: [PrivateGroup] = [PrivateGroup]()
@@ -140,8 +138,6 @@ extension DBConnection{
         }
         return privateGroupList
     }
-    
-    
     
     func getAllPrivateGroupsFirstTime() -> [PrivateGroup] {
         var privateGroupList: [PrivateGroup] = [PrivateGroup]()

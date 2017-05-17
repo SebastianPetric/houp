@@ -30,7 +30,6 @@ func handleRegsitration(){
     
     func hasAnyErrors() -> Bool{
         
-        do{
         if(self.emailTextField.text == "" || self.passwordTextField.text == "" || self.passwordRepeatTextField.text == ""){
         errorMessage = GetString.errorFillAllFields.rawValue
         return true
@@ -42,9 +41,5 @@ func handleRegsitration(){
             return true
         }
         return false
-        }catch{
-        errorMessage = GetString.errorWithConnection.rawValue
-        return true
-        }
     }
 }

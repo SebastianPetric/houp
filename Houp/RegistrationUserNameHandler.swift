@@ -30,7 +30,7 @@ extension RegistrationUserNameController: UIImagePickerControllerDelegate, UINav
     }
     
     func hasAnyErrors() -> Bool{
-        do{
+       
         if(self.usernameTextField.text == ""){
             errorMessage = GetString.errorFillAllFields.rawValue
             return true
@@ -42,10 +42,6 @@ extension RegistrationUserNameController: UIImagePickerControllerDelegate, UINav
             self.present(alert, animated: true, completion: nil)
         }
         return false
-        }catch{
-        errorMessage = GetString.errorWithConnection.rawValue
-        return true
-        }
     }
     
     

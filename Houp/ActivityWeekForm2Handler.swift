@@ -15,7 +15,7 @@ extension ActivityWeekForm2{
         let tomorrow = Calendar.current.date(byAdding: .day, value: 2, to: Date())
         
         let activity = Activity(rev: nil, aid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: self.activityText.text, activityText: nil, locationOfActivity: self.locationText.text, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: nil, addictionText: nil, dateObject: tomorrow, timeObject: timePicker.date,dateString: nil, timeString: nil, commentIDs: nil, likeIDs: nil)
-        if let error = DBConnection.shared.createActivityWithProperties(properties: activity){
+        if DBConnection.shared.createActivityWithProperties(properties: activity) != nil{
             return true
         }else{
             return false

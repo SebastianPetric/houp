@@ -31,7 +31,7 @@ extension PublicGroupThreadsController{
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         do{
         if keyPath == "rows" {
-                if var rows = liveQuery!.rows {
+                if let rows = liveQuery!.rows {
                     threadsList.removeAll()
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {

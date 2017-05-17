@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource{
 
@@ -15,6 +16,7 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     var widthHeightOfImageViews: CGFloat = 20
     var activityList: [Activity] = [Activity]()
     var liveQuery: CBLLiveQuery?
+    var timer: Timer?
     
     lazy var activityCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -69,5 +71,43 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.activityList.count
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if(self.activityList.count == 0){
+            handleActivityForm()
+        }else if(self.activityList[0].dateObject! <= Date()){
+            handleUpdateActivity()
+        }
+        
+        self.timer = Timer(fireAt: Date().getDateForTimer(), interval: 3600, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        RunLoop.main.add(self.timer!, forMode: RunLoopMode.commonModes)
+    }
+    
+    //jede stunde nach 20 Uhr des nächsten Tages Notification raushauen, in welcher gesagt wird dass man doch das formular ausfüllen soll. wenn man darauf klickt, wird die app geöffnet und sofort das formular gestartet. wenn man das formular fertig ausgefüllt hat, kann man den timer neu setzen
+    func fireTimer(){
+        let state = UIApplication.shared.applicationState
+        if state == .background {
+            let content = UNMutableNotificationContent()
+            content.title = "Hey! Wie ging es dir heute?"
+            content.body = "Bitte beantworte kurz ein paar Fragen zu heute :)"
+            content.badge = 1
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            // Wenn im Hintergrund dann Notification
+        }
+        else if state == .active {
+//            handleUpdateActivity()
+            self.tabBarController?.selectedIndex = 2
+            // Wenn im Fordergrund, dann Activity öffnen
+        }
+    }
+    
+    //invalidieren, wenn die Aktivität endlich erledigt worden ist, ansonsten, jede stunde fragen
+    func invalidateTimer(){
+        self.timer?.invalidate()
     }
 }
