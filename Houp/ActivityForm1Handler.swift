@@ -48,6 +48,13 @@ extension ActivityForm1{
         }
     }
     
+    func handleCancel(){
+        self.activityWeekCollection?.tryLaterAgain = true
+        self.activityWeekCollection?.timerReset = false
+        dismiss(animated: true, completion: nil)
+    }
+
+    
     func handleSelectImage(sender: UIButton){
         for button in container.subviews as! [UIButton] {
             if(sender == self.veryBadImage || sender == self.badImage){

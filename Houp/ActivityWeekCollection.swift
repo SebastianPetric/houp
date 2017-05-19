@@ -17,6 +17,9 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     var activityList: [Activity] = [Activity]()
     var liveQuery: CBLLiveQuery?
     var timer: Timer?
+    var timerToDelay: Timer?
+    var timerReset: Bool = false
+    var tryLaterAgain: Bool = false
     
     lazy var activityCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -35,6 +38,14 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
         if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
             if(liveQuery == nil){
                 getTopicActivities(userID: userID)
+            }
+        }
+        
+        if(self.activityList.count > 0){
+            if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
+                setUpTimerToday()
+            }else{
+                setUpTimer(date: self.activityList[0].dateObject!)
             }
         }
         
@@ -73,18 +84,34 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
         return self.activityList.count
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-        if(self.activityList.count == 0){
-            handleActivityForm()
-        }else if(self.activityList[0].dateObject! <= Date()){
-            handleUpdateActivity()
-        }
-        
-        self.timer = Timer(fireAt: Date().getDateForTimer(), interval: 3600, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-        RunLoop.main.add(self.timer!, forMode: RunLoopMode.commonModes)
+    override func viewWillAppear(_ animated: Bool) {
+        print("will load \(self.activityList.count)")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if(self.activityList.count == 0){
+            if (!self.tryLaterAgain){
+                self.timerToDelay?.invalidate()
+                self.timer?.invalidate()
+                handleActivityForm()
+            }else{
+                setUpTimerToDelayForms()
+            }
+            
+            //wenn die aktivität heute stattfindet
+        }else if(self.activityList[0].dateObject?.getDatePart() == Date().getDatePart()){
+            //Wenn es nach 20 Uhr ist
+            if(Date() >= Date().getDateForTimer()){
+                if (!self.tryLaterAgain){
+                    self.timerToDelay?.invalidate()
+                    handleUpdateActivity()
+                }else{
+                    setUpTimerToDelayForms()
+                }
+            }
+        }
+    }
+
     //jede stunde nach 20 Uhr des nächsten Tages Notification raushauen, in welcher gesagt wird dass man doch das formular ausfüllen soll. wenn man darauf klickt, wird die app geöffnet und sofort das formular gestartet. wenn man das formular fertig ausgefüllt hat, kann man den timer neu setzen
     func fireTimer(){
         let state = UIApplication.shared.applicationState
@@ -100,14 +127,45 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
             // Wenn im Hintergrund dann Notification
         }
         else if state == .active {
-//            handleUpdateActivity()
+            if(self.tabBarController?.selectedIndex == 2){
+            handleUpdateActivity()
+            }else{
             self.tabBarController?.selectedIndex = 2
+            }
             // Wenn im Fordergrund, dann Activity öffnen
         }
     }
     
+    func setUpTimerToday(){
+        self.timer = Timer(fireAt: Date(), interval: 3600, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        RunLoop.main.add(self.timer!, forMode: RunLoopMode.commonModes)
+    }
+    
+    func setUpTimer(date: Date){
+        self.timer = Timer(fireAt: Date().checkIfActivityAlreadyOver(date: date), interval: 3600, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        RunLoop.main.add(self.timer!, forMode: RunLoopMode.commonModes)
+    }
+
+    
+    
+    //wenn er gerade keine zeit hat die formulare auszufüllen
+    func setUpTimerToDelayForms(){
+        self.timerToDelay = Timer(fireAt: Date(), interval: 200, target: self, selector: #selector(tryAgain), userInfo: nil, repeats: true)
+        RunLoop.main.add(self.timerToDelay!, forMode: RunLoopMode.commonModes)
+    }
+    
+    func tryAgain(){
+    self.tryLaterAgain = false
+    invalidateDelayTimer()
+    }
+
+    
     //invalidieren, wenn die Aktivität endlich erledigt worden ist, ansonsten, jede stunde fragen
     func invalidateTimer(){
         self.timer?.invalidate()
+    }
+    
+    func invalidateDelayTimer(){
+        self.timerToDelay?.invalidate()
     }
 }

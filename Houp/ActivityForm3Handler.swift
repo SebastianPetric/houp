@@ -16,10 +16,19 @@ extension ActivityForm3{
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
             }else{
+                
+                //Hier noch den Timer zurücksetzen
+                self.activityWeekCollection?.invalidateTimer()
+                self.activityWeekCollection?.tryLaterAgain = false
+                self.activityWeekCollection?.invalidateDelayTimer()
                 self.activityWeekCollection?.liveQuery?.removeObserver(self.activityWeekCollection.self!, forKeyPath: "rows")
                 self.activityWeekCollection?.activityList.removeAll()
                 self.activityWeekCollection?.getTopicActivities(userID: UserDefaults.standard.string(forKey: GetString.userID.rawValue)!)
                 self.activityWeekCollection?.activityCollectionView.reloadData()
+                
+                if((self.activityWeekCollection?.activityList.count)! > 0){
+                    self.activityWeekCollection?.setUpTimer(date: (self.activityWeekCollection?.activityList[0].dateObject)!)
+                }
                 
                 self.activityWeekCollection?.handleNavBarItem()
                 if let window = UIApplication.shared.keyWindow{

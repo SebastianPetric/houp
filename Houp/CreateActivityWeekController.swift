@@ -10,6 +10,7 @@ import UIKit
 
 class CreateActivityWeekController: UIViewController, UITextFieldDelegate{
     
+    var activityWeekCollection: ActivityWeekCollection?
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was würdest du gerne morgen unternehmen?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
     let onlyForNextDay = CustomViews.shared.getCustomLabel(text: "Willst du nur für morgen planen? (Anstatt der ganzen Woche)", fontSize: 12, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)
@@ -31,6 +32,7 @@ class CreateActivityWeekController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.cancel_icon.rawValue), style: .plain, target: self, action: #selector(handleCancel))
         view.addSubview(dateActivity)
         view.addSubview(titleHeader)
         view.addSubview(onlyForNextDay)

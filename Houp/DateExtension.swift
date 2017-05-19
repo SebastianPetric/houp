@@ -16,7 +16,6 @@ extension Date{
         if let date = dateStringFormatter.date(from: dateString){
         self.init(timeInterval:0, since:date)
         }else{
-            print("upps")
             self.init(timeInterval:0, since: Date())
         }
     }
@@ -50,9 +49,82 @@ extension Date{
         var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
         
         // Change the time to 9:30:00 in your locale
-        components.hour = 21
-        components.minute = 33
+        components.hour = 18
+        components.minute = 35
         components.second = 00
         return gregorian.date(from: components)!
     }
+    
+    
+    func getDateForUpload() -> Date{
+        let gregorian = Calendar(identifier: .gregorian)
+        let now = Date()
+        //let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
+        
+        // Change the time to 9:30:00 in your locale
+        components.hour = 00
+        components.minute = 00
+        components.second = 00
+        return gregorian.date(from: components)!
+    }
+    
+    func getDateForTimerTomorrow() -> Date{
+        let gregorian = Calendar(identifier: .gregorian)
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: tomorrow!)
+        // Change the time to 9:30:00 in your locale
+        components.hour = 20
+        components.minute = 00
+        components.second = 00
+        return gregorian.date(from: components)!
+    }
+
+    
+    func getDateForTimerToday() -> Date{
+        let gregorian = Calendar(identifier: .gregorian)
+        let now = Date()
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
+        // Change the time to 9:30:00 in your locale
+        components.hour = 20
+        components.minute = 00
+        components.second = 00
+        return gregorian.date(from: components)!
+    }
+
+    func getDateForTimerTest20() -> Date{
+        let gregorian = Calendar(identifier: .gregorian)
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: tomorrow!)
+        
+        // Change the time to 9:30:00 in your locale
+        components.hour = 20
+        components.minute = 00
+        components.second = 00
+        return gregorian.date(from: components)!
+    }
+    
+    func getDateForTimerTest21() -> Date{
+        let gregorian = Calendar(identifier: .gregorian)
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: tomorrow!)
+        
+        // Change the time to 9:30:00 in your locale
+        components.hour = 20
+        components.minute = 02
+        components.second = 00
+        return gregorian.date(from: components)!
+    }
+
+    func checkIfActivityAlreadyOver(date: Date) -> Date{
+        let gregorian = Calendar(identifier: .gregorian)
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        // Change the time to 9:30:00 in your locale
+        components.hour = 20
+        components.minute = 00
+        components.second = 00
+        return gregorian.date(from: components)!
+    }
+
+
 }

@@ -30,6 +30,7 @@ extension ActivityWeekForm2{
             }else{
                 let tomorrow = Calendar.current.date(byAdding: .day, value: 3, to: Date())
                 let controller = ActivityWeekForm3()
+                controller.activityWeekCollection = self.activityWeekCollection
                 controller.title = tomorrow?.getDatePart()
                 self.navigationController?.pushViewController(controller, animated: true)
             }

@@ -10,6 +10,7 @@ import UIKit
 
 class ActivityWeekForm6: UIViewController, UITextFieldDelegate{
     
+    var activityWeekCollection: ActivityWeekCollection?
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was würdest du gerne unternehmen?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
     let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. klettern gehen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
