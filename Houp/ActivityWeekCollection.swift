@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import NotificationCenter
 
 class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource{
 
@@ -16,10 +17,6 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     var widthHeightOfImageViews: CGFloat = 20
     var activityList: [Activity] = [Activity]()
     var liveQuery: CBLLiveQuery?
-    var timer: Timer?
-    var timerToDelay: Timer?
-    var timerReset: Bool = false
-    var tryLaterAgain: Bool = false
     
     lazy var activityCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -41,13 +38,9 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }
         
-        if(self.activityList.count > 0){
-            if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
-                setUpTimerToday()
-            }else{
-                setUpTimer(date: self.activityList[0].dateObject!)
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(foreground), name: .UIApplicationWillEnterForeground, object: nil)
+        
+        updateController()
         
         view.addSubview(activityCollectionView)
         self.activityCollectionView.register(ActivityWeekCollectionCell.self, forCellWithReuseIdentifier: activityCellID)
@@ -84,88 +77,45 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
         return self.activityList.count
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("will load \(self.activityList.count)")
+    func foreground(){
+        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+            if(liveQuery == nil){
+                getTopicActivities(userID: userID)
+            }
+        }
+        updateController()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+        if(liveQuery == nil){
+            getTopicActivities(userID: userID)
+        }
+        }
+        updateController()
+    }
+    
+    func updateController(){
         if(self.activityList.count == 0){
-            if (!self.tryLaterAgain){
-                self.timerToDelay?.invalidate()
-                self.timer?.invalidate()
+            if (!TimerObject.shared.tryLaterAgain){
+                TimerObject.shared.invalidateDelayTimer()
                 handleActivityForm()
             }else{
-                setUpTimerToDelayForms()
+                TimerObject.shared.setUpTimerToDelayForms()
             }
-            
             //wenn die aktivität heute stattfindet
-        }else if(self.activityList[0].dateObject?.getDatePart() == Date().getDatePart()){
+        }else if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
             //Wenn es nach 20 Uhr ist
-            if(Date() >= Date().getDateForTimer()){
-                if (!self.tryLaterAgain){
-                    self.timerToDelay?.invalidate()
-                    handleUpdateActivity()
-                }else{
-                    setUpTimerToDelayForms()
-                }
-            }
-        }
-    }
-
-    //jede stunde nach 20 Uhr des nächsten Tages Notification raushauen, in welcher gesagt wird dass man doch das formular ausfüllen soll. wenn man darauf klickt, wird die app geöffnet und sofort das formular gestartet. wenn man das formular fertig ausgefüllt hat, kann man den timer neu setzen
-    func fireTimer(){
-        let state = UIApplication.shared.applicationState
-        if state == .background {
-            let content = UNMutableNotificationContent()
-            content.title = "Hey! Wie ging es dir heute?"
-            content.body = "Bitte beantworte kurz ein paar Fragen zu heute :)"
-            content.badge = 1
-            
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-            let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-            // Wenn im Hintergrund dann Notification
-        }
-        else if state == .active {
-            if(self.tabBarController?.selectedIndex == 2){
-            handleUpdateActivity()
+            if (!TimerObject.shared.tryLaterAgain){
+                TimerObject.shared.invalidateDelayTimer()
+                handleUpdateActivity()
             }else{
-            self.tabBarController?.selectedIndex = 2
+                TimerObject.shared.setUpTimerToDelayForms()
             }
-            // Wenn im Fordergrund, dann Activity öffnen
         }
-    }
-    
-    func setUpTimerToday(){
-        self.timer = Timer(fireAt: Date(), interval: 3600, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-        RunLoop.main.add(self.timer!, forMode: RunLoopMode.commonModes)
-    }
-    
-    func setUpTimer(date: Date){
-        self.timer = Timer(fireAt: Date().checkIfActivityAlreadyOver(date: date), interval: 3600, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-        RunLoop.main.add(self.timer!, forMode: RunLoopMode.commonModes)
-    }
-
-    
-    
-    //wenn er gerade keine zeit hat die formulare auszufüllen
-    func setUpTimerToDelayForms(){
-        self.timerToDelay = Timer(fireAt: Date(), interval: 200, target: self, selector: #selector(tryAgain), userInfo: nil, repeats: true)
-        RunLoop.main.add(self.timerToDelay!, forMode: RunLoopMode.commonModes)
-    }
-    
-    func tryAgain(){
-    self.tryLaterAgain = false
-    invalidateDelayTimer()
-    }
-
-    
-    //invalidieren, wenn die Aktivität endlich erledigt worden ist, ansonsten, jede stunde fragen
-    func invalidateTimer(){
-        self.timer?.invalidate()
-    }
-    
-    func invalidateDelayTimer(){
-        self.timerToDelay?.invalidate()
     }
 }

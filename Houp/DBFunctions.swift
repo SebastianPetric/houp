@@ -765,6 +765,36 @@ extension DBConnection{
     }
     
     
+    func getPersonalActivities(userID: String) -> [Activity]{
+        var activityList: [Activity] = [Activity]()
+        do{
+                if let view = DBConnection.shared.viewByActiveActivityForUser{
+                    let query = view.createQuery()
+                    query.keys = [userID]
+                    let result = try query.run()
+            
+                    while let row = result.nextRow() {
+                            if let props = row.document!.properties {
+                                let activity = Activity(props: props)
+                                activity.rev = row.documentRevisionID
+                                activity.aid = row.documentID
+                                activityList.append(activity)
+                            }
+                    }
+                    activityList.sort(by:
+                        { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedAscending }
+                    )
+                }else{
+                    return [Activity]()
+            }
+        }catch{
+            return [Activity]()
+        }
+        return activityList
+    }
+
+    
+    
     func updateActivityAfterForm(properties: Activity) -> String?{
         do{
             if let con = DBConnection.shared.getDBConnection(){

@@ -49,8 +49,8 @@ extension Date{
         var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
         
         // Change the time to 9:30:00 in your locale
-        components.hour = 18
-        components.minute = 35
+        components.hour = 16
+        components.minute = 25
         components.second = 00
         return gregorian.date(from: components)!
     }
@@ -118,9 +118,9 @@ extension Date{
 
     func checkIfActivityAlreadyOver(date: Date) -> Date{
         let gregorian = Calendar(identifier: .gregorian)
-        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
         // Change the time to 9:30:00 in your locale
-        components.hour = 20
+        components.hour = 15
         components.minute = 00
         components.second = 00
         return gregorian.date(from: components)!

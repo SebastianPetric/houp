@@ -33,9 +33,11 @@ extension CreateActivityWeekController{
             self.present(alert, animated: true, completion: nil)
         }else{
             let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-            self.activityWeekCollection?.setUpTimer(date: tomorrow!)
+//            TimerObject.shared.invalidateTimer()
+//            TimerObject.shared.invalidateDelayTimer()
+            TimerObject.shared.tryLaterAgain = false
+            TimerObject.shared.setUpTimer(date: tomorrow!)
             
-            self.activityWeekCollection?.tryLaterAgain = false
             if let window = UIApplication.shared.keyWindow{
                 self.positiveResponse = CustomViews.shared.getPositiveResponse(title: "Super!", message: "Morgen wird ein guter Tag!")
                 self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
@@ -50,8 +52,8 @@ extension CreateActivityWeekController{
     }
     
     func handleCancel(){
-        self.activityWeekCollection?.tryLaterAgain = true
-        self.activityWeekCollection?.timerReset = false
+        TimerObject.shared.tryLaterAgain = true
+        TimerObject.shared.timerReset = false
         dismiss(animated: true, completion: nil)
     }
     

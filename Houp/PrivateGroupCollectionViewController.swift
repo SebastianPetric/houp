@@ -32,6 +32,10 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
     
     let privateGroupCellID = "privateGroupCellID"
     var privateGroupsList: [PrivateGroup] = [PrivateGroup]()
+    var activityList: [Activity] = [Activity]()
+    var timer: Timer?
+    var tabBarContr: UITabBarController?
+    var activityCollection: ActivityWeekCollection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +43,24 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         
         view.backgroundColor = .white
         if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+            self.activityList = DBConnection.shared.getPersonalActivities(userID: userID)
             if(liveQuery == nil){
                 getTopicGroups(userID: userID)
             }
         }
+        
+        if(self.activityList.count > 0){
+            TimerObject.shared.tabContr = self.tabBarContr
+            TimerObject.shared.activityCollection = self.activityCollection
+            TimerObject.shared.invalidateTimer()
+            TimerObject.shared.invalidateDelayTimer()
+            if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
+                TimerObject.shared.setUpTimerImmediately()
+            }else{
+                TimerObject.shared.setUpTimer(date: self.activityList[0].dateObject!)
+            }
+        }
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.addSubview(privateGroupsCollection)
         privateGroupsCollection.register(PrivateGroupsCell.self, forCellWithReuseIdentifier: privateGroupCellID)
@@ -50,7 +68,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateNewPrivateGroup))
         setUpSubViews()
     }
-    
+
     func setUpSubViews(){
         privateGroupsCollection.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)
     }

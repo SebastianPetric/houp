@@ -49,8 +49,8 @@ extension ActivityForm1{
     }
     
     func handleCancel(){
-        self.activityWeekCollection?.tryLaterAgain = true
-        self.activityWeekCollection?.timerReset = false
+        TimerObject.shared.tryLaterAgain = true
+        TimerObject.shared.timerReset = false
         dismiss(animated: true, completion: nil)
     }
 

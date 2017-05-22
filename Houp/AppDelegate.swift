@@ -124,9 +124,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if(DBConnection.shared.getDBConnection() != nil){
             if(notification.alertTitle! == "Hey! Wie ging es dir heute?"){
-                let controller = CustomTabBarController()
-                controller.selectedIndex = 2
-                window?.rootViewController = controller
+//                let controller = CustomTabBarController()
+//                controller.selectedIndex = 2
+//                window?.rootViewController = controller
             }
         }else{
             let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")

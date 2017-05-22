@@ -47,7 +47,7 @@ extension ActivityWeekCollection{
     func handleNavBarItem(){
             if(self.activityList.count == 0){
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleActivityForm))
-            }else if(self.activityList[0].dateObject?.getDatePart() == Date().getDatePart()){
+            }else if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
             }else{
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))

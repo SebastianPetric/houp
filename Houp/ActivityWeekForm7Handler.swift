@@ -16,8 +16,10 @@ extension ActivityWeekForm7{
                 self.present(alert, animated: true, completion: nil)
             }else{
                 let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-                self.activityWeekCollection?.setUpTimer(date: tomorrow!)
-                self.activityWeekCollection?.tryLaterAgain = false
+                TimerObject.shared.invalidateTimer()
+                TimerObject.shared.invalidateDelayTimer()
+                TimerObject.shared.setUpTimer(date: tomorrow!)
+                TimerObject.shared.tryLaterAgain = false
                 if let window = UIApplication.shared.keyWindow{
                     self.positiveResponse = CustomViews.shared.getPositiveResponse(title: "Super!", message: "Viel Spaß bei deiner neuen Woche!")
                     self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))

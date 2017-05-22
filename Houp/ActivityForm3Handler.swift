@@ -18,16 +18,16 @@ extension ActivityForm3{
             }else{
                 
                 //Hier noch den Timer zurücksetzen
-                self.activityWeekCollection?.invalidateTimer()
-                self.activityWeekCollection?.tryLaterAgain = false
-                self.activityWeekCollection?.invalidateDelayTimer()
+                TimerObject.shared.invalidateTimer()
+                TimerObject.shared.invalidateDelayTimer()
+                TimerObject.shared.tryLaterAgain = false
                 self.activityWeekCollection?.liveQuery?.removeObserver(self.activityWeekCollection.self!, forKeyPath: "rows")
                 self.activityWeekCollection?.activityList.removeAll()
                 self.activityWeekCollection?.getTopicActivities(userID: UserDefaults.standard.string(forKey: GetString.userID.rawValue)!)
                 self.activityWeekCollection?.activityCollectionView.reloadData()
                 
                 if((self.activityWeekCollection?.activityList.count)! > 0){
-                    self.activityWeekCollection?.setUpTimer(date: (self.activityWeekCollection?.activityList[0].dateObject)!)
+                    TimerObject.shared.setUpTimer(date: (self.activityWeekCollection?.activityList[0].dateObject)!)
                 }
                 
                 self.activityWeekCollection?.handleNavBarItem()
