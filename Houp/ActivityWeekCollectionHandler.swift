@@ -19,7 +19,7 @@ extension ActivityWeekCollection{
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
         let controller = CreateActivityWeekController()
         controller.activityWeekCollection = self
-        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: controller, navBarTitle: (tomorrow?.getDatePart() as? String)!, barItemTitle: nil, image: nil)
+        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: controller, navBarTitle: (tomorrow?.getDatePartWithDay() as? String)!, barItemTitle: nil, image: nil)
         self.present(createController, animated: true, completion: nil)
     }
     

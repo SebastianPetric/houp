@@ -11,6 +11,8 @@ import UIKit
 class CreateActivityWeekController: UIViewController, UITextFieldDelegate{
     
     var activityWeekCollection: ActivityWeekCollection?
+    var activityList: [Activity] = [Activity]()
+    var activity: Activity?
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was würdest du gerne morgen unternehmen?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
     let onlyForNextDay = CustomViews.shared.getCustomLabel(text: "Willst du nur für morgen planen? (Anstatt der ganzen Woche)", fontSize: 12, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)

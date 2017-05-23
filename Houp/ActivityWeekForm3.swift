@@ -11,6 +11,8 @@ import UIKit
 class ActivityWeekForm3: UIViewController, UITextFieldDelegate{
     
     var activityWeekCollection: ActivityWeekCollection?
+    var activityList: [Activity] = [Activity]()
+    var activity: Activity?
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was würdest du gerne unternehmen?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
     let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. ein Buch lesen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
@@ -26,6 +28,7 @@ class ActivityWeekForm3: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //navigationItem.setHidesBackButton(true, animated: true)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         view.backgroundColor = .white
         view.addSubview(dateActivity)

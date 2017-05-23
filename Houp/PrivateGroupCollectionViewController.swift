@@ -53,7 +53,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
             TimerObject.shared.tabContr = self.tabBarContr
             TimerObject.shared.activityCollection = self.activityCollection
             TimerObject.shared.invalidateTimer()
-            TimerObject.shared.invalidateDelayTimer()
+            //TimerObject.shared.invalidateDelayTimer()
             if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
                 TimerObject.shared.setUpTimerImmediately()
             }else{

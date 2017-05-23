@@ -9,16 +9,17 @@
 import UIKit
 
 extension ActivityWeekForm7{
+    
+    
     func continueWeek(){
         if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
             if (hasAnyErrors()){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
             }else{
-                let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
                 TimerObject.shared.invalidateTimer()
                 TimerObject.shared.invalidateDelayTimer()
-                TimerObject.shared.setUpTimer(date: tomorrow!)
+                TimerObject.shared.setUpTimer(date: self.activityList[0].dateObject!)
                 TimerObject.shared.tryLaterAgain = false
                 if let window = UIApplication.shared.keyWindow{
                     self.positiveResponse = CustomViews.shared.getPositiveResponse(title: "Super!", message: "Viel Spaß bei deiner neuen Woche!")
@@ -34,16 +35,32 @@ extension ActivityWeekForm7{
         }
     }
     
-    func hasAnyErrors() -> Bool{
+    func setActivity(){
         let timePicker = self.timeOfActivity.subviews[1] as! UIDatePicker
         let tomorrow = Calendar.current.date(byAdding: .day, value: 7, to: Date())
         
-        let activity = Activity(rev: nil, aid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: self.activityText.text, activityText: nil, locationOfActivity: self.locationText.text, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: nil, addictionText: nil, dateObject: tomorrow, timeObject: timePicker.date, dateString: nil, timeString: nil, commentIDs: nil, likeIDs: nil)
-        if DBConnection.shared.createActivityWithProperties(properties: activity) != nil{
-            return true
-        }else{
-            return false
+        self.activity = Activity(rev: nil, aid: nil, authorID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), authorUsername: nil, groupID: nil, activity: self.activityText.text, activityText: nil, locationOfActivity: self.locationText.text, isInProcess: nil, status: nil, wellBeingState: nil, wellBeingText: nil, addictionState: nil, addictionText: nil, dateObject: tomorrow, timeObject: timePicker.date, dateString: nil, timeString: nil, commentIDs: nil, likeIDs: nil)
+    }
+    
+    func getActivity() -> Activity{
+        return self.activity!
+    }
+    
+    func hasAnyErrors() -> Bool{
+        
+        setActivity()
+        var tempList = self.activityList
+        tempList.append(getActivity())
+        
+        for activity in tempList {
+            if DBConnection.shared.createActivityWithProperties(properties: activity) != nil{
+                return true
+            }else{
+                let dateOfActivity = Date().getDateAndTimeForActity(date: activity.dateObject!, time: activity.timeObject!)
+                CalendarObject.shared.setUpEventInCalendar(activity: activity.activity!, locationOfActivity: activity.locationOfActivity, dateOfActivity: dateOfActivity)
+            }
         }
+        return false
     }
     
     func handleDismiss(){

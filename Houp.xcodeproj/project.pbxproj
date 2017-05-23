@@ -53,6 +53,7 @@
 		529BB64E1EA67A9D00776D16 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529BB64D1EA67A9D00776D16 /* UserObject.swift */; };
 		529BB6501EA7848700776D16 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529BB64F1EA7848700776D16 /* Thread.swift */; };
 		529E573A1ED0783A00256090 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E57391ED0783A00256090 /* Timer.swift */; };
+		529E573C1ED4832900256090 /* CalendarObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E573B1ED4832800256090 /* CalendarObject.swift */; };
 		52A1B96C1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A1B96B1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift */; };
 		52A1B96E1E941B98002D7DDB /* PrivateGroupCommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A1B96D1E941B98002D7DDB /* PrivateGroupCommentsCell.swift */; };
 		52A75F551E81723E0038CF4F /* RegistrationNamePrenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */; };
@@ -166,6 +167,7 @@
 		529BB64D1EA67A9D00776D16 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		529BB64F1EA7848700776D16 /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		529E57391ED0783A00256090 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		529E573B1ED4832800256090 /* CalendarObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarObject.swift; sourceTree = "<group>"; };
 		52A1B96B1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCommentsCollectionViewController.swift; sourceTree = "<group>"; };
 		52A1B96D1E941B98002D7DDB /* PrivateGroupCommentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCommentsCell.swift; sourceTree = "<group>"; };
 		52A75F541E81723E0038CF4F /* RegistrationNamePrenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNamePrenameController.swift; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 				521C0C021EB0E75200D05F8F /* Comment.swift */,
 				52E6E4091EC4ACDF00B59D25 /* Activity.swift */,
 				529E57391ED0783A00256090 /* Timer.swift */,
+				529E573B1ED4832800256090 /* CalendarObject.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -856,6 +859,7 @@
 				529BB64E1EA67A9D00776D16 /* UserObject.swift in Sources */,
 				525B69901ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift in Sources */,
 				525B69801EC9D57700E8C3C8 /* CommentsSectionHeader.swift in Sources */,
+				529E573C1ED4832900256090 /* CalendarObject.swift in Sources */,
 				525B69821ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift in Sources */,
 				521EB05A1E8AE3BA009D472C /* GetString.swift in Sources */,
 				52A1B96E1E941B98002D7DDB /* PrivateGroupCommentsCell.swift in Sources */,

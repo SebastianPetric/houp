@@ -50,7 +50,6 @@ extension ActivityForm1{
     
     func handleCancel(){
         TimerObject.shared.tryLaterAgain = true
-        TimerObject.shared.timerReset = false
         dismiss(animated: true, completion: nil)
     }
 

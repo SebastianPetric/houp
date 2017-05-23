@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSRemindersUsageDescription</key>
+	<string>Um dich auch an deine Freizeit erinnern zu können, braucht Houp Zugriff auf deinen Kalender.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Um dich auch an deine Freizeit erinnern zu können, braucht Houp Zugriff auf deinen Kalender.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Houp braucht Zugriff auf deine Mediathek und Kamera um ein Profilbild auszusuchen.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
