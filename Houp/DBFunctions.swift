@@ -820,6 +820,32 @@ extension DBConnection{
 
 
 
+    func updatePrivateGroup(properties: PrivateGroup) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                let doc = con.document(withID: properties.pgid!)
+                try doc?.update({ (rev) -> Bool in
+                    //nameOfGroup location dayOfMeeting timeOfMeeting
+                    rev["nameOfGroup"] = properties.nameOfGroup
+                    rev["location"] = properties.location
+                    rev["dayOfMeeting"] = properties.dayOfMeeting
+                    
+                    let dateformatter = DateFormatter()
+                    dateformatter.dateFormat = "HH:mm"
+                    let timeOfMeetingString = dateformatter.string(from: properties.timeOfMeeting!)
+                    
+                    rev["timeOfMeeting"] = timeOfMeetingString
+                    return true
+                })
+            }else {
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
     
     
     func makeRequestToPrivateGroup(secretID: String) -> String?{

@@ -39,6 +39,7 @@ extension DBConnection{
         }
         return viewPrivateGroupBySecretID
     }
+
     
     func viewByEmail(db: CBLDatabase) -> CBLView{
         let viewByEmail = db.viewNamed("viewByEmail")

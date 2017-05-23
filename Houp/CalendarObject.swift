@@ -17,10 +17,12 @@ class CalendarObject{
     func setUpEventInCalendar(activity: String,locationOfActivity: String?, dateOfActivity: Date){
     
         let eventStore : EKEventStore = EKEventStore()
-        // 'EKEntityTypeReminder' or 'EKEntityTypeEvent'
+        // wenn man ein spezielles Event aus dem Kalender will braucht man event.eventIdentifier
+        // um dann mit: eventStore.event(withIdentifier: "") das event zu erhalten
         
+        
+        // 'EKEntityTypeReminder' or 'EKEntityTypeEvent'
         eventStore.requestAccess(to: .event) { (granted, error) in
-            
             
             if (granted) && (error == nil) {
                 

@@ -10,6 +10,14 @@ import UIKit
 
 extension PrivateGroupWithThreadsController{
     
+    func editGroup(){
+        let controller = EditPrivateGroup()
+        controller.privateGroup = self.privateGroup
+        let editController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: controller,navBarTitle: "Gruppe bearbeiten", barItemTitle: nil, image: nil)
+        present(editController, animated: true, completion: nil )
+    }
+    
+    
     func handleCreateThread(){        
         let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreateGroupThreadController(), navBarTitle: "Thema erstellen", barItemTitle: nil, image: nil)
         self.present(createController, animated: true, completion: nil)
@@ -28,10 +36,23 @@ extension PrivateGroupWithThreadsController{
             }
     }
     
+    func getTopicGroup(groupID: String){
+        if let queryForPrivateGroup = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery(){
+            queryForPrivateGroup.allDocsMode = CBLAllDocsMode.allDocs
+            queryForPrivateGroup.keys = [groupID]
+            self.liveQueryGroupDetails = queryForPrivateGroup.asLive()
+            self.liveQueryGroupDetails?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+            self.liveQueryGroupDetails?.start()
+        }else{
+            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
         do{
-        if keyPath == "rows" {
+        if (object as! NSObject == self.liveQuery){
                 if let rows = liveQuery!.rows {
                     threadsList.removeAll()
                     while let row = rows.nextRow() {
@@ -56,7 +77,18 @@ extension PrivateGroupWithThreadsController{
                         self.threadsCollectionView.reloadData()
                     }
                 }
-            }
+        }else if (object as! NSObject == self.liveQueryGroupDetails){
+                if let rows = liveQueryGroupDetails?.rows {
+                    while let row = rows.nextRow() {
+                        if let props = row.document!.properties {
+                            let prGroup = PrivateGroup(props: props)
+                            prGroup.pgid = row.document!.documentID
+                            self.privateGroup = prGroup
+                        }
+                    }
+                }
+
+        }
         }catch{
             self.threadsList = [Thread]()
             self.threadsCollectionView.reloadData()

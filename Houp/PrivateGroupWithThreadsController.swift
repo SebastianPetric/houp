@@ -11,9 +11,11 @@ import UIKit
 class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate{
 
     var liveQuery: CBLLiveQuery?
+    var liveQueryGroupDetails: CBLLiveQuery?
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
+        liveQueryGroupDetails?.removeObserver(self, forKeyPath: "rows")
     }
     
     var privateGroup: PrivateGroup?{
@@ -83,9 +85,13 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         super.viewDidLoad()
         self.title = "Themen"
     
-            if(liveQuery == nil){
-                getTopicThreads(groupID: (self.privateGroup?.pgid)!)
-            }
+        if(liveQuery == nil){
+            getTopicThreads(groupID: (self.privateGroup?.pgid)!)
+        }
+        if(liveQueryGroupDetails == nil){
+            getTopicGroup(groupID: (self.privateGroup?.pgid)!)
+        }
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))
         infoContainer.addSubview(nameOfGroup)
@@ -103,6 +109,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         infoContainer.backgroundColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 1)
         view.addSubview(threadsCollectionView)
         view.addSubview(seperatorComments)
+        self.editButton.addTarget(self, action: #selector(editGroup), for: .touchUpInside)
         self.activitiesInGroupButton.addTarget(self, action: #selector(handleActivitiesInGroup), for: .touchUpInside)
         self.threadsCollectionView.register(PrivateGroupThreadsCell.self, forCellWithReuseIdentifier: threadsCellID)
         self.usersInGroupButton.addTarget(self, action: #selector(handleUsersInGroup), for: .touchUpInside)
