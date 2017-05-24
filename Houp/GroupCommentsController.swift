@@ -14,13 +14,17 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
     let sectionHeaderID = "sectionHeaderID"
     var widthHeightOfImageViews: CGFloat = 20
     var infoHeight: CGFloat = 0
+    var widthOfEditButton: NSLayoutConstraint?
     var liveQuery: CBLLiveQuery?
+    var liveQueryThreadDetails: CBLLiveQuery?
     var comments: [Comment] = [Comment]()
     var commentsList: [[Comment]] = [[Comment]]()
     var titleNav = ""
+    var editButton: UIButton = UIButton()
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
+        liveQueryThreadDetails?.removeObserver(self, forKeyPath: "rows")
     }
     
     var thread: Thread?{
@@ -73,7 +77,7 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
         let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
         let title = CustomViews.shared.getCustomLabel(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es dar", fontSize: 14, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: nil)
         let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: UIColor().getThirdColor())
-        let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getThirdColor(), imageColor: .black, radius: nil, borderColor: UIColor().getThirdColor())
+        self.editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getThirdColor(), imageColor: .black, radius: nil, borderColor: UIColor().getThirdColor())
         let seperatorInfo = CustomViews.shared.getCustomSeperator(color: UIColor().getThirdColor())
         
         let view = UIView()
@@ -83,13 +87,13 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
         view.addSubview(date)
         view.addSubview(time)
         view.addSubview(seperator)
-        view.addSubview(editButton)
+        view.addSubview(self.editButton)
         view.addSubview(seperatorInfo)
         view.backgroundColor = UIColor().getThirdColor()
         
         username.addConstraintsWithConstants(top: view.topAnchor, right: nil, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 100, height: 20)
-        editButton.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: 20, height: 20)
-        time.addConstraintsWithConstants(top: view.topAnchor, right: editButton.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 35, height: 20)
+        self.editButton.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: 20, height: 20)
+        time.addConstraintsWithConstants(top: view.topAnchor, right: self.editButton.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 35, height: 20)
         seperator.addConstraintsWithConstants(top: view.topAnchor, right: time.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 1, height: 20)
         date.addConstraintsWithConstants(top: view.topAnchor, right: seperator.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 70, height: 20)
         title.addConstraintsWithConstants(top: username.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 40)
@@ -114,6 +118,17 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
             getTopicComments(threadID: (self.thread?.tid)!)
         }
         
+        if(liveQueryThreadDetails == nil){
+            getTopicThread(threadID: (self.thread?.tid)!)
+        }
+        
+        if(UserDefaults.standard.string(forKey: GetString.userID.rawValue) != self.thread?.authorID){
+        self.editButton.widthAnchor.constraint(equalToConstant: 0).isActive = true
+        self.editButton.isEnabled = false
+        self.editButton.isHidden = true
+        }
+        
+        self.editButton.addTarget(self, action: #selector(handleEdit), for: .touchUpInside)
         commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
         let sendButton = writeCommentContainer.subviews[1] as! UIButton
         sendButton.addTarget(self, action: #selector(handleSendComment), for: .touchUpInside)
@@ -135,6 +150,13 @@ class GroupCommentsController: UIViewController, UICollectionViewDelegateFlowLay
         let heightMessage = estimateMessageHeight.height + 89
         self.infoHeight += heightMessage + 45
         setUpSubViews()
+    }
+    
+    func handleEdit(){
+            let controller = EditThread()
+            controller.thread = self.thread
+            let editController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: controller,navBarTitle: "Thema bearbeiten", barItemTitle: nil, image: nil)
+            present(editController, animated: true, completion: nil )
     }
     
     func setUpSubViews(){

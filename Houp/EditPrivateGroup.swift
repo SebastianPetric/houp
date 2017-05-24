@@ -42,12 +42,11 @@ class EditPrivateGroup: UIViewController, UITextFieldDelegate{
         view.addSubview(dayOfMeeting)
         view.addSubview(timeOfMeeting)
         view.addSubview(editButton)
-        
         (self.timeOfMeeting.subviews[1] as! UIDatePicker).date = (self.privateGroup?.timeOfMeeting)!
+        editButton.addTarget(self, action: #selector(handleRequest), for: .touchUpInside)
         nameOfGroup.placeholder = self.privateGroup?.nameOfGroup
         locationOfMeeting.placeholder = self.privateGroup?.location
         dayOfMeeting.placeholder = self.privateGroup?.dayOfMeeting
-        editButton.addTarget(self, action: #selector(handleRequest), for: .touchUpInside)
         view.addGestureRecognizer(gestureRecognizer)
         addNotificationObserver()
         setUpSubViews()
@@ -61,58 +60,6 @@ class EditPrivateGroup: UIViewController, UITextFieldDelegate{
         editButton.addConstraintsWithConstants(top: timeOfMeeting.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 25, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
     }
 
-
-    func handleRequest(){
-        
-        if let window = UIApplication.shared.keyWindow{
-                let timePicker = self.timeOfMeeting.subviews[1] as! UIDatePicker
-                
-                if (self.nameOfGroup.text != ""){
-                    self.privateGroup?.nameOfGroup = self.nameOfGroup.text
-                }
-                if (self.dayOfMeeting.text != ""){
-                    self.privateGroup?.dayOfMeeting = self.dayOfMeeting.text
-                }
-                if (self.locationOfMeeting.text != ""){
-                    self.privateGroup?.location = self.locationOfMeeting.text
-                }
-                self.privateGroup?.timeOfMeeting = timePicker.date
-                
-            
-                if let error = DBConnection().updatePrivateGroup(properties: self.privateGroup!){
-                    let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: GetString.errorNoButton.rawValue, firstHandler: nil, secondHandler: {(alert: UIAlertAction!) in  self.dismiss(animated: true, completion: nil)})
-                    self.present(alert, animated: true, completion: nil)
-                }else{
-                    self.positiveResponse = CustomViews.shared.getPositiveResponse(title: GetString.successCreatePrivateGroup.rawValue, message: "Gruppe erfolgreich geupdated!")
-                    self.positiveResponse.frame = window.frame
-                    self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-                    window.addSubview(positiveResponse)
-                    
-                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                        self.positiveResponse.alpha = 1
-                    }, completion: nil)
-                }
-        }
-    }
-    
-    func handleDismiss(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.positiveResponse.alpha = 0
-            self.dismiss(animated: true, completion: nil)
-        }, completion: nil)
-    }
-    
-    func handleErrorOccured(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.positiveResponse.alpha = 0
-        }, completion: nil)
-    }
-    
-    
-    func handleCancel(){
-        dismiss(animated: true, completion: nil)
-    }
-    
     func addNotificationObserver(){
         NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: .UIKeyboardDidHide , object: nil)
     }

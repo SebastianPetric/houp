@@ -12,6 +12,7 @@ class Thread: NSObject, NSCoding{
     
     var rev: String?
     var tid: String?
+    var originalID: String?
     var authorID: String?
     var userName: String?
     var groupID: String?
@@ -23,7 +24,7 @@ class Thread: NSObject, NSCoding{
     var hasBeenUpdated = false
     
     
-    init(rev: String?, tid: String?, authorID: String?, authorUsername: String? ,groupID: String?,title: String?, message: String? ,date: Date?, dateString: String?, commentIDs: [String]?) {
+    init(rev: String?, tid: String?, originalID: String?, authorID: String?, authorUsername: String? ,groupID: String?,title: String?, message: String? ,date: Date?, dateString: String?, commentIDs: [String]?) {
         
         if let revision = rev {
             self.rev = revision
@@ -33,6 +34,9 @@ class Thread: NSObject, NSCoding{
         }
         if let adID = authorID {
             self.authorID = adID
+        }
+        if let oriID = originalID {
+            self.originalID = oriID
         }
         if let username = authorUsername {
             self.userName = username
@@ -67,7 +71,7 @@ class Thread: NSObject, NSCoding{
     }
     
     convenience init(props: [String: Any]){
-    self.init(rev: props["_rev"] as? String, tid: props["_id"] as? String, authorID: props["authorID"] as? String, authorUsername: nil, groupID: props["groupID"] as? String, title: props["title"] as? String, message: props["message"] as? String, date: nil, dateString: props["date"] as? String , commentIDs: props["commentIDs"] as? [String])
+        self.init(rev: props["_rev"] as? String, tid: props["_id"] as? String,originalID: props["originalID"] as? String, authorID: props["authorID"] as? String, authorUsername: nil, groupID: props["groupID"] as? String, title: props["title"] as? String, message: props["message"] as? String, date: nil, dateString: props["date"] as? String , commentIDs: props["commentIDs"] as? [String])
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -79,6 +83,9 @@ class Thread: NSObject, NSCoding{
         }
         if let adID = aDecoder.decodeObject(forKey: "authorID") as? String{
             self.authorID = adID
+        }
+        if let oriID = aDecoder.decodeObject(forKey: "originalID") as? String{
+            self.originalID = oriID
         }
         if let username = aDecoder.decodeObject(forKey: "username") as? String{
             self.userName = username
@@ -113,6 +120,9 @@ class Thread: NSObject, NSCoding{
         if let ID = self.tid {
             aCoder.encode(ID, forKey: "tid")
         }
+        if let oriID = self.originalID {
+            aCoder.encode(oriID, forKey: "originalID")
+        }
         if let username = self.userName {
             aCoder.encode(username, forKey: "username")
         }
@@ -138,14 +148,44 @@ class Thread: NSObject, NSCoding{
             aCoder.encode(dateStr, forKey: "dateString")
         }
     }
-
-    
-    
-    func getPropertyPackageCreatePrivateGroup() -> [String: Any]{
+    func getPropertyPackageCreateThreadWithOriginalID() -> [String: Any]{
         var properties = [String: Any]()
         
         properties["type"] = "Thread"
         properties["commentIDs"] = [String]()
+        
+        if let group = self.groupID {
+            properties["groupID"] = group
+        }
+        if let oriID = self.originalID {
+            properties["originalID"] = oriID
+        }
+        if let aID = self.authorID {
+            properties["authorID"] = aID
+        }
+        if let aUserName = self.userName {
+            properties["authorUsername"] = aUserName
+        }
+        
+        if let tit = self.title {
+            properties["title"] = tit
+        }
+        if let mess = self.message {
+            properties["message"] = mess
+        }
+        if let dat = self.dateString{
+            properties["date"] = dat
+        }
+        return properties
+    }
+    
+    
+    func getPropertyPackageCreateThreadWithoutOriginalID() -> [String: Any]{
+        var properties = [String: Any]()
+        
+        properties["type"] = "Thread"
+        properties["commentIDs"] = [String]()
+        properties["originalID"] = [String]()
         
         if let group = self.groupID {
             properties["groupID"] = group

@@ -109,6 +109,12 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         infoContainer.backgroundColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 1)
         view.addSubview(threadsCollectionView)
         view.addSubview(seperatorComments)
+        
+        if(UserDefaults.standard.string(forKey: GetString.userID.rawValue) != self.privateGroup?.adminID){
+            self.editButton.isHidden = true
+            self.editButton.isEnabled = true
+        }
+        
         self.editButton.addTarget(self, action: #selector(editGroup), for: .touchUpInside)
         self.activitiesInGroupButton.addTarget(self, action: #selector(handleActivitiesInGroup), for: .touchUpInside)
         self.threadsCollectionView.register(PrivateGroupThreadsCell.self, forCellWithReuseIdentifier: threadsCellID)
@@ -121,7 +127,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     usersInGroupLabel.addConstraintsWithConstants(top: nil, right: usersInGroupButton.leftAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 5, bottomConstant: 15, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
     usersInGroupButton.addConstraintsWithConstants(top: nil, right: infoContainer.rightAnchor, bottom: infoContainer.bottomAnchor, left: nil, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 15, bottomConstant: 15, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
         
-        activitiesInGroupLabel.addConstraintsWithConstants(top: nil, right: activitiesInGroupButton.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: infoContainer.centerYAnchor, topConstant: 0, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
+    activitiesInGroupLabel.addConstraintsWithConstants(top: nil, right: activitiesInGroupButton.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: infoContainer.centerYAnchor, topConstant: 0, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 30, height: self.widthHeightOfImageViews)
         activitiesInGroupButton.addConstraintsWithConstants(top: nil, right: infoContainer.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: infoContainer.centerYAnchor, topConstant: 0, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: self.widthHeightOfImageViews, height: self.widthHeightOfImageViews)
     seperatorComments.addConstraintsWithConstants(top: infoContainer.bottomAnchor, right: infoContainer.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 1)
     threadsCollectionView.addConstraintsWithConstants(top: seperatorComments.bottomAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 0)

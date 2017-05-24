@@ -79,7 +79,7 @@ extension DBConnection{
                             userName = row.document?["username"] as? String
                         }
                     }
-                    let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: nil, dateString: row.document?["date"] as? String ,commentIDs: row.document?["commentIDs"] as? [String])
+                    let thread = Thread(rev: row.documentRevisionID, tid: row.documentID,originalID: row.document?["originalID"] as? String, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: nil, dateString: row.document?["date"] as? String ,commentIDs: row.document?["commentIDs"] as? [String])
                     threads.append(thread)
                 }
             }
@@ -174,7 +174,7 @@ extension DBConnection{
                             query?.keys = group.threadIDs
                             let threadsList = try query?.run()
                             while let row = threadsList?.nextRow(){
-                            let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: nil, dateString: row.document?["date"] as? String ,commentIDs: row.document?["commentIDs"] as? [String])
+                                let thread = Thread(rev: row.documentRevisionID, tid: row.documentID,originalID: row.document?["originalID"] as? String, authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: nil, dateString: row.document?["date"] as? String ,commentIDs: row.document?["commentIDs"] as? [String])
                                 threads!.append(thread)
                             }
                         }
@@ -243,7 +243,7 @@ extension DBConnection{
                             let threadsList = try query?.run()
                             
                             while let row = threadsList?.nextRow(){
-                                let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: nil, dateString: row.document?["date"] as? String, commentIDs: row.document?["commentIDs"] as? [String])
+                                let thread = Thread(rev: row.documentRevisionID, tid: row.documentID, originalID: row.document?["authorID"] as? String ,authorID: row.document?["authorID"] as? String, authorUsername: nil, groupID: row.document?["groupID"] as? String, title: row.document?["title"] as? String, message: row.document?["message"] as? String, date: nil, dateString: row.document?["date"] as? String, commentIDs: row.document?["commentIDs"] as? [String])
                                 
                                 if let result = oldThreads{
                                     let threadExists = result.filter({ $0.tid == thread.tid })
@@ -664,26 +664,77 @@ extension DBConnection{
 
     func createThreadWithProperties(properties: [Thread]) -> String?{
         do{
+
             if let con = DBConnection.shared.getDBConnection(){
-                for thread in properties {
-                    let doc = con.createDocument()
-                    try doc.putProperties(thread.getPropertyPackageCreatePrivateGroup())
-                    
-                    let groupID = thread.groupID
-                        var tIDs: [String] = [String]()
-                        let docU = con.document(withID: groupID!)
-                        try docU?.update({ (rev) -> Bool in
-                            if let curArray = rev["threadIDs"] as! [String]?{
-                                tIDs = curArray
-                                tIDs.append(doc.documentID)
-                                rev["threadIDs"] = tIDs
-                            }
-                            return true
-                        })
+            
+            var i = 0
+            var originalID: String = ""
+                
+            for thread in properties {
+            if(i == 0){
+                let doc = con.createDocument()
+                try doc.putProperties(thread.getPropertyPackageCreateThreadWithoutOriginalID())
+                originalID = doc.documentID
+                
+                let docU = con.document(withID: originalID)
+                try docU?.update({ (rev) -> Bool in
+                        rev["originalID"] = originalID
+                    return true
+                })
+                
+                let groupID = thread.groupID
+                var tIDs: [String] = [String]()
+                let docX = con.document(withID: groupID!)
+                try docX?.update({ (rev) -> Bool in
+                    if let curArray = rev["threadIDs"] as! [String]?{
+                        tIDs = curArray
+                        tIDs.append(doc.documentID)
+                        rev["threadIDs"] = tIDs
+                    }
+                    return true
+                })
+                i = 1
+            }else{
+                let doc = con.createDocument()
+                thread.originalID = originalID
+                try doc.putProperties(thread.getPropertyPackageCreateThreadWithOriginalID())
+                
+                let groupID = thread.groupID
+                var tIDs: [String] = [String]()
+                let docU = con.document(withID: groupID!)
+                try docU?.update({ (rev) -> Bool in
+                    if let curArray = rev["threadIDs"] as! [String]?{
+                        tIDs = curArray
+                        tIDs.append(doc.documentID)
+                        rev["threadIDs"] = tIDs
+                    }
+                    return true
+                })
                 }
-                }else {
+            }
+            }else {
                 return GetString.errorWithConnection.rawValue
             }
+//            if let con = DBConnection.shared.getDBConnection(){
+//                for thread in properties {
+//                    let doc = con.createDocument()
+//                    try doc.putProperties(thread.getPropertyPackageCreatePrivateGroup())
+//                    
+//                    let groupID = thread.groupID
+//                        var tIDs: [String] = [String]()
+//                        let docU = con.document(withID: groupID!)
+//                        try docU?.update({ (rev) -> Bool in
+//                            if let curArray = rev["threadIDs"] as! [String]?{
+//                                tIDs = curArray
+//                                tIDs.append(doc.documentID)
+//                                rev["threadIDs"] = tIDs
+//                            }
+//                            return true
+//                        })
+//                }
+//                }else {
+//                return GetString.errorWithConnection.rawValue
+//            }
         }catch{
             return GetString.errorWithConnection.rawValue
         }
@@ -840,6 +891,50 @@ extension DBConnection{
             }else {
                 return GetString.errorWithConnection.rawValue
             }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
+    func updateThread(properties: Thread) -> String?{
+        do{
+            var threadIDs:[String] = [String]()
+            
+            if let view = DBConnection.shared.viewThreadByOriginalID{
+                let query = view.createQuery()
+                query.keys = [properties.originalID]
+                let result = try query.run()
+                
+                while let row = result.nextRow() {
+                        threadIDs.append(row.documentID!)
+                }
+                
+                for thread in threadIDs{
+                if let con = DBConnection.shared.getDBConnection(){
+                    let doc = con.document(withID: thread)
+                    try doc?.update({ (rev) -> Bool in
+                        rev["title"] = properties.title
+                        rev["message"] = properties.message
+                        return true
+                    })
+                }else {
+                    return GetString.errorWithConnection.rawValue
+                }
+                }
+            }else{
+                return GetString.errorWithConnection.rawValue
+            }
+//            if let con = DBConnection.shared.getDBConnection(){
+//                let doc = con.document(withID: properties.tid!)
+//                try doc?.update({ (rev) -> Bool in
+//                    rev["title"] = properties.title
+//                    rev["message"] = properties.message
+//                    return true
+//                })
+//            }else {
+//                return GetString.errorWithConnection.rawValue
+//            }
         }catch{
             return GetString.errorWithConnection.rawValue
         }

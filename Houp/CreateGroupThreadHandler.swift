@@ -20,19 +20,19 @@ extension CreateGroupThreadController{
             if let uID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
             if(self.isPublicSwitch.isOn){
             groupID = "0"
-                let thread = Thread(rev: nil, tid: nil, authorID: uID, authorUsername: nil, groupID: groupID, title: self.titleThread.text!, message: self.messageThread.text!, date: Date(), dateString: nil ,commentIDs: nil)
+                let thread = Thread(rev: nil, tid: nil,originalID: nil, authorID: uID, authorUsername: nil, groupID: groupID, title: self.titleThread.text!, message: self.messageThread.text!, date: Date(), dateString: nil ,commentIDs: nil)
             threadsList.append(thread)
             }else if(self.sendToAllGroupsSwitch?.isOn)!{
                 if let groupsList = self.privateGroupsList{
                     for group in groupsList{
-                        let thread = Thread(rev: nil, tid: nil, authorID: uID, authorUsername: nil, groupID: group.pgid, title: self.titleThread.text!, message: self.messageThread.text!, date: Date(), dateString: nil , commentIDs: nil)
+                        let thread = Thread(rev: nil, tid: nil,originalID: nil, authorID: uID, authorUsername: nil, groupID: group.pgid, title: self.titleThread.text!, message: self.messageThread.text!, date: Date(), dateString: nil , commentIDs: nil)
                         threadsList.append(thread)
                     }
                 }
             }else{
                 if let groupsList = self.privateGroupsList{
                 groupID = groupsList[(self.groupPicker?.selectedRow(inComponent: 0))!].pgid
-                    let thread = Thread(rev: nil, tid: nil, authorID: uID, authorUsername: nil, groupID: groupID, title: self.titleThread.text!, message: self.messageThread.text!, date: Date(), dateString: nil ,commentIDs: nil)
+                    let thread = Thread(rev: nil, tid: nil,originalID: nil, authorID: uID, authorUsername: nil, groupID: groupID, title: self.titleThread.text!, message: self.messageThread.text!, date: Date(), dateString: nil ,commentIDs: nil)
                 threadsList.append(thread)
                 }
             }
