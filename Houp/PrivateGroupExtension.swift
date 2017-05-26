@@ -21,7 +21,6 @@ extension PrivateGroupCollectionViewController{
     }
     
     func getTopicGroups(userID: String){
-        
         if let query = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery(){
             query.allDocsMode = CBLAllDocsMode.allDocs
             query.keys = [userID]

@@ -20,7 +20,6 @@ class CalendarObject{
         // wenn man ein spezielles Event aus dem Kalender will braucht man event.eventIdentifier
         // um dann mit: eventStore.event(withIdentifier: "") das event zu erhalten
         
-        
         // 'EKEntityTypeReminder' or 'EKEntityTypeEvent'
         eventStore.requestAccess(to: .event) { (granted, error) in
             
