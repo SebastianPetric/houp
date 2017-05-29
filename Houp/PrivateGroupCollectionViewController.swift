@@ -43,6 +43,8 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         
         view.backgroundColor = .white
         if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+            //(UIApplication.shared.delegate as! AppDelegate).getThreadByAuthor(authorID: userID)
+            
             self.activityList = DBConnection.shared.getPersonalActivities(userID: userID)
             if(liveQuery == nil){
                 getTopicGroups(userID: userID)
@@ -74,7 +76,11 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return privateGroupsList.count
+        //new 
+        return TempStorageAndCompare.shared.groups.count
+        //-------
+        
+        //return privateGroupsList.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -86,15 +92,26 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.privateGroupCellID, for: indexPath) as! PrivateGroupsCell
-        if privateGroupsList.count != 0{
-            cell.privateGroup = privateGroupsList[indexPath.row]
+        //new
+        if TempStorageAndCompare.shared.groups.count != 0{
+            cell.privateGroup = TempStorageAndCompare.shared.groups[indexPath.row]
         }
+        //----
+        
+        
+//        if privateGroupsList.count != 0{
+//            cell.privateGroup = privateGroupsList[indexPath.row]
+//        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = PrivateGroupWithThreadsController()
-        controller.privateGroup = privateGroupsList[indexPath.row]
+        //new 
+        controller.privateGroup = TempStorageAndCompare.shared.groups[indexPath.row]
+        //------
+        
+        //controller.privateGroup = privateGroupsList[indexPath.row]
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

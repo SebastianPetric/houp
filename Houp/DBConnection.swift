@@ -30,6 +30,7 @@ class DBConnection{
     var viewByInactiveActivityForUser: CBLView?
     var viewByCommentOfActivity: CBLView?
     var viewThreadByOriginalID: CBLView?
+    var viewByThreadByAuthorID: CBLView?
     
     func setUpDBConnection(){
         do {
@@ -49,6 +50,7 @@ class DBConnection{
                 self.viewByInactiveActivityForUser = viewByInactiveActivityForUser(db: dbCon)
                 self.viewByCommentOfActivity = viewByCommentOfActivity(db: dbCon)
                 self.viewThreadByOriginalID = viewThreadByOriginalID(db: dbCon)
+                self.viewByThreadByAuthorID = viewByThreadByAuthorID(db: dbCon)
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
                 self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)

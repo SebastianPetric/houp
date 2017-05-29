@@ -25,7 +25,6 @@ extension EditPrivateGroup{
             }
             self.privateGroup?.timeOfMeeting = timePicker.date
             
-            
             if let error = DBConnection().updatePrivateGroup(properties: self.privateGroup!){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: GetString.errorNoButton.rawValue, firstHandler: nil, secondHandler: {(alert: UIAlertAction!) in  self.dismiss(animated: true, completion: nil)})
                 self.present(alert, animated: true, completion: nil)

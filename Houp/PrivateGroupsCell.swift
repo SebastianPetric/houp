@@ -96,9 +96,11 @@ class PrivateGroupsCell: UICollectionViewCell{
             }
             if let hasUpdated = privateGroup?.hasBeenUpdated{
                 if(hasUpdated){
-                    //notificationImage.backgroundColor = .yellow
+                    notificationImage.image = notificationImage.image?.withRenderingMode(.alwaysTemplate)
+                    notificationImage.tintColor = UIColor().getMainColor()
                 }else{
-                    //notificationImage.backgroundColor = .black
+                    notificationImage.image = notificationImage.image?.withRenderingMode(.alwaysTemplate)
+                    notificationImage.tintColor = .black
                 }
             }
         }

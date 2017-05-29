@@ -11,8 +11,7 @@ import Foundation
 
 class PrivateGroup: NSObject, NSCoding{
    
-
-
+    var rev: String?
     var pgid: String?
     var adminID: String?
     var nameOfGroup: String?
@@ -30,8 +29,12 @@ class PrivateGroup: NSObject, NSCoding{
     var createdAt: Date?
     var createdAtString: String?
 
-    init(pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: String? ,timeOfMeeting: Date?,timeOfMeetingString: String?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?, createdAt: Date?, createdAtString: String?) {
+    init(rev: String?, pgid: String?, adminID: String?,nameOfGroup: String?,location: String?, dayOfMeeting: String? ,timeOfMeeting: Date?,timeOfMeetingString: String?, secretID: String?, threadIDs: [String]?, memberIDs: [String]?, dailyActivityIDs: [String]?, groupRequestIDs: [String]?, createdAt: Date?, createdAtString: String?) {
      
+        if let revision = rev {
+            self.rev = revision
+        }
+        
         if let ID = pgid {
             self.pgid = ID
         }
@@ -96,11 +99,16 @@ class PrivateGroup: NSObject, NSCoding{
     }
     
     convenience init(props: [String: Any]) {
-        self.init(pgid: nil, adminID: props["adminID"] as? String, nameOfGroup: props["nameOfGroup"] as? String, location: props["location"] as? String, dayOfMeeting: props["dayOfMeeting"] as? String, timeOfMeeting: nil,timeOfMeetingString: props["timeOfMeeting"] as? String ,secretID: props["secretID"] as? String, threadIDs: props["threadIDs"] as? [String], memberIDs: props["memberIDs"] as? [String], dailyActivityIDs: props["dailyActivityIDs"] as? [String], groupRequestIDs: props["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: props["createdAt"] as? String)
+        self.init(rev: nil, pgid: nil, adminID: props["adminID"] as? String, nameOfGroup: props["nameOfGroup"] as? String, location: props["location"] as? String, dayOfMeeting: props["dayOfMeeting"] as? String, timeOfMeeting: nil,timeOfMeetingString: props["timeOfMeeting"] as? String ,secretID: props["secretID"] as? String, threadIDs: props["threadIDs"] as? [String], memberIDs: props["memberIDs"] as? [String], dailyActivityIDs: props["dailyActivityIDs"] as? [String], groupRequestIDs: props["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: props["createdAt"] as? String)
     }
     
     
     required init(coder aDecoder: NSCoder) {
+        
+        if let revision = aDecoder.decodeObject(forKey: "rev") as? String{
+            self.rev = revision
+        }
+
         if let name = aDecoder.decodeObject(forKey: "nameOfGroup") as? String{
         self.nameOfGroup = name
         }
@@ -143,6 +151,9 @@ class PrivateGroup: NSObject, NSCoding{
     }
     
     func encode(with aCoder: NSCoder) {
+        if let revision = self.rev {
+            aCoder.encode(revision, forKey: "rev")
+        }
         if let name = self.nameOfGroup {
             aCoder.encode(name, forKey: "nameOfGroup")
         }

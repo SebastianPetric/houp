@@ -129,7 +129,8 @@ extension DBConnection{
                     query?.keys = groupIDs
                     let privateGroups = try query?.run()
                     while let row = privateGroups?.nextRow() {
-                    let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: nil, timeOfMeetingString: row.document?["timeOfMeeting"] as? String, secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: row.document?["createdAt"] as? String)
+                        
+                        let privateGroup = PrivateGroup(rev: row.documentRevisionID, pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: nil, timeOfMeetingString: row.document?["timeOfMeeting"] as? String, secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: row.document?["createdAt"] as? String)
                        privateGroupList.append(privateGroup)
                     }
                 }
@@ -160,7 +161,7 @@ extension DBConnection{
                     query?.keys = groupIDs
                     let privateGroups = try query?.run()
                     while let row = privateGroups?.nextRow() {
-                        let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: nil, timeOfMeetingString: row.document?["timeOfMeeting"] as? String ,secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: row.document?["createdAt"] as? String)
+                        let privateGroup = PrivateGroup(rev: row.documentRevisionID ,pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: nil, timeOfMeetingString: row.document?["timeOfMeeting"] as? String ,secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: row.document?["createdAt"] as? String)
                         privateGroupList.append(privateGroup)
                     }
                 }
@@ -221,7 +222,7 @@ extension DBConnection{
                     query?.keys = groupIDs
                     let privateGroups = try query?.run()
                     while let row = privateGroups?.nextRow() {
-                    let privateGroup = PrivateGroup(pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: nil, timeOfMeetingString: row.document?["timeOfMeeting"] as? String, secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: row.document?["createdAt"] as? String)
+                        let privateGroup = PrivateGroup(rev: row.documentRevisionID ,pgid: row.documentID, adminID: row.document?["adminID"] as? String, nameOfGroup: row.document?["nameOfGroup"] as? String, location: row.document?["location"] as? String, dayOfMeeting: row.document?["dayOfMeeting"] as? String, timeOfMeeting: nil, timeOfMeetingString: row.document?["timeOfMeeting"] as? String, secretID: row.document?["secretID"] as? String, threadIDs: row.document?["threadIDs"] as? [String], memberIDs: row.document?["memberIDs"] as? [String], dailyActivityIDs: row.document?["dailyActivityIDs"] as? [String], groupRequestIDs: row.document?["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: row.document?["createdAt"] as? String)
                         
                         let result = oldPrivateGroupsList.filter { $0.pgid == privateGroup.pgid }
                         if result.count == 1{
@@ -277,6 +278,7 @@ extension DBConnection{
 
     func addUserWithProperties(properties: [String: Any]) -> String?{
         do{
+            print(DBConnection.shared.getDBConnection())
         if let con = DBConnection.shared.getDBConnection(){
             let doc = con.createDocument()
             try doc.putProperties(properties)

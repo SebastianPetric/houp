@@ -28,6 +28,15 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
             if let answersCount = thread?.commentIDs?.count{
                 self.answersLabel.text = "\(answersCount)"
             }
+            if let hasUpdated = thread?.hasBeenUpdated{
+                if(hasUpdated){
+                    notificationImage.image = notificationImage.image?.withRenderingMode(.alwaysTemplate)
+                    notificationImage.tintColor = UIColor().getMainColor()
+                }else{
+                    notificationImage.image = notificationImage.image?.withRenderingMode(.alwaysTemplate)
+                    notificationImage.tintColor = .black
+                }
+            }
         }
     }
 

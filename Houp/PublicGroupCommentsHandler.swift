@@ -27,7 +27,6 @@ extension PublicGroupThreadWithComments{
     }
     
     func getTopicComments(threadID: String){
-        do{
             if let view = DBConnection.shared.viewByComment{
                 let query = view.createQuery()
                 query.keys = [threadID]
@@ -35,11 +34,10 @@ extension PublicGroupThreadWithComments{
                 liveQuery = query.asLive()
                 liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
                 liveQuery?.start()
+            }else{
+                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
+                self.present(alert, animated: true, completion: nil)
             }
-        }catch{
-            let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithConnection.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

@@ -45,6 +45,7 @@
 		525B69881ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B69871ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift */; };
 		525B698E1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B698D1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift */; };
 		525B69901ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B698F1ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift */; };
+		5283A0FB1EDC8DA50098E678 /* TempStorageAndCompare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5283A0FA1EDC8DA50098E678 /* TempStorageAndCompare.swift */; };
 		528986FF1E83E86400322A99 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528986FE1E83E86400322A99 /* ImageCache.swift */; };
 		528987021E83F5CC00322A99 /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528987011E83F5CC00322A99 /* DBConnection.swift */; };
 		528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCBD1E80623100B6993D /* LoginHandler.swift */; };
@@ -163,6 +164,7 @@
 		525B69871ECB2BF600E8C3C8 /* ShowActivitiesInPrivateGroupCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowActivitiesInPrivateGroupCellHandler.swift; sourceTree = "<group>"; };
 		525B698D1ECB2E3D00E8C3C8 /* PrivateGroupRequestsAndMembersListHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupRequestsAndMembersListHandler.swift; sourceTree = "<group>"; };
 		525B698F1ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupRequestsAndMembersCellHandler.swift; sourceTree = "<group>"; };
+		5283A0FA1EDC8DA50098E678 /* TempStorageAndCompare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempStorageAndCompare.swift; sourceTree = "<group>"; };
 		528986FE1E83E86400322A99 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		528987011E83F5CC00322A99 /* DBConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		528CFCBD1E80623100B6993D /* LoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				52E6E4091EC4ACDF00B59D25 /* Activity.swift */,
 				529E57391ED0783A00256090 /* Timer.swift */,
 				529E573B1ED4832800256090 /* CalendarObject.swift */,
+				5283A0FA1EDC8DA50098E678 /* TempStorageAndCompare.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -849,6 +852,7 @@
 				521ECCA01E8BB9C6001C10BC /* PrivateGroup.swift in Sources */,
 				52499A511E7BF7FD006061B2 /* AppDelegate.swift in Sources */,
 				52A75F601E819DBA0038CF4F /* RegistrationEmailPasswordController.swift in Sources */,
+				5283A0FB1EDC8DA50098E678 /* TempStorageAndCompare.swift in Sources */,
 				525B69861ECB2BAA00E8C3C8 /* ShowActivitiesInPrivateGroupControllerHandler.swift in Sources */,
 				52E6E40E1EC712D900B59D25 /* ActivityWeekForm2Handler.swift in Sources */,
 				52E6E3DA1EBB701A00B59D25 /* GroupCommentsController.swift in Sources */,

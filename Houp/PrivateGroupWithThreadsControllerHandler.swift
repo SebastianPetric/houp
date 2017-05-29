@@ -54,7 +54,7 @@ extension PrivateGroupWithThreadsController{
         do{
         if (object as! NSObject == self.liveQuery){
                 if let rows = liveQuery!.rows {
-                    threadsList.removeAll()
+                    //threadsList.removeAll()
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
                             var userName: String?
@@ -69,11 +69,22 @@ extension PrivateGroupWithThreadsController{
                             }
                             let thread = Thread(props: props)
                             thread.userName = userName
-                            threadsList.append(thread)
+                            
+                            //new
+                            TempStorageAndCompare.shared.compareAndSaveThreads(groupID: (self.privateGroup?.pgid)!, thread: thread)
+                            //------
+                            
+                            //threadsList.append(thread)
                         }
-                        threadsList.sort(by:
+                        //new
+                        TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?.sort(by:
                             { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
                         )
+
+                        //--
+//                        threadsList.sort(by:
+//                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+//                        )
                         self.threadsCollectionView.reloadData()
                     }
                 }

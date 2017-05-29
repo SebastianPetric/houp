@@ -44,9 +44,9 @@ class EditPrivateGroup: UIViewController, UITextFieldDelegate{
         view.addSubview(editButton)
         (self.timeOfMeeting.subviews[1] as! UIDatePicker).date = (self.privateGroup?.timeOfMeeting)!
         editButton.addTarget(self, action: #selector(handleRequest), for: .touchUpInside)
-        nameOfGroup.placeholder = self.privateGroup?.nameOfGroup
-        locationOfMeeting.placeholder = self.privateGroup?.location
-        dayOfMeeting.placeholder = self.privateGroup?.dayOfMeeting
+        nameOfGroup.text = self.privateGroup?.nameOfGroup
+        locationOfMeeting.text = self.privateGroup?.location
+        dayOfMeeting.text = self.privateGroup?.dayOfMeeting
         view.addGestureRecognizer(gestureRecognizer)
         addNotificationObserver()
         setUpSubViews()

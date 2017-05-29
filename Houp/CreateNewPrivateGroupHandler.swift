@@ -16,7 +16,7 @@ extension CreatePrivateGroupViewController{
         if let window = UIApplication.shared.keyWindow{
             if(!hasAnyErrors()){
                 let timePicker = self.timeOfMeeting.subviews[1] as! UIDatePicker
-                let privateGroup: PrivateGroup = PrivateGroup(pgid: nil, adminID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), nameOfGroup: self.nameOfGroup.text!, location: self.locationOfMeeting.text!, dayOfMeeting: self.dayOfMeeting.text!, timeOfMeeting: timePicker.date, timeOfMeetingString: nil,secretID: Validation.shared.generateSecretGroupID(), threadIDs: nil, memberIDs: nil, dailyActivityIDs: nil, groupRequestIDs: nil, createdAt: nil, createdAtString: nil)
+                let privateGroup: PrivateGroup = PrivateGroup(rev: nil, pgid: nil, adminID: UserDefaults.standard.string(forKey: GetString.userID.rawValue), nameOfGroup: self.nameOfGroup.text!, location: self.locationOfMeeting.text!, dayOfMeeting: self.dayOfMeeting.text!, timeOfMeeting: timePicker.date, timeOfMeetingString: nil,secretID: Validation.shared.generateSecretGroupID(), threadIDs: nil, memberIDs: nil, dailyActivityIDs: nil, groupRequestIDs: nil, createdAt: nil, createdAtString: nil)
                 
                 if let error = DBConnection().createPrivateGroup(properties: privateGroup.getPropertyPackageCreatePrivateGroup()){
                         let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: GetString.errorNoButton.rawValue, firstHandler: nil, secondHandler: {(alert: UIAlertAction!) in  self.dismiss(animated: true, completion: nil)})

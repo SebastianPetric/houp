@@ -147,17 +147,34 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: threadsCellID, for: indexPath) as! PrivateGroupThreadsCell
-        cell.thread = self.threadsList[indexPath.row]
+        //new
+        cell.thread = TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?[indexPath.row]
+        //------
+        
+        //cell.thread = self.threadsList[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.threadsList.count
+        //new
+        if let count = TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?.count{
+        return count
+        }else{
+        return 0
+        }
+        //-------
+        
+        //return self.threadsList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = GroupCommentsController()
-        controller.thread = threadsList[indexPath.row]
+        //new 
+        TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?[indexPath.row].hasBeenUpdated = false
+        self.threadsCollectionView.reloadData()
+        controller.thread = TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?[indexPath.row]
+        //-----
+        //controller.thread = threadsList[indexPath.row]
         controller.titleNav = (self.privateGroup?.nameOfGroup)!
         self.navigationController?.pushViewController(controller, animated: true)
     }

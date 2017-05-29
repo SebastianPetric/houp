@@ -37,7 +37,7 @@ extension PrivateGroupCollectionViewController{
         do{
             if keyPath == "rows" {
                 if let rows = liveQuery?.rows {
-                    privateGroupsList.removeAll()
+                    //privateGroupsList.removeAll()
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
                             
@@ -55,13 +55,25 @@ extension PrivateGroupCollectionViewController{
                                     let properties = props.properties
                                     let privateGroup = PrivateGroup(props: properties!)
                                     privateGroup.pgid = props.documentID
-                                    self.privateGroupsList.append(privateGroup)
+                                    privateGroup.rev = props.currentRevisionID
+                                    //new----
+                                    TempStorageAndCompare.shared.compareAndSaveGroups(group: privateGroup)
+                                    //------
+                                    //self.privateGroupsList.append(privateGroup)
                                 }
                             }
                         }
-                        privateGroupsList.sort(by:
+                        //new
+                        TempStorageAndCompare.shared.groups.sort(by:
                             { $0.createdAt?.compare($1.createdAt!) == ComparisonResult.orderedDescending }
                         )
+
+                        
+                        //------
+                        
+//                        privateGroupsList.sort(by:
+//                            { $0.createdAt?.compare($1.createdAt!) == ComparisonResult.orderedDescending }
+//                        )
                         self.privateGroupsCollection.reloadData()
                     }
                 }

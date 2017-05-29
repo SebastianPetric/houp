@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+//import UserNotifications
 
 
 @UIApplicationMain
@@ -15,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var userDefaults: UserDefaults?
+//    var liveQueryNewAnser: CBLLiveQuery?
+//    var liveQueryNewThread: CBLLiveQuery?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -42,6 +45,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+//    func getThreadByAuthor(authorID: String){
+//            if let view = DBConnection.shared.viewByThreadByAuthorID{
+//                let query = view.createQuery()
+//                query.keys = [authorID]
+//                liveQueryNewAnser = query.asLive()
+//                liveQueryNewAnser?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+//                liveQueryNewAnser?.start()
+//            }
+//    }
+//    
+//    func getThreadByUserID(userID: String){
+//        if let view = DBConnection.shared.viewByThreadByAuthorID{
+//            let query = view.createQuery()
+//            query.keys = [userID]
+//            liveQueryNewAnser = query.asLive()
+//            liveQueryNewAnser?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+//            liveQueryNewAnser?.start()
+//        }
+//    }
+//    
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        do{
+//            if(object as! NSObject == self.liveQueryNewAnser){
+//                print("hallo")
+//                let content = UNMutableNotificationContent()
+//                content.title = "Hey :)"
+//                content.body = "Auf deinen Post gab es eine Reaktion!"
+//                content.badge = 1
+//                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//                let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+//                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//            }
+//        }catch{
+//            
+//            
+//        }
+//    }
+//
+
+    
    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
     return .portrait
     }
@@ -54,6 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         print("im background")
+        
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -61,6 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         print("will enter foreground")
         
+
+
 //        if let connection = DBConnection.shared.getDBConnection(){
 //            print("alles ok")
 //        }else{
@@ -86,6 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         print("will terminate")
+      
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
@@ -119,6 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
+    
     
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         
