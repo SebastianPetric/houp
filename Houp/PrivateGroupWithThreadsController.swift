@@ -12,6 +12,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
 
     var liveQuery: CBLLiveQuery?
     var liveQueryGroupDetails: CBLLiveQuery?
+    var groupCollectionView: UICollectionView?
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
@@ -148,7 +149,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: threadsCellID, for: indexPath) as! PrivateGroupThreadsCell
         //new
-        cell.thread = TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?[indexPath.row]
+        cell.thread = TempStorageAndCompare.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!)[indexPath.row]
         //------
         
         //cell.thread = self.threadsList[indexPath.row]
@@ -157,11 +158,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //new
-        if let count = TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?.count{
-        return count
-        }else{
-        return 0
-        }
+            return TempStorageAndCompare.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!).count
         //-------
         
         //return self.threadsList.count
@@ -169,10 +166,21 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = GroupCommentsController()
-        //new 
-        TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?[indexPath.row].hasBeenUpdated = false
+        //new
+        var tempList = TempStorageAndCompare.shared.getAllGroupsWithThreads()[(self.privateGroup?.pgid)!]
+        tempList?[indexPath.row].hasBeenUpdated = false
+        TempStorageAndCompare.shared.saveAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!, threads: tempList!)
+        TempStorageAndCompare.shared.compareAndSaveGroups(group: self.privateGroup!)
+        
+        if(!TempStorageAndCompare.shared.anyThreadOfGroupWasUpdated(group: self.privateGroup!)){
+            TempStorageAndCompare.shared.saveSingleGroup(group: self.privateGroup!, hasBeenUpdated: false)
+        }
+
+        
+        self.groupCollectionView?.reloadData()
         self.threadsCollectionView.reloadData()
-        controller.thread = TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?[indexPath.row]
+        
+        controller.thread = TempStorageAndCompare.shared.getAllThreadsOfGroup(groupID: (self.privateGroup?.pgid)!)[indexPath.row]
         //-----
         //controller.thread = threadsList[indexPath.row]
         controller.titleNav = (self.privateGroup?.nameOfGroup)!

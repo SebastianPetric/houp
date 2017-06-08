@@ -76,25 +76,26 @@ extension PrivateGroupWithThreadsController{
                             
                             //threadsList.append(thread)
                         }
-                        //new
-                        TempStorageAndCompare.shared.threads[(self.privateGroup?.pgid)!]?.sort(by:
-                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-                        )
-
-                        //--
-//                        threadsList.sort(by:
-//                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-//                        )
-                        self.threadsCollectionView.reloadData()
                     }
+                    //new
+                    TempStorageAndCompare.shared.sortGroupsWithThreads(groupID: (self.privateGroup?.pgid)!)
+                    //--
+                    //                        threadsList.sort(by:
+                    //                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+                    //                        )
+                    TempStorageAndCompare.shared.compareAndSaveGroups(group: self.privateGroup!)
+                   // self.groupCollectionView?.reloadData()
+                    self.threadsCollectionView.reloadData()
                 }
         }else if (object as! NSObject == self.liveQueryGroupDetails){
                 if let rows = liveQueryGroupDetails?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
                             let prGroup = PrivateGroup(props: props)
-                            prGroup.pgid = row.document!.documentID
+                            prGroup.pgid = row.documentID
+                            prGroup.rev = row.documentRevisionID
                             self.privateGroup = prGroup
+                            TempStorageAndCompare.shared.compareAndSaveGroups(group: prGroup)
                         }
                     }
                 }

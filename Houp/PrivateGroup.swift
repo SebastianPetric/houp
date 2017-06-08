@@ -25,7 +25,7 @@ class PrivateGroup: NSObject, NSCoding{
     var memberIDs: [String]?
     var groupRequestIDs: [String]?
     var dailyActivityIDs: [String]?
-    var hasBeenUpdated = false
+    var hasBeenUpdated: Bool = false
     var createdAt: Date?
     var createdAtString: String?
 
@@ -142,7 +142,7 @@ class PrivateGroup: NSObject, NSCoding{
         if let groupRequests = aDecoder.decodeObject(forKey: "groupRequestIDs") as? [String]{
             self.groupRequestIDs = groupRequests
         }
-        if let update = aDecoder.decodeObject(forKey: "hasBeenUpdated") as? Bool{
+        if let update = aDecoder.decodeBool(forKey: "hasBeenUpdated") as? Bool{
             self.hasBeenUpdated = update
         }
         if let created = aDecoder.decodeObject(forKey: "createdAt") as? Date{
@@ -190,7 +190,7 @@ class PrivateGroup: NSObject, NSCoding{
         if let created = self.createdAt {
             aCoder.encode(created, forKey: "createdAt")
         }
-        aCoder.encode(hasBeenUpdated, forKey: "hasBeenUpdated")
+        aCoder.encode(self.hasBeenUpdated, forKey: "hasBeenUpdated")
     }
     
     func getPropertyPackageCreatePrivateGroup() -> [String: Any]{

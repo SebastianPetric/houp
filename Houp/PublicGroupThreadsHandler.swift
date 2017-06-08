@@ -32,7 +32,7 @@ extension PublicGroupThreadsController{
         do{
         if keyPath == "rows" {
                 if let rows = liveQuery!.rows {
-                    threadsList.removeAll()
+                   // threadsList.removeAll()
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
                             var userName: String?
@@ -47,13 +47,22 @@ extension PublicGroupThreadsController{
                             }
                             let thread = Thread(props: props)
                             thread.userName = userName
-                            threadsList.append(thread)
+                            
+                            //new
+                            TempStorageAndCompare.shared.compareAndSaveThreads(groupID: self.publicGroupID, thread: thread)
+                            //------
+                            
+                            
+                            //threadsList.append(thread)
+                            
                         }
-                        threadsList.sort(by:
-                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-                        )
-                        self.threadsCollectionView.reloadData()
                     }
+                    //new
+                    TempStorageAndCompare.shared.sortGroupsWithThreads(groupID: self.publicGroupID)
+                    //--
+                    //                        threadsList.sort(by:
+                    //                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+                    self.threadsCollectionView.reloadData()
                 }
             }
         }catch{

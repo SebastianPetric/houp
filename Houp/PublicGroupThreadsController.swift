@@ -55,17 +55,35 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: threadsCellID, for: indexPath) as! PrivateGroupThreadsCell
-        cell.thread = self.threadsList[indexPath.row]
+        //new
+        cell.thread = TempStorageAndCompare.shared.getAllThreadsOfGroup(groupID: self.publicGroupID)[indexPath.row]
+        //-----
+        
+        //cell.thread = self.threadsList[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.threadsList.count
+        //new
+        return TempStorageAndCompare.shared.getAllThreadsOfGroup(groupID: self.publicGroupID).count
+        //----
+        
+        //return self.threadsList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = GroupCommentsController()
-        controller.thread = threadsList[indexPath.row]
+        
+        
+        //new
+        var tempList = TempStorageAndCompare.shared.getAllGroupsWithThreads()[self.publicGroupID]
+        tempList?[indexPath.row].hasBeenUpdated = false
+        TempStorageAndCompare.shared.saveAllThreadsOfGroup(groupID: self.publicGroupID, threads: tempList!)
+        self.threadsCollectionView.reloadData()
+        controller.thread = TempStorageAndCompare.shared.getAllThreadsOfGroup(groupID: self.publicGroupID)[indexPath.row]
+        //-----
+
+        //controller.thread = threadsList[indexPath.row]
         controller.titleNav = "Öffentliches Thema"
         self.navigationController?.pushViewController(controller, animated: true)
     }

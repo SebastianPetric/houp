@@ -12,11 +12,13 @@ import UserNotifications
 class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource{
     
     var liveQuery: CBLLiveQuery?
+    var liveQueryThreads: CBLLiveQuery?
     var isObserving = false
     
     //Bringt eventuell Fehler. Überprüfen
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
+        liveQueryThreads?.removeObserver(self, forKeyPath: "rows")
     }
     
     lazy var privateGroupsCollection: UICollectionView = {
@@ -46,9 +48,21 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
             //(UIApplication.shared.delegate as! AppDelegate).getThreadByAuthor(authorID: userID)
             
             self.activityList = DBConnection.shared.getPersonalActivities(userID: userID)
-            if(liveQuery == nil){
-                getTopicGroups(userID: userID)
-            }
+            
+//            if(liveQuery == nil){
+//                getTopicGroups(userID: userID)
+//            }
+//            
+//            if(liveQueryThreads == nil){
+//                var tempList: [String] = [String]()
+//                for group in self.privateGroupsList{
+//                tempList.append(group.pgid!)
+//                }
+//                getTopicThreads(groupID: tempList)
+//            }
+            
+            TempStorageAndCompare.shared.groupCollectionDelegate = self
+            TempStorageAndCompare.shared.initialiseNotificationQueries(userID: userID)
         }
         
         if(self.activityList.count > 0){
@@ -76,8 +90,8 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //new 
-        return TempStorageAndCompare.shared.groups.count
+        //new
+        return TempStorageAndCompare.shared.getAllPrivateGroupsSync().count
         //-------
         
         //return privateGroupsList.count
@@ -90,12 +104,20 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 105)
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.privateGroupCellID, for: indexPath) as! PrivateGroupsCell
         //new
-        if TempStorageAndCompare.shared.groups.count != 0{
-            cell.privateGroup = TempStorageAndCompare.shared.groups[indexPath.row]
+        let tempGroup = TempStorageAndCompare.shared.getAllPrivateGroupsSync()[indexPath.row]
+        
+        if(!TempStorageAndCompare.shared.anyThreadOfGroupWasUpdated(group: tempGroup)){
+            TempStorageAndCompare.shared.saveSingleGroup(group: tempGroup, hasBeenUpdated: false)
+        }else if(!TempStorageAndCompare.shared.anyGroupWasUpdated(group: tempGroup)){
+        TempStorageAndCompare.shared.saveSingleGroup(group: tempGroup, hasBeenUpdated: false)
+        }else{
+        TempStorageAndCompare.shared.saveSingleGroup(group: tempGroup, hasBeenUpdated: true)
         }
+        cell.privateGroup = tempGroup
         //----
         
         
@@ -107,8 +129,10 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = PrivateGroupWithThreadsController()
-        //new 
-        controller.privateGroup = TempStorageAndCompare.shared.groups[indexPath.row]
+        //new
+        let tempGroup = TempStorageAndCompare.shared.getAllPrivateGroupsSync()[indexPath.row]
+        controller.privateGroup = tempGroup
+        controller.groupCollectionView = self.privateGroupsCollection
         //------
         
         //controller.privateGroup = privateGroupsList[indexPath.row]

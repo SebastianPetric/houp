@@ -297,7 +297,6 @@ extension DBConnection{
         return nil
     }
     
-    
     func createCommentWithProperties(properties: Comment) -> String?{
         do{
             if let con = DBConnection.shared.getDBConnection(){

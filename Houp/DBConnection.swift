@@ -34,7 +34,9 @@ class DBConnection{
     
     func setUpDBConnection(){
         do {
-            //try manager.databaseNamed("couchbaseevents").delete()
+//            try manager.databaseNamed("couchbaseevents").delete()
+//            TempStorageAndCompare.shared.deleteEverything()
+//
             self.DBCon = try manager.databaseNamed("couchbaseevents")
             //self.DBCon = try manager.existingDatabaseNamed("couchbaseevents")
             if let dbCon = self.DBCon{

@@ -21,7 +21,7 @@ class Thread: NSObject, NSCoding{
     var dateString: String?
     var dateObject: Date?
     var commentIDs: [String]?
-    var hasBeenUpdated = false
+    var hasBeenUpdated: Bool = false
     
     
     init(rev: String?, tid: String?, originalID: String?, authorID: String?, authorUsername: String? ,groupID: String?,title: String?, message: String? ,date: Date?, dateString: String?, commentIDs: [String]?) {
@@ -105,7 +105,7 @@ class Thread: NSObject, NSCoding{
         if let comments = aDecoder.decodeObject(forKey: "commentIDs") as? [String]{
             self.commentIDs = comments
         }
-        if let update = aDecoder.decodeObject(forKey: "hasBeenUpdated") as? Bool{
+        if let update = aDecoder.decodeBool(forKey: "hasBeenUpdated") as? Bool{
             self.hasBeenUpdated = update
         }
         if let dateStr = aDecoder.decodeObject(forKey: "dateString") as? String{
@@ -122,6 +122,9 @@ class Thread: NSObject, NSCoding{
         }
         if let oriID = self.originalID {
             aCoder.encode(oriID, forKey: "originalID")
+        }
+        if let aID = self.authorID {
+            aCoder.encode(aID, forKey: "authorID")
         }
         if let username = self.userName {
             aCoder.encode(username, forKey: "username")
@@ -141,8 +144,10 @@ class Thread: NSObject, NSCoding{
         if let comments = self.commentIDs {
             aCoder.encode(comments, forKey: "commentIDs")
         }
-        
-        aCoder.encode(hasBeenUpdated, forKey: "hasBeenUpdated")
+//        if let updated = self.hasBeenUpdated {
+//            aCoder.encode(updated, forKey: "hasBeenUpdated")
+//        }
+        aCoder.encode(self.hasBeenUpdated, forKey: "hasBeenUpdated")
  
         if let dateStr = self.dateString {
             aCoder.encode(dateStr, forKey: "dateString")
