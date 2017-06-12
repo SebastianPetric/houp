@@ -24,7 +24,7 @@ class User{
     var groupIDs: [String] = [String]()
     var dailyFormIDs: [String] = [String]()
     var weeksOfActivityIDs: [String] = [String]()
-    
+
     func getPropertyPackageForRegistration() -> [String: Any]{
         var properties = [String: Any]()
         

@@ -86,12 +86,15 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         super.viewDidLoad()
         self.title = "Themen"
     
-        if(liveQuery == nil){
-            getTopicThreads(groupID: (self.privateGroup?.pgid)!)
-        }
-        if(liveQueryGroupDetails == nil){
-            getTopicGroup(groupID: (self.privateGroup?.pgid)!)
-        }
+//        if(liveQuery == nil){
+//            getTopicThreads(groupID: (self.privateGroup?.pgid)!)
+//        }
+//        
+//        if(liveQueryGroupDetails == nil){
+//            getTopicGroup(groupID: (self.privateGroup?.pgid)!)
+//        }
+        
+        TempStorageAndCompare.shared.groupsWithThreadsControllerDelegate = self
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))

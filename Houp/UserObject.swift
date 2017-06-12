@@ -15,10 +15,11 @@ class UserObject: NSObject, NSCoding {
     var userName: String?
     var prename: String?
     var name: String?
+    var groupIDs: [String]?
     var hasBeenUpdated = false
     
     
-    init(rev: String?, uid: String?,email: String?, userName: String?, prename: String? ,name: String?) {
+    init(rev: String?, uid: String?,email: String?, userName: String?, prename: String? ,name: String?, groupIDs: [String]?) {
         
         if let revision = rev {
             self.rev = revision
@@ -38,10 +39,13 @@ class UserObject: NSObject, NSCoding {
         if let pren = prename {
             self.prename = pren
         }
+        if let groups = groupIDs{
+            self.groupIDs = groups
+        }
     }
     
     convenience init(props: [String: Any]){
-        self.init(rev: nil, uid: nil, email: props["email"] as? String, userName: props["username"] as? String, prename: props["prename"] as? String, name: props["name"] as? String)
+        self.init(rev: nil, uid: nil, email: props["email"] as? String, userName: props["username"] as? String, prename: props["prename"] as? String, name: props["name"] as? String, groupIDs: props["groupIDs"] as? [String])
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -63,6 +67,9 @@ class UserObject: NSObject, NSCoding {
         if let pren = aDecoder.decodeObject(forKey: "prename") as? String{
             self.prename = pren
         }
+        if let groups = aDecoder.decodeObject(forKey: "groupIDs") as? [String]{
+            self.groupIDs = groups
+        }
     }
     
     func encode(with aCoder: NSCoder) {
@@ -83,6 +90,9 @@ class UserObject: NSObject, NSCoding {
         }
         if let mail = self.email {
             aCoder.encode(mail, forKey: "email")
+        }
+        if let groups = self.groupIDs {
+            aCoder.encode(groups, forKey: "groupIDs")
         }
     }
 }

@@ -53,6 +53,7 @@ extension PrivateGroupWithThreadsController{
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         do{
         if (object as! NSObject == self.liveQuery){
+            
                 if let rows = liveQuery!.rows {
                     //threadsList.removeAll()
                     while let row = rows.nextRow() {
@@ -83,7 +84,10 @@ extension PrivateGroupWithThreadsController{
                     //                        threadsList.sort(by:
                     //                            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
                     //                        )
+                    print("---------------------------------------------------")
+                    print("---------------------------------------------------")
                     TempStorageAndCompare.shared.compareAndSaveGroups(group: self.privateGroup!)
+                   
                    // self.groupCollectionView?.reloadData()
                     self.threadsCollectionView.reloadData()
                 }
@@ -95,6 +99,7 @@ extension PrivateGroupWithThreadsController{
                             prGroup.pgid = row.documentID
                             prGroup.rev = row.documentRevisionID
                             self.privateGroup = prGroup
+                            print("hier mann")
                             TempStorageAndCompare.shared.compareAndSaveGroups(group: prGroup)
                         }
                     }
@@ -111,12 +116,17 @@ extension PrivateGroupWithThreadsController{
     
     override func viewWillDisappear(_ animated: Bool) {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
+        liveQueryGroupDetails?.removeObserver(self, forKeyPath: "rows")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if(liveQuery != nil){
             liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
         }
+        if(liveQueryGroupDetails != nil){
+            liveQueryGroupDetails?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+        }
+        
     }
     
     func handleActivitiesInGroup(){

@@ -11,6 +11,7 @@ import UIKit
 class PrivateGroupRequestsAndMembersCell: UICollectionViewCell{
 
     var privateGroup: PrivateGroup?
+    var navController: UINavigationController?
     
     var isMember: Bool?{
         didSet{

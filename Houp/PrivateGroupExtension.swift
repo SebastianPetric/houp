@@ -16,7 +16,9 @@ extension PrivateGroupCollectionViewController{
     }
     
     func handleMakeRequestPrivateGroup(){
-        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: MakeRequestPrivateGroupViewController(),navBarTitle: GetString.makeRequestToPrivateGroup.rawValue, barItemTitle: nil, image: nil)
+        let controller = MakeRequestPrivateGroupViewController()
+        controller.navController = self.navigationController
+        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: controller,navBarTitle: GetString.makeRequestToPrivateGroup.rawValue, barItemTitle: nil, image: nil)
         present(createController, animated: true, completion: nil )
     }
     
@@ -49,6 +51,7 @@ extension PrivateGroupCollectionViewController{
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         do{
+            
             if (object as! NSObject == self.liveQuery){
                 if let rows = liveQuery?.rows {
                     //privateGroupsList.removeAll()
@@ -71,6 +74,7 @@ extension PrivateGroupCollectionViewController{
                                     privateGroup.pgid = props.documentID
                                     privateGroup.rev = props.currentRevisionID
                                     //new----
+                                    print("das wird nicht aufgerufen")
                                     TempStorageAndCompare.shared.compareAndSaveGroups(group: privateGroup)
                                     //------
                                     //self.privateGroupsList.append(privateGroup)

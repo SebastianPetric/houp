@@ -278,7 +278,6 @@ extension DBConnection{
 
     func addUserWithProperties(properties: [String: Any]) -> String?{
         do{
-            print(DBConnection.shared.getDBConnection())
         if let con = DBConnection.shared.getDBConnection(){
             let doc = con.createDocument()
             try doc.putProperties(properties)
@@ -287,7 +286,7 @@ extension DBConnection{
                     rev?.setAttachmentNamed("\(User.shared.username!)_profileImage.jpeg", withContentType: "image/jpeg", content: User.shared.profileImage)
                     try rev?.save()
                 }
-                UserDefaults.standard.set(doc.documentID, forKey: GetString.userID.rawValue)
+            UserDefaults.standard.set(doc.documentID, forKey: GetString.userID.rawValue)
         }else {
             return GetString.errorWithConnection.rawValue
         }

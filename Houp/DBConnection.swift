@@ -34,13 +34,14 @@ class DBConnection{
     
     func setUpDBConnection(){
         do {
-//            try manager.databaseNamed("couchbaseevents").delete()
-//            TempStorageAndCompare.shared.deleteEverything()
-//
+//           try manager.databaseNamed("couchbaseevents").delete()
+//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-UTYHRo6BY7RVflxl947Zh8","-wuJg6uJGxmlCye-slluirR","-tksH-P72Q1RhFuRoPeQP1e"])
+            //LQd3fC
+            //hoG8So
+            
             self.DBCon = try manager.databaseNamed("couchbaseevents")
             //self.DBCon = try manager.existingDatabaseNamed("couchbaseevents")
             if let dbCon = self.DBCon{
-                
                 //Hier werden die Views einmalig erzeugt. Dannach können sie einfach nur noch verwendet werden
                 self.viewByUsername = viewByUsername(db: dbCon)
                 self.viewByEmail = viewByEmail(db: dbCon)

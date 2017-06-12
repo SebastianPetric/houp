@@ -28,6 +28,10 @@ extension PrivateGroupRequestsAndMembersCell{
         if let error = DBConnection.shared.leaveGroup(uID: (user?.uid)!, gID: (self.privateGroup?.pgid)!){
             let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }else{
+            if(UserDefaults.standard.string(forKey: GetString.userID.rawValue) != self.privateGroup?.adminID){
+                self.navController?.popToRootViewController(animated: true)
+            }
         }
     }
 }

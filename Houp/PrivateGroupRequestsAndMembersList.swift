@@ -125,6 +125,7 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
                 cell.user = self.adminList[1][indexPath.row]
                 cell.isMember = true
             }
+        cell.navController = self.navigationController
         return cell
     }
     
@@ -153,8 +154,7 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
         }
         let secheader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderID, for: indexPath) as! PrivateGroupRequestsAndMembersHeader
             secheader.sectionHeader.text = header
-            return secheader
-       
+        return secheader
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

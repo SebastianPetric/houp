@@ -19,6 +19,7 @@ extension MakeRequestPrivateGroupViewController{
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
             }else{
+                self.navController?.popToRootViewController(animated: true)
                 if let window = UIApplication.shared.keyWindow{
                     self.positiveResponse = CustomViews.shared.getPositiveResponse(title: GetString.successMadeRequestPrivateGroupTitle.rawValue, message: GetString.successMadeRequestPrivateGroupMessage.rawValue)
                     self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))

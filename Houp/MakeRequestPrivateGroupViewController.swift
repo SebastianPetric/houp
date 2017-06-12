@@ -13,6 +13,7 @@ class MakeRequestPrivateGroupViewController: UIViewController, UITextFieldDelega
     let secretTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.enterSecretID.rawValue, keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let requestButton = CustomViews.shared.getCustomButton(title: GetString.makeRequestToPrivateGroup.rawValue)
     var positiveResponse = UIView()
+    var navController: UINavigationController?
     
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
