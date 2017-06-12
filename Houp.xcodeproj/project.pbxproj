@@ -76,6 +76,7 @@
 		52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */; };
 		52D5AF9E1E8D7AA30007C448 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */; };
 		52E54AC91E82D5AC00856EF8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E54AC81E82D5AC00856EF8 /* User.swift */; };
+		52E696141EEF34DC0032CE6D /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E696131EEF34DC0032CE6D /* CustomErrors.swift */; };
 		52E6E3D31EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */; };
 		52E6E3D51EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D41EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift */; };
 		52E6E3D71EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D61EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift */; };
@@ -195,6 +196,7 @@
 		52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupsCell.swift; sourceTree = "<group>"; };
 		52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		52E54AC81E82D5AC00856EF8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		52E696131EEF34DC0032CE6D /* CustomErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupCommentsCellHandler.swift; sourceTree = "<group>"; };
 		52E6E3D41EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupCommentsHandler.swift; sourceTree = "<group>"; };
 		52E6E3D61EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupThreadsHandler.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */,
 				52F3F3DE1E9BD5A400B3FEA2 /* Validation.swift */,
 				529BB64B1E9EB01800776D16 /* DateExtension.swift */,
+				52E696131EEF34DC0032CE6D /* CustomErrors.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				52E6E3D51EBB4B8800B59D25 /* PublicGroupCommentsHandler.swift in Sources */,
 				52E6E3E01EBB708B00B59D25 /* GroupCommentsCellHandler.swift in Sources */,
 				528987021E83F5CC00322A99 /* DBConnection.swift in Sources */,
+				52E696141EEF34DC0032CE6D /* CustomErrors.swift in Sources */,
 				523391731E96AA9A00A867D9 /* PublicGroupThreadWithCommentsController.swift in Sources */,
 				52E6E3D71EBB4D1F00B59D25 /* PublicGroupThreadsHandler.swift in Sources */,
 				521EB0521E8ABE1F009D472C /* PrivateGroupCollectionViewController.swift in Sources */,

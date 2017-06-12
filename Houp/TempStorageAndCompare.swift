@@ -14,6 +14,7 @@ class TempStorageAndCompare: NSObject{
     let userDefaults = UserDefaults.standard
     var groupCollectionDelegate: PrivateGroupCollectionViewController?
     var groupsWithThreadsControllerDelegate: PrivateGroupWithThreadsController?
+    var publicGroupsWithThreadsControllerDelegate: PublicGroupThreadsController?
     var liveQueryUser: CBLLiveQuery?
     var liveQueryGroups: CBLLiveQuery?
     var liveQueryThreadsOfUser: CBLLiveQuery?
@@ -24,10 +25,6 @@ class TempStorageAndCompare: NSObject{
         self.userID = userID
         getTopicUser(userID: userID)
         getTopicThreads(authorID: userID)
-        
-        for item in getAllPrivateGroupsSync(){
-        print(item.nameOfGroup)
-        }
         }
     
     func deinitialiseNotificationQueries(){
@@ -47,16 +44,9 @@ class TempStorageAndCompare: NSObject{
         if(liveQueryGroups != nil){
             self.liveQueryGroups?.removeObserver(self, forKeyPath: "rows")
         }
-        print("livequery: \(liveQueryGroups)")
         if(groupIDs.count != 0){
         getTopicGroups(groupIDs: groupIDs)
         }else{
-        
-            print("was ist noch : \(getAllPrivateGroupsSync().count)")
-            for item in getAllPrivateGroupsSync(){
-                print("was ist noch drinnen \(item.nameOfGroup)")
-            }
-            
         liveQueryGroups = nil
         self.groupCollectionDelegate?.privateGroupsCollection.reloadData()
         }
@@ -128,13 +118,11 @@ class TempStorageAndCompare: NSObject{
                                     privateGroup?.pgid = row.documentID
                                     privateGroup?.rev = row.documentRevisionID
                         }
-                        print("2 wird aufgerufen")
                         compareAndSaveGroups(group: privateGroup!)
                     }
 //                    self.groupCollectionDelegate?.privateGroupsCollection.reloadData()
                 }
             }else if(object as! NSObject == self.liveQueryUser){
-                print("1 wird aufgerufen")
                 if let rows = liveQueryUser?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -143,7 +131,6 @@ class TempStorageAndCompare: NSObject{
                             if let IDs = props["groupIDs"] as! [String]?{
                                 groupIDs = IDs
                             }
-                            print("Wie viele Gruppen bist du Mitglied\(groupIDs)")
                             let user = UserObject(props: props)
                             user.uid = row.documentID
                             user.rev = row.documentRevisionID
@@ -165,12 +152,10 @@ class TempStorageAndCompare: NSObject{
         if (getAllPrivateGroupsSync().count != 0) {
         var oldList: [PrivateGroup] = getAllPrivateGroupsSync()
             for item in oldList{
-            print("Hier sind noch gruppen drinnen: \(item.nameOfGroup)")
             }
         if let index = oldList.index(where: { (item) -> Bool in
             item.pgid == group.pgid
         }){
-            print("1000 Diese Gruppe gibt es schon")
             // check if revision changed, if yes then hasbeenupdated = true
             if((oldList[index].rev != group.rev) || anyThreadOfGroupWasUpdated(group: oldList[index])){
                 if(GetString.userID.rawValue == group.adminID){
@@ -181,13 +166,11 @@ class TempStorageAndCompare: NSObject{
                 saveGroupList(groupList: oldList)
             }
         }else{
-            print("1000 Diese Gruppe gibt es noch nicht")
             group.hasBeenUpdated = true
             oldList.append(group)
             saveGroupList(groupList: oldList)
         }
         }else{
-            print("1000 Es gibt noch gar keine Gruppe")
             saveGroupList(groupList: [group])
         }
     }
@@ -327,20 +310,15 @@ class TempStorageAndCompare: NSObject{
     
     func checkTopicGroupsOfUser(oldGroups: UserObject, newGroups: UserObject, tempList: [UserObject], index: Int){
         var tempUserList: [UserObject] = [UserObject]()
-        print("Kommst du hier rein? -.---------------")
-        print("alt: \(oldGroups.groupIDs)")
-        print("neu: \(newGroups.groupIDs)")
+        
         for groupID in oldGroups.groupIDs! {
             if(!(newGroups.groupIDs?.contains(groupID))!) {
-                print("Gruppe muss gelöscht werden: \(groupID)")
                 deleteGroup(groupID: groupID)
             }
         }
         
         for groupID in newGroups.groupIDs! {
             if(!(oldGroups.groupIDs?.contains(groupID))!) {
-                print("Gruppe muss dazugenommen werden: \(groupID)")
-                //deleteGroup(groupID: groupID)
                 self.tempGroupList = newGroups.groupIDs!
             }
         }
@@ -360,7 +338,6 @@ class TempStorageAndCompare: NSObject{
                 item.uid == user.uid
             }){
                 // check if revision changed, if yes then hasbeenupdated = true
-                    print("User gibt es schon, es hat sich aber was geändert")
                     checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
 
 //                if(oldList[index].rev != user.rev){
@@ -372,14 +349,12 @@ class TempStorageAndCompare: NSObject{
 //                    groupsChangedOnDB(groupIDs: user.groupIDs!)
 //                }
             }else{
-                print("User wird gespeichert weil es diesen noch nicht gibt")
                 oldList.append(user)
                 saveUser(users: oldList)
                 self.tempGroupList = user.groupIDs!
                 groupsChangedOnDB(groupIDs: user.groupIDs!)
             }
         }else{
-            print("User wird gespeichert weil es noch keine gibt")
             saveUser(users: [user])
             self.tempGroupList = user.groupIDs!
             groupsChangedOnDB(groupIDs: user.groupIDs!)
@@ -412,6 +387,8 @@ class TempStorageAndCompare: NSObject{
             self.userDefaults.set(encodedData, forKey: "groupsWithThreadsSync\(self.userID!)")
             self.userDefaults.synchronize()
         }
+        self.groupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
+        self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
     }
 
     func sortGroupsWithThreads(groupID: String){
@@ -453,6 +430,7 @@ class TempStorageAndCompare: NSObject{
                 }
             }
             self.groupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
+            self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
         }
     }
     
@@ -475,12 +453,10 @@ class TempStorageAndCompare: NSObject{
     
 
     func getAllPrivateGroupsSync() -> [PrivateGroup] {
-        print("aktuelle ID: \(self.userID)")
     var oldPrivateGroupsList: [PrivateGroup] = [PrivateGroup]()
     if let oldList  = self.userDefaults.object(forKey: "privateGroupsSync\(self.userID!)") as? Data{
         oldPrivateGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [PrivateGroup]
     }
-    print("aktuelle ID: \(oldPrivateGroupsList.count)")
     return oldPrivateGroupsList
     }
 

@@ -16,9 +16,9 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
     let threadsCellID = "threadsCellID"
     var widthHeightOfImageViews: CGFloat = 20
     
-    deinit {
-        liveQuery?.removeObserver(self, forKeyPath: "rows")
-    }
+//    deinit {
+//        liveQuery?.removeObserver(self, forKeyPath: "rows")
+//    }
     
     lazy var threadsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -34,10 +34,12 @@ class PublicGroupThreadsController: UIViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Öffentliche Themen"
+        TempStorageAndCompare.shared.publicGroupsWithThreadsControllerDelegate = self
         
-        if(liveQuery == nil){
-            getTopicThreads(groupID: self.publicGroupID)
-        }
+//        if(liveQuery == nil){
+//            getTopicThreads(groupID: self.publicGroupID)
+//        }
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))
         view.addSubview(threadsCollectionView)

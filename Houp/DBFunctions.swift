@@ -554,6 +554,7 @@ extension DBConnection{
                 let doc = con.document(withID: gID)
                 try doc?.update({ (rev) -> Bool in
                     if let reqArray =  rev["groupRequestIDs"] as! [String]?{
+                        print(reqArray)
                         reqList = reqArray
                          reqList.remove(at: reqList.index(of: uID)!)
                         rev["groupRequestIDs"] = reqList
@@ -568,7 +569,7 @@ extension DBConnection{
         }
         return nil
     }
-
+    
     func leaveGroup(uID: String, gID: String) -> String?{
         do{
             if let con = DBConnection.shared.getDBConnection(){

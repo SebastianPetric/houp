@@ -11,11 +11,11 @@ import UIKit
 class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
     
+    var liveQuery: CBLLiveQuery?
+    
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
     }
-    
-    var liveQuery: CBLLiveQuery?
     
     var privateGroup: PrivateGroup?{
         didSet{
@@ -112,13 +112,17 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: membersCellID, for: indexPath) as! PrivateGroupRequestsAndMembersCell
-        
+        for item in self.adminList{
+            print("Wie viele Request und Members gibt es: \(item.count)")
+        }
         cell.privateGroup = self.privateGroup
             if(self.privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
                 cell.user = self.adminList[indexPath.section][indexPath.row]
                 if(indexPath.section == 0){
+                    print("isMember False")
                     cell.isMember = false
                 }else{
+                    print("isMember True")
                     cell.isMember = true
                 }
             }else{

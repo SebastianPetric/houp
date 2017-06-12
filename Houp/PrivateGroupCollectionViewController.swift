@@ -109,9 +109,6 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.privateGroupCellID, for: indexPath) as! PrivateGroupsCell
         //new
         let tempGroup = TempStorageAndCompare.shared.getAllPrivateGroupsSync()[indexPath.row]
-        for item in TempStorageAndCompare.shared.getAllPrivateGroupsSync(){
-            print("In der liste wird angezeigt\(item.nameOfGroup) mit Usern \(item.memberIDs)")
-        }
         if(!TempStorageAndCompare.shared.anyThreadOfGroupWasUpdated(group: tempGroup)){
             TempStorageAndCompare.shared.saveSingleGroup(group: tempGroup, hasBeenUpdated: false)
         }else if(!TempStorageAndCompare.shared.anyGroupWasUpdated(group: tempGroup)){

@@ -73,13 +73,14 @@ extension PublicGroupThreadsController{
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        liveQuery?.removeObserver(self, forKeyPath: "rows")
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        liveQuery?.removeObserver(self, forKeyPath: "rows")
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
-        if(liveQuery != nil){
-            liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
-        }
+       self.threadsCollectionView.reloadData()
+//        if(liveQuery != nil){
+//            liveQuery?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+//        }
     }
 }

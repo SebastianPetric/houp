@@ -19,6 +19,9 @@ class PrivateGroupRequestsAndMembersCell: UICollectionViewCell{
                 if(isMem){
                     if(user?.uid == UserDefaults.standard.string(forKey: GetString.userID.rawValue) || privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
                     acceptButton.isHidden = true
+                        if(denyButton.allTargets.count > 0){
+                            denyButton.removeTarget(self, action: #selector(denyUser), for: .touchUpInside)
+                        }
                     denyButton.addTarget(self, action: #selector(leaveGroup), for: .touchUpInside)
                     }else{
                     acceptButton.isHidden = true
