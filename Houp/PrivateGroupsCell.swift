@@ -9,8 +9,6 @@
 import UIKit
 
 class PrivateGroupsCell: UICollectionViewCell{
-
-    
     
 //    var post: Post?{
 //        didSet{
@@ -80,7 +78,7 @@ class PrivateGroupsCell: UICollectionViewCell{
                 secretGroupID.text = "GeheimID: \(secretID)"
             }
             if let time = privateGroup?.timeOfMeeting{
-                self.timeOfMeeting.text = "\(Date().getFormattedStringFromDate(time: time)) Uhr"
+                self.timeOfMeeting.text = "\(time.getTimePart()) Uhr"
             }
             if let numberOfThreads = privateGroup?.threadIDs{
                 self.threadsLabel.text = "\(numberOfThreads.count)"

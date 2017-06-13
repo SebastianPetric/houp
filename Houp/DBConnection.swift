@@ -20,40 +20,36 @@ class DBConnection{
     var pushToDB: CBLReplication?
     var pullFromDB: CBLReplication?
     var viewByType: CBLView?
-    var viewByUsername: CBLView?
-    var viewByEmail: CBLView?
+    var viewUserByUsername: CBLView?
+    var viewUserByEmail: CBLView?
     var viewPrivateGroupBySecretID: CBLView?
-    var viewByThread: CBLView?
-    var viewByComment: CBLView?
+    var viewCommentByThreadID: CBLView?
     var viewByAllActivityInGroup: CBLView?
     var viewByActiveActivityForUser: CBLView?
     var viewByInactiveActivityForUser: CBLView?
-    var viewByCommentOfActivity: CBLView?
+    var viewCommentByDailyActivityID: CBLView?
     var viewThreadByOriginalID: CBLView?
-    var viewByThreadByAuthorID: CBLView?
+    var viewThreadByAuthorID: CBLView?
     var viewThreadByGroupID: CBLView?
     
     func setUpDBConnection(){
         do {
 //           try manager.databaseNamed("couchbaseevents").delete()
-//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-id0vFqoRaiT3qLHWX2I3H8","-R3UFyZfVDeXZs-tK49-_5u"])
-            //ZxKHPd
-            
+//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-ZM_2m6VwsCm_8cmgzr3_pv"])
+            //0SyCz3
             self.DBCon = try manager.databaseNamed("couchbaseevents")
-            //self.DBCon = try manager.existingDatabaseNamed("couchbaseevents")
+            
             if let dbCon = self.DBCon{
-                //Hier werden die Views einmalig erzeugt. Dannach können sie einfach nur noch verwendet werden
-                self.viewByUsername = viewByUsername(db: dbCon)
-                self.viewByEmail = viewByEmail(db: dbCon)
+                self.viewUserByUsername = viewUserByUsername(db: dbCon)
+                self.viewUserByEmail = viewUserByEmail(db: dbCon)
                 self.viewPrivateGroupBySecretID = viewPrivateGroupBySecretID(db: dbCon)
-                self.viewByThread = viewByThread(db: dbCon)
-                self.viewByComment = viewByComment(db: dbCon)
+                self.viewCommentByThreadID = viewCommentByThreadID(db: dbCon)
                 self.viewByAllActivityInGroup = viewByAllActivityInGroup(db: dbCon)
                 self.viewByActiveActivityForUser = viewByActiveActivityForUser(db: dbCon)
                 self.viewByInactiveActivityForUser = viewByInactiveActivityForUser(db: dbCon)
-                self.viewByCommentOfActivity = viewByCommentOfActivity(db: dbCon)
+                self.viewCommentByDailyActivityID = viewCommentByDailyActivityID(db: dbCon)
                 self.viewThreadByOriginalID = viewThreadByOriginalID(db: dbCon)
-                self.viewByThreadByAuthorID = viewByThreadByAuthorID(db: dbCon)
+                self.viewThreadByAuthorID = viewThreadByAuthorID(db: dbCon)
                 self.viewThreadByGroupID = viewThreadByGroupID(db: dbCon)
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
@@ -68,8 +64,7 @@ class DBConnection{
                     auth = CBLAuthenticator.basicAuthenticator(withName: "sync_users", password: "BJCphrD6")
                     push.authenticator = auth
                     pull.authenticator = auth
-//                    NotificationCenter.default.addObserver(self, selector: #selector(replicationChanged), name: NSNotification.Name.cblReplicationChange, object: push)
-//                    NotificationCenter.default.addObserver(self, selector: #selector(replicationChangedonDB), name: NSNotification.Name.cblReplicationChange, object: pull)
+                    
                     push.start()
                     pull.start()
                     self.pushToDB = push

@@ -10,7 +10,7 @@ import Foundation
 
 extension DBConnection{
     
-    func viewByUsername(db: CBLDatabase) -> CBLView{
+    func viewUserByUsername(db: CBLDatabase) -> CBLView{
         let viewByUsername = db.viewNamed("viewByUsername")
         if (viewByUsername.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
@@ -41,9 +41,9 @@ extension DBConnection{
     }
 
     
-    func viewByEmail(db: CBLDatabase) -> CBLView{
-        let viewByEmail = db.viewNamed("viewByEmail")
-        if (viewByEmail.mapBlock == nil) {
+    func viewUserByEmail(db: CBLDatabase) -> CBLView{
+        let viewUserByEmail = db.viewNamed("viewByEmail")
+        if (viewUserByEmail.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
                 if let type = doc["type"] as? String{
                     if type == "User" {
@@ -51,24 +51,9 @@ extension DBConnection{
                     }
                 }
             }
-            viewByEmail.setMapBlock(mapBlock, version: "1")
+            viewUserByEmail.setMapBlock(mapBlock, version: "1")
         }
-        return viewByEmail
-    }
-    
-    func viewByThread(db: CBLDatabase) -> CBLView{
-        let viewByThread = db.viewNamed("viewByThread")
-        if (viewByThread.mapBlock == nil) {
-            let mapBlock: CBLMapBlock = { (doc,emit) in
-                if let type = doc["type"] as? String{
-                    if type == "Thread" {
-                        emit(doc["groupID"], nil)
-                    }
-                }
-            }
-            viewByThread.setMapBlock(mapBlock, version: "1")
-        }
-        return viewByThread
+        return viewUserByEmail
     }
     
     func viewThreadByGroupID(db: CBLDatabase) -> CBLView{
@@ -87,9 +72,9 @@ extension DBConnection{
     }
 
     
-    func viewByThreadByAuthorID(db: CBLDatabase) -> CBLView{
-        let viewByThreadByAuthorID = db.viewNamed("viewByThreadByAuthorID")
-        if (viewByThreadByAuthorID.mapBlock == nil) {
+    func viewThreadByAuthorID(db: CBLDatabase) -> CBLView{
+        let viewThreadByAuthorID = db.viewNamed("viewByThreadByAuthorID")
+        if (viewThreadByAuthorID.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
                 if let type = doc["type"] as? String{
                     if type == "Thread" {
@@ -97,9 +82,9 @@ extension DBConnection{
                     }
                 }
             }
-            viewByThreadByAuthorID.setMapBlock(mapBlock, version: "1")
+            viewThreadByAuthorID.setMapBlock(mapBlock, version: "1")
         }
-        return viewByThreadByAuthorID
+        return viewThreadByAuthorID
     }
 
     
@@ -165,7 +150,7 @@ extension DBConnection{
     }
 
     
-    func viewByComment(db: CBLDatabase) -> CBLView{
+    func viewCommentByThreadID(db: CBLDatabase) -> CBLView{
         let viewByComment = db.viewNamed("viewByComment")
         if (viewByComment.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
@@ -180,7 +165,7 @@ extension DBConnection{
         return viewByComment
     }
     
-    func viewByCommentOfActivity(db: CBLDatabase) -> CBLView{
+    func viewCommentByDailyActivityID(db: CBLDatabase) -> CBLView{
         let viewByCommentOfActivity = db.viewNamed("viewByCommentOfActivity")
         if (viewByCommentOfActivity.mapBlock == nil) {
             let mapBlock: CBLMapBlock = { (doc,emit) in
@@ -194,7 +179,4 @@ extension DBConnection{
         }
         return viewByCommentOfActivity
     }
-
-
-
 }

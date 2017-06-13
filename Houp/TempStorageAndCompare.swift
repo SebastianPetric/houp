@@ -118,7 +118,7 @@ class TempStorageAndCompare: NSObject{
     }
     
     func getTopicThreads(authorID: String){
-        if let view = DBConnection.shared.viewByThreadByAuthorID{
+        if let view = DBConnection.shared.viewThreadByAuthorID{
         let query = view.createQuery()
             query.keys = [authorID]
             liveQueryThreadsOfUser = query.asLive()
@@ -257,12 +257,16 @@ class TempStorageAndCompare: NSObject{
                 }
                 group.hasBeenUpdated = true
                 oldList[index] = group
-                saveGroupList(groupList: oldList)
+                let temp = sortGroups(groups: oldList)
+                for (index,item) in temp.enumerated(){
+                print("\(index) : \(item.nameOfGroup)")
+                }
+                saveGroupList(groupList: sortGroups(groups: oldList))
             }
         }else{
             group.hasBeenUpdated = true
             oldList.append(group)
-            saveGroupList(groupList: oldList)
+            saveGroupList(groupList: sortGroups(groups: oldList))
         }
         }else{
             saveGroupList(groupList: [group])
@@ -360,13 +364,18 @@ class TempStorageAndCompare: NSObject{
                 }){
                     // check if revision changed, if yes then hasbeenupdated = true
                     if(oldList[groupID]?[index].rev != thread.rev){
+                        if(isUserAdmin(id: thread.authorID!)){
+                            print("Eine neue reaktion auf deinen Thread \(thread.title)")
+                        }
                         thread.hasBeenUpdated = true
                         oldList[groupID]?[index] = thread
+                        oldList[groupID] = sortThreads(threads: oldList[groupID]!)
                         saveGroupsWithThreads(groupsWithThreads: oldList)
                     }
                 }else{
                     thread.hasBeenUpdated = true
                     oldList[groupID]?.append(thread)
+                    oldList[groupID] = sortThreads(threads: oldList[groupID]!)
                     saveGroupsWithThreads(groupsWithThreads: oldList)
                 }
             }else{
@@ -386,20 +395,27 @@ class TempStorageAndCompare: NSObject{
                 }){
                     // check if revision changed, if yes then hasbeenupdated = true
                     if(oldList[index].rev != thread.rev){
+                        if(isUserAdmin(id: thread.authorID!)){
+                        print("Eine neue reaktion auf deinen Thread \(thread.title)")
+                        }
                         thread.hasBeenUpdated = true
                         oldList[index] = thread
-                        savePublicThreads(threadsList: oldList)
+                        savePublicThreads(threadsList: sortThreads(threads: oldList))
                         publicGroupThreadWithCommentsDelegate?.thread = thread
                     }
                 }else{
                     thread.hasBeenUpdated = true
                     oldList.append(thread)
-                    savePublicThreads(threadsList: oldList)
+                    savePublicThreads(threadsList: sortThreads(threads: oldList))
                 }
             }else{
                 savePublicThreads(threadsList: [thread])
             }
         }
+    }
+    
+    func isUserAdmin(id: String) -> Bool{
+        return self.userDefaults.string(forKey: GetString.userID.rawValue) == id
     }
     
     func saveGroupsWithThreads(groupsWithThreads: [String : [Thread]]){
@@ -435,7 +451,7 @@ class TempStorageAndCompare: NSObject{
         
         for user in tempNew {
             if(!(tempOld.contains(user))) {
-                print("1) Neue Anfrage! Jemand will der Gruppe \(oldGroup.nameOfGroup!) beitreten!")
+                //Hier Notification triggern
             }
         }
     }
@@ -501,16 +517,16 @@ class TempStorageAndCompare: NSObject{
                 item.uid == user.uid
             }){
                 // check if revision changed, if yes then hasbeenupdated = true
-                    checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
+                    //checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
 
-//                if(oldList[index].rev != user.rev){
-//                    print("rev hat sich geändert")
-//                    checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
-//                }else{
-//                    print("rev hat sich nicht geändert")
-//                    print(user.groupIDs)
-//                    groupsChangedOnDB(groupIDs: user.groupIDs!)
-//                }
+                if(oldList[index].rev != user.rev){
+                    print("rev hat sich geändert")
+                    checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
+                }else{
+                    print("rev hat sich nicht geändert")
+                    print(user.groupIDs)
+                    groupsChangedOnDB(groupIDs: user.groupIDs!)
+                }
             }else{
                 oldList.append(user)
                 saveUser(users: oldList)
@@ -576,13 +592,25 @@ class TempStorageAndCompare: NSObject{
         saveGroupList(groupList: oldPrivateGroupsList)
     }
     
-    func saveGroupList(groupList: [PrivateGroup]){
-        var tempGroup = groupList
-        tempGroup.sort(by:
+    
+    func sortGroups(groups: [PrivateGroup]) -> [PrivateGroup]{
+        var oldGroupsList: [PrivateGroup] = groups
+        oldGroupsList.sort(by:
             { $0.createdAt?.compare($1.createdAt!) == ComparisonResult.orderedDescending }
         )
-
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: tempGroup)
+        return oldGroupsList
+    }
+    
+    func sortThreads(threads: [Thread]) -> [Thread]{
+        var oldThreadList: [Thread] = threads
+        oldThreadList.sort(by:
+            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+        )
+        return oldThreadList
+    }
+    
+    func saveGroupList(groupList: [PrivateGroup]){
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: groupList)
         self.userDefaults.set(encodedData, forKey: "privateGroupsSync\(self.userID!)")
         self.userDefaults.synchronize()
         

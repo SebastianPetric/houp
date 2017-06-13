@@ -45,7 +45,7 @@ class UserObject: NSObject, NSCoding {
     }
     
     convenience init(props: [String: Any]){
-        self.init(rev: nil, uid: nil, email: props["email"] as? String, userName: props["username"] as? String, prename: props["prename"] as? String, name: props["name"] as? String, groupIDs: props["groupIDs"] as? [String])
+        self.init(rev: props["_rev"] as? String, uid: props["_id"] as? String, email: props["email"] as? String, userName: props["username"] as? String, prename: props["prename"] as? String, name: props["name"] as? String, groupIDs: props["groupIDs"] as? [String])
     }
     
     required init(coder aDecoder: NSCoder) {

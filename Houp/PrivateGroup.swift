@@ -34,11 +34,9 @@ class PrivateGroup: NSObject, NSCoding{
         if let revision = rev {
             self.rev = revision
         }
-        
         if let ID = pgid {
             self.pgid = ID
         }
-         
         if let adID = adminID {
             self.adminID = adID
         }
@@ -51,16 +49,12 @@ class PrivateGroup: NSObject, NSCoding{
         if let dayMeeting = dayOfMeeting {
             self.dayOfMeeting = dayMeeting
         }
-        
         if let secret = secretID{
         self.secretID = secret
         }
         
-        if let timeMeeting = timeOfMeeting {
-            self.timeOfMeeting = timeMeeting
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "HH:mm"
-            self.timeOfMeetingString = dateformatter.string(from: timeMeeting)
+        if let timeMeeting = timeOfMeeting{
+            self.timeOfMeetingString = timeMeeting.getTimePart()
         }
         
         if let timeOfMeetingStr = timeOfMeetingString{
@@ -69,7 +63,7 @@ class PrivateGroup: NSObject, NSCoding{
             formatter.dateFormat = "HH:mm"
             self.timeOfMeeting = formatter.date(from: timeOfMeetingStr)
         }
-        
+ 
         if let threads = threadIDs {
             self.threadIDs = threads
         }
@@ -99,7 +93,7 @@ class PrivateGroup: NSObject, NSCoding{
     }
     
     convenience init(props: [String: Any]) {
-        self.init(rev: nil, pgid: nil, adminID: props["adminID"] as? String, nameOfGroup: props["nameOfGroup"] as? String, location: props["location"] as? String, dayOfMeeting: props["dayOfMeeting"] as? String, timeOfMeeting: nil,timeOfMeetingString: props["timeOfMeeting"] as? String ,secretID: props["secretID"] as? String, threadIDs: props["threadIDs"] as? [String], memberIDs: props["memberIDs"] as? [String], dailyActivityIDs: props["dailyActivityIDs"] as? [String], groupRequestIDs: props["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: props["createdAt"] as? String)
+        self.init(rev: props["_rev"] as? String, pgid: props["_id"] as? String, adminID: props["adminID"] as? String, nameOfGroup: props["nameOfGroup"] as? String, location: props["location"] as? String, dayOfMeeting: props["dayOfMeeting"] as? String, timeOfMeeting: nil,timeOfMeetingString: props["timeOfMeeting"] as? String ,secretID: props["secretID"] as? String, threadIDs: props["threadIDs"] as? [String], memberIDs: props["memberIDs"] as? [String], dailyActivityIDs: props["dailyActivityIDs"] as? [String], groupRequestIDs: props["groupRequestIDs"] as? [String], createdAt: nil, createdAtString: props["createdAt"] as? String)
     }
     
     

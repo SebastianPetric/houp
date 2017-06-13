@@ -32,6 +32,7 @@ class User{
         properties["groupIDs"] = [String]()
         properties["dailyFormIDs"] = [String]()
         properties["weeksOfActivityIDs"] = [String]()
+        
         if let username = self.username {
             properties["username"] = username
         }

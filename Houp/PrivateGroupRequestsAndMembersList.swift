@@ -29,7 +29,7 @@ class PrivateGroupRequestAndMembersList: UIViewController, UICollectionViewDeleg
                 secretGroupID.text = "GeheimID: \(secretID)"
             }
             if let time = privateGroup?.timeOfMeeting{
-                self.timeOfMeeting.text = "\(Date().getFormattedStringFromDate(time: time)) Uhr"
+                self.timeOfMeeting.text = "\(time.getTimePart()) Uhr"
             }
             if let dayOfMeeting = privateGroup?.dayOfMeeting{
                 self.dayOfMeeting.text = dayOfMeeting

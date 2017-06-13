@@ -78,9 +78,7 @@ class Activity: NSObject, NSCoding{
         }
         if let dat = dateObject{
             self.dateObject = dat
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
-            self.dateString = dateformatter.string(from: dat)
+            self.dateString = dat.getDateTimeFormatted()
         }
         
         if let datStr = dateString{
@@ -97,14 +95,12 @@ class Activity: NSObject, NSCoding{
         
         if let timO = timeObject{
             self.timeObject = timO
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "HH:mm"
-            self.timeString = dateformatter.string(from: timO)
+            self.timeString = timO.getTimePart()
         }
     }
     
     convenience init(props: [String: Any]) {
-        self.init(rev: nil, aid: nil, authorID: props["authorID"] as! String?, authorUsername: nil, groupID: props["groupID"] as! String?, activity: props["activity"] as! String?, activityText: props["activityText"] as! String?, locationOfActivity: props["locationOfActivity"] as! String?, isInProcess: props["isInProcess"] as! Bool?, status: props["status"] as! Int?, wellBeingState: props["wellBeingState"] as! Int?, wellBeingText: props["wellBeingText"] as! String?, addictionState: props["addictionState"] as! Int?, addictionText: props["addictionText"] as! String?, dateObject: nil, timeObject: nil, dateString: props["date"] as! String?, timeString: props["time"] as! String?, commentIDs: props["commentIDs"] as! [String]?, likeIDs: props["likeIDs"] as! [String]?)
+        self.init(rev: props["_rev"] as! String?, aid: props["_id"] as! String?, authorID: props["authorID"] as! String?, authorUsername: nil, groupID: props["groupID"] as! String?, activity: props["activity"] as! String?, activityText: props["activityText"] as! String?, locationOfActivity: props["locationOfActivity"] as! String?, isInProcess: props["isInProcess"] as! Bool?, status: props["status"] as! Int?, wellBeingState: props["wellBeingState"] as! Int?, wellBeingText: props["wellBeingText"] as! String?, addictionState: props["addictionState"] as! Int?, addictionText: props["addictionText"] as! String?, dateObject: nil, timeObject: nil, dateString: props["date"] as! String?, timeString: props["time"] as! String?, commentIDs: props["commentIDs"] as! [String]?, likeIDs: props["likeIDs"] as! [String]?)
     }
     
     required init(coder aDecoder: NSCoder) {

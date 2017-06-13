@@ -45,7 +45,7 @@ extension ActivitiesCommentsController{
     }
     
     func getTopicComments(activityID: String){
-        if let view = DBConnection.shared.viewByCommentOfActivity{
+        if let view = DBConnection.shared.viewCommentByDailyActivityID{
             let query = view.createQuery()
             query.keys = [activityID]
             liveQuery = query.asLive()

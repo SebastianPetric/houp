@@ -36,7 +36,7 @@ extension PrivateGroupCollectionViewController{
     }
     
     func getTopicThreads(groupID: [String]){
-        if let view = DBConnection.shared.viewByThread{
+        if let view = DBConnection.shared.viewThreadByGroupID{
             let query = view.createQuery()
             query.keys = groupID
             liveQueryThreads = query.asLive()

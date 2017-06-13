@@ -144,9 +144,7 @@ class Thread: NSObject, NSCoding{
         if let comments = self.commentIDs {
             aCoder.encode(comments, forKey: "commentIDs")
         }
-//        if let updated = self.hasBeenUpdated {
-//            aCoder.encode(updated, forKey: "hasBeenUpdated")
-//        }
+        
         aCoder.encode(self.hasBeenUpdated, forKey: "hasBeenUpdated")
  
         if let dateStr = self.dateString {

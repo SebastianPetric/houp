@@ -53,9 +53,7 @@ class Comment: NSObject, NSCoding{
         
         if let dat = date{
             self.dateObject = dat
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "E, dd MMM yyyy HH:mm:ss Z"
-            self.dateString = dateformatter.string(from: dat)
+            self.dateString = dat.getDateTimeFormatted()
         }
         
         if let dateStr = dateString{

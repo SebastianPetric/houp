@@ -42,7 +42,7 @@ func getTopicThread(threadID: String){
 
 
 func getTopicComments(threadID: String){
-        if let view = DBConnection.shared.viewByComment{
+        if let view = DBConnection.shared.viewCommentByThreadID{
             let query = view.createQuery()
             query.keys = [threadID]
             liveQuery = query.asLive()
