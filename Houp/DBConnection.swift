@@ -31,13 +31,13 @@ class DBConnection{
     var viewByCommentOfActivity: CBLView?
     var viewThreadByOriginalID: CBLView?
     var viewByThreadByAuthorID: CBLView?
+    var viewThreadByGroupID: CBLView?
     
     func setUpDBConnection(){
         do {
 //           try manager.databaseNamed("couchbaseevents").delete()
-//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-UTYHRo6BY7RVflxl947Zh8","-wuJg6uJGxmlCye-slluirR","-tksH-P72Q1RhFuRoPeQP1e"])
-            //LQd3fC
-            //hoG8So
+//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-id0vFqoRaiT3qLHWX2I3H8","-R3UFyZfVDeXZs-tK49-_5u"])
+            //ZxKHPd
             
             self.DBCon = try manager.databaseNamed("couchbaseevents")
             //self.DBCon = try manager.existingDatabaseNamed("couchbaseevents")
@@ -54,6 +54,7 @@ class DBConnection{
                 self.viewByCommentOfActivity = viewByCommentOfActivity(db: dbCon)
                 self.viewThreadByOriginalID = viewThreadByOriginalID(db: dbCon)
                 self.viewByThreadByAuthorID = viewByThreadByAuthorID(db: dbCon)
+                self.viewThreadByGroupID = viewThreadByGroupID(db: dbCon)
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
                 self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)

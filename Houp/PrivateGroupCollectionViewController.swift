@@ -61,7 +61,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
 //                getTopicThreads(groupID: tempList)
 //            }
             
-            TempStorageAndCompare.shared.groupCollectionDelegate = self
+            TempStorageAndCompare.shared.privateGroupCollectionDelegate = self
             TempStorageAndCompare.shared.initialiseNotificationQueries(userID: userID)
         }
         

@@ -31,6 +31,10 @@ extension UIColor{
         return UIColor(red: 242, green: 135, blue: 5, alphaValue: 1)
     }
     
+    func getNotificationColor() -> UIColor{
+     return UIColor(red: 255, green: 104, blue: 79, alphaValue: 1)
+    }
+    
     func getLightGreyColor() -> UIColor{
     return UIColor(red: 229, green: 231, blue: 235, alphaValue: 1)
     }

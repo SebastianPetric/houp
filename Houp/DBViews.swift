@@ -71,6 +71,22 @@ extension DBConnection{
         return viewByThread
     }
     
+    func viewThreadByGroupID(db: CBLDatabase) -> CBLView{
+        let viewByThread = db.viewNamed("viewByThread")
+        if (viewByThread.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String{
+                    if type == "Thread" {
+                        emit(doc["groupID"], nil)
+                    }
+                }
+            }
+            viewByThread.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByThread
+    }
+
+    
     func viewByThreadByAuthorID(db: CBLDatabase) -> CBLView{
         let viewByThreadByAuthorID = db.viewNamed("viewByThreadByAuthorID")
         if (viewByThreadByAuthorID.mapBlock == nil) {

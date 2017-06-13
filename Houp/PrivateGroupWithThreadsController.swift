@@ -45,6 +45,11 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
             if let activityCount = privateGroup?.dailyActivityIDs?.count{
                 activitiesInGroupLabel.text = "\(activityCount)"
             }
+            if((privateGroup?.groupRequestIDs?.count)! > 0 && UserDefaults.standard.string(forKey: GetString.userID.rawValue) == privateGroup?.adminID){
+                usersInGroupButton.tintColor = UIColor().getMainColor()
+            }else{
+                usersInGroupButton.tintColor = .white
+            }
         }
     }
     var threadsList: [Thread] = [Thread]()
@@ -94,7 +99,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
 //            getTopicGroup(groupID: (self.privateGroup?.pgid)!)
 //        }
         
-        TempStorageAndCompare.shared.groupsWithThreadsControllerDelegate = self
+        TempStorageAndCompare.shared.privateGroupsWithThreadsDelegate = self
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleCreateThread))
