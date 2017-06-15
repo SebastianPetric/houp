@@ -64,10 +64,12 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if(indexPath.row == 0){
         let cellHighlighted = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellHighlightedID, for: indexPath) as! ActivityWeekHighlightedCell
+            cellHighlighted.activityWeekCollectionDelegate = self
             cellHighlighted.activityObject = self.activityList[indexPath.row]
         return cellHighlighted
         }else{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellID, for: indexPath) as! ActivityWeekCollectionCell
+            cell.activityWeekCollectionDelegate = self
             cell.activityObject = self.activityList[indexPath.row]
             return cell
         }
@@ -109,6 +111,7 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
             }
             //wenn die aktivität heute stattfindet
         }else if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
+            print("hier komm ich rein")
             //Wenn es nach 20 Uhr ist
             if (!TimerObject.shared.tryLaterAgain){
                 TimerObject.shared.invalidateDelayTimer()

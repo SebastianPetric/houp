@@ -18,6 +18,8 @@ class ActivityWeekCollectionCell: UICollectionViewCell{
     let seperator = CustomViews.shared.getCustomSeperator(color: .black)
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     
+    var activityWeekCollectionDelegate: ActivityWeekCollection?
+    
     var activityObject: Activity?{
         didSet{
             if let loc = activityObject?.locationOfActivity{
@@ -45,6 +47,7 @@ class ActivityWeekCollectionCell: UICollectionViewCell{
         addSubview(seperator)
         addSubview(seperatorComments)
         addSubview(editButton)
+        editButton.addTarget(self, action: #selector(handleEditActivity), for: .touchUpInside)
         setUpSubViews()
     }
     

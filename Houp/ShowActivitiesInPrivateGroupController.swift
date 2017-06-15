@@ -40,7 +40,6 @@ class ShowActivitiesInPrivateGroupController: UIViewController, UICollectionView
         }
     }
     
-    
     var widthHeightOfImageViews: CGFloat = 20
     let activityCellID = "activityCellID"
     
@@ -76,7 +75,6 @@ class ShowActivitiesInPrivateGroupController: UIViewController, UICollectionView
         super.viewDidLoad()
         //getTopicActivities(groupID: (privateGroup?.pgid)!)
         TempStorageAndCompare.shared.activitiesInPrivateGroupDelegate = self
-        
         infoContainer.addSubview(nameOfGroup)
         infoContainer.addSubview(locationOfMeeting)
         infoContainer.addSubview(timeOfMeeting)
@@ -111,15 +109,12 @@ class ShowActivitiesInPrivateGroupController: UIViewController, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellID, for: indexPath) as! ShowActivitiesInPrivateGroupCell
         cell.activityObject = TempStorageAndCompare.shared.getActivitiesOfGroup(groupID: (self.privateGroup?.pgid)!)[indexPath.row]
-        
         //cell.activityObject = self.activityList[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(TempStorageAndCompare.shared.getActivitiesOfGroup(groupID: (self.privateGroup?.pgid)!).count)
         return TempStorageAndCompare.shared.getActivitiesOfGroup(groupID: (self.privateGroup?.pgid)!).count
-        
         //return activityList.count
     }
     
@@ -127,7 +122,6 @@ class ShowActivitiesInPrivateGroupController: UIViewController, UICollectionView
         let controller = ActivitiesCommentsController()
         //controller.activityObject = activityList[indexPath.row]
         controller.activityObject = TempStorageAndCompare.shared.getActivitiesOfGroup(groupID: (self.privateGroup?.pgid)!)[indexPath.row]
-        
         controller.titleNav = (self.privateGroup?.nameOfGroup)!
         self.navigationController?.pushViewController(controller, animated: true)
     }

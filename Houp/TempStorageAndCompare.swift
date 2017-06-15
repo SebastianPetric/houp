@@ -293,7 +293,20 @@ class TempStorageAndCompare: NSObject{
                 if let rows = liveQueryInactiveActivities?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
+                            
+                            var userName: String?
+                            if let authorUserName = props["authorID"] as? String{
+                                let queryForUsername = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                                queryForUsername?.allDocsMode = CBLAllDocsMode.allDocs
+                                queryForUsername?.keys = [authorUserName]
+                                let result = try queryForUsername?.run()
+                                while let row = result?.nextRow() {
+                                    userName = row.document?["username"] as? String
+                                }
+                            }
+
                             let activity = Activity(props: props)
+                            activity.userName = userName
                             compareAndSaveActivities(activity: activity)
                         }
                     }
@@ -339,8 +352,10 @@ class TempStorageAndCompare: NSObject{
             }){
                 // check if revision changed, if yes then hasbeenupdated = true
                 if(oldList[index].rev != activity.rev){
+                    print("rev hat sich geändert")
                     activity.hasBeenUpdated = true
                     oldList[index] = activity
+                    self.activityWithCommentsDelegate?.activityObject = activity
                     saveActivityList(activityList: oldList)
                 }
             }else{

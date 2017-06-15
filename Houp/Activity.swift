@@ -24,6 +24,7 @@ class Activity: NSObject, NSCoding{
     var timeObject: Date?
     var commentIDs: [String]?
     var likeIDs: [String]?
+    var notificationID: String?
     var hasBeenUpdated = false
     
     init(rev: String?, aid: String?, authorID: String?, authorUsername: String? ,groupID: String?,activity: String?,activityText: String?,locationOfActivity: String?,isInProcess: Bool?,status: Int?,wellBeingState: Int?,wellBeingText: String?,addictionState: Int?,addictionText: String?,dateObject: Date?,timeObject: Date?,dateString: String?, timeString: String?, commentIDs: [String]?, likeIDs: [String]?) {
@@ -167,6 +168,9 @@ class Activity: NSObject, NSCoding{
         if let dateO = aDecoder.decodeObject(forKey: "dateObject") as? Date{
             self.dateObject = dateO
         }
+        if let notID = aDecoder.decodeObject(forKey: "notificationID") as? String{
+            self.notificationID = notID
+        }
     }
     
     func encode(with aCoder: NSCoder) {
@@ -226,6 +230,9 @@ class Activity: NSObject, NSCoding{
         }
         if let timeStr = self.timeString {
             aCoder.encode(timeStr, forKey: "timeString")
+        }
+        if let notID = self.notificationID {
+            aCoder.encode(notID, forKey: "notificationID")
         }
     }
     

@@ -76,6 +76,10 @@
 		52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */; };
 		52D5AF9E1E8D7AA30007C448 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */; };
 		52D5D6061EF148BC009ACC3E /* PrivateGroupCollectionCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5D6051EF148BC009ACC3E /* PrivateGroupCollectionCellHandler.swift */; };
+		52D5D6091EF295C3009ACC3E /* EditActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5D6081EF295C3009ACC3E /* EditActivity.swift */; };
+		52D5D60B1EF295D3009ACC3E /* EditActivityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5D60A1EF295D3009ACC3E /* EditActivityHandler.swift */; };
+		52D5D60D1EF29F63009ACC3E /* ActivityWeekCollectionCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5D60C1EF29F63009ACC3E /* ActivityWeekCollectionCellHandler.swift */; };
+		52D5D60F1EF2A1F9009ACC3E /* ActivityWeekCollectionHighlightedCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5D60E1EF2A1F9009ACC3E /* ActivityWeekCollectionHighlightedCellHandler.swift */; };
 		52E54AC91E82D5AC00856EF8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E54AC81E82D5AC00856EF8 /* User.swift */; };
 		52E696141EEF34DC0032CE6D /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E696131EEF34DC0032CE6D /* CustomErrors.swift */; };
 		52E6E3D31EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */; };
@@ -197,6 +201,10 @@
 		52D5AF9B1E8D64BD0007C448 /* PrivateGroupsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupsCell.swift; sourceTree = "<group>"; };
 		52D5AF9D1E8D7AA30007C448 /* UITextViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		52D5D6051EF148BC009ACC3E /* PrivateGroupCollectionCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateGroupCollectionCellHandler.swift; sourceTree = "<group>"; };
+		52D5D6081EF295C3009ACC3E /* EditActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditActivity.swift; sourceTree = "<group>"; };
+		52D5D60A1EF295D3009ACC3E /* EditActivityHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditActivityHandler.swift; sourceTree = "<group>"; };
+		52D5D60C1EF29F63009ACC3E /* ActivityWeekCollectionCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekCollectionCellHandler.swift; sourceTree = "<group>"; };
+		52D5D60E1EF2A1F9009ACC3E /* ActivityWeekCollectionHighlightedCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityWeekCollectionHighlightedCellHandler.swift; sourceTree = "<group>"; };
 		52E54AC81E82D5AC00856EF8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		52E696131EEF34DC0032CE6D /* CustomErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		52E6E3D21EBB4AA200B59D25 /* PublicGroupCommentsCellHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicGroupCommentsCellHandler.swift; sourceTree = "<group>"; };
@@ -376,6 +384,7 @@
 		52499A6B1E7BFD44006061B2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				52D5D6071EF2959F009ACC3E /* EditActivity */,
 				529E57431ED5F94700256090 /* EditThread */,
 				529E573D1ED4AA8F00256090 /* EditPrivateGroup */,
 				525B69911ECB2EB100E8C3C8 /* GroupRequestsAndMembersHandler */,
@@ -483,6 +492,8 @@
 			isa = PBXGroup;
 			children = (
 				525B69811ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift */,
+				52D5D60C1EF29F63009ACC3E /* ActivityWeekCollectionCellHandler.swift */,
+				52D5D60E1EF2A1F9009ACC3E /* ActivityWeekCollectionHighlightedCellHandler.swift */,
 			);
 			name = ActivityWeekCollectionHandler;
 			sourceTree = "<group>";
@@ -677,6 +688,15 @@
 				52D5AF991E8D5FE40007C448 /* CreateNewPrivateGroupHandler.swift */,
 			);
 			name = CreateNewPrivateGroupHandler;
+			sourceTree = "<group>";
+		};
+		52D5D6071EF2959F009ACC3E /* EditActivity */ = {
+			isa = PBXGroup;
+			children = (
+				52D5D6081EF295C3009ACC3E /* EditActivity.swift */,
+				52D5D60A1EF295D3009ACC3E /* EditActivityHandler.swift */,
+			);
+			name = EditActivity;
 			sourceTree = "<group>";
 		};
 		52E6E3D81EBB6FF500B59D25 /* GroupComments */ = {
@@ -886,8 +906,10 @@
 				52E6E4221EC75A5300B59D25 /* ActivitiesCommentsCell.swift in Sources */,
 				52E6E4141EC713C800B59D25 /* ActivityWeekForm5Handler.swift in Sources */,
 				52E6E40A1EC4ACDF00B59D25 /* Activity.swift in Sources */,
+				52D5D60F1EF2A1F9009ACC3E /* ActivityWeekCollectionHighlightedCellHandler.swift in Sources */,
 				521C0C031EB0E75200D05F8F /* Comment.swift in Sources */,
 				521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */,
+				52D5D60D1EF29F63009ACC3E /* ActivityWeekCollectionCellHandler.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
 				52D5AF941E8D5ECD0007C448 /* SettingsHandler.swift in Sources */,
 				523391781E97931200A867D9 /* PrivateGroupRequestsAndMembersList.swift in Sources */,
@@ -908,6 +930,7 @@
 				52A1B96E1E941B98002D7DDB /* PrivateGroupCommentsCell.swift in Sources */,
 				523391701E9559F000A867D9 /* CreateGroupThreadHandler.swift in Sources */,
 				523391681E95480300A867D9 /* PrivateGroupWithThreadsControllerHandler.swift in Sources */,
+				52D5D6091EF295C3009ACC3E /* EditActivity.swift in Sources */,
 				52E6E3FC1EC21ED500B59D25 /* CreateActivityWeekController.swift in Sources */,
 				52A1B96C1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift in Sources */,
 				52E6E4181EC7143200B59D25 /* ActivityWeekForm7Handler.swift in Sources */,
@@ -961,6 +984,7 @@
 				52E6E3F31EC0BAD600B59D25 /* ActivityForm3.swift in Sources */,
 				52E6E3DC1EBB702B00B59D25 /* GroupCommentsCell.swift in Sources */,
 				52E6E40C1EC7126200B59D25 /* CreateActivityWeekControllerHandler.swift in Sources */,
+				52D5D60B1EF295D3009ACC3E /* EditActivityHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

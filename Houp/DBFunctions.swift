@@ -873,6 +873,25 @@ extension DBConnection{
         }
         return nil
     }
+    
+    func editActivity(activity: Activity) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                let doc = con.document(withID: activity.aid!)
+                try doc?.update({ (rev) -> Bool in
+                    rev["time"] = activity.timeString
+                    rev["activity"] = activity.activity
+                    rev["locationOfActivity"] = activity.locationOfActivity
+                    return true
+                })
+            }else {
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
 
 
 

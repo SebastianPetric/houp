@@ -14,7 +14,7 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
-        liveQueryActivity?.removeObserver(self, forKeyPath: "rows")
+//        liveQueryActivity?.removeObserver(self, forKeyPath: "rows")
     }
     
     
@@ -129,10 +129,11 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
         if(liveQuery == nil){
             getTopicComments(activityID: (self.activityObject?.aid)!)
         }
+        TempStorageAndCompare.shared.activityWithCommentsDelegate = self
         
-        if(liveQueryActivity == nil){
-            getTopicActivity(activityID: (self.activityObject?.aid)!)
-        }
+//        if(liveQueryActivity == nil){
+//            getTopicActivity(activityID: (self.activityObject?.aid)!)
+//        }
         
         commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
         let sendButton = writeCommentContainer.subviews[1] as! UIButton
