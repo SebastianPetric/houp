@@ -31,12 +31,13 @@ class DBConnection{
     var viewThreadByOriginalID: CBLView?
     var viewThreadByAuthorID: CBLView?
     var viewThreadByGroupID: CBLView?
+    var viewByInactiveActivityForGroup: CBLView?
     
     func setUpDBConnection(){
         do {
 //           try manager.databaseNamed("couchbaseevents").delete()
-//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-ZM_2m6VwsCm_8cmgzr3_pv"])
-            //0SyCz3
+//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-VrSytRMoDWIzmt28xUARkw"])
+            //cH7gNM
             self.DBCon = try manager.databaseNamed("couchbaseevents")
             
             if let dbCon = self.DBCon{
@@ -51,6 +52,7 @@ class DBConnection{
                 self.viewThreadByOriginalID = viewThreadByOriginalID(db: dbCon)
                 self.viewThreadByAuthorID = viewThreadByAuthorID(db: dbCon)
                 self.viewThreadByGroupID = viewThreadByGroupID(db: dbCon)
+                self.viewByInactiveActivityForGroup = viewByInactiveActivityForGroup(db: dbCon)
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
                 self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)

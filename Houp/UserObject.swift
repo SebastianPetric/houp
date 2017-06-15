@@ -16,10 +16,11 @@ class UserObject: NSObject, NSCoding {
     var prename: String?
     var name: String?
     var groupIDs: [String]?
+    var dailyFormIDs: [String]?
     var hasBeenUpdated = false
     
     
-    init(rev: String?, uid: String?,email: String?, userName: String?, prename: String? ,name: String?, groupIDs: [String]?) {
+    init(rev: String?, uid: String?,email: String?, userName: String?, prename: String? ,name: String?, groupIDs: [String]?, dailyFormIDs:[String]?) {
         
         if let revision = rev {
             self.rev = revision
@@ -42,10 +43,17 @@ class UserObject: NSObject, NSCoding {
         if let groups = groupIDs{
             self.groupIDs = groups
         }
+        if let groups = groupIDs{
+            self.groupIDs = groups
+        }
+        if let forms = dailyFormIDs{
+            self.dailyFormIDs = forms
+        }
+
     }
     
     convenience init(props: [String: Any]){
-        self.init(rev: props["_rev"] as? String, uid: props["_id"] as? String, email: props["email"] as? String, userName: props["username"] as? String, prename: props["prename"] as? String, name: props["name"] as? String, groupIDs: props["groupIDs"] as? [String])
+        self.init(rev: props["_rev"] as? String, uid: props["_id"] as? String, email: props["email"] as? String, userName: props["username"] as? String, prename: props["prename"] as? String, name: props["name"] as? String, groupIDs: props["groupIDs"] as? [String], dailyFormIDs: props["dailyFormIDs"] as? [String])
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -70,6 +78,9 @@ class UserObject: NSObject, NSCoding {
         if let groups = aDecoder.decodeObject(forKey: "groupIDs") as? [String]{
             self.groupIDs = groups
         }
+        if let forms = aDecoder.decodeObject(forKey: "dailyFormIDs") as? [String]{
+            self.dailyFormIDs = forms
+        }
     }
     
     func encode(with aCoder: NSCoder) {
@@ -93,6 +104,9 @@ class UserObject: NSObject, NSCoding {
         }
         if let groups = self.groupIDs {
             aCoder.encode(groups, forKey: "groupIDs")
+        }
+        if let forms = self.dailyFormIDs {
+            aCoder.encode(forms, forKey: "dailyFormIDs")
         }
     }
 }

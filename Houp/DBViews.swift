@@ -148,6 +148,22 @@ extension DBConnection{
         }
         return viewByInactiveActivityForUser
     }
+    
+    func viewByInactiveActivityForGroup(db: CBLDatabase) -> CBLView{
+        let viewByInactiveActivityForGroup = db.viewNamed("viewByInactiveActivityForGroup")
+        if (viewByInactiveActivityForGroup.mapBlock == nil) {
+            let mapBlock: CBLMapBlock = { (doc,emit) in
+                if let type = doc["type"] as? String, let isInProcess = doc["isInProcess"] as? Bool{
+                    if (type == "DailyActivity" && isInProcess == false) {
+                        emit(doc["groupID"], nil)
+                    }
+                }
+            }
+            viewByInactiveActivityForGroup.setMapBlock(mapBlock, version: "1")
+        }
+        return viewByInactiveActivityForGroup
+    }
+
 
     
     func viewCommentByThreadID(db: CBLDatabase) -> CBLView{

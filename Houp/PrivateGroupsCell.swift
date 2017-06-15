@@ -65,7 +65,7 @@ class PrivateGroupsCell: UICollectionViewCell{
 //        }
 //    }
 
-    
+    var privateGroupCollectionDelegate: PrivateGroupCollectionViewController?
     var privateGroup: PrivateGroup?{
         didSet{
             if let name = privateGroup?.nameOfGroup{
@@ -137,6 +137,7 @@ class PrivateGroupsCell: UICollectionViewCell{
         addSubview(threadsImage)
         addSubview(usersInGroupLabel)
         addSubview(usersInGroupButton)
+        usersInGroupButton.addTarget(self, action: #selector(handleUsersInGroup), for: .touchUpInside)
         addSubview(notificationImage)
         addSubview(seperatorText)
         setUpSubViews()

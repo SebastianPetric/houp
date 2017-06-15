@@ -12,17 +12,25 @@ class TempStorageAndCompare: NSObject{
 
     static var shared: TempStorageAndCompare = TempStorageAndCompare()
     let userDefaults = UserDefaults.standard
+    var timerObject: TimerObject?
     var privateGroupCollectionDelegate: PrivateGroupCollectionViewController?
     var privateGroupsWithThreadsDelegate: PrivateGroupWithThreadsController?
     var publicGroupsWithThreadsControllerDelegate: PublicGroupThreadsController?
     var publicGroupThreadWithCommentsDelegate: PublicGroupThreadWithComments?
+    var activityWithCommentsDelegate: ActivitiesCommentsController?
+    var activityWeekCollectionDelegate: ActivityWeekCollection?
+    var activityCommentsDelegate: ActivitiesCommentsController?
+    var activitiesInPrivateGroupDelegate: ShowActivitiesInPrivateGroupController?
     var liveQueryUser: CBLLiveQuery?
     var liveQueryGroups: CBLLiveQuery?
     var liveQueryThreadsOfUser: CBLLiveQuery?
     var liveQueryPublicThreads: CBLLiveQuery?
     var liveQueryPrivateThreads: CBLLiveQuery?
+    var liveQueryActiveActivities: CBLLiveQuery?
+    var liveQueryInactiveActivities: CBLLiveQuery?
     
     var tempGroupList: [String] = [String]()
+    var tempActivityIDList: [String] = [String]()
     var userID: String?
     
     func initialiseNotificationQueries(userID: String){
@@ -30,18 +38,23 @@ class TempStorageAndCompare: NSObject{
         getTopicUser(userID: userID)
         getTopicThreads(authorID: userID)
         getTopicThreadsOfPublicGroup()
+        //getTopicActiveActivitiesOfUser()
         }
     
     func deinitialiseNotificationQueries(){
         self.liveQueryThreadsOfUser?.removeObserver(self, forKeyPath: "rows")
         self.liveQueryUser?.removeObserver(self, forKeyPath: "rows")
         self.liveQueryPublicThreads?.removeObserver(self, forKeyPath: "rows")
-        
+//        self.liveQueryActiveActivities?.removeObserver(self, forKeyPath: "rows")
+//        self.liveQueryActiveActivities = nil
         if(self.liveQueryPrivateThreads != nil){
             self.liveQueryPrivateThreads?.removeObserver(self, forKeyPath: "rows")
             self.liveQueryPrivateThreads = nil
         }
-        
+        if(self.liveQueryInactiveActivities != nil){
+            self.liveQueryInactiveActivities?.removeObserver(self, forKeyPath: "rows")
+            self.liveQueryInactiveActivities = nil
+        }
         self.liveQueryPublicThreads = nil
         self.liveQueryThreadsOfUser = nil
         self.liveQueryUser = nil
@@ -74,7 +87,41 @@ class TempStorageAndCompare: NSObject{
             self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
             self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
         }
-        
+        if(liveQueryInactiveActivities != nil){
+            self.liveQueryInactiveActivities?.removeObserver(self, forKeyPath: "rows")
+        }
+        if(groupIDs.count != 0){
+            getTopicInactiveActivitiesOfGroups(groupIDs: groupIDs)
+        }else{
+            liveQueryInactiveActivities = nil
+            self.activitiesInPrivateGroupDelegate?.activityCollectionView.reloadData()
+//            self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
+//            self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
+        }
+    }
+    
+    func getTopicActiveActivitiesOfUser(){
+        if let view = DBConnection.shared.viewByActiveActivityForUser{
+            let query = view.createQuery()
+            query.keys = [getUserID()]
+            liveQueryActiveActivities = query.asLive()
+            liveQueryActiveActivities?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+            liveQueryActiveActivities?.start()
+        }
+    }
+    
+    func getTopicInactiveActivitiesOfGroups(groupIDs: [String]){
+        if let view = DBConnection.shared.viewByInactiveActivityForGroup{
+            let query = view.createQuery()
+            query.keys = groupIDs
+            liveQueryInactiveActivities = query.asLive()
+            liveQueryInactiveActivities?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+            liveQueryInactiveActivities?.start()
+        }
+    }
+    
+    func getUserID() -> String{
+    return self.userDefaults.string(forKey: GetString.userID.rawValue)!
     }
     
     func getPrivateGroupsTopicThreads(groupIDs: [String]){
@@ -130,7 +177,6 @@ class TempStorageAndCompare: NSObject{
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         do{
             if (object as! NSObject == self.liveQueryThreadsOfUser){
-                print("liveQueryThreadsOfUser")
                 if let rows = liveQueryThreadsOfUser!.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -156,7 +202,6 @@ class TempStorageAndCompare: NSObject{
                     self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
                 }
             }else if (object as! NSObject == self.liveQueryGroups){
-                print("liveQueryGroups")
                 var privateGroup: PrivateGroup?
                 if let rows = liveQueryGroups?.rows {
                     while let row = rows.nextRow() {
@@ -170,7 +215,6 @@ class TempStorageAndCompare: NSObject{
                     self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
                 }
             }else if(object as! NSObject == self.liveQueryUser){
-                print("liveQueryUser")
                 if let rows = liveQueryUser?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -180,8 +224,6 @@ class TempStorageAndCompare: NSObject{
                                 groupIDs = IDs
                             }
                             let user = UserObject(props: props)
-                            user.uid = row.documentID
-                            user.rev = row.documentRevisionID
                             self.tempGroupList = groupIDs
                             compareAndSaveUsers(user: user)
                             //self.groupCollectionDelegate?.privateGroupsCollection.reloadData()
@@ -191,7 +233,6 @@ class TempStorageAndCompare: NSObject{
                     }
                 }
             }else if(object as! NSObject == self.liveQueryPublicThreads){
-                print("liveQueryPublicThreads")
                 if let rows = liveQueryPublicThreads?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -214,7 +255,6 @@ class TempStorageAndCompare: NSObject{
                     self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
                 }
             }else if(object as! NSObject == self.liveQueryPrivateThreads){
-                 print("liveQueryPrivateThreads")
                 if let rows = liveQueryPrivateThreads?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -237,7 +277,28 @@ class TempStorageAndCompare: NSObject{
                     self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
                     self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
                 }
-
+            }else if (object as! NSObject == self.liveQueryActiveActivities){
+                print("liveQueryActiveActivities")
+                if let rows = liveQueryActiveActivities?.rows {
+                    while let row = rows.nextRow() {
+                        if let props = row.document!.properties {
+                           let activity = Activity(props: props)
+                            compareAndSaveActivities(activity: activity)
+                        }
+                    }
+                    self.activityWeekCollectionDelegate?.activityCollectionView.reloadData()
+                }
+            }
+            else if (object as! NSObject == self.liveQueryInactiveActivities){
+                if let rows = liveQueryInactiveActivities?.rows {
+                    while let row = rows.nextRow() {
+                        if let props = row.document!.properties {
+                            let activity = Activity(props: props)
+                            compareAndSaveActivities(activity: activity)
+                        }
+                    }
+                    self.activitiesInPrivateGroupDelegate?.activityCollectionView.reloadData()
+                }
             }
         }catch{
             print("Fehler")
@@ -258,9 +319,6 @@ class TempStorageAndCompare: NSObject{
                 group.hasBeenUpdated = true
                 oldList[index] = group
                 let temp = sortGroups(groups: oldList)
-                for (index,item) in temp.enumerated(){
-                print("\(index) : \(item.nameOfGroup)")
-                }
                 saveGroupList(groupList: sortGroups(groups: oldList))
             }
         }else{
@@ -272,6 +330,78 @@ class TempStorageAndCompare: NSObject{
             saveGroupList(groupList: [group])
         }
     }
+    
+    func compareAndSaveActivities(activity: Activity){
+        if (getAllActivities().count != 0) {
+            var oldList: [Activity] = getAllActivities()
+            if let index = oldList.index(where: { (item) -> Bool in
+                item.aid == activity.aid
+            }){
+                // check if revision changed, if yes then hasbeenupdated = true
+                if(oldList[index].rev != activity.rev){
+                    activity.hasBeenUpdated = true
+                    oldList[index] = activity
+                    saveActivityList(activityList: oldList)
+                }
+            }else{
+                activity.hasBeenUpdated = true
+                oldList.append(activity)
+                saveActivityList(activityList: oldList)
+            }
+        }else{
+            saveActivityList(activityList: [activity])
+        }
+    }
+    
+    func saveActivityList(activityList: [Activity]){
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: sortActivities(activities: activityList))
+        self.userDefaults.set(encodedData, forKey: "activitiesOfUser\(self.userID!)")
+        self.userDefaults.synchronize()
+    }
+
+    
+    func getAllActivities() -> [Activity]{
+        var oldActivitiesList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(self.userID!)") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+        }
+        return oldActivitiesList
+    }
+    
+    func getActiveActivitiesOfUser() -> [Activity]{
+        var oldActivitiesList: [Activity] = [Activity]()
+        var newList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(self.userID!)") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+            for activity in oldActivitiesList{
+                if(activity.isInProcess){
+                    newList.append(activity)
+                }
+            }
+            newList = sortActivities(activities: newList)
+        }
+        return newList
+    }
+    
+    func getActivitiesOfGroup(groupID: String) -> [Activity]{
+        var oldActivitiesList: [Activity] = [Activity]()
+        var newList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(self.userID!)") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+            for activity in oldActivitiesList{
+                if(!activity.isInProcess){
+                    if let activityGroupID = activity.groupID{
+                        if(activityGroupID == groupID){
+                         newList.append(activity)
+                        }
+                    }
+                }
+            }
+            newList = sortActivities(activities: newList)
+        }
+        return newList
+    }
+
     
 //    func compareAndSavePublicThreads(thread: Thread){
 //        if (getAllPublicGroupThreads().count != 0) {
@@ -489,7 +619,6 @@ class TempStorageAndCompare: NSObject{
     
     func checkTopicGroupsOfUser(oldGroups: UserObject, newGroups: UserObject, tempList: [UserObject], index: Int){
         var tempUserList: [UserObject] = [UserObject]()
-        
         for groupID in oldGroups.groupIDs! {
             if(!(newGroups.groupIDs?.contains(groupID))!) {
                 deleteGroup(groupID: groupID)
@@ -502,8 +631,15 @@ class TempStorageAndCompare: NSObject{
             }
         }
         
+//        for activityID in newGroups.dailyFormIDs! {
+//            if(!(oldGroups.dailyFormIDs?.contains(activityID))!) {
+//                self.tempActivityIDList = newGroups.dailyFormIDs!
+//            }
+//        }
+        
         tempUserList = tempList
         tempUserList[index] = newGroups
+        
         saveUser(users: tempUserList)
         
         groupsChangedOnDB(groupIDs: self.tempGroupList)
@@ -520,11 +656,8 @@ class TempStorageAndCompare: NSObject{
                     //checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
 
                 if(oldList[index].rev != user.rev){
-                    print("rev hat sich geändert")
                     checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
                 }else{
-                    print("rev hat sich nicht geändert")
-                    print(user.groupIDs)
                     groupsChangedOnDB(groupIDs: user.groupIDs!)
                 }
             }else{
@@ -592,7 +725,26 @@ class TempStorageAndCompare: NSObject{
         saveGroupList(groupList: oldPrivateGroupsList)
     }
     
+    func sortActivities(activities: [Activity]) -> [Activity]{
+        var oldActivitiesList: [Activity] = activities
+        if(oldActivitiesList.count > 1){
+            oldActivitiesList.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+            )
+        }
+        return oldActivitiesList
+    }
     
+    func sortActivitiesForWeek(activities: [Activity]) -> [Activity]{
+        var oldActivitiesList: [Activity] = activities
+        if(oldActivitiesList.count > 1){
+            oldActivitiesList.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedAscending }
+            )
+        }
+        return oldActivitiesList
+    }
+
     func sortGroups(groups: [PrivateGroup]) -> [PrivateGroup]{
         var oldGroupsList: [PrivateGroup] = groups
         oldGroupsList.sort(by:
@@ -675,6 +827,7 @@ class TempStorageAndCompare: NSObject{
             self.userDefaults.removeObject(forKey:"privateGroupsSync\(item)")
             self.userDefaults.removeObject(forKey: "userObjectsSync\(item)")
             self.userDefaults.removeObject(forKey: "publicGroupThreads\(item)")
+            self.userDefaults.removeObject(forKey: "activitiesOfUser\(item)")
         }
     }
     func deleteEverythingWithoutUserID(){

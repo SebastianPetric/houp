@@ -106,7 +106,7 @@ class Comment: NSObject, NSCoding{
         if let likes = aDecoder.decodeObject(forKey: "likeIDs") as? [String]{
             self.likeIDs = likes
         }
-        if let update = aDecoder.decodeObject(forKey: "hasBeenUpdated") as? Bool{
+        if let update = aDecoder.decodeBool(forKey: "hasBeenUpdated") as? Bool{
             self.hasBeenUpdated = update
         }
         if let dateStr = aDecoder.decodeObject(forKey: "dateString") as? String{

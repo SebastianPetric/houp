@@ -133,6 +133,7 @@ extension PrivateGroupCollectionViewController{
             
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
 //        if(liveQuery != nil){

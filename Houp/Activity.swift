@@ -12,7 +12,7 @@ class Activity: NSObject, NSCoding{
     var activity: String?
     var activityText: String?
     var locationOfActivity: String?
-    var isInProcess: Bool?
+    var isInProcess: Bool = true
     var status: Int?
     var wellBeingState: Int?
     var wellBeingText: String?
@@ -128,7 +128,7 @@ class Activity: NSObject, NSCoding{
         if let loc = aDecoder.decodeObject(forKey: "locationOfActivity") as? String{
             self.locationOfActivity = loc
         }
-        if let inProcess = aDecoder.decodeObject(forKey: "isInProcess") as? Bool{
+        if let inProcess = aDecoder.decodeBool(forKey: "isInProcess") as? Bool{
             self.isInProcess = inProcess
         }
         if let stat = aDecoder.decodeObject(forKey: "status") as? Int{
@@ -152,7 +152,7 @@ class Activity: NSObject, NSCoding{
         if let likes = aDecoder.decodeObject(forKey: "likeIDs") as? [String]{
             self.likeIDs = likes
         }
-        if let update = aDecoder.decodeObject(forKey: "hasBeenUpdated") as? Bool{
+        if let update = aDecoder.decodeBool(forKey: "hasBeenUpdated") as? Bool{
             self.hasBeenUpdated = update
         }
         if let dateStr = aDecoder.decodeObject(forKey: "dateString") as? String{
@@ -161,10 +161,10 @@ class Activity: NSObject, NSCoding{
         if let timeStr = aDecoder.decodeObject(forKey: "timeString") as? String{
             self.timeString = timeStr
         }
-        if let tim = aDecoder.decodeObject(forKey: "timeOfActivity") as? Date{
+        if let tim = aDecoder.decodeObject(forKey: "timeObject") as? Date{
             self.timeObject = tim
         }
-        if let dateO = aDecoder.decodeObject(forKey: "dateOfActivity") as? Date{
+        if let dateO = aDecoder.decodeObject(forKey: "dateObject") as? Date{
             self.dateObject = dateO
         }
     }
@@ -190,9 +190,6 @@ class Activity: NSObject, NSCoding{
         }
         if let loc = self.locationOfActivity {
             aCoder.encode(loc, forKey: "locationOfActivity")
-        }
-        if let inProcess = self.isInProcess {
-            aCoder.encode(inProcess, forKey: "isInProcess")
         }
         if let actText = self.activityText {
             aCoder.encode(actText, forKey: "activityText")
@@ -221,7 +218,8 @@ class Activity: NSObject, NSCoding{
         if let likes = self.likeIDs {
             aCoder.encode(likes, forKey: "likeIDs")
         }
-        aCoder.encode(hasBeenUpdated, forKey: "hasBeenUpdated")
+        aCoder.encode(self.hasBeenUpdated, forKey: "hasBeenUpdated")
+        aCoder.encode(self.isInProcess, forKey: "isInProcess")
         
         if let dateStr = self.dateString {
             aCoder.encode(dateStr, forKey: "dateString")
@@ -280,6 +278,7 @@ class Activity: NSObject, NSCoding{
         properties["type"] = "DailyActivity"
         properties["commentIDs"] = [String]()
         properties["likeIDs"] = [String]()
+        properties["isInProcess"] = self.isInProcess
         
         if let addictionTe = self.addictionText {
             properties["addictionText"] = addictionTe
@@ -301,9 +300,6 @@ class Activity: NSObject, NSCoding{
             properties["wellBeingState"] = wellBeingSta
         }
         
-        if let inProcess = self.isInProcess {
-            properties["isInProcess"] = inProcess
-        }
         if let group = self.groupID {
             properties["groupID"] = group
         }

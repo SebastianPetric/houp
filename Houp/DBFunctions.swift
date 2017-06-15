@@ -782,7 +782,7 @@ extension DBConnection{
                 userName = row.document?["username"] as? String
                 groupIDs = (row.document?["groupIDs"] as? [String])!
             }
-        
+            print("Share mit folgenden Gruppen: \(groupIDs)")
             if(groupIDs.count > 0){
             let queryForActivity = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
             queryForActivity?.allDocsMode = CBLAllDocsMode.allDocs
@@ -792,7 +792,7 @@ extension DBConnection{
                 if let props = row.document!.properties {
                     for groupID in groupIDs{
                         let activity = Activity(props: props)
-                        
+                        activity.groupID = groupID
                         //let activity = Activity(rev: row.documentRevisionID, aid: row.documentID, authorID: row.document?["authorID"] as? String, authorUsername: userName, groupID: groupID, activity: row.document?["activity"] as? String, activityText: row.document?["activityText"] as? String, locationOfActivity: row.document?["locationOfActivity"] as? String, isInProcess: row.document?["isInProcess"] as? Bool, status: row.document?["status"] as? Int, wellBeingState: row.document?["wellBeingState"] as? Int, wellBeingText: row.document?["wellBeingText"] as? String, addictionState: row.document?["addictionState"] as? Int, addictionText: row.document?["addictionText"] as? String, dateObject: nil, timeObject: nil,dateString: row.document?["date"] as? String, timeString: row.document?["time"] as! String, commentIDs: row.document?["commentIDs"] as? [String], likeIDs: row.document?["likeIDs"] as? [String])
                         let docUpdate = con.createDocument()
                         try docUpdate.putProperties(activity.getUpdatedPropertyPackageActivity())
@@ -862,7 +862,7 @@ extension DBConnection{
                     rev["wellBeingText"] = properties.wellBeingText!
                     rev["addictionState"] = properties.addictionState!
                     rev["addictionText"] = properties.addictionText!
-                    rev["isInProcess"] = properties.isInProcess!
+                    rev["isInProcess"] = properties.isInProcess
                     return true
                 })
             }else {

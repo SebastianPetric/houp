@@ -63,6 +63,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
             
             TempStorageAndCompare.shared.privateGroupCollectionDelegate = self
             TempStorageAndCompare.shared.initialiseNotificationQueries(userID: userID)
+            
         }
         
         if(self.activityList.count > 0){
@@ -70,7 +71,12 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
             TimerObject.shared.activityCollection = self.activityCollection
             TimerObject.shared.invalidateTimer()
             //TimerObject.shared.invalidateDelayTimer()
+            print(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!))
+            print("Jetzt ist \(Date())")
+            print(Date().checkIfActivityAlreadyOver(date: Date()) <= Date())
+            //if(true){
             if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
+            //if(Date().checkIfActivityAlreadyOver(date: Date()) <= Date()){
                 TimerObject.shared.setUpTimerImmediately()
             }else{
                 TimerObject.shared.setUpTimer(date: self.activityList[0].dateObject!)

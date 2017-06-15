@@ -14,10 +14,10 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     var liveQueryGroupDetails: CBLLiveQuery?
     var groupCollectionView: UICollectionView?
     
-    deinit {
-        liveQuery?.removeObserver(self, forKeyPath: "rows")
-        liveQueryGroupDetails?.removeObserver(self, forKeyPath: "rows")
-    }
+//    deinit {
+//        liveQuery?.removeObserver(self, forKeyPath: "rows")
+//        liveQueryGroupDetails?.removeObserver(self, forKeyPath: "rows")
+//    }
     
     var privateGroup: PrivateGroup?{
         didSet{
