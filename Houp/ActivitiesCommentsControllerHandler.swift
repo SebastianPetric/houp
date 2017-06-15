@@ -75,7 +75,6 @@ extension ActivitiesCommentsController{
     
         do{
         if object as! NSObject == self.liveQueryActivity{
-
                 if let rows = liveQueryActivity?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -97,7 +96,6 @@ extension ActivitiesCommentsController{
             }
         }else if(object as! NSObject == self.liveQuery){
             if keyPath == "rows" {
-               
                     if let rows = liveQuery!.rows {
                         comments.removeAll()
                         while let row = rows.nextRow() {

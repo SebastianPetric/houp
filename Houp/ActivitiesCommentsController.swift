@@ -45,14 +45,15 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
                     tdate.text = dateO.getDatePart()
                 }
             }
-            
             if let likeIDs = activityObject?.likeIDs{
                 if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+                    if let button = (self.infoContainer.subviews[7] as? UIButton){
                         if(likeIDs.contains(userID)){
-                            self.upvoteButtonInfo?.tintColor = UIColor().getSecondColor()
+                            button.tintColor = UIColor().getSecondColor()
                         }else{
-                            self.upvoteButtonInfo?.tintColor = .black
+                            button.tintColor = .black
                         }
+                    }
                 }
             }
             if let likes = activityObject?.likeIDs?.count{
@@ -157,6 +158,17 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
         let heightMessage = estimateMessageHeight.height + 89
         self.infoHeight += heightMessage + 45
         setUpSubViews()
+    }
+    
+    
+    func handleIfUserAlreadyLikedThis(){
+        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+            if((self.activityObject?.likeIDs?.contains(userID))!){
+                self.upvoteButtonInfo?.tintColor = UIColor().getSecondColor()
+            }else{
+                self.upvoteButtonInfo?.tintColor = .black
+            }
+        }
     }
     
     func setUpSubViews(){

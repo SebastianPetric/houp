@@ -32,11 +32,11 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
-            if(liveQuery == nil){
-                getTopicActivities(userID: userID)
-            }
-        }
+//        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+//            if(liveQuery == nil){
+//                getTopicActivities(userID: userID)
+//            }
+//        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(foreground), name: .UIApplicationWillEnterForeground, object: nil)
         
@@ -65,26 +65,31 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
         if(indexPath.row == 0){
         let cellHighlighted = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellHighlightedID, for: indexPath) as! ActivityWeekHighlightedCell
             cellHighlighted.activityWeekCollectionDelegate = self
-            cellHighlighted.activityObject = self.activityList[indexPath.row]
+            cellHighlighted.activityObject = TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek()[indexPath.row]
+            //cellHighlighted.activityObject = self.activityList[indexPath.row]
         return cellHighlighted
         }else{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellID, for: indexPath) as! ActivityWeekCollectionCell
             cell.activityWeekCollectionDelegate = self
-            cell.activityObject = self.activityList[indexPath.row]
+            cell.activityObject = TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek()[indexPath.row]
+            //cell.activityObject = self.activityList[indexPath.row]
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.activityList.count
+        return TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek().count
+        //return self.activityList.count
     }
     
     func foreground(){
-        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
-            if(liveQuery == nil){
-                getTopicActivities(userID: userID)
-            }
-        }
+//        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+//            if(liveQuery == nil){
+//                getTopicActivities(userID: userID)
+//            }
+//        }
+        
+        self.activityCollectionView.reloadData()
         updateController()
     }
     
@@ -93,16 +98,19 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
-        if(liveQuery == nil){
-            getTopicActivities(userID: userID)
-        }
-        }
+//        if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+//        if(liveQuery == nil){
+//            getTopicActivities(userID: userID)
+//        }
+//        }
+        
+        self.activityCollectionView.reloadData()
         updateController()
     }
     
     func updateController(){
-        if(self.activityList.count == 0){
+        
+        if(TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek().count == 0){
             if (!TimerObject.shared.tryLaterAgain){
                 TimerObject.shared.invalidateDelayTimer()
                 handleActivityForm()
@@ -110,8 +118,7 @@ class ActivityWeekCollection: UIViewController, UICollectionViewDelegateFlowLayo
                 TimerObject.shared.setUpTimerToDelayForms()
             }
             //wenn die aktivität heute stattfindet
-        }else if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
-            print("hier komm ich rein")
+        }else if(Date().checkIfActivityAlreadyOver(date: TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek()[0].dateObject!) <= Date()){
             //Wenn es nach 20 Uhr ist
             if (!TimerObject.shared.tryLaterAgain){
                 TimerObject.shared.invalidateDelayTimer()

@@ -15,6 +15,5 @@ extension ActivityWeekHighlightedCell{
         controller.activity = self.activityObject
         let editController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: controller,navBarTitle: (self.activityObject?.dateObject?.getDatePartWithDay())!, barItemTitle: nil, image: nil)
         self.activityWeekCollectionDelegate?.present(editController, animated: true, completion: nil )
-
     }
 }

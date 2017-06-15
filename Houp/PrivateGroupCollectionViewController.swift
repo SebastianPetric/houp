@@ -47,7 +47,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
             //(UIApplication.shared.delegate as! AppDelegate).getThreadByAuthor(authorID: userID)
             
-            self.activityList = DBConnection.shared.getPersonalActivities(userID: userID)
+            //self.activityList = DBConnection.shared.getPersonalActivities(userID: userID)
             
 //            if(liveQuery == nil){
 //                getTopicGroups(userID: userID)
@@ -63,6 +63,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
             
             TempStorageAndCompare.shared.privateGroupCollectionDelegate = self
             TempStorageAndCompare.shared.initialiseNotificationQueries(userID: userID)
+            self.activityList = TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek()
             
         }
         

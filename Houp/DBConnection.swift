@@ -36,7 +36,7 @@ class DBConnection{
     func setUpDBConnection(){
         do {
 //           try manager.databaseNamed("couchbaseevents").delete()
-//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-VrSytRMoDWIzmt28xUARkw"])
+//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-LtFxm_LD-jcVRbahq2327n","-msIknyRFO3GBdqdyZd3mCc"])
             //cH7gNM
             self.DBCon = try manager.databaseNamed("couchbaseevents")
             

@@ -38,15 +38,15 @@ class TempStorageAndCompare: NSObject{
         getTopicUser(userID: userID)
         getTopicThreads(authorID: userID)
         getTopicThreadsOfPublicGroup()
-        //getTopicActiveActivitiesOfUser()
+        getTopicActiveActivitiesOfUser()
         }
     
     func deinitialiseNotificationQueries(){
         self.liveQueryThreadsOfUser?.removeObserver(self, forKeyPath: "rows")
         self.liveQueryUser?.removeObserver(self, forKeyPath: "rows")
         self.liveQueryPublicThreads?.removeObserver(self, forKeyPath: "rows")
-//        self.liveQueryActiveActivities?.removeObserver(self, forKeyPath: "rows")
-//        self.liveQueryActiveActivities = nil
+        self.liveQueryActiveActivities?.removeObserver(self, forKeyPath: "rows")
+        self.liveQueryActiveActivities = nil
         if(self.liveQueryPrivateThreads != nil){
             self.liveQueryPrivateThreads?.removeObserver(self, forKeyPath: "rows")
             self.liveQueryPrivateThreads = nil
@@ -279,13 +279,23 @@ class TempStorageAndCompare: NSObject{
                 }
             }else if (object as! NSObject == self.liveQueryActiveActivities){
                 print("liveQueryActiveActivities")
+                print(liveQueryActiveActivities?.rows?.count)
+                var tempActivityIDs: [Activity] = [Activity]()
+                if(liveQueryActiveActivities?.rows?.count != 0){
+                    print("wurden keine aktuellen aktivitäten mehr gefunden")
                 if let rows = liveQueryActiveActivities?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
                            let activity = Activity(props: props)
-                            compareAndSaveActivities(activity: activity)
+                            tempActivityIDs.append(activity)
                         }
                     }
+                    compareAndSaveActivitiesOfCurrentWeek(currentActivities: tempActivityIDs)
+                    self.activityWeekCollectionDelegate?.activityCollectionView.reloadData()
+                    }
+                }else{
+                    print("Aktivitäten müssen gelöscht werden")
+                    deleteAllActivitiesForCurrentWeek()
                     self.activityWeekCollectionDelegate?.activityCollectionView.reloadData()
                 }
             }
@@ -368,11 +378,53 @@ class TempStorageAndCompare: NSObject{
         }
     }
     
+    func compareAndSaveActivitiesOfCurrentWeek(currentActivities: [Activity]){
+        if (getActiveActivitiesOfCurrentWeek().count != 0) {
+            var oldList: [Activity] = getActiveActivitiesOfCurrentWeek()
+            
+            for item in oldList{
+                if(!currentActivities.contains(item)){
+                deleteActivityOfCurrentWeek(activity: item)
+                oldList = getActiveActivitiesOfCurrentWeek()
+                }
+            }
+            
+            for activity in currentActivities{
+                if let index = oldList.index(where: { (item) -> Bool in
+                    item.aid == activity.aid
+                }){
+                    // check if revision changed, if yes then hasbeenupdated = true
+                    if(oldList[index].rev != activity.rev){
+                        if(oldList[index].timeObject != activity.timeObject){
+                            print("Notifications müssen angepasst werden, und die Kalender App muss aktualisiert werden")
+                        }
+                        activity.hasBeenUpdated = true
+                        oldList[index] = activity
+                        saveActivityListCurrentWeek(activityList: oldList)
+                        
+                    }else{
+                        print("rev hat sich nicht geändert")
+                    }
+                }else{
+                    print("activity dazugekommen")
+                    activity.hasBeenUpdated = true
+                    oldList.append(activity)
+                    saveActivityListCurrentWeek(activityList: oldList)
+                }
+            }
+        }else{
+            print("muss erst gespeichert werden")
+            saveActivityListCurrentWeek(activityList: currentActivities)
+        }
+    }
+    
     func saveActivityList(activityList: [Activity]){
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: sortActivities(activities: activityList))
         self.userDefaults.set(encodedData, forKey: "activitiesOfUser\(self.userID!)")
         self.userDefaults.synchronize()
     }
+    
+    
 
     
     func getAllActivities() -> [Activity]{
@@ -383,20 +435,53 @@ class TempStorageAndCompare: NSObject{
         return oldActivitiesList
     }
     
-    func getActiveActivitiesOfUser() -> [Activity]{
+    func saveActivityListCurrentWeek(activityList: [Activity]){
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: sortActivitiesForWeek(activities: activityList))
+        self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(self.userID!)")
+        self.userDefaults.synchronize()
+    }
+    
+    func getActiveActivitiesOfCurrentWeek() -> [Activity]{
         var oldActivitiesList: [Activity] = [Activity]()
         var newList: [Activity] = [Activity]()
-        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(self.userID!)") as? Data{
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(self.userID!)") as? Data{
             oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
-            for activity in oldActivitiesList{
-                if(activity.isInProcess){
-                    newList.append(activity)
-                }
-            }
-            newList = sortActivities(activities: newList)
+            newList = oldActivitiesList
         }
         return newList
     }
+    
+    func deleteAllActivitiesForCurrentWeek(){
+        var oldActivitiesList: [Activity] = [Activity]()
+        let newList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(self.userID!)") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+            if(oldActivitiesList.count != 0){
+                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newList)
+                self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(self.userID!)")
+                self.userDefaults.synchronize()
+            }
+        }
+    }
+    
+    func deleteActivityOfCurrentWeek(activity: Activity){
+        print("Aktivität muss gelöscht werden")
+        var oldActivitiesList: [Activity] = [Activity]()
+        var newList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(self.userID!)") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+            if let index = oldActivitiesList.index(where: { (item) -> Bool in
+                item.aid == activity.aid
+            }){
+                oldActivitiesList.remove(at: index)
+                newList = sortActivitiesForWeek(activities: oldActivitiesList)
+            }
+        }
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newList)
+        self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(self.userID!)")
+        self.userDefaults.synchronize()
+    }
+
     
     func getActivitiesOfGroup(groupID: String) -> [Activity]{
         var oldActivitiesList: [Activity] = [Activity]()
@@ -843,6 +928,7 @@ class TempStorageAndCompare: NSObject{
             self.userDefaults.removeObject(forKey: "userObjectsSync\(item)")
             self.userDefaults.removeObject(forKey: "publicGroupThreads\(item)")
             self.userDefaults.removeObject(forKey: "activitiesOfUser\(item)")
+            self.userDefaults.removeObject(forKey: "activitiesOfCurrentWeek\(item)")
         }
     }
     func deleteEverythingWithoutUserID(){
