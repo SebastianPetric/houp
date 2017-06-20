@@ -31,7 +31,7 @@ extension EditActivity{
 //                TimerObject.shared.setUpTimer(date: getEditedActivity().dateObject!)
 //                TimerObject.shared.tryLaterAgain = false
                 if let window = UIApplication.shared.keyWindow{
-                    self.positiveResponse = CustomViews.shared.getPositiveResponse(title: "Super!", message: "Du hast die Aktivität erfolgreich bearbeitet!")
+                    self.positiveResponse = CustomViews.shared.getPositiveResponse(title: GetString.errorSuper.rawValue, message: "Du hast die Aktivität erfolgreich bearbeitet!")
                     self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
                     self.positiveResponse.frame = window.frame
                     window.addSubview(positiveResponse)

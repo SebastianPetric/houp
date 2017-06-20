@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource{
+class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UNUserNotificationCenterDelegate{
     
     var liveQuery: CBLLiveQuery?
     var liveQueryThreads: CBLLiveQuery?
@@ -60,7 +60,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
 //                }
 //                getTopicThreads(groupID: tempList)
 //            }
-            
+            UNUserNotificationCenter.current().delegate = self
             TempStorageAndCompare.shared.privateGroupCollectionDelegate = self
             TempStorageAndCompare.shared.initialiseNotificationQueries(userID: userID)
             self.activityList = TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek()
@@ -72,12 +72,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
             TimerObject.shared.activityCollection = self.activityCollection
             TimerObject.shared.invalidateTimer()
             //TimerObject.shared.invalidateDelayTimer()
-            print(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!))
-            print("Jetzt ist \(Date())")
-            print(Date().checkIfActivityAlreadyOver(date: Date()) <= Date())
-            //if(true){
             if(Date().checkIfActivityAlreadyOver(date: self.activityList[0].dateObject!) <= Date()){
-            //if(Date().checkIfActivityAlreadyOver(date: Date()) <= Date()){
                 TimerObject.shared.setUpTimerImmediately()
             }else{
                 TimerObject.shared.setUpTimer(date: self.activityList[0].dateObject!)
@@ -123,10 +118,9 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         }else{
         TempStorageAndCompare.shared.saveSingleGroup(group: tempGroup, hasBeenUpdated: true)
         }
+        cell.privateGroupCollectionDelegate = self
         cell.privateGroup = tempGroup
         //----
-        
-        
 //        if privateGroupsList.count != 0{
 //            cell.privateGroup = privateGroupsList[indexPath.row]
 //        }
@@ -143,5 +137,10 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         
         //controller.privateGroup = privateGroupsList[indexPath.row]
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Test Foreground: \(notification.request.identifier)")
+        completionHandler([.alert, .sound])
     }
 }

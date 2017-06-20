@@ -29,6 +29,7 @@ class CalendarObject{
                 
                 event.title = activity
                 event.startDate = dateOfActivity
+                
                 if let location = locationOfActivity{
                     event.location = location
                 }
@@ -50,4 +51,10 @@ class CalendarObject{
             }
         }
     }
+    
+    func editExistingActivityInCalendar(activity: Activity){
+    
+    }
+    
+    
 }

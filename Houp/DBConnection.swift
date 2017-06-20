@@ -36,8 +36,8 @@ class DBConnection{
     func setUpDBConnection(){
         do {
 //           try manager.databaseNamed("couchbaseevents").delete()
-//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-LtFxm_LD-jcVRbahq2327n","-msIknyRFO3GBdqdyZd3mCc"])
-            //cH7gNM
+//            TempStorageAndCompare.shared.deleteEverything(userIDs: ["-2PWcLm-asuDxD0agP4WUdB","-h6TItHKmdzYI8vGu1APxnS"])
+            //ZvmXyY
             self.DBCon = try manager.databaseNamed("couchbaseevents")
             
             if let dbCon = self.DBCon{
@@ -56,7 +56,6 @@ class DBConnection{
                 
                 self.pushToDB = dbCon.createPushReplication(kSyncGatewayUser! as URL)
                 self.pullFromDB = dbCon.createPullReplication(kSyncGatewayUser! as URL)
-                
                 
                 if let push = self.pushToDB, let pull = self.pullFromDB{
                     push.continuous = true

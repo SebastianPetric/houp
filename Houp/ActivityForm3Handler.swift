@@ -18,9 +18,7 @@ extension ActivityForm3{
             }else{
                 
                 //Hier noch den Timer zurücksetzen
-                TimerObject.shared.invalidateTimer()
-                TimerObject.shared.invalidateDelayTimer()
-                TimerObject.shared.tryLaterAgain = false
+                TimerObject.shared.deinitialiseTimer()
                 self.activityWeekCollection?.liveQuery?.removeObserver(self.activityWeekCollection.self!, forKeyPath: "rows")
                 self.activityWeekCollection?.activityList.removeAll()
                 self.activityWeekCollection?.getTopicActivities(userID: UserDefaults.standard.string(forKey: GetString.userID.rawValue)!)

@@ -130,6 +130,7 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
         if(liveQuery == nil){
             getTopicComments(activityID: (self.activityObject?.aid)!)
         }
+        
         TempStorageAndCompare.shared.activityWithCommentsDelegate = self
         
 //        if(liveQueryActivity == nil){

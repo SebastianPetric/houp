@@ -6,7 +6,8 @@
 //  Copyright © 2017 SP. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import UserNotifications
 
 class TempStorageAndCompare: NSObject{
 
@@ -29,6 +30,8 @@ class TempStorageAndCompare: NSObject{
     var liveQueryActiveActivities: CBLLiveQuery?
     var liveQueryInactiveActivities: CBLLiveQuery?
     
+    
+    var timer: Timer = Timer()
     var tempGroupList: [String] = [String]()
     var tempActivityIDList: [String] = [String]()
     var userID: String?
@@ -47,14 +50,6 @@ class TempStorageAndCompare: NSObject{
         self.liveQueryPublicThreads?.removeObserver(self, forKeyPath: "rows")
         self.liveQueryActiveActivities?.removeObserver(self, forKeyPath: "rows")
         self.liveQueryActiveActivities = nil
-        if(self.liveQueryPrivateThreads != nil){
-            self.liveQueryPrivateThreads?.removeObserver(self, forKeyPath: "rows")
-            self.liveQueryPrivateThreads = nil
-        }
-        if(self.liveQueryInactiveActivities != nil){
-            self.liveQueryInactiveActivities?.removeObserver(self, forKeyPath: "rows")
-            self.liveQueryInactiveActivities = nil
-        }
         self.liveQueryPublicThreads = nil
         self.liveQueryThreadsOfUser = nil
         self.liveQueryUser = nil
@@ -64,42 +59,17 @@ class TempStorageAndCompare: NSObject{
         self.liveQueryGroups?.removeObserver(self, forKeyPath: "rows")
         self.liveQueryGroups = nil
         }
-    }
-    
-    func groupsChangedOnDB(groupIDs: [String]){
-        if(liveQueryGroups != nil){
-            self.liveQueryGroups?.removeObserver(self, forKeyPath: "rows")
-        }
-        if(groupIDs.count != 0){
-        getTopicGroups(groupIDs: groupIDs)
-        }else{
-        liveQueryGroups = nil
-        self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
-        }
-        
-        if(liveQueryPrivateThreads != nil){
+        if(self.liveQueryPrivateThreads != nil){
             self.liveQueryPrivateThreads?.removeObserver(self, forKeyPath: "rows")
+            self.liveQueryPrivateThreads = nil
         }
-        if(groupIDs.count != 0){
-            getPrivateGroupsTopicThreads(groupIDs: groupIDs)
-        }else{
-            liveQueryPrivateThreads = nil
-            self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
-            self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
-        }
-        if(liveQueryInactiveActivities != nil){
+        if(self.liveQueryInactiveActivities != nil){
             self.liveQueryInactiveActivities?.removeObserver(self, forKeyPath: "rows")
-        }
-        if(groupIDs.count != 0){
-            getTopicInactiveActivitiesOfGroups(groupIDs: groupIDs)
-        }else{
-            liveQueryInactiveActivities = nil
-            self.activitiesInPrivateGroupDelegate?.activityCollectionView.reloadData()
-//            self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
-//            self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
+            self.liveQueryInactiveActivities = nil
         }
     }
     
+    // Hier werden die LiveQueries aufgebaut
     func getTopicActiveActivitiesOfUser(){
         if let view = DBConnection.shared.viewByActiveActivityForUser{
             let query = view.createQuery()
@@ -118,10 +88,6 @@ class TempStorageAndCompare: NSObject{
             liveQueryInactiveActivities?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
             liveQueryInactiveActivities?.start()
         }
-    }
-    
-    func getUserID() -> String{
-    return self.userDefaults.string(forKey: GetString.userID.rawValue)!
     }
     
     func getPrivateGroupsTopicThreads(groupIDs: [String]){
@@ -174,6 +140,7 @@ class TempStorageAndCompare: NSObject{
         }
     }
     
+    // Hier wird nach neuen Einträgen abgehört
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         do{
             if (object as! NSObject == self.liveQueryThreadsOfUser){
@@ -278,11 +245,8 @@ class TempStorageAndCompare: NSObject{
                     self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
                 }
             }else if (object as! NSObject == self.liveQueryActiveActivities){
-                print("liveQueryActiveActivities")
-                print(liveQueryActiveActivities?.rows?.count)
                 var tempActivityIDs: [Activity] = [Activity]()
                 if(liveQueryActiveActivities?.rows?.count != 0){
-                    print("wurden keine aktuellen aktivitäten mehr gefunden")
                 if let rows = liveQueryActiveActivities?.rows {
                     while let row = rows.nextRow() {
                         if let props = row.document!.properties {
@@ -294,7 +258,6 @@ class TempStorageAndCompare: NSObject{
                     self.activityWeekCollectionDelegate?.activityCollectionView.reloadData()
                     }
                 }else{
-                    print("Aktivitäten müssen gelöscht werden")
                     deleteAllActivitiesForCurrentWeek()
                     self.activityWeekCollectionDelegate?.activityCollectionView.reloadData()
                 }
@@ -328,6 +291,10 @@ class TempStorageAndCompare: NSObject{
         }
     }
 
+    //---------------------------------------------------------------------------------------
+    // Hier werden neue Gruppen verglichen, und gespeichert falls sich was geändert hat etc
+    //---------------------------------------------------------------------------------------
+    
     func compareAndSaveGroups(group: PrivateGroup){
         if (getAllPrivateGroupsSync().count != 0) {
         var oldList: [PrivateGroup] = getAllPrivateGroupsSync()
@@ -336,7 +303,7 @@ class TempStorageAndCompare: NSObject{
         }){
             // check if revision changed, if yes then hasbeenupdated = true
             if((oldList[index].rev != group.rev) || anyThreadOfGroupWasUpdated(group: oldList[index])){
-                if(self.userID == group.adminID){
+                if(getUserID() == group.adminID){
                     checkIfRequestHasBeenMade(oldGroup: oldList[index], newGroup: group)
                 }
                 group.hasBeenUpdated = true
@@ -354,6 +321,145 @@ class TempStorageAndCompare: NSObject{
         }
     }
     
+    func getAllPrivateGroupsSync() -> [PrivateGroup] {
+        var oldPrivateGroupsList: [PrivateGroup] = [PrivateGroup]()
+        if let oldList  = self.userDefaults.object(forKey: "privateGroupsSync\(getUserID())") as? Data{
+            oldPrivateGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [PrivateGroup]
+        }
+        return oldPrivateGroupsList
+    }
+    
+    func checkIfRequestHasBeenMade(oldGroup: PrivateGroup, newGroup: PrivateGroup){
+        let tempOld = oldGroup.groupRequestIDs!.sorted()
+        let tempNew = newGroup.groupRequestIDs!.sorted()
+        
+        for user in tempNew {
+            if(!(tempOld.contains(user))) {
+            print("es gibt eine neue anfrage")
+            }
+        }
+    }
+    
+    func anyThreadOfGroupWasUpdated(group: PrivateGroup) -> Bool{
+        let temp = getAllThreadsOfGroup(groupID: group.pgid!)
+        for thread in temp {
+            if(thread.hasBeenUpdated){
+                return true
+            }
+        }
+        return false
+    }
+    
+    func sortGroups(){
+        var oldPrivateGroupsList: [PrivateGroup] = [PrivateGroup]()
+        if let oldList  = self.userDefaults.object(forKey: "privateGroupsSync\(getUserID())") as? Data{
+            oldPrivateGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [PrivateGroup]
+        }
+        oldPrivateGroupsList.sort(by:
+            { $0.createdAt?.compare($1.createdAt!) == ComparisonResult.orderedDescending }
+        )
+        saveGroupList(groupList: oldPrivateGroupsList)
+    }
+    
+    func sortGroups(groups: [PrivateGroup]) -> [PrivateGroup]{
+        var oldGroupsList: [PrivateGroup] = groups
+        oldGroupsList.sort(by:
+            { $0.createdAt?.compare($1.createdAt!) == ComparisonResult.orderedDescending }
+        )
+        return oldGroupsList
+    }
+
+    
+    func saveGroupList(groupList: [PrivateGroup]){
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: groupList)
+        self.userDefaults.set(encodedData, forKey: "privateGroupsSync\(getUserID())")
+        self.userDefaults.synchronize()
+        
+        if(self.privateGroupsWithThreadsDelegate != nil){
+            for group in getAllPrivateGroupsSync(){
+                if(group.pgid == self.privateGroupsWithThreadsDelegate?.privateGroup?.pgid){
+                    self.privateGroupsWithThreadsDelegate?.privateGroup = group
+                }
+            }
+            self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
+            self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
+        }
+    }
+    
+    func setHasBeenUpdatedStatusOfGroup(groupID: String, hasBeenUpdated: Bool){
+        if let index = getAllPrivateGroupsSync().index(where: { (item) -> Bool in
+            item.pgid == groupID
+        }){
+            getAllPrivateGroupsSync()[index].hasBeenUpdated = hasBeenUpdated
+        }
+    }
+    
+    func saveSingleGroup(group: PrivateGroup, hasBeenUpdated: Bool){
+        var oldPrivateGroupsList: [PrivateGroup] = [PrivateGroup]()
+        if let oldList  = self.userDefaults.object(forKey: "privateGroupsSync\(getUserID())") as? Data{
+            oldPrivateGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [PrivateGroup]
+        }
+        if let index = oldPrivateGroupsList.index(where: { (item) -> Bool in
+            item.pgid == group.pgid
+        }){
+            let tempGroup = group
+            group.hasBeenUpdated = hasBeenUpdated
+            oldPrivateGroupsList[index] = tempGroup
+            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: oldPrivateGroupsList)
+            self.userDefaults.set(encodedData, forKey: "privateGroupsSync\(getUserID())")
+            self.userDefaults.synchronize()
+        }
+    }
+    
+    func anyGroupWasUpdated(group: PrivateGroup) -> Bool{
+        let temp = getAllPrivateGroupsSync()
+        for group in temp {
+            if(group.hasBeenUpdated){
+                return true
+            }
+        }
+        return false
+    }
+    
+    func deleteGroup(groupID: String){
+        var tempGroupsWithThreads: [String: [Thread]] = [String: [Thread]]()
+        var tempGroupsList: [PrivateGroup] = [PrivateGroup]()
+        var newTempGroupsWithThreads: [String: [Thread]] = [String: [Thread]]()
+        
+        if let oldListOfGroupsWithThreads  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(getUserID())") as? Data{
+            tempGroupsWithThreads = NSKeyedUnarchiver.unarchiveObject(with: oldListOfGroupsWithThreads) as! [String : [Thread]]
+            
+            tempGroupsWithThreads.removeValue(forKey: groupID)
+            newTempGroupsWithThreads = tempGroupsWithThreads
+            
+            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newTempGroupsWithThreads)
+            self.userDefaults.set(encodedData, forKey: "groupsWithThreadsSync\(getUserID())")
+            self.userDefaults.synchronize()
+        }
+        
+        if let oldListOfGroups  = self.userDefaults.object(forKey: "privateGroupsSync\(getUserID())") as? Data{
+            tempGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldListOfGroups) as! [PrivateGroup]
+            
+            for (index, group) in tempGroupsList.enumerated() {
+                if(group.pgid == groupID){
+                    tempGroupsList.remove(at: index)
+                    let encodedDataGroups: Data = NSKeyedArchiver.archivedData(withRootObject: tempGroupsList)
+                    self.userDefaults.set(encodedDataGroups, forKey: "privateGroupsSync\(getUserID())")
+                    self.userDefaults.synchronize()
+                }
+            }
+        }
+        self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
+    }
+    //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
+    
+    
+    
+    //---------------------------------------------------------------------------------------
+    // Hier werden neue Aktivitäten verglichen, und gespeichert falls sich was geändert hat etc
+    //---------------------------------------------------------------------------------------
+    
     func compareAndSaveActivities(activity: Activity){
         if (getAllActivities().count != 0) {
             var oldList: [Activity] = getAllActivities()
@@ -362,7 +468,6 @@ class TempStorageAndCompare: NSObject{
             }){
                 // check if revision changed, if yes then hasbeenupdated = true
                 if(oldList[index].rev != activity.rev){
-                    print("rev hat sich geändert")
                     activity.hasBeenUpdated = true
                     oldList[index] = activity
                     self.activityWithCommentsDelegate?.activityObject = activity
@@ -378,6 +483,37 @@ class TempStorageAndCompare: NSObject{
         }
     }
     
+    func getAllActivities() -> [Activity]{
+        var oldActivitiesList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(getUserID())") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+        }
+        return oldActivitiesList
+    }
+    
+    func sortActivities(activities: [Activity]) -> [Activity]{
+        var oldActivitiesList: [Activity] = activities
+        if(oldActivitiesList.count > 1){
+            oldActivitiesList.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+            )
+        }
+        return oldActivitiesList
+    }
+    
+    func saveActivityList(activityList: [Activity]){
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: sortActivities(activities: activityList))
+        self.userDefaults.set(encodedData, forKey: "activitiesOfUser\(getUserID())")
+        self.userDefaults.synchronize()
+    }
+    //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
+
+    
+    //---------------------------------------------------------------------------------------
+    // Hier werden neue Aktivitäten der Aktuellen Woche verglichen, und gespeichert falls sich was geändert hat etc
+    //---------------------------------------------------------------------------------------
+
     func compareAndSaveActivitiesOfCurrentWeek(currentActivities: [Activity]){
         if (getActiveActivitiesOfCurrentWeek().count != 0) {
             var oldList: [Activity] = getActiveActivitiesOfCurrentWeek()
@@ -402,73 +538,32 @@ class TempStorageAndCompare: NSObject{
                         oldList[index] = activity
                         saveActivityListCurrentWeek(activityList: oldList)
                         
-                    }else{
-                        print("rev hat sich nicht geändert")
                     }
                 }else{
-                    print("activity dazugekommen")
                     activity.hasBeenUpdated = true
                     oldList.append(activity)
                     saveActivityListCurrentWeek(activityList: oldList)
                 }
             }
         }else{
-            print("muss erst gespeichert werden")
             saveActivityListCurrentWeek(activityList: currentActivities)
         }
-    }
-    
-    func saveActivityList(activityList: [Activity]){
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: sortActivities(activities: activityList))
-        self.userDefaults.set(encodedData, forKey: "activitiesOfUser\(self.userID!)")
-        self.userDefaults.synchronize()
-    }
-    
-    
-
-    
-    func getAllActivities() -> [Activity]{
-        var oldActivitiesList: [Activity] = [Activity]()
-        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(self.userID!)") as? Data{
-            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
-        }
-        return oldActivitiesList
-    }
-    
-    func saveActivityListCurrentWeek(activityList: [Activity]){
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: sortActivitiesForWeek(activities: activityList))
-        self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(self.userID!)")
-        self.userDefaults.synchronize()
     }
     
     func getActiveActivitiesOfCurrentWeek() -> [Activity]{
         var oldActivitiesList: [Activity] = [Activity]()
         var newList: [Activity] = [Activity]()
-        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(self.userID!)") as? Data{
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(getUserID())") as? Data{
             oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
             newList = oldActivitiesList
         }
         return newList
     }
     
-    func deleteAllActivitiesForCurrentWeek(){
-        var oldActivitiesList: [Activity] = [Activity]()
-        let newList: [Activity] = [Activity]()
-        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(self.userID!)") as? Data{
-            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
-            if(oldActivitiesList.count != 0){
-                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newList)
-                self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(self.userID!)")
-                self.userDefaults.synchronize()
-            }
-        }
-    }
-    
     func deleteActivityOfCurrentWeek(activity: Activity){
-        print("Aktivität muss gelöscht werden")
         var oldActivitiesList: [Activity] = [Activity]()
         var newList: [Activity] = [Activity]()
-        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(self.userID!)") as? Data{
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(getUserID())") as? Data{
             oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
             if let index = oldActivitiesList.index(where: { (item) -> Bool in
                 item.aid == activity.aid
@@ -478,21 +573,50 @@ class TempStorageAndCompare: NSObject{
             }
         }
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newList)
-        self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(self.userID!)")
+        self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(getUserID())")
         self.userDefaults.synchronize()
     }
+    
+    func deleteAllActivitiesForCurrentWeek(){
+        var oldActivitiesList: [Activity] = [Activity]()
+        let newList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(getUserID())") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+            if(oldActivitiesList.count != 0){
+                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newList)
+                self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(getUserID())")
+                self.userDefaults.synchronize()
+            }
+        }
+    }
 
+
+    func sortActivitiesForWeek(activities: [Activity]) -> [Activity]{
+        var oldActivitiesList: [Activity] = activities
+        if(oldActivitiesList.count > 1){
+            oldActivitiesList.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedAscending }
+            )
+        }
+        return oldActivitiesList
+    }
+
+    func saveActivityListCurrentWeek(activityList: [Activity]){
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: sortActivitiesForWeek(activities: activityList))
+        self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(getUserID())")
+        self.userDefaults.synchronize()
+    }
     
     func getActivitiesOfGroup(groupID: String) -> [Activity]{
         var oldActivitiesList: [Activity] = [Activity]()
         var newList: [Activity] = [Activity]()
-        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(self.userID!)") as? Data{
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfUser\(getUserID())") as? Data{
             oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
             for activity in oldActivitiesList{
                 if(!activity.isInProcess){
                     if let activityGroupID = activity.groupID{
                         if(activityGroupID == groupID){
-                         newList.append(activity)
+                            newList.append(activity)
                         }
                     }
                 }
@@ -502,121 +626,47 @@ class TempStorageAndCompare: NSObject{
         return newList
     }
 
+    //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
+  
     
-//    func compareAndSavePublicThreads(thread: Thread){
-//        if (getAllPublicGroupThreads().count != 0) {
-//            var oldList: [Thread] = getAllPublicGroupThreads()
-//            if let index = oldList.index(where: { (item) -> Bool in
-//                item.tid == thread.tid
-//            }){
-//                // check if revision changed, if yes then hasbeenupdated = true
-//                if(oldList[index].rev != thread.rev){
-//                    thread.hasBeenUpdated = true
-//                    oldList[index] = thread
-//                    savePublicThreads(threadsList: oldList)
-//                    publicGroupThreadWithCommentsDelegate?.thread = thread
-//                }
-//            }else{
-//                thread.hasBeenUpdated = true
-//                oldList.append(thread)
-//                savePublicThreads(threadsList: oldList)
-//            }
-//        }else{
-//            savePublicThreads(threadsList: [thread])
-//        }
-//    }
-
-    func savePublicThreads(threadsList: [Thread]){
-        var tempThreads = threadsList
-        tempThreads.sort(by:
-            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-        )
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: tempThreads)
-        self.userDefaults.set(encodedData, forKey: "publicGroupThreads\(self.userID!)")
-        self.userDefaults.synchronize()
-        self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
-    }
+    //---------------------------------------------------------------------------------------
+    // Hier werden Public Threads verglichen, und gespeichert falls sich was geändert hat etc
+    //---------------------------------------------------------------------------------------
     
-    
-    
-    func getAllPublicGroupThreads() -> [Thread]{
-        var oldPublicThreadsList: [Thread] = [Thread]()
-        if let oldList  = self.userDefaults.object(forKey: "publicGroupThreads\(self.userID!)") as? Data{
-            oldPublicThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Thread]
-        }
-        return oldPublicThreadsList
-    }
-    
-    func saveAllThreadsOfPublicGroup(thread: Thread, index: Int){
-        var oldGroupsThreadsList: [Thread] = [Thread]()
-        var oldList = getAllPublicGroupThreads()
-        
-        if(oldList.count != 0){
-            oldGroupsThreadsList = oldList
-            oldGroupsThreadsList[index] = thread
-            oldGroupsThreadsList.sort(by:
-                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-            )
-        }
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: oldGroupsThreadsList)
-        self.userDefaults.set(encodedData, forKey: "publicGroupThreads\(self.userID!)")
-        self.userDefaults.synchronize()
-        self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
-    }
-    
-    func anyThreadOfGroupWasUpdated(group: PrivateGroup) -> Bool{
-      let temp = getAllThreadsOfGroup(groupID: group.pgid!)
-        for thread in temp {
-            if(thread.hasBeenUpdated){
-                return true
-            }
-        }
-    return false
-    }
-    
-    func anyGroupWasUpdated(group: PrivateGroup) -> Bool{
-        let temp = getAllPrivateGroupsSync()
-        for group in temp {
-            if(group.hasBeenUpdated){
-                return true
-            }
-        }
-        return false
-    }
-
     func compareAndSaveThreads(groupID: String, thread: Thread){
         if(thread.groupID != "0"){
-        if(getAllGroupsWithThreads().count != 0){
-            var oldList = getAllGroupsWithThreads()
-            if let groupExists = oldList[groupID]{
-                if let index = oldList[groupID]?.index(where: { (item) -> Bool in
-                    item.tid == thread.tid
-                }){
-                    // check if revision changed, if yes then hasbeenupdated = true
-                    if(oldList[groupID]?[index].rev != thread.rev){
-                        if(isUserAdmin(id: thread.authorID!)){
-                            print("Eine neue reaktion auf deinen Thread \(thread.title)")
+            if(getAllGroupsWithThreads().count != 0){
+                var oldList = getAllGroupsWithThreads()
+                if let groupExists = oldList[groupID]{
+                    if let index = oldList[groupID]?.index(where: { (item) -> Bool in
+                        item.tid == thread.tid
+                    }){
+                        // check if revision changed, if yes then hasbeenupdated = true
+                        if(oldList[groupID]?[index].rev != thread.rev){
+                            if(isUserAdmin(id: thread.authorID!)){
+                                print("Eine neue reaktion auf deinen Thread \(thread.title)")
+                            }
+                            thread.hasBeenUpdated = true
+                            oldList[groupID]?[index] = thread
+                            oldList[groupID] = sortThreads(threads: oldList[groupID]!)
+                            saveGroupsWithThreads(groupsWithThreads: oldList)
                         }
+                    }else{
                         thread.hasBeenUpdated = true
-                        oldList[groupID]?[index] = thread
+                        oldList[groupID]?.append(thread)
                         oldList[groupID] = sortThreads(threads: oldList[groupID]!)
                         saveGroupsWithThreads(groupsWithThreads: oldList)
                     }
                 }else{
                     thread.hasBeenUpdated = true
-                    oldList[groupID]?.append(thread)
-                    oldList[groupID] = sortThreads(threads: oldList[groupID]!)
+                    oldList[groupID] = [thread]
                     saveGroupsWithThreads(groupsWithThreads: oldList)
                 }
             }else{
-                thread.hasBeenUpdated = true
-                oldList[groupID] = [thread]
-                saveGroupsWithThreads(groupsWithThreads: oldList)
+                let newItem = [groupID : [thread]]
+                saveGroupsWithThreads(groupsWithThreads: newItem)
             }
-        }else{
-            let newItem = [groupID : [thread]]
-            saveGroupsWithThreads(groupsWithThreads: newItem)
-        }
         }else{
             if (getAllPublicGroupThreads().count != 0) {
                 var oldList: [Thread] = getAllPublicGroupThreads()
@@ -626,7 +676,7 @@ class TempStorageAndCompare: NSObject{
                     // check if revision changed, if yes then hasbeenupdated = true
                     if(oldList[index].rev != thread.rev){
                         if(isUserAdmin(id: thread.authorID!)){
-                        print("Eine neue reaktion auf deinen Thread \(thread.title)")
+                            print("Eine neue reaktion auf deinen Thread \(thread.title)")
                         }
                         thread.hasBeenUpdated = true
                         oldList[index] = thread
@@ -643,108 +693,121 @@ class TempStorageAndCompare: NSObject{
             }
         }
     }
-    
-    func isUserAdmin(id: String) -> Bool{
-        return self.userDefaults.string(forKey: GetString.userID.rawValue) == id
-    }
-    
-    func saveGroupsWithThreads(groupsWithThreads: [String : [Thread]]){
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: groupsWithThreads)
-        self.userDefaults.set(encodedData, forKey: "groupsWithThreadsSync\(self.userID!)")
-        self.userDefaults.synchronize()
-    }
-    
+
     func getAllGroupsWithThreads() -> [String : [Thread]]{
         var oldGroupsThreadsList: [String : [Thread]] = [String : [Thread]]()
-        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(self.userID!)") as? Data{
+        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(getUserID())") as? Data{
             oldGroupsThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [String : [Thread]]
         }
         return oldGroupsThreadsList
     }
     
+    func sortThreads(threads: [Thread]) -> [Thread]{
+        var oldThreadList: [Thread] = threads
+        oldThreadList.sort(by:
+            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+        )
+        return oldThreadList
+    }
+
+    func saveGroupsWithThreads(groupsWithThreads: [String : [Thread]]){
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: groupsWithThreads)
+        self.userDefaults.set(encodedData, forKey: "groupsWithThreadsSync\(getUserID())")
+        self.userDefaults.synchronize()
+    }
+    
+    func getAllPublicGroupThreads() -> [Thread]{
+        var oldPublicThreadsList: [Thread] = [Thread]()
+        if let oldList  = self.userDefaults.object(forKey: "publicGroupThreads\(getUserID())") as? Data{
+            oldPublicThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Thread]
+        }
+        return oldPublicThreadsList
+    }
+    
+    func savePublicThreads(threadsList: [Thread]){
+        var tempThreads = threadsList
+        tempThreads.sort(by:
+            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+        )
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: tempThreads)
+        self.userDefaults.set(encodedData, forKey: "publicGroupThreads\(getUserID())")
+        self.userDefaults.synchronize()
+        self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
+    }
+    
+    func saveAllThreadsOfGroup(groupID: String, threads: [Thread]){
+        var oldGroupsThreadsList: [String : [Thread]] = [String : [Thread]]()
+        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(getUserID())") as? Data{
+            oldGroupsThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [String : [Thread]]
+            oldGroupsThreadsList[groupID]! = threads
+            oldGroupsThreadsList[groupID]?.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+            )
+            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: oldGroupsThreadsList)
+            self.userDefaults.set(encodedData, forKey: "groupsWithThreadsSync\(getUserID())")
+            self.userDefaults.synchronize()
+        }
+        self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
+        //self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
+    }
+    
+    func sortGroupsWithThreads(groupID: String){
+        var oldGroupsThreadsList: [String : [Thread]] = [String : [Thread]]()
+        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(getUserID())") as? Data{
+            oldGroupsThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [String : [Thread]]
+            oldGroupsThreadsList[groupID]?.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+            )
+        }
+        saveGroupsWithThreads(groupsWithThreads: oldGroupsThreadsList)
+    }
+    
+    func setHasBeenUpdatedStatusOfThread(groupID: String, threadID: String, hasBeenUpdated: Bool){
+        if let index = getAllThreadsOfGroup(groupID: groupID).index(where: { (item) -> Bool in
+            item.tid == threadID
+        }){
+            let temp = getAllGroupsWithThreads()
+            temp[groupID]?[index].hasBeenUpdated = hasBeenUpdated
+            saveGroupsWithThreads(groupsWithThreads: temp)
+        }
+    }
+    
+    func saveAllThreadsOfPublicGroup(thread: Thread, index: Int){
+        var oldGroupsThreadsList: [Thread] = [Thread]()
+        var oldList = getAllPublicGroupThreads()
+        
+        if(oldList.count != 0){
+            oldGroupsThreadsList = oldList
+            oldGroupsThreadsList[index] = thread
+            oldGroupsThreadsList.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
+            )
+        }
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: oldGroupsThreadsList)
+        self.userDefaults.set(encodedData, forKey: "publicGroupThreads\(getUserID())")
+        self.userDefaults.synchronize()
+        self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
+    }
+    
     func getAllThreadsOfGroup(groupID: String) -> [Thread]{
         var oldGroupsThreadsList: [String : [Thread]] = [String : [Thread]]()
-        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(self.userID!)") as? Data{
+        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(getUserID())") as? Data{
             oldGroupsThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [String : [Thread]]
             if let temp = oldGroupsThreadsList[groupID]{
                 return temp
             }else{
-            return [Thread]()
+                return [Thread]()
             }
         }
         return [Thread]()
     }
+    //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
     
-    func checkIfRequestHasBeenMade(oldGroup: PrivateGroup, newGroup: PrivateGroup){
-    let tempOld = oldGroup.groupRequestIDs!.sorted()
-    let tempNew = newGroup.groupRequestIDs!.sorted()
-        
-        for user in tempNew {
-            if(!(tempOld.contains(user))) {
-                //Hier Notification triggern
-            }
-        }
-    }
     
-    func deleteGroup(groupID: String){
-        var tempGroupsWithThreads: [String: [Thread]] = [String: [Thread]]()
-        var tempGroupsList: [PrivateGroup] = [PrivateGroup]()
-        var newTempGroupsWithThreads: [String: [Thread]] = [String: [Thread]]()
-        
-        if let oldListOfGroupsWithThreads  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(self.userID!)") as? Data{
-            tempGroupsWithThreads = NSKeyedUnarchiver.unarchiveObject(with: oldListOfGroupsWithThreads) as! [String : [Thread]]
-            
-            tempGroupsWithThreads.removeValue(forKey: groupID)
-            newTempGroupsWithThreads = tempGroupsWithThreads
-            
-            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newTempGroupsWithThreads)
-            self.userDefaults.set(encodedData, forKey: "groupsWithThreadsSync\(self.userID!)")
-            self.userDefaults.synchronize()
-        }
-        
-        if let oldListOfGroups  = self.userDefaults.object(forKey: "privateGroupsSync\(self.userID!)") as? Data{
-            tempGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldListOfGroups) as! [PrivateGroup]
-            
-            for (index, group) in tempGroupsList.enumerated() {
-                if(group.pgid == groupID){
-                    tempGroupsList.remove(at: index)
-                    let encodedDataGroups: Data = NSKeyedArchiver.archivedData(withRootObject: tempGroupsList)
-                    self.userDefaults.set(encodedDataGroups, forKey: "privateGroupsSync\(self.userID!)")
-                    self.userDefaults.synchronize()
-                }
-            }
-        }
-    self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
-    }
-    
-    func checkTopicGroupsOfUser(oldGroups: UserObject, newGroups: UserObject, tempList: [UserObject], index: Int){
-        var tempUserList: [UserObject] = [UserObject]()
-        for groupID in oldGroups.groupIDs! {
-            if(!(newGroups.groupIDs?.contains(groupID))!) {
-                deleteGroup(groupID: groupID)
-            }
-        }
-        
-        for groupID in newGroups.groupIDs! {
-            if(!(oldGroups.groupIDs?.contains(groupID))!) {
-                self.tempGroupList = newGroups.groupIDs!
-            }
-        }
-        
-//        for activityID in newGroups.dailyFormIDs! {
-//            if(!(oldGroups.dailyFormIDs?.contains(activityID))!) {
-//                self.tempActivityIDList = newGroups.dailyFormIDs!
-//            }
-//        }
-        
-        tempUserList = tempList
-        tempUserList[index] = newGroups
-        
-        saveUser(users: tempUserList)
-        
-        groupsChangedOnDB(groupIDs: self.tempGroupList)
-    }
-    
+    //---------------------------------------------------------------------------------------
+    // Hier wird der User verglichen, und gespeichert falls sich was geändert hat etc
+    //---------------------------------------------------------------------------------------
     
     func compareAndSaveUsers(user: UserObject){
         if (getUserData().count != 0) {
@@ -753,8 +816,6 @@ class TempStorageAndCompare: NSObject{
                 item.uid == user.uid
             }){
                 // check if revision changed, if yes then hasbeenupdated = true
-                    //checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
-
                 if(oldList[index].rev != user.rev){
                     checkTopicGroupsOfUser(oldGroups: oldList[index], newGroups: user, tempList: oldList, index: index)
                 }else{
@@ -775,7 +836,7 @@ class TempStorageAndCompare: NSObject{
     
     func getUserData() -> [UserObject]{
         var oldUserList: [UserObject] = [UserObject]()
-        if let oldList  = self.userDefaults.object(forKey: "userObjectsSync\(self.userID!)") as? Data{
+        if let oldList  = self.userDefaults.object(forKey: "userObjectsSync\(getUserID())") as? Data{
             oldUserList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [UserObject]
         }
         return oldUserList
@@ -783,144 +844,86 @@ class TempStorageAndCompare: NSObject{
     
     func saveUser(users: [UserObject]){
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: users)
-        self.userDefaults.set(encodedData, forKey: "userObjectsSync\(self.userID!)")
+        self.userDefaults.set(encodedData, forKey: "userObjectsSync\(getUserID())")
         self.userDefaults.synchronize()
     }
     
-    func saveAllThreadsOfGroup(groupID: String, threads: [Thread]){
-        var oldGroupsThreadsList: [String : [Thread]] = [String : [Thread]]()
-        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(self.userID!)") as? Data{
-            oldGroupsThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [String : [Thread]]
-            oldGroupsThreadsList[groupID]! = threads
-            oldGroupsThreadsList[groupID]?.sort(by:
-                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-            )
-            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: oldGroupsThreadsList)
-            self.userDefaults.set(encodedData, forKey: "groupsWithThreadsSync\(self.userID!)")
-            self.userDefaults.synchronize()
-        }
-        self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
-        //self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
-    }
-
-    func sortGroupsWithThreads(groupID: String){
-        var oldGroupsThreadsList: [String : [Thread]] = [String : [Thread]]()
-        if let oldList  = self.userDefaults.object(forKey: "groupsWithThreadsSync\(self.userID!)") as? Data{
-            oldGroupsThreadsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [String : [Thread]]
-            oldGroupsThreadsList[groupID]?.sort(by:
-                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-            )
-        }
-        saveGroupsWithThreads(groupsWithThreads: oldGroupsThreadsList)
-    }
-    
-    func sortGroups(){
-        var oldPrivateGroupsList: [PrivateGroup] = [PrivateGroup]()
-        if let oldList  = self.userDefaults.object(forKey: "privateGroupsSync\(self.userID!)") as? Data{
-            oldPrivateGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [PrivateGroup]
-        }
-        oldPrivateGroupsList.sort(by:
-            { $0.createdAt?.compare($1.createdAt!) == ComparisonResult.orderedDescending }
-        )
-        saveGroupList(groupList: oldPrivateGroupsList)
-    }
-    
-    func sortActivities(activities: [Activity]) -> [Activity]{
-        var oldActivitiesList: [Activity] = activities
-        if(oldActivitiesList.count > 1){
-            oldActivitiesList.sort(by:
-                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-            )
-        }
-        return oldActivitiesList
-    }
-    
-    func sortActivitiesForWeek(activities: [Activity]) -> [Activity]{
-        var oldActivitiesList: [Activity] = activities
-        if(oldActivitiesList.count > 1){
-            oldActivitiesList.sort(by:
-                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedAscending }
-            )
-        }
-        return oldActivitiesList
-    }
-
-    func sortGroups(groups: [PrivateGroup]) -> [PrivateGroup]{
-        var oldGroupsList: [PrivateGroup] = groups
-        oldGroupsList.sort(by:
-            { $0.createdAt?.compare($1.createdAt!) == ComparisonResult.orderedDescending }
-        )
-        return oldGroupsList
-    }
-    
-    func sortThreads(threads: [Thread]) -> [Thread]{
-        var oldThreadList: [Thread] = threads
-        oldThreadList.sort(by:
-            { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedDescending }
-        )
-        return oldThreadList
-    }
-    
-    func saveGroupList(groupList: [PrivateGroup]){
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: groupList)
-        self.userDefaults.set(encodedData, forKey: "privateGroupsSync\(self.userID!)")
-        self.userDefaults.synchronize()
-        
-        if(self.privateGroupsWithThreadsDelegate != nil){
-            for group in getAllPrivateGroupsSync(){
-                if(group.pgid == self.privateGroupsWithThreadsDelegate?.privateGroup?.pgid){
-                    self.privateGroupsWithThreadsDelegate?.privateGroup = group
-                }
+    func checkTopicGroupsOfUser(oldGroups: UserObject, newGroups: UserObject, tempList: [UserObject], index: Int){
+        var tempUserList: [UserObject] = [UserObject]()
+        for groupID in oldGroups.groupIDs! {
+            if(!(newGroups.groupIDs?.contains(groupID))!) {
+                deleteGroup(groupID: groupID)
             }
+        }
+        
+        for groupID in newGroups.groupIDs! {
+            if(!(oldGroups.groupIDs?.contains(groupID))!) {
+                self.tempGroupList = newGroups.groupIDs!
+            }
+        }
+        
+        //        for activityID in newGroups.dailyFormIDs! {
+        //            if(!(oldGroups.dailyFormIDs?.contains(activityID))!) {
+        //                self.tempActivityIDList = newGroups.dailyFormIDs!
+        //            }
+        //        }
+        
+        tempUserList = tempList
+        tempUserList[index] = newGroups
+        
+        saveUser(users: tempUserList)
+        
+        groupsChangedOnDB(groupIDs: self.tempGroupList)
+    }
+    
+    //wenn sich was beim User verändert (er in einer neuen Gruppe Mitglied geworden ist) werden die Queries neu aufgebaut,
+    //sodass die neue gruppe auch nach neuen Einträgen abgefragt werden kann
+    func groupsChangedOnDB(groupIDs: [String]){
+        if(liveQueryGroups != nil){
+            self.liveQueryGroups?.removeObserver(self, forKeyPath: "rows")
+        }
+        if(groupIDs.count != 0){
+            getTopicGroups(groupIDs: groupIDs)
+        }else{
+            liveQueryGroups = nil
+            self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
+        }
+        
+        if(liveQueryPrivateThreads != nil){
+            self.liveQueryPrivateThreads?.removeObserver(self, forKeyPath: "rows")
+        }
+        if(groupIDs.count != 0){
+            getPrivateGroupsTopicThreads(groupIDs: groupIDs)
+        }else{
+            liveQueryPrivateThreads = nil
+            self.privateGroupCollectionDelegate?.privateGroupsCollection.reloadData()
             self.privateGroupsWithThreadsDelegate?.threadsCollectionView.reloadData()
-            self.publicGroupsWithThreadsControllerDelegate?.threadsCollectionView.reloadData()
+        }
+        if(liveQueryInactiveActivities != nil){
+            self.liveQueryInactiveActivities?.removeObserver(self, forKeyPath: "rows")
+        }
+        if(groupIDs.count != 0){
+            getTopicInactiveActivitiesOfGroups(groupIDs: groupIDs)
+        }else{
+            liveQueryInactiveActivities = nil
+            self.activitiesInPrivateGroupDelegate?.activityCollectionView.reloadData()
         }
     }
     
-    func saveSingleGroup(group: PrivateGroup, hasBeenUpdated: Bool){
-        var oldPrivateGroupsList: [PrivateGroup] = [PrivateGroup]()
-        if let oldList  = self.userDefaults.object(forKey: "privateGroupsSync\(self.userID!)") as? Data{
-            oldPrivateGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [PrivateGroup]
-        }
-        if let index = oldPrivateGroupsList.index(where: { (item) -> Bool in
-            item.pgid == group.pgid
-        }){
-            let tempGroup = group
-            group.hasBeenUpdated = hasBeenUpdated
-            oldPrivateGroupsList[index] = tempGroup
-            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: oldPrivateGroupsList)
-            self.userDefaults.set(encodedData, forKey: "privateGroupsSync\(self.userID!)")
-            self.userDefaults.synchronize()
-        }
+    func getUserID() -> String{
+        return self.userID!
     }
     
+    func isUserAdmin(id: String) -> Bool{
+        return getUserID() == id
+    }
+    //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
 
-    func getAllPrivateGroupsSync() -> [PrivateGroup] {
-    var oldPrivateGroupsList: [PrivateGroup] = [PrivateGroup]()
-    if let oldList  = self.userDefaults.object(forKey: "privateGroupsSync\(self.userID!)") as? Data{
-        oldPrivateGroupsList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [PrivateGroup]
-    }
-    return oldPrivateGroupsList
-    }
 
-    func setHasBeenUpdatedStatusOfThread(groupID: String, threadID: String, hasBeenUpdated: Bool){
-        if let index = getAllThreadsOfGroup(groupID: groupID).index(where: { (item) -> Bool in
-            item.tid == threadID
-        }){
-            let temp = getAllGroupsWithThreads()
-            temp[groupID]?[index].hasBeenUpdated = hasBeenUpdated
-            saveGroupsWithThreads(groupsWithThreads: temp)
-        }
-    }
-    
-    func setHasBeenUpdatedStatusOfGroup(groupID: String, hasBeenUpdated: Bool){
-        if let index = getAllPrivateGroupsSync().index(where: { (item) -> Bool in
-            item.pgid == groupID
-        }){
-            getAllPrivateGroupsSync()[index].hasBeenUpdated = hasBeenUpdated
-        }
-    }
-    
+    //---------------------------------------------------------------------------------------
+    // Datenbankeinträge des Users XY löschen
+    //---------------------------------------------------------------------------------------
     func deleteEverything(userIDs: [String]){
         for item in userIDs {
             self.userDefaults.removeObject(forKey:"groupsWithThreadsSync\(item)")
@@ -931,8 +934,21 @@ class TempStorageAndCompare: NSObject{
             self.userDefaults.removeObject(forKey: "activitiesOfCurrentWeek\(item)")
         }
     }
-    func deleteEverythingWithoutUserID(){
-        self.userDefaults.removeObject(forKey:"groupsWithThreadsSync")
-        self.userDefaults.removeObject(forKey:"privateGroupsSync")
+    //---------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
+    
+    func setUpTimerImmediately(){
+        self.timer = Timer(fireAt: Date(), interval: 10, target: self, selector: #selector(fireNotification), userInfo: nil, repeats: false)
+        RunLoop.main.add(self.timer, forMode: RunLoopMode.commonModes)
+    }
+    
+    func fireNotification(){
+            let content = UNMutableNotificationContent()
+            content.title = "Neue Anfrage!"
+            content.body = "In der Gruppe gibt es eine neue Mitglieds-Anfrage."
+            content.badge = 1
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            let request = UNNotificationRequest(identifier: "requestNotification", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 }

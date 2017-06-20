@@ -74,6 +74,7 @@ enum GetString: String {
     case errorTitle = "Upps"
     case errorOKButton = "OK"
     case errorNoButton = "Nein"
+    case errorSuper = "Super!"
     case errorCancelButton = "Abbrechen"
     case errorFillAllFields = "Bitte alle Felder ausfüllen!"
     case errorFalseUsernamePassword = "Benutzername oder Passwort stimmt nicht! Bitte versuche es nochmal!"

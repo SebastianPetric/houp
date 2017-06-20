@@ -175,6 +175,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                let controller = CustomTabBarController()
 //                controller.selectedIndex = 2
 //                window?.rootViewController = controller
+            }else if(notification.alertTitle! == "Neue Anfrage!"){
+                
             }
         }else{
             let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")

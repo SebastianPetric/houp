@@ -9,7 +9,6 @@
 import UIKit
 
 extension ActivityWeekCollectionCell{
-
     func handleEditActivity(){
         let controller = EditActivity()
         controller.activityWeekCollection = self.activityWeekCollectionDelegate

@@ -117,12 +117,6 @@ extension ActivitiesCommentsController{
                             self.comments.sort(by:
                                 { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedAscending }
                             )
-                            //                                    comments.sort(by: {
-                            //                                        if ($0.likeIDs?.count)! > ($1.likeIDs?.count)!{
-                            //                                            return true
-                            //                                        }
-                            //                                        return false
-                            //                                    })
                             self.commentsCollectionView.reloadData()
                         }
                     }

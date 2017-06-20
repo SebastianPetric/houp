@@ -71,5 +71,10 @@ class TimerObject{
         self.timerToDelay.invalidate()
     }
     
+    func deinitialiseTimer(){
+    self.timer.invalidate()
+    self.timerToDelay.invalidate()
+    self.tryLaterAgain = false
+    }
 
 }
