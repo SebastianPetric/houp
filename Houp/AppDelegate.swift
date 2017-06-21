@@ -8,11 +8,11 @@
 
 import UIKit
 import CoreData
-//import UserNotifications
+import UserNotifications
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     var userDefaults: UserDefaults?
@@ -41,6 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }else{
 //            window?.rootViewController = CustomTabBarController()
 //        }
+        
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
+            if (granted) {
+                UIApplication.shared.registerForRemoteNotifications()
+            } else{
+                print("Notification permissions not granted")
+            }
+        })
         UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
@@ -199,6 +208,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        //Handle the notification
+        //This will get the text sent in your notification
+        print("hier sollte jetzt was kommen")
+        let body = notification.request.content.body
+        
     }
 
 }

@@ -45,6 +45,7 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in})
         
         if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
+            print("aktueller nutzer: \(userID)")
             //(UIApplication.shared.delegate as! AppDelegate).getThreadByAuthor(authorID: userID)
             
             //self.activityList = DBConnection.shared.getPersonalActivities(userID: userID)
@@ -143,4 +144,49 @@ class PrivateGroupCollectionViewController: UIViewController, UICollectionViewDe
         print("Test Foreground: \(notification.request.identifier)")
         completionHandler([.alert, .sound])
     }
+    
+    func setUpNotification(){
+        // Request Notification Settings
+        UNUserNotificationCenter.current().getNotificationSettings { (notificationSettings) in
+            switch notificationSettings.authorizationStatus {
+            case .notDetermined:
+                print("nicht erlaubt")
+//                self.requestAuthorization(completionHandler: { (success) in
+//                    guard success else { return }
+//                    
+//                    // Schedule Local Notification
+//                    self.scheduleLocalNotification()
+//                })
+            case .authorized:
+                // Schedule Local Notification
+                self.scheduleLocalNotification()
+            case .denied:
+                print("Application Not Allowed to Display Notifications")
+            }
+        }
+    }
+    
+    func scheduleLocalNotification(){
+        // Create Notification Content
+        let notificationContent = UNMutableNotificationContent()
+        
+        // Configure Notification Content
+        notificationContent.title = "Cocoacasts"
+        notificationContent.subtitle = "Local Notifications"
+        notificationContent.body = "In this tutorial, you learn how to schedule local notifications with the User Notifications framework."
+        
+        // Add Trigger
+        let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
+        
+        // Create Notification Request
+        let notificationRequest = UNNotificationRequest(identifier: "cocoacasts_local_notification", content: notificationContent, trigger: notificationTrigger)
+        
+        // Add Request to User Notification Center
+        UNUserNotificationCenter.current().add(notificationRequest) { (error) in
+            if let error = error {
+                print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+            }
+        }
+    }
+    
 }

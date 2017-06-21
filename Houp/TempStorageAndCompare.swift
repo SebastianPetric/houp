@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UserNotifications
 
 class TempStorageAndCompare: NSObject{
 
@@ -29,9 +28,7 @@ class TempStorageAndCompare: NSObject{
     var liveQueryPrivateThreads: CBLLiveQuery?
     var liveQueryActiveActivities: CBLLiveQuery?
     var liveQueryInactiveActivities: CBLLiveQuery?
-    
-    
-    var timer: Timer = Timer()
+
     var tempGroupList: [String] = [String]()
     var tempActivityIDList: [String] = [String]()
     var userID: String?
@@ -306,9 +303,9 @@ class TempStorageAndCompare: NSObject{
                 if(getUserID() == group.adminID){
                     checkIfRequestHasBeenMade(oldGroup: oldList[index], newGroup: group)
                 }
+                checkIfNewThreadHasBeenOpened(oldGroup: oldList[index], newGroup: group)
                 group.hasBeenUpdated = true
                 oldList[index] = group
-                let temp = sortGroups(groups: oldList)
                 saveGroupList(groupList: sortGroups(groups: oldList))
             }
         }else{
@@ -317,6 +314,7 @@ class TempStorageAndCompare: NSObject{
             saveGroupList(groupList: sortGroups(groups: oldList))
         }
         }else{
+            group.hasBeenUpdated = true
             saveGroupList(groupList: [group])
         }
     }
@@ -335,7 +333,20 @@ class TempStorageAndCompare: NSObject{
         
         for user in tempNew {
             if(!(tempOld.contains(user))) {
-            print("es gibt eine neue anfrage")
+                print("hier es gibt eine neue anfrage")
+                HoupNotifications.shared.setUpNewRequestArrivedNotification(groupDetails: newGroup)
+            }
+        }
+    }
+    
+    func checkIfNewThreadHasBeenOpened(oldGroup: PrivateGroup, newGroup: PrivateGroup){
+        let oldThreadList = oldGroup.threadIDs!.sorted()
+        let newThreadList = newGroup.threadIDs!.sorted()
+        
+        for thread in newThreadList{
+            if(!oldThreadList.contains(thread)){
+                print("In \(newGroup.nameOfGroup) ist ein neuer Thread dazugekommen")
+                HoupNotifications.shared.setUpNewThreadToGroupNotification(groupDetails: newGroup)
             }
         }
     }
@@ -368,7 +379,6 @@ class TempStorageAndCompare: NSObject{
         )
         return oldGroupsList
     }
-
     
     func saveGroupList(groupList: [PrivateGroup]){
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: groupList)
@@ -645,7 +655,7 @@ class TempStorageAndCompare: NSObject{
                         // check if revision changed, if yes then hasbeenupdated = true
                         if(oldList[groupID]?[index].rev != thread.rev){
                             if(isUserAdmin(id: thread.authorID!)){
-                                print("Eine neue reaktion auf deinen Thread \(thread.title)")
+                                checkIfNewAnswerHasBeenMade(oldThread: (oldList[groupID]?[index])!, newThread: thread)
                             }
                             thread.hasBeenUpdated = true
                             oldList[groupID]?[index] = thread
@@ -677,6 +687,7 @@ class TempStorageAndCompare: NSObject{
                     if(oldList[index].rev != thread.rev){
                         if(isUserAdmin(id: thread.authorID!)){
                             print("Eine neue reaktion auf deinen Thread \(thread.title)")
+                            checkIfNewAnswerHasBeenMade(oldThread: oldList[index], newThread: thread)
                         }
                         thread.hasBeenUpdated = true
                         oldList[index] = thread
@@ -693,6 +704,19 @@ class TempStorageAndCompare: NSObject{
             }
         }
     }
+    
+    func checkIfNewAnswerHasBeenMade(oldThread: Thread, newThread: Thread){
+        let tempOld = oldThread.commentIDs!.sorted()
+        let tempNew = newThread.commentIDs!.sorted()
+        
+        for comment in tempNew {
+            if(!(tempOld.contains(comment))) {
+                print("hier es gibt eine neue Antwort auf deinen Thread")
+                HoupNotifications.shared.setUpNewAnswerToThreadNotification(threadDetails: newThread)
+            }
+        }
+    }
+
 
     func getAllGroupsWithThreads() -> [String : [Thread]]{
         var oldGroupsThreadsList: [String : [Thread]] = [String : [Thread]]()
@@ -936,19 +960,4 @@ class TempStorageAndCompare: NSObject{
     }
     //---------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------
-    
-    func setUpTimerImmediately(){
-        self.timer = Timer(fireAt: Date(), interval: 10, target: self, selector: #selector(fireNotification), userInfo: nil, repeats: false)
-        RunLoop.main.add(self.timer, forMode: RunLoopMode.commonModes)
-    }
-    
-    func fireNotification(){
-            let content = UNMutableNotificationContent()
-            content.title = "Neue Anfrage!"
-            content.body = "In der Gruppe gibt es eine neue Mitglieds-Anfrage."
-            content.badge = 1
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-            let request = UNNotificationRequest(identifier: "requestNotification", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-    }
 }

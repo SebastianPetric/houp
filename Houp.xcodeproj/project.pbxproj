@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520D12E81EFABF920049604D /* HoupNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520D12E71EFABF920049604D /* HoupNotifications.swift */; };
 		52102E0A1E89850F005715A9 /* DBViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52102E091E89850F005715A9 /* DBViews.swift */; };
 		52102E0C1E898556005715A9 /* DBFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52102E0B1E898556005715A9 /* DBFunctions.swift */; };
 		5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5218B64B1E8047F400B502DF /* CustomTextField.swift */; };
@@ -130,6 +131,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		520D12E71EFABF920049604D /* HoupNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoupNotifications.swift; sourceTree = "<group>"; };
 		52102E091E89850F005715A9 /* DBViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBViews.swift; sourceTree = "<group>"; };
 		52102E0B1E898556005715A9 /* DBFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBFunctions.swift; sourceTree = "<group>"; };
 		5218B64B1E8047F400B502DF /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 				529E57391ED0783A00256090 /* Timer.swift */,
 				529E573B1ED4832800256090 /* CalendarObject.swift */,
 				5283A0FA1EDC8DA50098E678 /* TempStorageAndCompare.swift */,
+				520D12E71EFABF920049604D /* HoupNotifications.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -909,6 +912,7 @@
 				52D5D60F1EF2A1F9009ACC3E /* ActivityWeekCollectionHighlightedCellHandler.swift in Sources */,
 				521C0C031EB0E75200D05F8F /* Comment.swift in Sources */,
 				521ECCA21E8BBC42001C10BC /* CreatePrivateGroupViewController.swift in Sources */,
+				520D12E81EFABF920049604D /* HoupNotifications.swift in Sources */,
 				52D5D60D1EF29F63009ACC3E /* ActivityWeekCollectionCellHandler.swift in Sources */,
 				5218B64C1E8047F400B502DF /* CustomTextField.swift in Sources */,
 				52D5AF941E8D5ECD0007C448 /* SettingsHandler.swift in Sources */,

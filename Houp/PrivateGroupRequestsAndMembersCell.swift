@@ -40,10 +40,16 @@ class PrivateGroupRequestsAndMembersCell: UICollectionViewCell{
         didSet{
             if let usern = user?.userName{
                 self.username.text = usern
+                
+                if let img = HoupImageCache.shared.getImageFromCache(userID: usern){
+                    self.profileImage.image = img
+                }
             }
             if let mail = user?.email{
                 self.mail.text = mail
             }
+            
+            
         }
     }
     

@@ -22,6 +22,7 @@ extension PrivateGroupRequestAndMembersList{
         }
     }
     
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         var adminList = [[UserObject]]()
         var reqList = [UserObject]()
@@ -40,9 +41,19 @@ extension PrivateGroupRequestAndMembersList{
                                     queryForRequests?.keys = groupRequestIDs
                                     let result = try queryForRequests?.run()
                                     while let row = result?.nextRow() {
+                                        
                                         let requestUser = UserObject(props: (row.document?.properties)!)
                                         requestUser.uid = row.documentID
                                         requestUser.rev = row.documentRevisionID
+                                        if(HoupImageCache.shared.getImageFromCache(userID: requestUser.userName!) == nil){
+                                            let stringURL = "\(requestUser.userName!)_profileImage.jpeg"
+                                            
+                                            let att = row.document?.currentRevision?.attachmentNamed(stringURL)
+                                            
+                                            if(att != nil){
+                                            HoupImageCache.shared.saveImageToCache(userID: requestUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
+                                            }
+                                        }
                                         reqList.append(requestUser)
                                     }
                                 }
@@ -57,6 +68,15 @@ extension PrivateGroupRequestAndMembersList{
                                     let memUser = UserObject(props: (row.document?.properties)!)
                                     memUser.uid = row.documentID
                                     memUser.rev = row.documentRevisionID
+                                    if(HoupImageCache.shared.getImageFromCache(userID: memUser.userName!) == nil){
+                                        let stringURL = "\(memUser.userName!)_profileImage.jpeg"
+                                        
+                                        let att = row.document?.currentRevision?.attachmentNamed(stringURL)
+                                        
+                                        if(att != nil){
+                                            HoupImageCache.shared.saveImageToCache(userID: memUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
+                                        }
+                                    }
                                     memList.append(memUser)
                                 }
                             }
