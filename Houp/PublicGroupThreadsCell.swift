@@ -27,6 +27,10 @@ class PublicGroupThreadsCell: UICollectionViewCell{
             if let answersCount = thread?.commentIDs?.count{
                 self.answersLabel.text = "\(answersCount)"
             }
+            if(!isAuthorOfTheThread(authorID: (self.thread?.authorID)!)){
+                self.notificationImage.isHidden = true
+                self.notificationImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
+            }
         }
     }
     
@@ -69,5 +73,8 @@ class PublicGroupThreadsCell: UICollectionViewCell{
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func isAuthorOfTheThread(authorID: String) -> Bool{
+        return (UserDefaults.standard.string(forKey: GetString.userID.rawValue) == authorID)
     }
 }

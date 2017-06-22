@@ -29,6 +29,11 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
                 self.answersLabel.text = "\(answersCount)"
             }
             if let hasUpdated = thread?.hasBeenUpdated{
+                if(!isAuthorOfTheThread(authorID: (self.thread?.authorID)!)){
+                    self.notificationImage.isHidden = true
+                    self.notificationImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
+                }
+                
                 if(hasUpdated){
                     notificationImage.image = notificationImage.image?.withRenderingMode(.alwaysTemplate)
                     notificationImage.tintColor = UIColor().getMainColor()
@@ -39,7 +44,6 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
             }
         }
     }
-
     let widthHeightOfImages: CGFloat = 20
     let seperator = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     let title = CustomViews.shared.getCustomLabel(text: "Suchtdruck in der Stadt Lirum Larum Löffelstiel. Dies Das Ananas", fontSize: 14, numberOfLines: 2, isBold: true, textAlignment: .left , textColor: nil)
@@ -67,6 +71,7 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
     }
     
     func setUpSubViews(){
+        
         username.addConstraintsWithConstants(top: topAnchor, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 200, height: 20)
         threadTime.addConstraintsWithConstants(top: topAnchor, right: notificationImage.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 35, height: 20)
         threadDateTimeSeperator.addConstraintsWithConstants(top: topAnchor, right: threadTime.leftAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 5, bottomConstant: 0, leftConstant: 0, width: 1, height: 20)
@@ -79,5 +84,9 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func isAuthorOfTheThread(authorID: String) -> Bool{
+        return (UserDefaults.standard.string(forKey: GetString.userID.rawValue) == authorID)
     }
 }

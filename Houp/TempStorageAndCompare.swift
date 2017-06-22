@@ -587,6 +587,19 @@ class TempStorageAndCompare: NSObject{
         self.userDefaults.synchronize()
     }
     
+    func deleteFirstItemOfCurrentWeek(){
+        var oldActivitiesList: [Activity] = [Activity]()
+        var newList: [Activity] = [Activity]()
+        if let oldList  = self.userDefaults.object(forKey: "activitiesOfCurrentWeek\(getUserID())") as? Data{
+            oldActivitiesList = NSKeyedUnarchiver.unarchiveObject(with: oldList) as! [Activity]
+            oldActivitiesList.removeFirst()
+            newList = oldActivitiesList
+        }
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: newList)
+        self.userDefaults.set(encodedData, forKey: "activitiesOfCurrentWeek\(getUserID())")
+        self.userDefaults.synchronize()
+    }
+    
     func deleteAllActivitiesForCurrentWeek(){
         var oldActivitiesList: [Activity] = [Activity]()
         let newList: [Activity] = [Activity]()

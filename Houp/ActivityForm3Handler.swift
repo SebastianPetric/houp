@@ -19,13 +19,18 @@ extension ActivityForm3{
                 
                 //Hier noch den Timer zurücksetzen
                 TimerObject.shared.deinitialiseTimer()
-                self.activityWeekCollection?.liveQuery?.removeObserver(self.activityWeekCollection.self!, forKeyPath: "rows")
-                self.activityWeekCollection?.activityList.removeAll()
-                self.activityWeekCollection?.getTopicActivities(userID: UserDefaults.standard.string(forKey: GetString.userID.rawValue)!)
+//                self.activityWeekCollection?.liveQuery?.removeObserver(self.activityWeekCollection.self!, forKeyPath: "rows")
+//                self.activityWeekCollection?.activityList.removeAll()
+//                self.activityWeekCollection?.getTopicActivities(userID: UserDefaults.standard.string(forKey: GetString.userID.rawValue)!)
+                TempStorageAndCompare.shared.deleteFirstItemOfCurrentWeek()
                 self.activityWeekCollection?.activityCollectionView.reloadData()
                 
-                if((self.activityWeekCollection?.activityList.count)! > 0){
-                    TimerObject.shared.setUpTimer(date: (self.activityWeekCollection?.activityList[0].dateObject)!)
+                if((TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek().count) > 0){
+                    if(Date().checkIfActivityAlreadyOver(activityDate: (TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek().first?.dateObject)!)){
+                    TimerObject.shared.setUpTimerImmediately()
+                    }else{
+                    TimerObject.shared.setUpTimer(date: (TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek().first?.dateObject)!)
+                    }
                 }
                 
                 self.activityWeekCollection?.handleNavBarItem()

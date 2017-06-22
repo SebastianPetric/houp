@@ -29,64 +29,67 @@ extension PrivateGroupRequestAndMembersList{
         var memList = [UserObject]()
         
         do{
-            if keyPath == "rows" {
-                if let rows = liveQuery!.rows {
-                    self.adminList.removeAll()
-                    while let row = rows.nextRow() {
-                        if let props = row.document!.properties {
-                            if(privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
-                                if let groupRequestIDs = props["groupRequestIDs"] as? [String]{
-                                    let queryForRequests = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
-                                    queryForRequests?.allDocsMode = CBLAllDocsMode.allDocs
-                                    queryForRequests?.keys = groupRequestIDs
-                                    let result = try queryForRequests?.run()
+            if(object as! NSObject == self.liveQuery){
+                    if let rows = liveQuery!.rows {
+                        self.adminList.removeAll()
+                        while let row = rows.nextRow() {
+                            if let props = row.document!.properties {
+                                if(privateGroup?.adminID == UserDefaults.standard.string(forKey: GetString.userID.rawValue)){
+                                    if let groupRequestIDs = props["groupRequestIDs"] as? [String]{
+                                        let queryForRequests = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                                        queryForRequests?.allDocsMode = CBLAllDocsMode.allDocs
+                                        queryForRequests?.keys = groupRequestIDs
+                                        let result = try queryForRequests?.run()
+                                        while let row = result?.nextRow() {
+                                            
+                                            let requestUser = UserObject(props: (row.document?.properties)!)
+                                            requestUser.uid = row.documentID
+                                            requestUser.rev = row.documentRevisionID
+                                            if(HoupImageCache.shared.getImageFromCache(userID: requestUser.userName!) == nil){
+                                                let stringURL = "\(requestUser.userName!)_profileImage.jpeg"
+                                                
+                                                let att = row.document?.currentRevision?.attachmentNamed(stringURL)
+                                                
+                                                if(att != nil){
+                                                    HoupImageCache.shared.saveImageToCache(userID: requestUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
+                                                }
+                                            }
+                                            reqList.append(requestUser)
+                                        }
+                                    }
+                                }
+                                adminList.append(reqList)
+                                if let memberIDs = props["memberIDs"] as? [String]{
+                                    let queryForMembers = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
+                                    queryForMembers?.allDocsMode = CBLAllDocsMode.allDocs
+                                    queryForMembers?.keys = memberIDs
+                                    let result = try queryForMembers?.run()
                                     while let row = result?.nextRow() {
-                                        
-                                        let requestUser = UserObject(props: (row.document?.properties)!)
-                                        requestUser.uid = row.documentID
-                                        requestUser.rev = row.documentRevisionID
-                                        if(HoupImageCache.shared.getImageFromCache(userID: requestUser.userName!) == nil){
-                                            let stringURL = "\(requestUser.userName!)_profileImage.jpeg"
+                                        let memUser = UserObject(props: (row.document?.properties)!)
+                                        memUser.uid = row.documentID
+                                        memUser.rev = row.documentRevisionID
+                                        if(HoupImageCache.shared.getImageFromCache(userID: memUser.userName!) == nil){
+                                            let stringURL = "\(memUser.userName!)_profileImage.jpeg"
                                             
                                             let att = row.document?.currentRevision?.attachmentNamed(stringURL)
                                             
                                             if(att != nil){
-                                            HoupImageCache.shared.saveImageToCache(userID: requestUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
+                                                HoupImageCache.shared.saveImageToCache(userID: memUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
                                             }
                                         }
-                                        reqList.append(requestUser)
+                                        memList.append(memUser)
                                     }
                                 }
+                                adminList.append(memList)
                             }
-                            adminList.append(reqList)
-                            if let memberIDs = props["memberIDs"] as? [String]{
-                                let queryForMembers = DBConnection.shared.getDBConnection()?.createAllDocumentsQuery()
-                                queryForMembers?.allDocsMode = CBLAllDocsMode.allDocs
-                                queryForMembers?.keys = memberIDs
-                                let result = try queryForMembers?.run()
-                                while let row = result?.nextRow() {
-                                    let memUser = UserObject(props: (row.document?.properties)!)
-                                    memUser.uid = row.documentID
-                                    memUser.rev = row.documentRevisionID
-                                    if(HoupImageCache.shared.getImageFromCache(userID: memUser.userName!) == nil){
-                                        let stringURL = "\(memUser.userName!)_profileImage.jpeg"
-                                        
-                                        let att = row.document?.currentRevision?.attachmentNamed(stringURL)
-                                        
-                                        if(att != nil){
-                                            HoupImageCache.shared.saveImageToCache(userID: memUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
-                                        }
-                                    }
-                                    memList.append(memUser)
-                                }
-                            }
-                            adminList.append(memList)
+                            self.adminList = adminList
+                            self.membersCollectionView.reloadData()
                         }
-                        self.adminList = adminList
-                        self.membersCollectionView.reloadData()
                     }
-                }
+                
             }
+            
+          
         }catch{
             reqList = [UserObject]()
             memList = [UserObject]()

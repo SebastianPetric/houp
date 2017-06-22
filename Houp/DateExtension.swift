@@ -65,6 +65,22 @@ extension Date{
         components.second = 00
         return gregorian.date(from: components)!
     }
+    
+    func checkIfActivityAlreadyOver(activityDate: Date) -> Bool{
+        let gregorian = Calendar(identifier: .gregorian)
+        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: activityDate)
+        // Change the time to 9:30:00 in your locale
+        components.hour = 20
+        components.minute = 00
+        components.second = 00
+        let dateO = gregorian.date(from: components)!
+        
+        if(dateO < Date()){
+            return true
+        }
+        return false
+    }
+
 
 
 }

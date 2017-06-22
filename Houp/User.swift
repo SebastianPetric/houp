@@ -58,4 +58,12 @@ class User{
         }
         return properties
     }
+    
+    func isOwner(id: String) -> Bool{
+        return self.uid == id
+    }
+    
+    func getUserID() -> String{
+        return self.uid!
+    }
 }

@@ -117,7 +117,7 @@ class CustomViews{
             customImageView.image = customImageView.image?.withRenderingMode(.alwaysTemplate)
             customImageView.tintColor = imageColor
         }
-            customImageView.contentMode = .scaleAspectFit
+            customImageView.contentMode = .scaleAspectFill
             customImageView.clipsToBounds = true
             customImageView.layer.masksToBounds = true
             customImageView.backgroundColor = .white

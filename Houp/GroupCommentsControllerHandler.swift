@@ -120,12 +120,19 @@ override func observeValue(forKeyPath keyPath: String?, of object: Any?, change:
                             topComment.append(com)
                         }else{
                             otherComments.append(com)
+                            
+                            
                         }
                         i = i + 1
                     }else{
                         otherComments.append(com)
                     }
                 }
+               
+                otherComments.sort(by:
+                { $0.dateObject?.compare($1.dateObject!) == ComparisonResult.orderedAscending }
+                )
+            
                 allComments.append(topComment)
                 allComments.append(otherComments)
                 self.commentsList = allComments

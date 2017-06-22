@@ -16,31 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     var userDefaults: UserDefaults?
-//    var liveQueryNewAnser: CBLLiveQuery?
-//    var liveQueryNewThread: CBLLiveQuery?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-//        if let connection = DBConnection.shared.getDBConnection(){
-//            print(connection)
-//        }else{
-//            DBConnection.shared.setUpDBConnection()
-//            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
-//            window?.rootViewController = root
-//        }
-
         DBConnection.shared.setUpDBConnection()
         let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
         window?.rootViewController = root
-        
-//        if(UserDefaults.standard.string(forKey: GetString.userID.rawValue) == nil){
-//            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
-//            window?.rootViewController = root
-//        }else{
-//            window?.rootViewController = CustomTabBarController()
-//        }
         
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
@@ -54,46 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     
-//    func getThreadByAuthor(authorID: String){
-//            if let view = DBConnection.shared.viewByThreadByAuthorID{
-//                let query = view.createQuery()
-//                query.keys = [authorID]
-//                liveQueryNewAnser = query.asLive()
-//                liveQueryNewAnser?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
-//                liveQueryNewAnser?.start()
-//            }
-//    }
-//    
-//    func getThreadByUserID(userID: String){
-//        if let view = DBConnection.shared.viewByThreadByAuthorID{
-//            let query = view.createQuery()
-//            query.keys = [userID]
-//            liveQueryNewAnser = query.asLive()
-//            liveQueryNewAnser?.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
-//            liveQueryNewAnser?.start()
-//        }
-//    }
-//    
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//        do{
-//            if(object as! NSObject == self.liveQueryNewAnser){
-//                print("hallo")
-//                let content = UNMutableNotificationContent()
-//                content.title = "Hey :)"
-//                content.body = "Auf deinen Post gab es eine Reaktion!"
-//                content.badge = 1
-//                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-//                let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
-//                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-//            }
-//        }catch{
-//            
-//            
-//        }
-//    }
-//
 
-    
    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
     return .portrait
     }
@@ -114,15 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillEnterForeground(_ application: UIApplication) {
         print("will enter foreground")
         
-
-
-//        if let connection = DBConnection.shared.getDBConnection(){
-//            print("alles ok")
-//        }else{
-//            DBConnection.shared.setUpDBConnection()
-//            let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
-//            window?.rootViewController = root
-//        }
+        if (DBConnection.shared.getDBConnection() == nil){
+            DBConnection.shared.setUpDBConnection()
+        }
+        
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
@@ -184,8 +123,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //                let controller = CustomTabBarController()
 //                controller.selectedIndex = 2
 //                window?.rootViewController = controller
-            }else if(notification.alertTitle! == "Neue Anfrage!"){
-                
             }
         }else{
             let root = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: LoginViewController(),navBarTitle: GetString.appName.rawValue, barItemTitle: "", image: "")
@@ -209,14 +146,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
     }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        //Handle the notification
-        //This will get the text sent in your notification
-        print("hier sollte jetzt was kommen")
-        let body = notification.request.content.body
-        
-    }
-
 }
 
