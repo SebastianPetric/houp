@@ -15,12 +15,12 @@ class ActivityWeekForm7: UIViewController, UITextFieldDelegate{
     var activity: Activity?
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was würdest du gerne unternehmen?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
-    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. Spazieren spielen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit", pickerMode: .time)
+    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. Sport machen", keyboardType: .default, isPasswordField: false, textColor: .black, backgroundColor: UIColor().getFourthColor())
+    let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false,textColor: .black, backgroundColor: UIColor().getFourthColor())
+    let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit", titleColor: .black, pickerMode: .time)
     let dateActivity = CustomViews.shared.getCustomLabel(text: "Heute", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .black)
-    let continueButton = CustomViews.shared.getCustomButton(title: "Fertig!")
-    let progressbar = CustomViews.shared.getCustomProgressionView(status: 1, statusText: "7 von 7", progressColor: UIColor().getSecondColor())
+    let continueButton = CustomViews.shared.getCustomButton(title: "Fertig!", borderColor: .black, textColor: .black)
+    let progressbar = CustomViews.shared.getCustomProgressionView(status: 1, statusText: "7 von 7", progressColor: UIColor().getFourthColor())
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         return recognizer
@@ -57,8 +57,8 @@ class ActivityWeekForm7: UIViewController, UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if(self.activityText.text! != ""){
-            self.continueButton.layer.borderColor = UIColor().getSecondColor().cgColor
-            self.continueButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
+            self.continueButton.layer.borderColor = UIColor.black.cgColor
+            self.continueButton.setTitleColor(.black, for: .normal)
         }else{
             self.continueButton.layer.borderColor = UIColor().getLightGreyColor().cgColor
             self.continueButton.setTitleColor(UIColor().getLightGreyColor(), for: .normal)

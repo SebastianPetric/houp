@@ -31,7 +31,7 @@ extension ActivitiesCommentsController{
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
             }else{
-                self.upvoteButtonInfo?.tintColor = UIColor().getSecondColor()
+                self.upvoteButtonInfo?.tintColor = UIColor().getMainColor()
             }
             
         }else{

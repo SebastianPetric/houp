@@ -9,61 +9,6 @@
 import UIKit
 
 class PrivateGroupsCell: UICollectionViewCell{
-    
-//    var post: Post?{
-//        didSet{
-//            
-//            if let name = post?.name{
-//                nameLabel.text = post?.name
-//            }
-//            
-//            if let postText = post?.postText{
-//                postLabel.text = postText
-//            }
-//            
-//            if let profileImage = post?.profileImageName {
-//                profileImageView.image = UIImage(named: profileImage)
-//            }
-//            
-//            if let location = post?.location{
-//                if let date = post?.date{
-//                    infoLabel.text = "\(date) • \(location)"
-//                }
-//            }
-//            
-//            if let likes = post?.numLikes{
-//                likesCount.text = "\(likes) Likes"
-//            }
-//            
-//            if let comments = post?.numComments{
-//                commentCount.text = "\(comments) Kommentare"
-//            }
-//            
-//            if let postImgUrl = post?.postImage{
-//                if let image = imageCache.object(forKey: postImgUrl as AnyObject) as? UIImage{
-//                    self.postImage.image = image
-//                }else{
-//                    var request = URLRequest(url: URL(string: postImgUrl)!)
-//                    URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-//                        if error != nil{
-//                            print(error)
-//                            return
-//                        }else{
-//                            
-//                            let image = UIImage(data: data!)
-//                            imageCache.setObject(image!, forKey: postImgUrl as AnyObject)
-//                            let backgroundQueue = DispatchQueue(label: "com.app.queue",
-//                                                                qos: .background,
-//                                                                target: nil)
-//                            backgroundQueue.async {
-//                                self.postImage.image = image
-//                            }
-//                        }
-//                    }).resume()
-//                }
-//            }
-//        }
-//    }
 
     var privateGroupCollectionDelegate: PrivateGroupCollectionViewController?
     var privateGroup: PrivateGroup?{
@@ -120,7 +65,7 @@ class PrivateGroupsCell: UICollectionViewCell{
     let timeOfMeeting = CustomViews.shared.getCustomLabel(text: "19:30 Uhr", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: nil)
     let secretGroupID = CustomViews.shared.getCustomLabel(text: "#GeheimeID", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: nil)
     let threadsLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .right, textColor: nil)
-    let threadsImage = CustomViews.shared.getCustomImageView(imageName: "thread_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
+    let threadsImage = CustomViews.shared.getCustomImageView(imageName: "thread_icon", cornerRadius: 10, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
     let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .right, textColor: nil)
     let usersInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "users_private_icon", backgroundColor: .white, imageColor: .black, radius: nil, borderColor: .white)
     let notificationImage = CustomViews.shared.getCustomImageView(imageName: "notification_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)

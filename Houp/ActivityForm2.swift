@@ -22,12 +22,14 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
     let badImage = CustomViews.shared.getCustomButtonWithImage(imageName: "thumb1_icon", backgroundColor: .white, imageColor: .black, radius: 20, borderColor: .black)
     let neutralImage = CustomViews.shared.getCustomButtonWithImage(imageName: "thumb2_icon", backgroundColor: .white, imageColor: .black, radius: 20, borderColor: .black)
     let goodImage = CustomViews.shared.getCustomButtonWithImage(imageName: "thumb3_icon", backgroundColor: .white, imageColor: .black, radius: 20, borderColor: .black)
-    let reason = CustomViews.shared.getCustomTextViewContainer(text: "", fontSize: 12, isBold: true, textAlignment: .left, textColor: .white, borderColor: .white, backgroundColor: UIColor().getSecondColor())
-    let continueButton = CustomViews.shared.getCustomButton(title: "Weiter")
-    let progressbar = CustomViews.shared.getCustomProgressionView(status: 0.666666, statusText: "2 von 3", progressColor: UIColor().getSecondColor())
+    let reason = CustomViews.shared.getCustomTextViewContainer(text: "", fontSize: 12, isBold: true, textAlignment: .left, textColor: .black, borderColor: .white, backgroundColor: UIColor().getFourthColor())
+    let continueButton = CustomViews.shared.getCustomButton(title: "Weiter", borderColor: UIColor().getLightGreyColor(), textColor: UIColor().getLightGreyColor())
+    let progressbar = CustomViews.shared.getCustomProgressionView(status: 0.666666, statusText: "2 von 3", progressColor: UIColor().getFourthColor())
     let reasonHeader = CustomViews.shared.getCustomLabel(text: "Willst du noch etwas dazu sagen?", fontSize: 12, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)
     let extraCommentSwitch: UISwitch = {
         let switchButton = UISwitch()
+        switchButton.tintColor = UIColor().getFourthColor()
+        switchButton.onTintColor = UIColor().getFourthColor()
         switchButton.isOn = false
         return switchButton
     }()
@@ -35,6 +37,8 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
     let shareHeader = CustomViews.shared.getCustomLabel(text: "Super! Willst du das mit deinen Gruppen teilen?", fontSize: 12, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)
     let shareSwitch: UISwitch = {
         let switchButton = UISwitch()
+        switchButton.tintColor = UIColor().getFourthColor()
+        switchButton.onTintColor = UIColor().getFourthColor()
         switchButton.isOn = false
         return switchButton
     }()
@@ -52,8 +56,6 @@ class ActivityForm2: UIViewController, UITextViewDelegate{
         view.addSubview(titleHeader)
         view.addSubview(question)
         view.addSubview(continueButton)
-        self.continueButton.layer.borderColor = UIColor().getLightGreyColor().cgColor
-        self.continueButton.setTitleColor(UIColor().getLightGreyColor(), for: .normal)
         view.addSubview(progressbar)
         view.addSubview(reason)
         container.addSubview(badImage)

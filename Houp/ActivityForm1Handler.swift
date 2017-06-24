@@ -11,10 +11,10 @@ import UIKit
 extension ActivityForm1{
 
     func handleContinue(){
-        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+        if(self.continueButton.layer.borderColor == UIColor.black.cgColor){
             var addictionState: Int = -1
             for button in container.subviews as! [UIButton] {
-                if(button.backgroundColor == UIColor().getSecondColor()){
+                if(button.backgroundColor == UIColor().getFourthColor()){
                 addictionState = container.subviews.index(of: button)!
                 }
             }
@@ -63,9 +63,9 @@ extension ActivityForm1{
             }
             if(button == sender){
                 if(button.backgroundColor == .white){
-                    button.backgroundColor = UIColor().getSecondColor()
-                    self.continueButton.layer.borderColor = UIColor().getSecondColor().cgColor
-                    self.continueButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
+                    button.backgroundColor = UIColor().getFourthColor()
+                    self.continueButton.layer.borderColor = UIColor.black.cgColor
+                    self.continueButton.setTitleColor(.black, for: .normal)
                 }else{
                     button.backgroundColor = .white
                     self.continueButton.layer.borderColor = UIColor().getLightGreyColor().cgColor

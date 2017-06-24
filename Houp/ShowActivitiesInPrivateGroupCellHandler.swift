@@ -16,7 +16,7 @@ extension ShowActivitiesInPrivateGroupCell{
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.window?.rootViewController?.present(alert, animated: true, completion: nil)
             }else{
-                self.upvoteButton.tintColor = UIColor().getThirdColor()
+                self.upvoteButton.tintColor = UIColor().getMainColor()
             }
             
         }else{

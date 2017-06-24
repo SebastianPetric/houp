@@ -13,17 +13,15 @@ class EditPrivateGroup: UIViewController, UITextFieldDelegate{
     var privateGroup: PrivateGroup?
     private var errorMessage: String = ""
     
+    let titleHeader = CustomViews.shared.getCustomLabel(text: "Was willst du gerne ändern?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
     let nameOfGroup = CustomViews.shared.getCustomTextField(placeholder: "", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    
-    
     let locationOfMeeting = CustomViews.shared.getCustomTextField(placeholder: "", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     
     let dayOfMeeting = CustomViews.shared.getCustomTextField(placeholder: "", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     
-    let timeOfMeeting = CustomViews.shared.getCustomPickerViewWithTitle(title: GetString.timeOfMeeting.rawValue, pickerMode: .time)
+    let timeOfMeeting = CustomViews.shared.getCustomPickerViewWithTitle(title: GetString.timeOfMeeting.rawValue, titleColor: .black, pickerMode: .time)
     
-    let editButton = CustomViews.shared.getCustomButton(title: "Gruppendetails updaten")
-    
+    let editButton = CustomViews.shared.getCustomButton(title: "Gruppendetails updaten", borderColor: .black, textColor: .black)
     var positiveResponse = UIView()
     
     lazy var gestureRecognizer: UITapGestureRecognizer = {
@@ -37,6 +35,7 @@ class EditPrivateGroup: UIViewController, UITextFieldDelegate{
         self.nameOfGroup.delegate = self
         self.locationOfMeeting.delegate = self
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.cancel_icon.rawValue), style: .plain, target: self, action: #selector(handleCancel))
+        view.addSubview(titleHeader)
         view.addSubview(nameOfGroup)
         view.addSubview(locationOfMeeting)
         view.addSubview(dayOfMeeting)
@@ -53,7 +52,8 @@ class EditPrivateGroup: UIViewController, UITextFieldDelegate{
     }
     
     private func setUpSubViews(){
-        nameOfGroup.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 25, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
+        titleHeader.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 25, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 0)
+        nameOfGroup.addConstraintsWithConstants(top: titleHeader.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         locationOfMeeting.addConstraintsWithConstants(top: nameOfGroup.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         dayOfMeeting.addConstraintsWithConstants(top: locationOfMeeting.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         timeOfMeeting.addConstraintsWithConstants(top: dayOfMeeting.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 65)
@@ -68,6 +68,11 @@ class EditPrivateGroup: UIViewController, UITextFieldDelegate{
         self.locationOfMeeting.endEditing(true)
         return false
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkIfFieldsAreFilled()
+    }
+    
     func hideKeyboard(){
         self.nameOfGroup.endEditing(true)
         self.locationOfMeeting.endEditing(true)

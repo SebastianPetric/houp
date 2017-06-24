@@ -51,6 +51,7 @@ enum GetString: String {
     case accept_icon = "accept_icon"
     case deny_icon = "deny_icon"
     case send_icon = "send_icon"
+    case finish_icon = "finish_icon"
     
     
     //Buttons

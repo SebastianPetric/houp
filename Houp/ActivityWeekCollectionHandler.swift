@@ -45,14 +45,14 @@ extension ActivityWeekCollection{
     }
     
     func handleNavBarItem(){
-//            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
+//           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
             let currentWeekActivities = TempStorageAndCompare.shared.getActiveActivitiesOfCurrentWeek()
             if(currentWeekActivities.count == 0){
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.createIcon.rawValue), style: .plain, target: self, action: #selector(handleActivityForm))
             }else if(Date().checkIfActivityAlreadyOver(date: currentWeekActivities[0].dateObject!) <= Date()){
-                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.finish_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
             }else{
-                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.accept_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.finish_icon.rawValue), style: .plain, target: self, action: #selector(handleUpdateActivity))
                 navigationItem.rightBarButtonItem?.isEnabled = false
             }
     }

@@ -12,7 +12,7 @@ extension ActivityWeekForm7{
     
     
     func continueWeek(){
-        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+        if(self.continueButton.layer.borderColor == UIColor.black.cgColor){
             if (hasAnyErrors()){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)

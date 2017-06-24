@@ -17,10 +17,11 @@ class EditThread: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIP
     private var message: String = ""
     var groupID: String?
     var thread: Thread?
+    let titleHeader = CustomViews.shared.getCustomLabel(text: "Was willst du gerne ändern?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
+    let titleThread = CustomViews.shared.getCustomTextField(placeholder: "Titel", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getThirdColor())
+    let messageThread = CustomViews.shared.getCustomTextViewContainer(text: "", fontSize: 12, isBold: true, textAlignment: .left, textColor: .white, borderColor: .white, backgroundColor: UIColor().getThirdColor())
+    let editButton = CustomViews.shared.getCustomButton(title: "Thread updaten",borderColor: .black, textColor: .black)
     
-    let titleThread = CustomViews.shared.getCustomTextField(placeholder: "Titel", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    let messageThread = CustomViews.shared.getCustomTextViewContainer(text: "", fontSize: 12, isBold: true, textAlignment: .left, textColor: .white, borderColor: .white, backgroundColor: UIColor().getSecondColor())
-    let editButton = CustomViews.shared.getCustomButton(title: "Thread updaten")
  
     var positiveResponse = UIView()
     
@@ -36,6 +37,7 @@ class EditThread: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIP
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: GetString.cancel_icon.rawValue), style: .plain, target: self, action: #selector(handleCancel))
         view.addSubview(titleThread)
         view.addSubview(messageThread)
+        view.addSubview(titleHeader)
         titleThread.delegate = self
         messageThread.delegate = self
         view.addSubview(editButton)
@@ -49,7 +51,8 @@ class EditThread: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIP
     }
     
     func setUpSubViews(){
-        titleThread.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 34, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
+        titleHeader.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 25, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 0)
+        titleThread.addConstraintsWithConstants(top: titleHeader.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
         messageThread.addConstraintsWithConstants(top: titleThread.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 100)
         editButton.addConstraintsWithConstants(top: messageThread.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 15, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
     }
@@ -80,6 +83,10 @@ class EditThread: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIP
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkIfFieldsAreFilled()
+    }
+
     func hideKeyboard(){
         self.view.endEditing(true)
     }

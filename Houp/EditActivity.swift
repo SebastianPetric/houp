@@ -14,11 +14,11 @@ class EditActivity: UIViewController, UITextFieldDelegate{
     var activity: Activity?
     var positiveResponse = UIView()
     let titleHeader = CustomViews.shared.getCustomLabel(text: "Was willst du gerne ändern?", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .center, textColor: .black)
-    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. mit Freunden treffen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit", pickerMode: .time)
+    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. mit Freunden treffen", keyboardType: .default, isPasswordField: false, textColor: .black,  backgroundColor: UIColor().getFourthColor())
+    let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false, textColor: .black, backgroundColor: UIColor().getFourthColor())
+    let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit",titleColor: .black, pickerMode: .time)
     let dateActivity = CustomViews.shared.getCustomLabel(text: "Heute", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .black)
-    let continueButton = CustomViews.shared.getCustomButton(title: "Aufgabe updaten")
+    let continueButton = CustomViews.shared.getCustomButton(title: "Aufgabe bearbeiten", borderColor: .black, textColor: .black)
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         return recognizer
@@ -36,8 +36,6 @@ class EditActivity: UIViewController, UITextFieldDelegate{
         locationText.delegate = self
         view.addSubview(timeOfActivity)
         view.addSubview(continueButton)
-        self.continueButton.layer.borderColor = UIColor().getLightGreyColor().cgColor
-        self.continueButton.setTitleColor(UIColor().getLightGreyColor(), for: .normal)
         view.addGestureRecognizer(gestureRecognizer)
         continueButton.addTarget(self, action: #selector(editActivity), for: .touchUpInside)
         self.activityText.text = self.activity?.activity

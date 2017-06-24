@@ -27,10 +27,10 @@ class PublicGroupThreadsCell: UICollectionViewCell{
             if let answersCount = thread?.commentIDs?.count{
                 self.answersLabel.text = "\(answersCount)"
             }
-            if(!isAuthorOfTheThread(authorID: (self.thread?.authorID)!)){
-                self.notificationImage.isHidden = true
-                self.notificationImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
-            }
+//            if(!isAuthorOfTheThread(authorID: (self.thread?.authorID)!)){
+//                self.notificationImage.isHidden = true
+//                self.notificationImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
+//            }
         }
     }
     

@@ -26,6 +26,20 @@ class CustomViews{
             return customTextField
     }
     
+    func getCustomTextField(placeholder: String,keyboardType: UIKeyboardType, isPasswordField: Bool,textColor: UIColor, backgroundColor: UIColor?) -> CustomTextField {
+        let customTextField = CustomTextField()
+        if(backgroundColor != nil){
+            customTextField.backgroundColor = backgroundColor
+        }
+        customTextField.textColor = textColor
+        customTextField.keyboardType = keyboardType
+        customTextField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: textColor])
+        customTextField.layer.cornerRadius = 5
+        customTextField.isSecureTextEntry = isPasswordField
+        customTextField.clearButtonMode = .always
+        return customTextField
+    }
+    
     func getCustomTextFieldLarge(placeholder: String,keyboardType: UIKeyboardType, isPasswordField: Bool, backgroundColor: UIColor?) -> UITextField {
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -56,6 +70,18 @@ class CustomViews{
             customButton.tintColor = .black
             return customButton
     }
+    
+    func getCustomButton(title: String, borderColor: UIColor, textColor: UIColor) -> UIButton{
+        let customButton = UIButton(type: .system)
+        customButton.setTitle(title, for: .normal)
+        customButton.layer.cornerRadius = 5
+        customButton.setTitleColor(textColor, for: .normal)
+        customButton.layer.borderColor = borderColor.cgColor
+        customButton.layer.borderWidth = 1
+        customButton.tintColor = .black
+        return customButton
+    }
+
     
     func getCustomLabel(text: String, fontSize: CGFloat,numberOfLines: Int, isBold: Bool, textAlignment: NSTextAlignment, textColor: UIColor?) -> UILabel{
         let customLabel = UILabel()
@@ -180,14 +206,14 @@ class CustomViews{
                 responseTitle.text = title
                 responseTitle.textAlignment = .center
                 responseTitle.font = UIFont.boldSystemFont(ofSize: 20)
-                responseTitle.textColor = UIColor().getSecondColor()
+                responseTitle.textColor = .black
                 responseTitle.isEditable = false
                 return responseTitle
             }()
             
             let responseMessage: UITextView = {
                 let responseMessage = UITextView()
-                responseMessage.textColor = UIColor().getSecondColor()
+                responseMessage.textColor = .black
                 responseMessage.font = UIFont.systemFont(ofSize: 15)
                 responseMessage.textAlignment = .center
                 responseMessage.text = message
@@ -198,7 +224,7 @@ class CustomViews{
             let view = UIView()
             view.backgroundColor = .white
             view.layer.cornerRadius = 5
-            view.layer.borderColor = UIColor().getSecondColor().cgColor
+            view.layer.borderColor = UIColor.black.cgColor
             view.layer.borderWidth = 1
             view.addSubview(responseTitle)
             view.addSubview(responseMessage)
@@ -300,6 +326,34 @@ class CustomViews{
 //        container.layer.cornerRadius = 5
 //        container.layer.borderColor = UIColor().getSecondColor().cgColor
 //        container.layer.borderWidth = 1
+        container.addSubview(pickerTitle)
+        container.addSubview(picker)
+        pickerTitle.addConstraintsWithConstants(top: container.topAnchor, right: nil, bottom: nil, left: container.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 5, width: 200, height: 25)
+        picker.addConstraintsWithConstants(top: pickerTitle.bottomAnchor, right: container.rightAnchor, bottom: nil, left: container.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 0, width: 0, height: 40)
+        return container
+    }
+    
+    func getCustomPickerViewWithTitle(title: String, titleColor: UIColor, pickerMode: UIDatePickerMode) -> UIView {
+        
+        let pickerTitle = getCustomLabel(text: title, fontSize: 16, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: titleColor)
+        
+        
+        let picker = UIDatePicker()
+        picker.datePickerMode = pickerMode
+        
+        if(pickerMode == UIDatePickerMode.date){
+            var components = DateComponents()
+            let maxDate = Calendar.current.date(byAdding: components, to: Date())
+            picker.maximumDate = maxDate
+            components.year = -100
+            let minDate = Calendar.current.date(byAdding: components, to: Date())
+            picker.minimumDate = minDate
+        }
+        
+        let container = UIView()
+        //        container.layer.cornerRadius = 5
+        //        container.layer.borderColor = UIColor().getSecondColor().cgColor
+        //        container.layer.borderWidth = 1
         container.addSubview(pickerTitle)
         container.addSubview(picker)
         pickerTitle.addConstraintsWithConstants(top: container.topAnchor, right: nil, bottom: nil, left: container.leftAnchor, centerX: nil, centerY: nil, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 5, width: 200, height: 25)

@@ -22,7 +22,7 @@ extension ActivityWeekForm5{
     }
     
     func continueWeek(){
-        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+        if(self.continueButton.layer.borderColor == UIColor.black.cgColor){
                 let tomorrow = Calendar.current.date(byAdding: .day, value: 6, to: Date())
                 let controller = ActivityWeekForm6()
                 controller.activityWeekCollection = self.activityWeekCollection

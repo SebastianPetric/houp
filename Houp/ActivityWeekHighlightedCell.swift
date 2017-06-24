@@ -14,7 +14,7 @@ class ActivityWeekHighlightedCell: UICollectionViewCell{
     let activity = CustomViews.shared.getCustomLabel(text: "Schwimmen gehen Mit Franzl im Bach bei meiner mama", fontSize: 20, numberOfLines: 4, isBold: true, textAlignment: .center, textColor: .black)
     let timeOfActivity = CustomViews.shared.getCustomLabel(text: "10:35", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: .black)
     let locationOfActivity = CustomViews.shared.getCustomLabel(text: "Hallenbad Weingarten", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .left, textColor: .black)
-    let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .black, radius: nil, borderColor: UIColor().getSecondColor())
+    let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getFourthColor(), imageColor: .black, radius: nil, borderColor: UIColor().getFourthColor())
     let seperator = CustomViews.shared.getCustomSeperator(color: .black)
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     
@@ -39,7 +39,7 @@ class ActivityWeekHighlightedCell: UICollectionViewCell{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor().getSecondColor()
+        backgroundColor = UIColor().getFourthColor()
         addSubview(dateOfActivity)
         addSubview(activity)
         addSubview(timeOfActivity)

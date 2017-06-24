@@ -70,7 +70,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
 
     let infoContainer: UIView = {
     let view = UIView()
-    view.backgroundColor = .white
+    view.backgroundColor = UIColor().getSecondColor()
     return view
     }()
 
@@ -83,7 +83,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
     let usersInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .white)
     let usersInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "users_private_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
     let activitiesInGroupLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .white)
-    let activitiesInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "activity_tab_bar", backgroundColor: UIColor(red: 41, green: 192, blue: 232, alphaValue: 1), imageColor: .white, radius: 10, borderColor: UIColor().getSecondColor())
+    let activitiesInGroupButton = CustomViews.shared.getCustomButtonWithImage(imageName: "activity_tab_bar", backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: 10, borderColor: UIColor().getSecondColor())
     let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getSecondColor(), imageColor: .white, radius: nil, borderColor: UIColor().getSecondColor())
     let seperatorComments = CustomViews.shared.getCustomSeperator(color: UIColor().getSecondColor())
     
@@ -115,7 +115,7 @@ class PrivateGroupWithThreadsController: UIViewController, UICollectionViewDeleg
         infoContainer.addSubview(activitiesInGroupLabel)
         infoContainer.addSubview(activitiesInGroupButton)
         view.addSubview(infoContainer)
-        infoContainer.backgroundColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 1)
+        //infoContainer.backgroundColor = UIColor().getSecondColor()
         view.addSubview(threadsCollectionView)
         view.addSubview(seperatorComments)
         

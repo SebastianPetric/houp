@@ -33,7 +33,7 @@ class ShowActivitiesInPrivateGroupCell: UICollectionViewCell{
             if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
                 if let hasBeenLiked = activityObject?.likeIDs?.contains(userID){
                     if(hasBeenLiked){
-                        self.upvoteButton.tintColor = UIColor().getThirdColor()
+                        self.upvoteButton.tintColor = UIColor().getMainColor()
                     }else{
                         self.upvoteButton.tintColor = .black
                     }
@@ -52,7 +52,7 @@ class ShowActivitiesInPrivateGroupCell: UICollectionViewCell{
     let title = CustomViews.shared.getCustomLabel(text: "Was machen", fontSize: 20, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)
     let upvoteLabel = CustomViews.shared.getCustomLabel(text: "122", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .center, textColor: .black)
     let upvoteButton = CustomViews.shared.getCustomButtonWithImage(imageName: "upvote_icon", backgroundColor: .white, imageColor: .black, radius: nil, borderColor: nil)
-    let answersImage = CustomViews.shared.getCustomImageView(imageName: "answers_icon", cornerRadius: 10, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
+    let answersImage = CustomViews.shared.getCustomImageView(imageName: "answers_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
     let answersLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .black)
     let seperator = CustomViews.shared.getCustomSeperator(color: UIColor().getLightGreyColor())
     

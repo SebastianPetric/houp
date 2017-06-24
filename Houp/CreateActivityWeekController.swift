@@ -18,14 +18,16 @@ class CreateActivityWeekController: UIViewController, UITextFieldDelegate{
     let onlyForNextDay = CustomViews.shared.getCustomLabel(text: "Willst du nur für morgen planen? (Anstatt der ganzen Woche)", fontSize: 12, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: .black)
     let isOnlyNextDaySwitch: UISwitch = {
         let switchButton = UISwitch()
+        switchButton.tintColor = UIColor().getFourthColor()
+        switchButton.onTintColor = UIColor().getFourthColor()
         switchButton.isOn = false
         return switchButton
     }()
-    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. Schwimmen gehen", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
-    let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit", pickerMode: .time)
+    let activityText = CustomViews.shared.getCustomTextField(placeholder: "z.B. Schwimmen gehen", keyboardType: .default, isPasswordField: false, textColor: .black, backgroundColor: UIColor().getFourthColor())
+    let locationText = CustomViews.shared.getCustomTextField(placeholder: "Ort (freiwillig)", keyboardType: .default, isPasswordField: false,textColor: .black, backgroundColor: UIColor().getFourthColor())
+    let timeOfActivity = CustomViews.shared.getCustomPickerViewWithTitle(title: "Uhrzeit", titleColor: .black, pickerMode: .time)
     let dateActivity = CustomViews.shared.getCustomLabel(text: "Heute", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .left, textColor: .black)
-    let continueButton = CustomViews.shared.getCustomButton(title: "Weiter")
+    let continueButton = CustomViews.shared.getCustomButton(title: "Weiter", borderColor: .black, textColor: .black)
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         return recognizer
@@ -66,8 +68,8 @@ class CreateActivityWeekController: UIViewController, UITextFieldDelegate{
         
     func textFieldDidEndEditing(_ textField: UITextField) {
         if(self.activityText.text! != ""){
-            self.continueButton.layer.borderColor = UIColor().getSecondColor().cgColor
-            self.continueButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
+            self.continueButton.layer.borderColor = UIColor.black.cgColor
+            self.continueButton.setTitleColor(.black, for: .normal)
         }else{
             self.continueButton.layer.borderColor = UIColor().getLightGreyColor().cgColor
             self.continueButton.setTitleColor(UIColor().getLightGreyColor(), for: .normal)

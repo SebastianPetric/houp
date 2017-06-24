@@ -11,6 +11,7 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
     var upvoteLabelInfo: UILabel?
     var comments: [Comment] = [Comment]()
     var titleNav = ""
+    var thirdColor = UIColor().getFourthColor()
     
     deinit {
         liveQuery?.removeObserver(self, forKeyPath: "rows")
@@ -49,7 +50,7 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
                 if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
                     if let button = (self.infoContainer.subviews[7] as? UIButton){
                         if(likeIDs.contains(userID)){
-                            button.tintColor = UIColor().getSecondColor()
+                            button.tintColor = UIColor().getMainColor()
                         }else{
                             button.tintColor = .black
                         }
@@ -83,11 +84,11 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
         let seperator = CustomViews.shared.getCustomSeperator(color: .black)
         let time = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
         let title = CustomViews.shared.getCustomLabel(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es dar", fontSize: 14, numberOfLines: 2, isBold: true, textAlignment: .left, textColor: nil)
-        let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjper ättee folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: UIColor().getThirdColor())
+        let message = CustomViews.shared.getCustomTextView(text: "Hallo leute, also wie gesagt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt ich hätte folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjper ättee folgendes Problem. Und zwar geht es darum, dass ich nciht weiß was ich machen soll. Bla bla bla bla bla bla bla fwhnegriopjhg ergijerpgjerpgjerg jergpijgrepojgregre gerjpoergjperjgreg grpoerjgpoerjgpojerg mergpojpoergjperjt", fontSize: 12, textAlignment: .left, textColor: .black, backGroundColor: UIColor().getFourthColor())
         //let editButton = CustomViews.shared.getCustomButtonWithImage(imageName: "edit_icon", backgroundColor: UIColor().getThirdColor(), imageColor: .black, radius: nil, borderColor: UIColor().getThirdColor())
-        let seperatorInfo = CustomViews.shared.getCustomSeperator(color: UIColor().getThirdColor())
+        let seperatorInfo = CustomViews.shared.getCustomSeperator(color: UIColor().getFourthColor())
         let upvoteLabel = CustomViews.shared.getCustomLabel(text: "122", fontSize: 12, numberOfLines: 1, isBold: true, textAlignment: .center, textColor: .black)
-        let upvoteButton = CustomViews.shared.getCustomButtonWithImage(imageName: "upvote_icon", backgroundColor: UIColor().getThirdColor(), imageColor: .black, radius: nil, borderColor: UIColor().getThirdColor())
+        let upvoteButton = CustomViews.shared.getCustomButtonWithImage(imageName: "upvote_icon", backgroundColor: UIColor().getFourthColor(), imageColor: .black, radius: nil, borderColor: UIColor().getFourthColor())
         
         let view = UIView()
         view.addSubview(title)
@@ -100,7 +101,7 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
         view.addSubview(seperatorInfo)
         view.addSubview(upvoteButton)
         view.addSubview(upvoteLabel)
-        view.backgroundColor = UIColor().getThirdColor()
+        view.backgroundColor = UIColor().getFourthColor()
         
         username.addConstraintsWithConstants(top: view.topAnchor, right: nil, bottom: nil, left: view.leftAnchor, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 100, height: 20)
         //editButton.addConstraintsWithConstants(top: view.topAnchor, right: view.rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: nil, topConstant: 5, rightConstant: 15, bottomConstant: 0, leftConstant: 0, width: 20, height: 20)
@@ -137,7 +138,7 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
 //            getTopicActivity(activityID: (self.activityObject?.aid)!)
 //        }
         
-        commentsCollectionView.register(PrivateGroupCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
+        commentsCollectionView.register(ActivitiesCommentsCell.self, forCellWithReuseIdentifier: commentsCellID)
         let sendButton = writeCommentContainer.subviews[1] as! UIButton
         sendButton.addTarget(self, action: #selector(handleSendComment), for: .touchUpInside)
         let commentTextField = writeCommentContainer.subviews[0] as! UITextField
@@ -189,7 +190,7 @@ class ActivitiesCommentsController: UIViewController, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentsCellID, for: indexPath) as! PrivateGroupCommentsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentsCellID, for: indexPath) as! ActivitiesCommentsCell
         cell.comment = self.comments[indexPath.row]
         return cell
     }

@@ -12,8 +12,8 @@ extension EditActivity{
 
     func checkIfFieldsAreFilled(){
         if(self.activityText.text! != ""){
-            self.continueButton.layer.borderColor = UIColor().getSecondColor().cgColor
-            self.continueButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
+            self.continueButton.layer.borderColor = UIColor.black.cgColor
+            self.continueButton.setTitleColor(.black, for: .normal)
         }else{
             self.continueButton.layer.borderColor = UIColor().getLightGreyColor().cgColor
             self.continueButton.setTitleColor(UIColor().getLightGreyColor(), for: .normal)
@@ -21,7 +21,7 @@ extension EditActivity{
     }
     
     func editActivity(){
-        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+        if(self.continueButton.layer.borderColor == UIColor.black.cgColor){
             if (hasAnyErrors()){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)

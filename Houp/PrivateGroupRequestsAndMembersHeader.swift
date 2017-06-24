@@ -15,9 +15,12 @@ class PrivateGroupRequestsAndMembersHeader: UICollectionReusableView{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 0.5)
+        //backgroundColor = UIColor(red: 41, green: 192, blue: 232, alphaValue: 0.5)
+        //backgroundColor = UIColor().getLightSecondColor()
+        backgroundColor = UIColor().getSecondColor()
+        //backgroundColor = .white
         addSubview(sectionHeader)
-        sectionHeader.addConstraintsWithConstants(top: nil, right: nil, bottom: nil, left: leftAnchor, centerX: nil, centerY: centerYAnchor, topConstant: 0, rightConstant: 0, bottomConstant: 0, leftConstant: 15, width: 0, height: 0)
+        sectionHeader.addConstraintsWithConstants(top: nil, right: rightAnchor, bottom: nil, left: nil, centerX: nil, centerY: centerYAnchor, topConstant: 0, rightConstant: 15, bottomConstant: 0, leftConstant: 15, width: 0, height: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

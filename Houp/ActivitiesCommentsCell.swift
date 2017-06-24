@@ -30,7 +30,7 @@ class ActivitiesCommentsCell: UICollectionViewCell{
             if let userID = UserDefaults.standard.string(forKey: GetString.userID.rawValue){
                 if let hasBeenLiked = comment?.likeIDs?.contains(userID){
                     if(hasBeenLiked){
-                        self.upvoteButton.tintColor = UIColor().getThirdColor()
+                        self.upvoteButton.tintColor = UIColor().getFourthColor()
                     }else{
                         self.upvoteButton.tintColor = .black
                     }

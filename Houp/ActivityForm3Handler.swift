@@ -11,7 +11,7 @@ import Foundation
 extension ActivityForm3{
     
     func handleContinue(){
-        if(self.continueButton.layer.borderColor == UIColor().getSecondColor().cgColor){
+        if(self.continueButton.layer.borderColor == UIColor.black.cgColor){
             if (hasAnyErrors()){
                 let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: GetString.errorWithDB.rawValue, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)
                 self.present(alert, animated: true, completion: nil)
@@ -51,7 +51,7 @@ extension ActivityForm3{
     func hasAnyErrors() -> Bool{
         var wellBeState: Int = -1
         for button in container.subviews as! [UIButton] {
-            if(button.backgroundColor == UIColor().getSecondColor()){
+            if(button.backgroundColor == UIColor().getFourthColor()){
                 wellBeState = container.subviews.index(of: button)!
             }
         }
@@ -85,9 +85,9 @@ extension ActivityForm3{
         for button in container.subviews as! [UIButton] {
             if(button == sender){
                 if(button.backgroundColor == .white){
-                    button.backgroundColor = UIColor().getSecondColor()
-                    self.continueButton.layer.borderColor = UIColor().getSecondColor().cgColor
-                    self.continueButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
+                    button.backgroundColor = UIColor().getFourthColor()
+                    self.continueButton.layer.borderColor = UIColor.black.cgColor
+                    self.continueButton.setTitleColor(.black, for: .normal)
                 }else{
                     button.backgroundColor = .white
                     self.continueButton.layer.borderColor = UIColor().getLightGreyColor().cgColor

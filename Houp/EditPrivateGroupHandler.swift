@@ -10,33 +10,45 @@ import UIKit
 
 extension EditPrivateGroup{
 
+    func checkIfFieldsAreFilled(){
+        if(self.nameOfGroup.text! != "" && self.locationOfMeeting.text != "" && self.dayOfMeeting.text != ""){
+            self.editButton.layer.borderColor = UIColor.black.cgColor
+            self.editButton.setTitleColor(.black, for: .normal)
+        }else{
+            self.editButton.layer.borderColor = UIColor().getLightGreyColor().cgColor
+            self.editButton.setTitleColor(UIColor().getLightGreyColor(), for: .normal)
+        }
+    }
+    
     func handleRequest(){
-        if let window = UIApplication.shared.keyWindow{
-            let timePicker = self.timeOfMeeting.subviews[1] as! UIDatePicker
-            
-            if (self.nameOfGroup.text != ""){
-                self.privateGroup?.nameOfGroup = self.nameOfGroup.text
-            }
-            if (self.dayOfMeeting.text != ""){
-                self.privateGroup?.dayOfMeeting = self.dayOfMeeting.text
-            }
-            if (self.locationOfMeeting.text != ""){
-                self.privateGroup?.location = self.locationOfMeeting.text
-            }
-            self.privateGroup?.timeOfMeeting = timePicker.date
-            
-            if let error = DBConnection().updatePrivateGroup(properties: self.privateGroup!){
-                let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: GetString.errorNoButton.rawValue, firstHandler: nil, secondHandler: {(alert: UIAlertAction!) in  self.dismiss(animated: true, completion: nil)})
-                self.present(alert, animated: true, completion: nil)
-            }else{
-                self.positiveResponse = CustomViews.shared.getPositiveResponse(title: GetString.successCreatePrivateGroup.rawValue, message: "Gruppe erfolgreich geupdated!")
-                self.positiveResponse.frame = window.frame
-                self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-                window.addSubview(positiveResponse)
+        if(self.editButton.layer.borderColor == UIColor.black.cgColor){
+            if let window = UIApplication.shared.keyWindow{
+                let timePicker = self.timeOfMeeting.subviews[1] as! UIDatePicker
                 
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                    self.positiveResponse.alpha = 1
-                }, completion: nil)
+                if (self.nameOfGroup.text != ""){
+                    self.privateGroup?.nameOfGroup = self.nameOfGroup.text
+                }
+                if (self.dayOfMeeting.text != ""){
+                    self.privateGroup?.dayOfMeeting = self.dayOfMeeting.text
+                }
+                if (self.locationOfMeeting.text != ""){
+                    self.privateGroup?.location = self.locationOfMeeting.text
+                }
+                self.privateGroup?.timeOfMeeting = timePicker.date
+                
+                if let error = DBConnection().updatePrivateGroup(properties: self.privateGroup!){
+                    let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: error, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: GetString.errorNoButton.rawValue, firstHandler: nil, secondHandler: {(alert: UIAlertAction!) in  self.dismiss(animated: true, completion: nil)})
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    self.positiveResponse = CustomViews.shared.getPositiveResponse(title: GetString.successCreatePrivateGroup.rawValue, message: "Gruppe erfolgreich geupdated!")
+                    self.positiveResponse.frame = window.frame
+                    self.positiveResponse.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+                    window.addSubview(positiveResponse)
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                        self.positiveResponse.alpha = 1
+                    }, completion: nil)
+                }
             }
         }
     }

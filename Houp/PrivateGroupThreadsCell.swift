@@ -29,10 +29,10 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
                 self.answersLabel.text = "\(answersCount)"
             }
             if let hasUpdated = thread?.hasBeenUpdated{
-                if(!isAuthorOfTheThread(authorID: (self.thread?.authorID)!)){
-                    self.notificationImage.isHidden = true
-                    self.notificationImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
-                }
+//                if(!isAuthorOfTheThread(authorID: (self.thread?.authorID)!)){
+//                    self.notificationImage.isHidden = true
+//                    self.notificationImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
+//                }
                 
                 if(hasUpdated){
                     notificationImage.image = notificationImage.image?.withRenderingMode(.alwaysTemplate)
@@ -52,7 +52,7 @@ class PrivateGroupThreadsCell: UICollectionViewCell{
     let threadDateTimeSeperator = CustomViews.shared.getCustomSeperator(color: .black)
     let threadTime = CustomViews.shared.getCustomLabel(text: "19:34", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: nil)
     let notificationImage = CustomViews.shared.getCustomImageView(imageName: "notification_icon", cornerRadius: 10, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
-    let answersImage = CustomViews.shared.getCustomImageView(imageName: "answers_icon", cornerRadius: 10, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
+    let answersImage = CustomViews.shared.getCustomImageView(imageName: "answers_icon", cornerRadius: 0, isUserInteractionEnabled: false, imageColor: nil, borderColor: .white)
     let answersLabel = CustomViews.shared.getCustomLabel(text: "1000", fontSize: 12, numberOfLines: 1, isBold: false, textAlignment: .right, textColor: .black)
     
     override init(frame: CGRect) {
