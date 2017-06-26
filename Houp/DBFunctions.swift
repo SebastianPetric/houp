@@ -759,11 +759,14 @@ extension DBConnection{
                         }
                         return true
                     })
+                    return docU?.documentID
             }else {
-                return GetString.errorWithConnection.rawValue
+                return nil
+                //return GetString.errorWithConnection.rawValue
             }
         }catch{
-            return GetString.errorWithConnection.rawValue
+            return nil
+            //return GetString.errorWithConnection.rawValue
         }
         return nil
     }

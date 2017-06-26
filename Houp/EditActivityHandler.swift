@@ -59,7 +59,8 @@ extension EditActivity{
             return true
         }else{
             let dateOfActivity = Date().getDateAndTimeForActity(date: getEditedActivity().dateObject!, time: getEditedActivity().timeObject!)
-            CalendarObject.shared.setUpEventInCalendar(activity: getEditedActivity().activity!, locationOfActivity: getEditedActivity().locationOfActivity, dateOfActivity: dateOfActivity)
+            CalendarObject.shared.setUpEventInCalendar(activity: getEditedActivity(), dateOfActivity: dateOfActivity)
+            //CalendarObject.shared.editExistingActivityInCalendar(activity: getEditedActivity())
         }
         return false
     }

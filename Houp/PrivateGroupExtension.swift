@@ -11,7 +11,7 @@ import UIKit
 extension PrivateGroupCollectionViewController{
 
     func handleCreateNewPrivateGroup(){
-        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreatePrivateGroupViewController(),navBarTitle: GetString.privateGroup.rawValue, barItemTitle: nil, image: nil)
+        let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: CreatePrivateGroupViewController(),navBarTitle: GetString.createPrivateGroup.rawValue, barItemTitle: nil, image: nil)
         present(createController, animated: true, completion: nil )
     }
     

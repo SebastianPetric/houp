@@ -57,7 +57,7 @@ extension ActivityWeekForm7{
                 return true
             }else{
                 let dateOfActivity = Date().getDateAndTimeForActity(date: activity.dateObject!, time: activity.timeObject!)
-                CalendarObject.shared.setUpEventInCalendar(activity: activity.activity!, locationOfActivity: activity.locationOfActivity, dateOfActivity: dateOfActivity)
+                CalendarObject.shared.setUpEventInCalendar(activity: activity, dateOfActivity: dateOfActivity)
             }
         }
         return false

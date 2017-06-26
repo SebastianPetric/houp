@@ -51,6 +51,11 @@
 		528987021E83F5CC00322A99 /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528987011E83F5CC00322A99 /* DBConnection.swift */; };
 		528CFCBE1E80623100B6993D /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCBD1E80623100B6993D /* LoginHandler.swift */; };
 		528CFCC31E8139E700B6993D /* RegistrationUserNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */; };
+		529389F91F019A550027A448 /* CompareAndSaveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529389F81F019A550027A448 /* CompareAndSaveUser.swift */; };
+		529389FB1F019AB30027A448 /* CompareAndSaveGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529389FA1F019AB30027A448 /* CompareAndSaveGroup.swift */; };
+		529389FD1F019B1F0027A448 /* CompareAndSaveGroupActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529389FC1F019B1F0027A448 /* CompareAndSaveGroupActivities.swift */; };
+		529389FF1F019B7F0027A448 /* CompareAndSaveActivitiesOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529389FE1F019B7F0027A448 /* CompareAndSaveActivitiesOfWeek.swift */; };
+		52938A011F019BC00027A448 /* CompareAndSaveThreads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A001F019BC00027A448 /* CompareAndSaveThreads.swift */; };
 		529BB64C1E9EB01800776D16 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529BB64B1E9EB01800776D16 /* DateExtension.swift */; };
 		529BB64E1EA67A9D00776D16 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529BB64D1EA67A9D00776D16 /* UserObject.swift */; };
 		529BB6501EA7848700776D16 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529BB64F1EA7848700776D16 /* Thread.swift */; };
@@ -177,6 +182,11 @@
 		528987011E83F5CC00322A99 /* DBConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		528CFCBD1E80623100B6993D /* LoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
 		528CFCC21E8139E700B6993D /* RegistrationUserNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationUserNameController.swift; sourceTree = "<group>"; };
+		529389F81F019A550027A448 /* CompareAndSaveUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareAndSaveUser.swift; sourceTree = "<group>"; };
+		529389FA1F019AB30027A448 /* CompareAndSaveGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareAndSaveGroup.swift; sourceTree = "<group>"; };
+		529389FC1F019B1F0027A448 /* CompareAndSaveGroupActivities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareAndSaveGroupActivities.swift; sourceTree = "<group>"; };
+		529389FE1F019B7F0027A448 /* CompareAndSaveActivitiesOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareAndSaveActivitiesOfWeek.swift; sourceTree = "<group>"; };
+		52938A001F019BC00027A448 /* CompareAndSaveThreads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareAndSaveThreads.swift; sourceTree = "<group>"; };
 		529BB64B1E9EB01800776D16 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		529BB64D1EA67A9D00776D16 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		529BB64F1EA7848700776D16 /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
@@ -521,6 +531,7 @@
 		525B69921ECB30F900E8C3C8 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				529389F61F019A1D0027A448 /* TempStorageObjects */,
 				521ECC9F1E8BB9C6001C10BC /* PrivateGroup.swift */,
 				52E54AC81E82D5AC00856EF8 /* User.swift */,
 				529BB64F1EA7848700776D16 /* Thread.swift */,
@@ -529,7 +540,6 @@
 				52E6E4091EC4ACDF00B59D25 /* Activity.swift */,
 				529E57391ED0783A00256090 /* Timer.swift */,
 				529E573B1ED4832800256090 /* CalendarObject.swift */,
-				5283A0FA1EDC8DA50098E678 /* TempStorageAndCompare.swift */,
 				520D12E71EFABF920049604D /* HoupNotifications.swift */,
 			);
 			name = Objects;
@@ -543,6 +553,19 @@
 				52102E0B1E898556005715A9 /* DBFunctions.swift */,
 			);
 			name = Database;
+			sourceTree = "<group>";
+		};
+		529389F61F019A1D0027A448 /* TempStorageObjects */ = {
+			isa = PBXGroup;
+			children = (
+				5283A0FA1EDC8DA50098E678 /* TempStorageAndCompare.swift */,
+				529389F81F019A550027A448 /* CompareAndSaveUser.swift */,
+				529389FA1F019AB30027A448 /* CompareAndSaveGroup.swift */,
+				529389FC1F019B1F0027A448 /* CompareAndSaveGroupActivities.swift */,
+				529389FE1F019B7F0027A448 /* CompareAndSaveActivitiesOfWeek.swift */,
+				52938A001F019BC00027A448 /* CompareAndSaveThreads.swift */,
+			);
+			name = TempStorageObjects;
 			sourceTree = "<group>";
 		};
 		529E573D1ED4AA8F00256090 /* EditPrivateGroup */ = {
@@ -901,6 +924,7 @@
 				521AF4941E92AC06007D2E36 /* PrivateGroupWithThreadsController.swift in Sources */,
 				521EB0581E8AC72B009D472C /* SettingsCollectionViewController.swift in Sources */,
 				52E6E3F11EC0BACA00B59D25 /* ActivityForm2.swift in Sources */,
+				529389FD1F019B1F0027A448 /* CompareAndSaveGroupActivities.swift in Sources */,
 				529E573A1ED0783A00256090 /* Timer.swift in Sources */,
 				52D5AF9C1E8D64BD0007C448 /* PrivateGroupsCell.swift in Sources */,
 				529E57451ED5F95E00256090 /* EditThread.swift in Sources */,
@@ -927,6 +951,8 @@
 				529BB64E1EA67A9D00776D16 /* UserObject.swift in Sources */,
 				529E573F1ED4AAA700256090 /* EditPrivateGroup.swift in Sources */,
 				525B69901ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift in Sources */,
+				52938A011F019BC00027A448 /* CompareAndSaveThreads.swift in Sources */,
+				529389F91F019A550027A448 /* CompareAndSaveUser.swift in Sources */,
 				525B69801EC9D57700E8C3C8 /* CommentsSectionHeader.swift in Sources */,
 				529E573C1ED4832900256090 /* CalendarObject.swift in Sources */,
 				525B69821ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift in Sources */,
@@ -938,6 +964,7 @@
 				52E6E3FC1EC21ED500B59D25 /* CreateActivityWeekController.swift in Sources */,
 				52A1B96C1E94179E002D7DDB /* PrivateGroupCommentsCollectionViewController.swift in Sources */,
 				52E6E4181EC7143200B59D25 /* ActivityWeekForm7Handler.swift in Sources */,
+				529389FB1F019AB30027A448 /* CompareAndSaveGroup.swift in Sources */,
 				521EB0501E8ABD46009D472C /* CustomTabBarController.swift in Sources */,
 				5233917A1E97A03200A867D9 /* PrivateGroupRequestsAndMembersCell.swift in Sources */,
 				52A75F621E819E2F0038CF4F /* RegistrationAgeGenderHandler.swift in Sources */,
@@ -984,6 +1011,7 @@
 				52E6E3E81EBF4E3E00B59D25 /* ActivityWeekCollectionCell.swift in Sources */,
 				52499A591E7BF7FD006061B2 /* Houp.xcdatamodeld in Sources */,
 				52E6E4041EC235AF00B59D25 /* ActivityWeekForm5.swift in Sources */,
+				529389FF1F019B7F0027A448 /* CompareAndSaveActivitiesOfWeek.swift in Sources */,
 				5233916D1E954DEE00A867D9 /* CreateGroupThreadController.swift in Sources */,
 				52E6E3F31EC0BAD600B59D25 /* ActivityForm3.swift in Sources */,
 				52E6E3DC1EBB702B00B59D25 /* GroupCommentsCell.swift in Sources */,
