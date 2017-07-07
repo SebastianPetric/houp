@@ -45,13 +45,14 @@ extension PrivateGroupRequestAndMembersList{
                                             let requestUser = UserObject(props: (row.document?.properties)!)
                                             requestUser.uid = row.documentID
                                             requestUser.rev = row.documentRevisionID
-                                            if(HoupImageCache.shared.getImageFromCache(userID: requestUser.userName!) == nil){
-                                                let stringURL = "\(requestUser.userName!)_profileImage.jpeg"
+                                            
+                                            
+                                            if(HoupImageCache.shared.getImageFromCache(userID: requestUser.uid!) == nil){
+                                                let stringURL = "\(requestUser.uid!)\(requestUser.rev!)_profileImage.jpeg"
                                                 
                                                 let att = row.document?.currentRevision?.attachmentNamed(stringURL)
-                                                
                                                 if(att != nil){
-                                                    HoupImageCache.shared.saveImageToCache(userID: requestUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
+                                                    HoupImageCache.shared.saveImageToCache(userID: "\(requestUser.uid!)\(requestUser.rev!)", profile_image: UIImage(data: (att?.content)!)!)
                                                 }
                                             }
                                             reqList.append(requestUser)
@@ -68,13 +69,11 @@ extension PrivateGroupRequestAndMembersList{
                                         let memUser = UserObject(props: (row.document?.properties)!)
                                         memUser.uid = row.documentID
                                         memUser.rev = row.documentRevisionID
-                                        if(HoupImageCache.shared.getImageFromCache(userID: memUser.userName!) == nil){
-                                            let stringURL = "\(memUser.userName!)_profileImage.jpeg"
-                                            
+                                        if(HoupImageCache.shared.getImageFromCache(userID: "\(memUser.uid!)\(memUser.rev!)") == nil){
+                                            let stringURL = "\(memUser.uid!)_profileImage.jpeg"
                                             let att = row.document?.currentRevision?.attachmentNamed(stringURL)
-                                            
                                             if(att != nil){
-                                                HoupImageCache.shared.saveImageToCache(userID: memUser.userName!, profile_image: UIImage(data: (att?.content)!)!)
+                                                HoupImageCache.shared.saveImageToCache(userID: "\(memUser.uid!)\(memUser.rev!)", profile_image: UIImage(data: (att?.content)!)!)
                                             }
                                         }
                                         memList.append(memUser)

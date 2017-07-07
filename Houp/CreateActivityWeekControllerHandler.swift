@@ -69,22 +69,22 @@ extension CreateActivityWeekController{
     
     func hasAnyErrors() -> Bool{
         setActivity()
-        if let aid = DBConnection.shared.createActivityWithProperties(properties: getActivity()){
-            var activity = getActivity()
-            activity.aid = aid
-            let dateOfActivity = Date().getDateAndTimeForActity(date: (activity.dateObject)!, time: (activity.timeObject)!)
-            CalendarObject.shared.setUpEventInCalendar(activity: activity, dateOfActivity: dateOfActivity)
-            return false
-        }
-            return true
-        
-//        if DBConnection.shared.createActivityWithProperties(properties: getActivity()) != nil{
-//            return true
-//        }else{
-//            let dateOfActivity = Date().getDateAndTimeForActity(date: (getActivity().dateObject)!, time: (getActivity().timeObject)!)
-//            CalendarObject.shared.setUpEventInCalendar(activity: getActivity(), dateOfActivity: dateOfActivity)
+//        if let aid = DBConnection.shared.createActivityWithProperties(properties: getActivity()){
+//            var activity = getActivity()
+//            activity.aid = aid
+//            let dateOfActivity = Date().getDateAndTimeForActity(date: (activity.dateObject)!, time: (activity.timeObject)!)
+//            CalendarObject.shared.setUpEventInCalendar(activity: activity, dateOfActivity: dateOfActivity)
 //            return false
 //        }
+//            return true
+        
+        if DBConnection.shared.createActivityWithProperties(properties: getActivity()) != nil{
+            return true
+        }else{
+            let dateOfActivity = Date().getDateAndTimeForActity(date: (getActivity().dateObject)!, time: (getActivity().timeObject)!)
+            CalendarObject.shared.setUpEventInCalendar(activity: getActivity(), dateOfActivity: dateOfActivity)
+            return false
+        }
         
     }
     

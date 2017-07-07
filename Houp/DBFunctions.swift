@@ -299,10 +299,11 @@ extension DBConnection{
         do{
         if let con = DBConnection.shared.getDBConnection(){
             let doc = con.createDocument()
+            print(doc.documentID)
             try doc.putProperties(properties)
             if User.shared.profileImage != nil{
                     let rev = doc.currentRevision?.createRevision()
-                    rev?.setAttachmentNamed("\(User.shared.username!)_profileImage.jpeg", withContentType: "image/jpeg", content: User.shared.profileImage)
+                    rev?.setAttachmentNamed("\(User.shared.getUserID())_profileImage.jpeg", withContentType: "image/jpeg", content: User.shared.profileImage)
                     try rev?.save()
                 }
             UserDefaults.standard.set(doc.documentID, forKey: GetString.userID.rawValue)
@@ -314,6 +315,45 @@ extension DBConnection{
         }
         return nil
     }
+    
+    func editUser(user: User) -> String?{
+        do{
+            if let con = DBConnection.shared.getDBConnection(){
+                let doc = con.document(withID: user.getUserID())
+                    try doc?.update({ (rev) -> Bool in
+                        if(user.name != nil){
+                            rev["name"] = user.name!
+
+                        }
+                        if(user.prename != nil){
+                         rev["prename"] = user.prename!
+                        }
+                        if(user.birthday != nil){
+                            let dateformatter = DateFormatter()
+                            dateformatter.dateFormat = "dd MM YYYY"
+                            rev["birthday"] = dateformatter.string(from: user.birthday!)
+                        }
+                        
+                        if(user.gender != nil){
+                        rev["gender"] = user.gender!
+                        }
+                        return true
+                    })
+                
+                if(user.profileImage != nil){
+                    let rev = doc?.currentRevision?.createRevision()
+                    rev?.setAttachmentNamed("\(user.getUserID())_profileImage.jpeg", withContentType: "image/jpeg", content: user.profileImage)
+                    try rev?.save()
+                }
+            }else {
+                return GetString.errorWithConnection.rawValue
+            }
+        }catch{
+            return GetString.errorWithConnection.rawValue
+        }
+        return nil
+    }
+
     
     func createCommentWithProperties(properties: Comment) -> String?{
         do{
@@ -759,14 +799,11 @@ extension DBConnection{
                         }
                         return true
                     })
-                    return docU?.documentID
             }else {
-                return nil
-                //return GetString.errorWithConnection.rawValue
+                return GetString.errorWithConnection.rawValue
             }
         }catch{
-            return nil
-            //return GetString.errorWithConnection.rawValue
+            return GetString.errorWithConnection.rawValue
         }
         return nil
     }

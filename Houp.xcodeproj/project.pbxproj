@@ -133,6 +133,8 @@
 		52F31A121E7D7013000F5157 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A111E7D7013000F5157 /* libz.tbd */; };
 		52F31A141E7D7023000F5157 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F31A131E7D7023000F5157 /* libc++.tbd */; };
 		52F3F3DF1E9BD5A400B3FEA2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F3F3DE1E9BD5A400B3FEA2 /* Validation.swift */; };
+		52F425BF1F0FD1F80068EF0F /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F425BE1F0FD1F80068EF0F /* EditProfile.swift */; };
+		52F425C11F0FD2050068EF0F /* EditProfileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F425C01F0FD2050068EF0F /* EditProfileHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -265,6 +267,8 @@
 		52F31A131E7D7023000F5157 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		52F31A151E7D7A7D000F5157 /* Houp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Houp.h; sourceTree = "<group>"; };
 		52F3F3DE1E9BD5A400B3FEA2 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		52F425BE1F0FD1F80068EF0F /* EditProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
+		52F425C01F0FD2050068EF0F /* EditProfileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +400,7 @@
 		52499A6B1E7BFD44006061B2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				52F425BD1F0FD1DF0068EF0F /* EditProfile */,
 				52D5D6071EF2959F009ACC3E /* EditActivity */,
 				529E57431ED5F94700256090 /* EditThread */,
 				529E573D1ED4AA8F00256090 /* EditPrivateGroup */,
@@ -828,6 +833,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		52F425BD1F0FD1DF0068EF0F /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				52F425BE1F0FD1F80068EF0F /* EditProfile.swift */,
+				52F425C01F0FD2050068EF0F /* EditProfileHandler.swift */,
+			);
+			name = EditProfile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -931,6 +945,7 @@
 				523391751E96AADA00A867D9 /* PublicGroupCommentsCell.swift in Sources */,
 				521ECCA61E8BDE8C001C10BC /* CustomNavigationBarController.swift in Sources */,
 				52E6E4221EC75A5300B59D25 /* ActivitiesCommentsCell.swift in Sources */,
+				52F425C11F0FD2050068EF0F /* EditProfileHandler.swift in Sources */,
 				52E6E4141EC713C800B59D25 /* ActivityWeekForm5Handler.swift in Sources */,
 				52E6E40A1EC4ACDF00B59D25 /* Activity.swift in Sources */,
 				52D5D60F1EF2A1F9009ACC3E /* ActivityWeekCollectionHighlightedCellHandler.swift in Sources */,
@@ -953,6 +968,7 @@
 				525B69901ECB2E7E00E8C3C8 /* PrivateGroupRequestsAndMembersCellHandler.swift in Sources */,
 				52938A011F019BC00027A448 /* CompareAndSaveThreads.swift in Sources */,
 				529389F91F019A550027A448 /* CompareAndSaveUser.swift in Sources */,
+				52F425BF1F0FD1F80068EF0F /* EditProfile.swift in Sources */,
 				525B69801EC9D57700E8C3C8 /* CommentsSectionHeader.swift in Sources */,
 				529E573C1ED4832900256090 /* CalendarObject.swift in Sources */,
 				525B69821ECB0AC600E8C3C8 /* ActivityWeekCollectionHandler.swift in Sources */,

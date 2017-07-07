@@ -10,6 +10,12 @@ import UIKit
 
 
 extension RegistrationAgeGenderController{
+    
+    func handleSkip(){
+        User.shared.gender = -1
+        User.shared.birthday = nil
+        self.navigationController?.pushViewController(RegistrationEmailPasswordController(), animated: true)
+    }
 
     func handleContinueButton(){
         User.shared.gender = self.gender.selectedSegmentIndex

@@ -49,7 +49,8 @@ class User{
             properties["password"] = password
         }
         if let gender = self.gender {
-           properties["gender"] = String(gender)
+           //properties["gender"] = String(gender)
+            properties["gender"] = gender
         }
         if let birthday = self.birthday {
             let dateformatter = DateFormatter()

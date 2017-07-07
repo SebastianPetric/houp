@@ -13,6 +13,12 @@ private var errorMessage: String = ""
 extension RegistrationNamePrenameController{
 
 
+    func handleSkip(){
+            User.shared.name = ""
+            User.shared.prename = ""
+            self.navigationController?.pushViewController(RegistrationAgeGenderController(), animated: true)
+    }
+    
     func handleContinueButton(){
         if(hasAnyErrors()){
             let alert = CustomViews.shared.getCustomAlert(errorTitle: GetString.errorTitle.rawValue, errorMessage: errorMessage, firstButtonTitle: GetString.errorOKButton.rawValue, secondButtonTitle: nil, firstHandler: nil, secondHandler: nil)

@@ -19,6 +19,7 @@ enum GetString: String {
     case female = "Weiblich"
     case repeatPassword = "Passwort wiederholen"
     case registrieren = "Registrieren"
+    case skip = "Überspringen"
     case login = "Login"
     case enterUsername = "Benutzername eingeben"
     case enterPassword = "Passwort eingeben"

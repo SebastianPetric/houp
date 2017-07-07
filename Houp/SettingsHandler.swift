@@ -10,6 +10,11 @@ import UIKit
 
 extension SettingsCollectionViewController{
 
+    func handleProfile(){
+            let createController = CustomNavigationBarController.shared.getCustomNavControllerWithNameAndImage(customController: EditProfile(), navBarTitle: "Profil bearbeiten", barItemTitle: nil, image: nil)
+            self.present(createController, animated: true, completion: nil)
+    }
+    
     func handleLogout(){
         TempStorageAndCompare.shared.deinitialiseNotificationQueries()
         TimerObject.shared.deinitialiseTimer()

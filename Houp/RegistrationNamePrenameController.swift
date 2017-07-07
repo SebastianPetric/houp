@@ -14,6 +14,15 @@ class RegistrationNamePrenameController: UIViewController{
     let prenameTextField = CustomViews.shared.getCustomTextField(placeholder: GetString.prename.rawValue, keyboardType: .default, isPasswordField: false, backgroundColor: UIColor().getSecondColor())
     let continueButton = CustomViews.shared.getCustomButton(title: GetString.continueButton.rawValue)
     let customProgressionView = CustomViews.shared.getCustomProgressionView(status: 0.5, statusText: "2 von 4", progressColor: UIColor().getSecondColor())
+    
+    let skipButton: UIButton = {
+        let skipButton = UIButton(type: .system)
+        skipButton.setTitle(GetString.skip.rawValue, for: .normal)
+        skipButton.setTitleColor(UIColor().getSecondColor(), for: .normal)
+        skipButton.addTarget(self, action: #selector(handleSkip), for: .touchUpInside)
+        return skipButton
+    }()
+
 
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -30,6 +39,7 @@ class RegistrationNamePrenameController: UIViewController{
         view.addSubview(continueButton)
         view.addSubview(customProgressionView)
         view.addGestureRecognizer(gestureRecognizer)
+        view.addSubview(skipButton)
         continueButton.addTarget(self, action: #selector(handleContinueButton), for: .touchUpInside)
         setUpSubviews()
         addNotificationObserver()
@@ -43,6 +53,8 @@ class RegistrationNamePrenameController: UIViewController{
         customProgressionView.addConstraintsWithConstants(top: prenameTextField.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 12.5, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 25)
         
         continueButton.addConstraintsWithConstants(top: customProgressionView.bottomAnchor, right: view.rightAnchor, bottom: nil, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 15, rightConstant: 50, bottomConstant: 0, leftConstant: 50, width: 0, height: 40)
+        
+        skipButton.addConstraintsWithConstants(top: nil, right: view.rightAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, centerX: view.centerXAnchor, centerY: nil, topConstant: 0, rightConstant: 50, bottomConstant: 25, leftConstant: 50, width: 0, height: 40)
     }
     
     
